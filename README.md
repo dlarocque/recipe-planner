@@ -18,11 +18,11 @@
 
 ## Team Members
 
-- Anthony Phung (@tormin4)
-- Daniel La Rocque (@dlarocque)
-- Emerson Lesage-Dong (@emersonlesage)
-- Izan Cuetara Diez (@Unstavle)
-- Samuel Barrett (@samuelbarrett)
+- Anthony Phung ([@tormin4](https://github.com/tormin4))
+- Daniel La Rocque ([@dlarocque](https://github.com/dlarocque))
+- Emerson Lesage-Dong ([@emersonlesage](https://github.com/emersonlesage))
+- Izan Cuetara Diez ([@Unstavle](https://github.com/Unstavle))
+- Samuel Barrett ([@samuelbarrett](https://github.com/samuelbarrett))
 
 ## Features
 
