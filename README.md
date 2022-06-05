@@ -1,5 +1,21 @@
 # Recipe Planner
 
+## Outline
+
+[Team Members](#team-members)
+
+[Featues](#features)
+
+[Architecture](#architecture)
+
+[Project Structure](#project-structure)
+
+[Testing](#testing)
+
+[Changelog](#changelog)
+
+[Development Log](#development-log)
+
 ## Team Members
 
 - Anthony Phung (@tormin4)
