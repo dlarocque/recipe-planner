@@ -31,4 +31,6 @@
         android:layout_marginBottom="16dp"
         app:srcCompat="@android:drawable/ic_dialog_email" />
 
+    <include layout="@layout/bottom_navigation" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
