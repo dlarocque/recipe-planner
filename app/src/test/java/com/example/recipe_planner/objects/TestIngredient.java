@@ -1,6 +1,7 @@
 package com.example.recipe_planner.objects;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import com.example.recipe_planner.objects.measurements.Cup;
 import com.example.recipe_planner.objects.measurements.Gram;
@@ -29,8 +30,8 @@ public class TestIngredient {
     public void testNullValues() {
         Ingredient nullIngredient = new Ingredient(null, null);
 
-        assertEquals(null, nullIngredient.getName());
-        assertEquals(null, nullIngredient.getUnit());
+        assertNull(nullIngredient.getName());
+        assertNull(nullIngredient.getUnit());
     }
 
     @Test

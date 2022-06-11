@@ -20,12 +20,12 @@ public class Ingredient {
         return this.quantity.getAmount();
     }
 
-    public IUnit getUnit() {
-        return this.quantity;
-    }
-
     // setters
     public void setAmount(IUnit newAmount) {
         this.quantity = newAmount;
+    }
+
+    public IUnit getUnit() {
+        return this.quantity;
     }
 }
