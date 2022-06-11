@@ -47,7 +47,7 @@ public class TestMillilitre {
     @Test
     public void testSmallFraction() {
         double small = 0.02;
-        Tablespoon testMillilitre = new Tablespoon(small);
+        Millilitre testMillilitre = new Millilitre(small);
 
         assertEquals(small, testMillilitre.getAmount(), 0);
         assertEquals(small, testMillilitre.convertToMl(), 0);
