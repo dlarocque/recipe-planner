@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.recipe_planner.databinding.FragmentRecipeItemBinding;
@@ -22,7 +23,7 @@ public class RecipeRecyclerViewAdapter
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         return new ViewHolder(
                 FragmentRecipeItemBinding.inflate(
@@ -31,9 +32,9 @@ public class RecipeRecyclerViewAdapter
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = recipes.get(position);
-        holder.mIdView.setText(recipes.get(position).getName());
-        holder.mContentView.setText((CharSequence) recipes.get(position).getIngredients());
+        holder.item = recipes.get(position);
+        holder.idView.setText(recipes.get(position).getName());
+        holder.contentView.setText(recipes.get(position).getInstructions());
     }
 
     @Override
@@ -42,19 +43,19 @@ public class RecipeRecyclerViewAdapter
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public final TextView mIdView;
-        public final TextView mContentView;
-        public Recipe mItem;
+        public final TextView idView;
+        public final TextView contentView;
+        public Recipe item;
 
         public ViewHolder(FragmentRecipeItemBinding binding) {
             super(binding.getRoot());
-            mIdView = binding.itemNumber;
-            mContentView = binding.content;
+            idView = binding.itemNumber;
+            contentView = binding.content;
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            return super.toString() + " '" + contentView.getText() + "'";
         }
     }
 }

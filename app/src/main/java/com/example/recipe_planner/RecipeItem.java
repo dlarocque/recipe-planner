@@ -12,15 +12,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.recipe_planner.business.AccessRecipes;
+import com.example.recipe_planner.persistence.DataAccessStub;
+
 /**
  * A fragment representing a list of Recipes.
  */
 public class RecipeItem extends Fragment {
 
-    // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
-    private int mColumnCount = 1;
+    private int columnCount = 1;
+    private AccessRecipes accessRecipes;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -29,7 +31,6 @@ public class RecipeItem extends Fragment {
     public RecipeItem() {
     }
 
-    // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
     public static RecipeItem newInstance(int columnCount) {
         RecipeItem fragment = new RecipeItem();
@@ -44,8 +45,10 @@ public class RecipeItem extends Fragment {
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
+            columnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
+
+        accessRecipes = new AccessRecipes();
     }
 
     @Override
@@ -57,12 +60,12 @@ public class RecipeItem extends Fragment {
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
+            if (columnCount <= 1) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
             } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+                recyclerView.setLayoutManager(new GridLayoutManager(context, columnCount));
             }
-            recyclerView.setAdapter(new RecipeRecyclerViewAdapter());
+            recyclerView.setAdapter(new RecipeRecyclerViewAdapter(accessRecipes.getRecipes()));
         }
         return view;
     }
