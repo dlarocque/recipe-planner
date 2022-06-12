@@ -35,6 +35,7 @@ public class DataAccessStub {
     }
 
     public void init() {
+        recipes = new ArrayList<>();
         fillRecipes(recipes);
     }
 
@@ -46,7 +47,7 @@ public class DataAccessStub {
         return recipes.get(random.nextInt(recipes.size()));
     }
 
-  public List<Recipe> getRecipesWithIngredientName(String ingredientName) {
+    public List<Recipe> getRecipesWithIngredientName(String ingredientName) {
         ArrayList<Recipe> recipesWithIngredientName = new ArrayList<>();
         for (Recipe recipe : recipes) {
             for (Ingredient ingredient : recipe.getIngredients()) {
