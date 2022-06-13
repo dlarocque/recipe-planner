@@ -13,8 +13,7 @@ public class AccessRecipes {
         dataAccess = (DataAccessStub) Services.getDataAccess();
     }
 
-    public List<Recipe> getRecipes(List<Recipe> recipes) {
-        recipes.clear();
+    public List<Recipe> getRecipes() {
         return dataAccess.getRecipes();
     }
 
