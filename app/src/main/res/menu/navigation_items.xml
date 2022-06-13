@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/shoppingList"
-        android:title="@string/shopping"
-        android:icon="@drawable/ic_baseline_shopping_cart_24" />
-    <item android:id="@+id/recipeList"
-        android:title="@string/recipes"
-        android:icon="@drawable/ic_baseline_view_list_24" />
-    <item android:id="@+id/mealSchedule"
-        android:title="@string/schedule"
-        android:icon="@drawable/ic_baseline_calendar_today_24" />
+    <item
+        android:id="@+id/shoppingList"
+        android:icon="@drawable/ic_baseline_shopping_cart_24"
+        android:title="@string/shopping" />
+    <item
+        android:id="@+id/recipeList"
+        android:icon="@drawable/ic_baseline_view_list_24"
+        android:title="@string/recipes" />
+    <item
+        android:id="@+id/mealSchedule"
+        android:icon="@drawable/ic_baseline_calendar_today_24"
+        android:title="@string/schedule" />
 </menu>

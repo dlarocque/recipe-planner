@@ -17,10 +17,10 @@ public class DataAccessStub {
     private static final double QUARTER = 1.0 / 4.0;
     private static final double THIRD = 1.0 / 3.0;
     private static final double HALF = 1.0 / 2.0;
-    private String dbName;
-    private String dbType = "stub";
+    private final String dbName;
+    private final String dbType = "stub";
     private ArrayList<Recipe> recipes;
-    private Random random;
+    private final Random random;
 
     public DataAccessStub(String dbName) {
         this.dbName = dbName;
