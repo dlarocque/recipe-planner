@@ -20,6 +20,7 @@ public class DataAccessStub {
     private final String dbName;
     private final String dbType = "stub";
     private ArrayList<Recipe> recipes;
+    private ArrayList<Recipe> hiddenRecipes;
     private final Random random;
 
     public DataAccessStub(String dbName) {
@@ -37,6 +38,7 @@ public class DataAccessStub {
     public void init() {
         recipes = new ArrayList<>();
         fillRecipes(recipes);
+        hiddenRecipes = new ArrayList<>();
     }
 
     public List<Recipe> getRecipes() {
@@ -81,7 +83,19 @@ public class DataAccessStub {
 
     // Returns true if the recipe exists in recipes.
     public boolean deleteRecipe(Recipe recipe) {
-        return recipes.remove(recipe);
+        if (recipes.remove(recipe)) {
+            if (recipe.isDefault()) {
+                hiddenRecipes.add(recipe);
+            }
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public List<Recipe> getHiddenRecipes() {
+        return hiddenRecipes;
     }
 
     private void fillRecipes(ArrayList<Recipe> recipes) {
@@ -109,7 +123,7 @@ public class DataAccessStub {
                         + "orange quote icon Wash hands with soap and water after handling uncooked chicken.\n"
                         + "\n"
                         + "Place chicken on an oiled grill rack over medium heat. Do not reuse marinades used on raw foods. Grill chicken 4-6 minutes per side. Cook until internal temperature reaches 165 °F as measured with a food thermometer. ";
-        recipes.add(new Recipe("Grilled Basil Chicken", ingredients, instructions));
+        recipes.add(new Recipe("Grilled Basil Chicken", ingredients, instructions, true));
 
         ingredients =
                 new ArrayList<>(
@@ -128,7 +142,7 @@ public class DataAccessStub {
                 "Add to your bread machine per manufacturer instructions.\n"
                         + "While bread is baking drizzle with honey if desired.";
 
-        recipes.add(new Recipe("Sweet Honey French Bread", ingredients, instructions));
+        recipes.add(new Recipe("Sweet Honey French Bread", ingredients, instructions, true));
 
         ingredients =
                 new ArrayList<>(
@@ -150,7 +164,7 @@ public class DataAccessStub {
                         + "\n"
                         + "Salt and pepper to taste.";
 
-        recipes.add(new Recipe("Crushed Heirloom Potatoes", ingredients, instructions));
+        recipes.add(new Recipe("Crushed Heirloom Potatoes", ingredients, instructions, true));
 
         ingredients =
                 new ArrayList<>(
@@ -180,7 +194,7 @@ public class DataAccessStub {
                         + "\n"
                         + "7. Savor every bite.";
 
-        recipes.add(new Recipe("Heirloom Apple Pie", ingredients, instructions));
+        recipes.add(new Recipe("Heirloom Apple Pie", ingredients, instructions, true));
     }
 
     public String getDbName() {

@@ -6,17 +6,27 @@ public class Recipe {
     private final String name;
     private final ArrayList<Ingredient> ingredients;
     private String instructions;
+    private boolean isDefault;
 
     public Recipe(String name) {
         this.name = name;
         this.ingredients = new ArrayList<>();
         this.instructions = null;
+        this.isDefault = false;
     }
 
     public Recipe(String name, ArrayList<Ingredient> ingredients, String instructions) {
         this.name = name;
         this.ingredients = ingredients;
         this.instructions = instructions;
+        this.isDefault = false;
+    }
+
+    public Recipe(String name, ArrayList<Ingredient> ingredients, String instructions, boolean isDefault) {
+        this.name = name;
+        this.ingredients = ingredients;
+        this.instructions = instructions;
+        this.isDefault = isDefault;
     }
 
     // getters
@@ -39,5 +49,9 @@ public class Recipe {
     // public methods
     public void addIngredient(Ingredient newIngredient) {
         this.ingredients.add(newIngredient);
+    }
+
+    public boolean isDefault() {
+        return isDefault;
     }
 }
