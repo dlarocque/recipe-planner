@@ -34,7 +34,6 @@ public class RecipeRecyclerViewAdapter
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.item = recipes.get(position);
         holder.idView.setText(recipes.get(position).getName());
-        holder.contentView.setText(recipes.get(position).getInstructions());
     }
 
     @Override
@@ -44,18 +43,16 @@ public class RecipeRecyclerViewAdapter
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final TextView idView;
-        public final TextView contentView;
         public Recipe item;
 
         public ViewHolder(FragmentRecipeItemBinding binding) {
             super(binding.getRoot());
             idView = binding.itemNumber;
-            contentView = binding.content;
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + contentView.getText() + "'";
+            return super.toString();
         }
     }
 }
