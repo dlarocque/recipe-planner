@@ -4,11 +4,15 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable/ic_baseline_calendar_today_24.xml" value="0.14" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.165" />
         <entry key="app/src/main/res/layout/bottom_navigation.xml" value="0.375" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.16032492518170158" />
+        <entry key="app/src/main/res/layout/fragment_item_list.xml" value="0.165" />
         <entry key="app/src/main/res/layout/fragment_meal_schedule.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_recipe_item.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/fragment_recipe_item_list.xml" value="0.165" />
         <entry key="app/src/main/res/layout/fragment_recipe_list.xml" value="0.13552800342026508" />
+        <entry key="app/src/main/res/layout/fragment_recipe_list_list.xml" value="0.13766566908935443" />
         <entry key="app/src/main/res/layout/fragment_shopping_list.xml" value="0.12398460880718255" />
         <entry key="app/src/main/res/menu/menu_main.xml" value="0.17145505097312327" />
         <entry key="app/src/main/res/menu/navigation_items.xml" value="0.13467293715262932" />
