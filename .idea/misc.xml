@@ -4,7 +4,8 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable/ic_baseline_calendar_today_24.xml" value="0.14" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.165" />
+        <entry key="app/src/main/res/drawable/sample_food_background.xml" value="0.244" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/bottom_navigation.xml" value="0.375" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.16032492518170158" />
         <entry key="app/src/main/res/layout/fragment_item_list.xml" value="0.165" />
