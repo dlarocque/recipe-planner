@@ -28,12 +28,12 @@ public class Recipe {
         return this.ingredients;
     }
 
-    public void setInstructions(String instructions) {
-        this.instructions = instructions;
-    }
-
     public String getInstructions() {
         return this.instructions;
+    }
+
+    public void setInstructions(String instructions) {
+        this.instructions = instructions;
     }
 
     // public methods

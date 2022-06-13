@@ -1,7 +1,5 @@
 package com.example.recipe_planner.application;
 
-import android.util.Log;
-
 import com.example.recipe_planner.persistence.DataAccessStub;
 
 public class Services {

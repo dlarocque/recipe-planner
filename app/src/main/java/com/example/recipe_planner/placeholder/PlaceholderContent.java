@@ -6,22 +6,19 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Helper class for providing sample content for user interfaces created by
- * Android template wizards.
- * <p>
- * TODO: Replace all uses of this class before publishing your app.
+ * Helper class for providing sample content for user interfaces created by Android template
+ * wizards.
+ *
+ * <p>TODO: Replace all uses of this class before publishing your app.
  */
 public class PlaceholderContent {
 
-    /**
-     * An array of sample (placeholder) items.
-     */
+    /** An array of sample (placeholder) items. */
     public static final List<PlaceholderItem> ITEMS = new ArrayList<PlaceholderItem>();
 
-    /**
-     * A map of sample (placeholder) items, by ID.
-     */
-    public static final Map<String, PlaceholderItem> ITEM_MAP = new HashMap<String, PlaceholderItem>();
+    /** A map of sample (placeholder) items, by ID. */
+    public static final Map<String, PlaceholderItem> ITEM_MAP =
+            new HashMap<String, PlaceholderItem>();
 
     private static final int COUNT = 25;
 
@@ -38,7 +35,8 @@ public class PlaceholderContent {
     }
 
     private static PlaceholderItem createPlaceholderItem(int position) {
-        return new PlaceholderItem(String.valueOf(position), "Item " + position, makeDetails(position));
+        return new PlaceholderItem(
+                String.valueOf(position), "Item " + position, makeDetails(position));
     }
 
     private static String makeDetails(int position) {
@@ -50,9 +48,7 @@ public class PlaceholderContent {
         return builder.toString();
     }
 
-    /**
-     * A placeholder item representing a piece of content.
-     */
+    /** A placeholder item representing a piece of content. */
     public static class PlaceholderItem {
         public final String id;
         public final String content;
