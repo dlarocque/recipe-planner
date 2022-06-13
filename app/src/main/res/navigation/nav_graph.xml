@@ -3,26 +3,42 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/recipeList">
 
     <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.example.recipe_planner.FirstFragment"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
-
+        android:id="@+id/recipeList"
+        android:name="com.example.recipe_planner.RecipeList"
+        android:label="fragment_recipe_list"
+        tools:layout="@layout/fragment_recipe_list" >
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            android:id="@+id/action_recipeList_to_mealSchedule"
+            app:destination="@id/mealSchedule" />
+        <action
+            android:id="@+id/action_recipeList_to_shoppingList3"
+            app:destination="@id/shoppingList" />
     </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.example.recipe_planner.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
-
+        android:id="@+id/mealSchedule"
+        android:name="com.example.recipe_planner.MealSchedule"
+        android:label="fragment_meal_schedule"
+        tools:layout="@layout/fragment_meal_schedule" >
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            android:id="@+id/action_mealSchedule_to_recipeList"
+            app:destination="@id/recipeList" />
+        <action
+            android:id="@+id/action_mealSchedule_to_shoppingList3"
+            app:destination="@id/shoppingList" />
+    </fragment>
+    <fragment
+        android:id="@+id/shoppingList"
+        android:name="com.example.recipe_planner.ShoppingList"
+        android:label="fragment_shopping_list"
+        tools:layout="@layout/fragment_shopping_list" >
+        <action
+            android:id="@+id/action_shoppingList3_to_recipeList"
+            app:destination="@id/recipeList" />
+        <action
+            android:id="@+id/action_shoppingList3_to_mealSchedule"
+            app:destination="@id/mealSchedule" />
     </fragment>
 </navigation>
