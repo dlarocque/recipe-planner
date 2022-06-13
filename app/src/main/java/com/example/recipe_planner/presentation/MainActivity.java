@@ -1,4 +1,4 @@
-package com.example.recipe_planner;
+package com.example.recipe_planner.presentation;
 
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,6 +10,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.example.recipe_planner.R;
 import com.example.recipe_planner.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
