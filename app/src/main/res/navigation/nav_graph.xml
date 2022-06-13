@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/mealSchedule"
-        android:name="com.example.recipe_planner.MealSchedule"
+        android:name="com.example.recipe_planner.presentation.MealSchedule"
         android:label="fragment_meal_schedule"
         tools:layout="@layout/fragment_meal_schedule" >
         <action
@@ -25,7 +25,7 @@
     </fragment>
     <fragment
         android:id="@+id/shoppingList"
-        android:name="com.example.recipe_planner.ShoppingList"
+        android:name="com.example.recipe_planner.presentation.ShoppingList"
         android:label="fragment_shopping_list"
         tools:layout="@layout/fragment_shopping_list" >
         <action
@@ -40,7 +40,7 @@
     </fragment>
     <fragment
         android:id="@+id/recipeList"
-        android:name="com.example.recipe_planner.RecipeItem"
+        android:name="com.example.recipe_planner.presentation.RecipeItem"
         android:label="fragment_recipe_item_list"
         tools:layout="@layout/fragment_recipe_item_list" >
         <action

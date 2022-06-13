@@ -1,4 +1,4 @@
-package com.example.recipe_planner;
+package com.example.recipe_planner.presentation;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
