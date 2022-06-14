@@ -8,17 +8,26 @@
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="125dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="150dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="300dp"
         android:layout_marginRight="150dp"
-        android:text="Edit Recipe"
+        android:text="Edit Recipes"
         android:textColor="@color/purple_700"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:textAlignment="center"
         tools:ignore="SmallSp" />
+
+    <EditText
+        android:id="@+id/Id"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
+        android:background="@android:color/transparent"
+        android:text="1. Fucking die">
+    </EditText>
+
 
     <ImageButton
         android:id="@+id/back_to_recipe_from_edit"
@@ -27,18 +36,5 @@
         android:layout_gravity="end"
         android:background="@null"
         android:src="@drawable/edit_screen_back_foreground" />
-
-    <EditText
-        android:id="@+id/editTextRecipeName"
-        android:layout_width="116dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="start"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="160dp"
-        android:background="@null"
-        android:ems="10"
-        android:inputType="text"
-        android:text="Recipe Name"
-        android:textAlignment="textStart" />
 
 </FrameLayout>
