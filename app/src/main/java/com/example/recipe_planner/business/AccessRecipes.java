@@ -10,7 +10,7 @@ public class AccessRecipes {
     private final DataAccessStub dataAccess;
 
     public AccessRecipes() {
-        dataAccess = (DataAccessStub) Services.getDataAccess();
+        dataAccess = Services.getDataAccess();
     }
 
     public List<Recipe> getRecipes() {
@@ -45,11 +45,11 @@ public class AccessRecipes {
         return dataAccess.getRecipeInstructions(recipeName);
     }
 
-    public void setRecipeName(String recipeName, String editRecipe){
+    public void setRecipeName(String recipeName, String editRecipe) {
         dataAccess.setRecipeName(recipeName, editRecipe);
     }
 
-    public void setRecipeInstructions(String recipeInstructions, String recipeName){
+    public void setRecipeInstructions(String recipeInstructions, String recipeName) {
         dataAccess.setRecipeInstructions(recipeInstructions, recipeName);
     }
 }

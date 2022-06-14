@@ -1,6 +1,5 @@
 package com.example.recipe_planner.presentation;
 
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +19,7 @@ public class RecipeRecyclerViewAdapter
         extends RecyclerView.Adapter<RecipeRecyclerViewAdapter.ViewHolder> {
 
     private final List<Recipe> recipes;
-    private OnEditListener mOnEditListener;
+    private final OnEditListener mOnEditListener;
 
     public RecipeRecyclerViewAdapter(List<Recipe> items, OnEditListener onEditListener) {
         recipes = items;
@@ -30,7 +29,11 @@ public class RecipeRecyclerViewAdapter
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        ViewHolder VH = new ViewHolder(FragmentRecipeItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false), mOnEditListener);
+        ViewHolder VH =
+                new ViewHolder(
+                        FragmentRecipeItemBinding.inflate(
+                                LayoutInflater.from(parent.getContext()), parent, false),
+                        mOnEditListener);
         return VH;
     }
 
@@ -43,6 +46,10 @@ public class RecipeRecyclerViewAdapter
     @Override
     public int getItemCount() {
         return recipes.size();
+    }
+
+    public interface OnEditListener {
+        void onEditClick(String name, View view);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -60,7 +67,7 @@ public class RecipeRecyclerViewAdapter
             edit.setOnClickListener(this);
         }
 
-        public void onClick(View view){
+        public void onClick(View view) {
             onEditListener.onEditClick(recipes.get(getBindingAdapterPosition()).getName(), view);
         }
 
@@ -68,9 +75,5 @@ public class RecipeRecyclerViewAdapter
         public String toString() {
             return super.toString();
         }
-    }
-
-    public interface OnEditListener{
-        void onEditClick(String name, View view);
     }
 }

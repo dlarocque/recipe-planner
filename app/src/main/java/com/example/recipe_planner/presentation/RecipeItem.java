@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
@@ -17,11 +16,10 @@ import com.example.recipe_planner.R;
 import com.example.recipe_planner.business.AccessRecipes;
 import com.example.recipe_planner.objects.Recipe;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /** A fragment representing a list of Recipes. */
-public class RecipeItem extends Fragment implements RecipeRecyclerViewAdapter.OnEditListener{
+public class RecipeItem extends Fragment implements RecipeRecyclerViewAdapter.OnEditListener {
 
     private static final String ARG_COLUMN_COUNT = "column-count";
     private int columnCount = 1;
@@ -65,7 +63,8 @@ public class RecipeItem extends Fragment implements RecipeRecyclerViewAdapter.On
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, columnCount));
             }
-            recyclerView.setAdapter(new RecipeRecyclerViewAdapter(accessRecipes.getRecipes(), this));
+            recyclerView.setAdapter(
+                    new RecipeRecyclerViewAdapter(accessRecipes.getRecipes(), this));
         }
         return view;
     }
