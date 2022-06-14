@@ -19,6 +19,16 @@
         android:textStyle="bold"
         tools:ignore="SmallSp" />
 
+    <EditText
+        android:id="@+id/Id"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
+        android:background="@android:color/transparent"
+        android:text="1. Fucking die">
+    </EditText>
+
+
     <ImageButton
         android:id="@+id/back_to_recipe_from_edit"
         android:layout_width="119dp"
