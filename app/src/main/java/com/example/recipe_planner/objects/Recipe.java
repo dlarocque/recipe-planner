@@ -6,7 +6,7 @@ public class Recipe {
     private final String name;
     private final ArrayList<Ingredient> ingredients;
     private String instructions;
-    private boolean isDefault;
+    private final boolean isDefault;
 
     public Recipe(String name) {
         this.name = name;
