@@ -19,9 +19,9 @@ public class DataAccessStub {
     private static final double HALF = 1.0 / 2.0;
     private final String dbName;
     private final String dbType = "stub";
+    private final Random random;
     private ArrayList<Recipe> recipes;
     private ArrayList<Recipe> hiddenRecipes;
-    private final Random random;
 
     public DataAccessStub(String dbName) {
         this.dbName = dbName;
@@ -131,8 +131,7 @@ public class DataAccessStub {
                 hiddenRecipes.add(recipe);
             }
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
