@@ -59,10 +59,11 @@ public class RecipeRecyclerViewAdapter
         public ViewHolder(
                 FragmentRecipeItemBinding binding, OnRecipeClickListener onRecipeClickListener) {
             super(binding.getRoot());
+            // Register the click listener, so that when a view is clicked, the click listener is called
             idView = binding.itemNumber;
             this.onRecipeClickListener = onRecipeClickListener;
 
-            idView.setOnClickListener(this);
+            binding.getRoot().setOnClickListener(this);
         }
 
         @Override
