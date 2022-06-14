@@ -13,6 +13,10 @@ public class AccessRecipes {
         dataAccess = Services.getDataAccess();
     }
 
+    public Recipe getRecipe(int index) {
+        return dataAccess.getRecipe(index);
+    }
+
     public List<Recipe> getRecipes() {
         return dataAccess.getRecipes();
     }

@@ -39,6 +39,10 @@ public class DataAccessStub {
         fillRecipes(recipes);
     }
 
+    public Recipe getRecipe(int index) {
+        return recipes.get(index);
+    }
+
     public List<Recipe> getRecipes() {
         return recipes;
     }

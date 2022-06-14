@@ -3,7 +3,6 @@ package com.example.recipe_planner.presentation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,27 +18,27 @@ public class RecipeRecyclerViewAdapter
         extends RecyclerView.Adapter<RecipeRecyclerViewAdapter.ViewHolder> {
 
     private final List<Recipe> recipes;
-    private final OnEditListener mOnEditListener;
+    private final OnRecipeClickListener onRecipeClickListener;
 
-    public RecipeRecyclerViewAdapter(List<Recipe> items, OnEditListener onEditListener) {
-        recipes = items;
-        this.mOnEditListener = onEditListener;
+    public RecipeRecyclerViewAdapter(
+            List<Recipe> items, OnRecipeClickListener onRecipeClickListener) {
+        this.recipes = items;
+        this.onRecipeClickListener = onRecipeClickListener;
     }
 
+    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        ViewHolder VH =
-                new ViewHolder(
-                        FragmentRecipeItemBinding.inflate(
-                                LayoutInflater.from(parent.getContext()), parent, false),
-                        mOnEditListener);
-        return VH;
+        return new ViewHolder(
+                FragmentRecipeItemBinding.inflate(
+                        LayoutInflater.from(parent.getContext()), parent, false),
+                onRecipeClickListener);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.item = recipes.get(position);
+        holder.recipe = recipes.get(position);
         holder.idView.setText(recipes.get(position).getName());
     }
 
@@ -48,27 +47,27 @@ public class RecipeRecyclerViewAdapter
         return recipes.size();
     }
 
-    public interface OnEditListener {
-        void onEditClick(String name, View view);
+    public interface OnRecipeClickListener {
+        void onRecipeClick(int position, View view);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public final TextView idView;
-        public Recipe item;
-        public ImageButton edit;
-        OnEditListener onEditListener;
+        public Recipe recipe;
+        OnRecipeClickListener onRecipeClickListener;
 
-        public ViewHolder(FragmentRecipeItemBinding binding, OnEditListener onEditListener) {
+        public ViewHolder(
+                FragmentRecipeItemBinding binding, OnRecipeClickListener onRecipeClickListener) {
             super(binding.getRoot());
             idView = binding.itemNumber;
-            edit = binding.editRecipe;
-            this.onEditListener = onEditListener;
+            this.onRecipeClickListener = onRecipeClickListener;
 
-            edit.setOnClickListener(this);
+            idView.setOnClickListener(this);
         }
 
+        @Override
         public void onClick(View view) {
-            onEditListener.onEditClick(recipes.get(getBindingAdapterPosition()).getName(), view);
+            onRecipeClickListener.onRecipeClick(getBindingAdapterPosition(), view);
         }
 
         @Override

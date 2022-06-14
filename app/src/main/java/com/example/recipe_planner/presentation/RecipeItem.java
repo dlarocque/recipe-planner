@@ -2,6 +2,7 @@ package com.example.recipe_planner.presentation;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +15,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.recipe_planner.R;
 import com.example.recipe_planner.business.AccessRecipes;
-import com.example.recipe_planner.objects.Recipe;
-
-import java.util.List;
 
 /** A fragment representing a list of Recipes. */
-public class RecipeItem extends Fragment implements RecipeRecyclerViewAdapter.OnEditListener {
+public class RecipeItem extends Fragment
+        implements RecipeRecyclerViewAdapter.OnRecipeClickListener {
 
     private static final String ARG_COLUMN_COUNT = "column-count";
     private int columnCount = 1;
@@ -29,7 +28,9 @@ public class RecipeItem extends Fragment implements RecipeRecyclerViewAdapter.On
      * Mandatory empty constructor for the fragment manager to instantiate the fragment (e.g. upon
      * screen orientation changes).
      */
-    public RecipeItem() {}
+    public RecipeItem() {
+        // Mandatory empty constructor
+    }
 
     @SuppressWarnings("unused")
     public static RecipeItem newInstance(int columnCount) {
@@ -70,10 +71,10 @@ public class RecipeItem extends Fragment implements RecipeRecyclerViewAdapter.On
     }
 
     @Override
-    public void onEditClick(String name, View view) {
+    public void onRecipeClick(int position, View view) {
+        Log.d("RecipeList", "Recipe " + position + " clicked");
         Bundle bundle = new Bundle();
-        List<Recipe> recipes = accessRecipes.getRecipesWithName(name);
-        bundle.putString("name", recipes.get(0).getName());
-        Navigation.findNavController(view).navigate(R.id.action_recipeList_to_editRecipe, bundle);
+        bundle.putInt("position", position);
+        Navigation.findNavController(view).navigate(R.id.action_recipeList_to_recipeView, bundle);
     }
 }
