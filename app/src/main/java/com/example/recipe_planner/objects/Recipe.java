@@ -3,7 +3,7 @@ package com.example.recipe_planner.objects;
 import java.util.ArrayList;
 
 public class Recipe {
-    private final String name;
+    private String name;
     private final ArrayList<Ingredient> ingredients;
     private String instructions;
 
@@ -23,6 +23,8 @@ public class Recipe {
     public String getName() {
         return this.name;
     }
+
+    public void setName(String name) {this.name = name;}
 
     public ArrayList<Ingredient> getIngredients() {
         return this.ingredients;

@@ -40,4 +40,16 @@ public class AccessRecipes {
     public boolean deleteRecipe(Recipe recipe) {
         return dataAccess.deleteRecipe(recipe);
     }
+
+    public String getRecipeInstructions(String recipeName) {
+        return dataAccess.getRecipeInstructions(recipeName);
+    }
+
+    public void setRecipeName(String recipeName, String editRecipe){
+        dataAccess.setRecipeName(recipeName, editRecipe);
+    }
+
+    public void setRecipeInstructions(String recipeInstructions, String recipeName){
+        dataAccess.setRecipeInstructions(recipeInstructions, recipeName);
+    }
 }

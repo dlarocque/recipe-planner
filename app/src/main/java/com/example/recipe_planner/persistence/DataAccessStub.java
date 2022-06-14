@@ -84,10 +84,29 @@ public class DataAccessStub {
         String instructions = "";
         for(Recipe recipe : recipes) {
             if (recipe.getName().equals(recipeName)) {
-                instructions.concat(recipe.getInstructions());
+                instructions = instructions + (recipe.getInstructions());
+                break;
             }
         }
         return instructions;
+    }
+
+    public void setRecipeInstructions(String editInstructions, String recipeName){
+        for(Recipe recipe : recipes) {
+            if (recipe.getName().equals(recipeName)) {
+                recipe.setInstructions(editInstructions);
+                break;
+            }
+        }
+    }
+
+    public void setRecipeName(String recipeName, String editRecipe){
+        for(Recipe recipe : recipes) {
+            if (recipe.getName().equals(recipeName)) {
+                recipe.setName(editRecipe);
+                break;
+            }
+        }
     }
 
     public void insertRecipe(Recipe recipe) {

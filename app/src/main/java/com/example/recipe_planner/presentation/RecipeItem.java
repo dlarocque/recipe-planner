@@ -26,7 +26,6 @@ public class RecipeItem extends Fragment implements RecipeRecyclerViewAdapter.On
     private static final String ARG_COLUMN_COUNT = "column-count";
     private int columnCount = 1;
     private AccessRecipes accessRecipes;
-    private ImageButton edit;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the fragment (e.g. upon
