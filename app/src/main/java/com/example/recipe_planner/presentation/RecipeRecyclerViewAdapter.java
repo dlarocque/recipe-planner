@@ -1,7 +1,10 @@
 package com.example.recipe_planner.presentation;
 
+import android.media.Image;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,17 +20,18 @@ public class RecipeRecyclerViewAdapter
         extends RecyclerView.Adapter<RecipeRecyclerViewAdapter.ViewHolder> {
 
     private final List<Recipe> recipes;
+    private OnEditListener mOnEditListener;
 
-    public RecipeRecyclerViewAdapter(List<Recipe> items) {
+    public RecipeRecyclerViewAdapter(List<Recipe> items, OnEditListener onEditListener) {
         recipes = items;
+        this.mOnEditListener = onEditListener;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        return new ViewHolder(
-                FragmentRecipeItemBinding.inflate(
-                        LayoutInflater.from(parent.getContext()), parent, false));
+        ViewHolder VH = new ViewHolder(FragmentRecipeItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false), mOnEditListener);
+        return VH;
     }
 
     @Override
@@ -41,18 +45,32 @@ public class RecipeRecyclerViewAdapter
         return recipes.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public final TextView idView;
         public Recipe item;
+        public ImageButton edit;
+        OnEditListener onEditListener;
 
-        public ViewHolder(FragmentRecipeItemBinding binding) {
+        public ViewHolder(FragmentRecipeItemBinding binding, OnEditListener onEditListener) {
             super(binding.getRoot());
             idView = binding.itemNumber;
+            edit = binding.editRecipe;
+            this.onEditListener = onEditListener;
+
+            edit.setOnClickListener(this);
+        }
+
+        public void onClick(View view){
+            onEditListener.onEditClick(recipes.get(getBindingAdapterPosition()).getName(), view);
         }
 
         @Override
         public String toString() {
             return super.toString();
         }
+    }
+
+    public interface OnEditListener{
+        void onEditClick(String name, View view);
     }
 }

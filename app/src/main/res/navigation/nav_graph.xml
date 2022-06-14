@@ -49,5 +49,17 @@
         <action
             android:id="@+id/action_recipeList_to_shoppingList"
             app:destination="@id/shoppingList" />
+        <action
+            android:id="@+id/action_recipeList_to_editRecipe"
+            app:destination="@id/editRecipe" />
+    </fragment>
+    <fragment
+        android:id="@+id/editRecipe"
+        android:name="com.example.recipe_planner.presentation.EditRecipe"
+        android:label="fragment_edit_recipe"
+        tools:layout="@layout/fragment_edit_recipe" >
+        <action
+            android:id="@+id/action_editRecipe_to_recipeList3"
+            app:destination="@id/recipeList" />
     </fragment>
 </navigation>

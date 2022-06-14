@@ -30,6 +30,15 @@
 
         </LinearLayout>
 
+        <ImageButton
+            android:id="@+id/edit_recipe"
+            android:layout_width="66dp"
+            android:layout_height="63dp"
+            android:layout_gravity="bottom"
+            android:src="@drawable/ic_launcher_edit_foreground"
+            android:background="#0000"
+            android:contentDescription="@string/edit_button"
+            />
 
     </com.google.android.material.card.MaterialCardView>
 

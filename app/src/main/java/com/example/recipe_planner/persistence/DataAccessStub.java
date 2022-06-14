@@ -70,6 +70,26 @@ public class DataAccessStub {
         return recipesWithName;
     }
 
+    public ArrayList<Ingredient> getIngredientsFromRecipe(String recipeName) {
+        ArrayList<Ingredient> recipeIngredients = new ArrayList<>();
+        for(Recipe recipe : recipes) {
+            if (recipe.getName().equals(recipeName)) {
+                recipeIngredients.addAll(recipe.getIngredients());
+            }
+        }
+        return recipeIngredients;
+    }
+
+    public String getRecipeInstructions(String recipeName) {
+        String instructions = "";
+        for(Recipe recipe : recipes) {
+            if (recipe.getName().equals(recipeName)) {
+                instructions.concat(recipe.getInstructions());
+            }
+        }
+        return instructions;
+    }
+
     public void insertRecipe(Recipe recipe) {
         recipes.add(recipe);
     }
