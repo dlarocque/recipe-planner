@@ -51,15 +51,23 @@
             app:destination="@id/shoppingList" />
         <action
             android:id="@+id/action_recipeList_to_recipeView"
-            app:destination="@id/editRecipe" />
+            app:destination="@id/recipeView"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
-        android:id="@+id/editRecipe"
+        android:id="@+id/recipeView"
         android:name="com.example.recipe_planner.presentation.RecipeView"
         android:label="fragment_edit_recipe"
         tools:layout="@layout/fragment_recipe_view">
         <action
             android:id="@+id/action_recipeView_to_recipeList"
-            app:destination="@id/recipeList" />
+            app:destination="@id/recipeList"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
 </navigation>
