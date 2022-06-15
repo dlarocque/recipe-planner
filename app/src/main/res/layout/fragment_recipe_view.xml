@@ -33,5 +33,18 @@
         android:autofillHints=""
         android:inputType="textMultiLine"/>
 
+    <ImageButton
+        android:id="@+id/deleteButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="top|end"
+        android:adjustViewBounds="true"
+        android:background="@drawable/ic_launcher_delete_foreground"
+        android:contentDescription="Delete"
+        android:hapticFeedbackEnabled="true"
+        android:onClick="onDeleteClick"
+        android:scaleType="center"
+        android:visibility="visible" />
+
 
 </FrameLayout>
