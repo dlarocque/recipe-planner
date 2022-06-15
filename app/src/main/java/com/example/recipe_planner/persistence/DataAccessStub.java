@@ -19,8 +19,8 @@ public class DataAccessStub {
     private static final double HALF = 1.0 / 2.0;
     private final String dbName;
     private final String dbType = "stub";
-    private ArrayList<Recipe> recipes;
     private final Random random;
+    private ArrayList<Recipe> recipes;
 
     public DataAccessStub(String dbName) {
         this.dbName = dbName;
@@ -37,6 +37,10 @@ public class DataAccessStub {
     public void init() {
         recipes = new ArrayList<>();
         fillRecipes(recipes);
+    }
+
+    public Recipe getRecipe(int index) {
+        return recipes.get(index);
     }
 
     public List<Recipe> getRecipes() {
@@ -68,6 +72,45 @@ public class DataAccessStub {
         }
 
         return recipesWithName;
+    }
+
+    public ArrayList<Ingredient> getIngredientsFromRecipe(String recipeName) {
+        ArrayList<Ingredient> recipeIngredients = new ArrayList<>();
+        for (Recipe recipe : recipes) {
+            if (recipe.getName().equals(recipeName)) {
+                recipeIngredients.addAll(recipe.getIngredients());
+            }
+        }
+        return recipeIngredients;
+    }
+
+    public String getRecipeInstructions(String recipeName) {
+        String instructions = "";
+        for (Recipe recipe : recipes) {
+            if (recipe.getName().equals(recipeName)) {
+                instructions = instructions + (recipe.getInstructions());
+                break;
+            }
+        }
+        return instructions;
+    }
+
+    public void setRecipeInstructions(String editInstructions, String recipeName) {
+        for (Recipe recipe : recipes) {
+            if (recipe.getName().equals(recipeName)) {
+                recipe.setInstructions(editInstructions);
+                break;
+            }
+        }
+    }
+
+    public void setRecipeName(String recipeName, String editRecipe) {
+        for (Recipe recipe : recipes) {
+            if (recipe.getName().equals(recipeName)) {
+                recipe.setName(editRecipe);
+                break;
+            }
+        }
     }
 
     public void insertRecipe(Recipe recipe) {

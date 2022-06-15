@@ -2,11 +2,13 @@ package com.example.recipe_planner.presentation;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,7 +17,8 @@ import com.example.recipe_planner.R;
 import com.example.recipe_planner.business.AccessRecipes;
 
 /** A fragment representing a list of Recipes. */
-public class RecipeItem extends Fragment {
+public class RecipeItem extends Fragment
+        implements RecipeRecyclerViewAdapter.OnRecipeClickListener {
 
     private static final String ARG_COLUMN_COUNT = "column-count";
     private int columnCount = 1;
@@ -25,7 +28,9 @@ public class RecipeItem extends Fragment {
      * Mandatory empty constructor for the fragment manager to instantiate the fragment (e.g. upon
      * screen orientation changes).
      */
-    public RecipeItem() {}
+    public RecipeItem() {
+        // Mandatory empty constructor
+    }
 
     @SuppressWarnings("unused")
     public static RecipeItem newInstance(int columnCount) {
@@ -39,11 +44,9 @@ public class RecipeItem extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         if (getArguments() != null) {
             columnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
-
         accessRecipes = new AccessRecipes();
     }
 
@@ -61,8 +64,17 @@ public class RecipeItem extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, columnCount));
             }
-            recyclerView.setAdapter(new RecipeRecyclerViewAdapter(accessRecipes.getRecipes()));
+            recyclerView.setAdapter(
+                    new RecipeRecyclerViewAdapter(accessRecipes.getRecipes(), this));
         }
         return view;
+    }
+
+    @Override
+    public void onRecipeClick(int position, View view) {
+        Log.d("RecipeList", "Recipe " + position + " clicked");
+        Bundle bundle = new Bundle();
+        bundle.putInt("position", position);
+        Navigation.findNavController(view).navigate(R.id.action_recipeList_to_recipeView, bundle);
     }
 }

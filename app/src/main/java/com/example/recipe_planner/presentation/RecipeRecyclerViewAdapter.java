@@ -1,6 +1,7 @@
 package com.example.recipe_planner.presentation;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
@@ -17,22 +18,27 @@ public class RecipeRecyclerViewAdapter
         extends RecyclerView.Adapter<RecipeRecyclerViewAdapter.ViewHolder> {
 
     private final List<Recipe> recipes;
+    private final OnRecipeClickListener onRecipeClickListener;
 
-    public RecipeRecyclerViewAdapter(List<Recipe> items) {
-        recipes = items;
+    public RecipeRecyclerViewAdapter(
+            List<Recipe> items, OnRecipeClickListener onRecipeClickListener) {
+        this.recipes = items;
+        this.onRecipeClickListener = onRecipeClickListener;
     }
 
+    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         return new ViewHolder(
                 FragmentRecipeItemBinding.inflate(
-                        LayoutInflater.from(parent.getContext()), parent, false));
+                        LayoutInflater.from(parent.getContext()), parent, false),
+                onRecipeClickListener);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.item = recipes.get(position);
+        holder.recipe = recipes.get(position);
         holder.idView.setText(recipes.get(position).getName());
     }
 
@@ -41,13 +47,29 @@ public class RecipeRecyclerViewAdapter
         return recipes.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        public final TextView idView;
-        public Recipe item;
+    public interface OnRecipeClickListener {
+        void onRecipeClick(int position, View view);
+    }
 
-        public ViewHolder(FragmentRecipeItemBinding binding) {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        public final TextView idView;
+        public Recipe recipe;
+        OnRecipeClickListener onRecipeClickListener;
+
+        public ViewHolder(
+                FragmentRecipeItemBinding binding, OnRecipeClickListener onRecipeClickListener) {
             super(binding.getRoot());
+            // Register the click listener, so that when a view is clicked, the click listener is
+            // called
             idView = binding.itemNumber;
+            this.onRecipeClickListener = onRecipeClickListener;
+
+            binding.getRoot().setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            onRecipeClickListener.onRecipeClick(getBindingAdapterPosition(), view);
         }
 
         @Override
