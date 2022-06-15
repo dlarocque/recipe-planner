@@ -20,7 +20,7 @@ import org.junit.runners.Suite.SuiteClasses;
         TestIngredient.class,
         TestRecipe.class
         })
-public class TestObjects {
+public class ObjectTestSuite {
     @Before
     private static void beginTests() {
         System.out.println("Running object tests...");
