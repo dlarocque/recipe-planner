@@ -42,7 +42,6 @@
         android:background="@drawable/ic_launcher_delete_foreground"
         android:contentDescription="Delete"
         android:hapticFeedbackEnabled="true"
-        android:onClick="onDeleteClick"
         android:scaleType="center"
         android:visibility="visible" />
 
