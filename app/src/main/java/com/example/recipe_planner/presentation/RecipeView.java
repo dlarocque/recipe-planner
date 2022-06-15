@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
@@ -46,6 +47,16 @@ public class RecipeView extends Fragment {
         recipeName.setText(recipe.getName());
         recipeInstructions.setText(recipe.getInstructions());
 
+        ImageButton button = view.findViewById(R.id.deleteButton);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Log.d("RecipeView", "Delete Recipe button clicked");
+                Navigation.findNavController(view).navigate(R.id.action_recipeView_to_recipeList);
+                accessRecipes.deleteRecipe(recipe);
+            }
+        });
+
+
         return view;
     }
 
@@ -58,10 +69,5 @@ public class RecipeView extends Fragment {
         String newName = this.recipeName.getText().toString();
         this.recipe.setName(newName);
         this.recipe.setInstructions(newInstructions);
-    }
-
-    public void onDeleteClick(View view) {
-        Navigation.findNavController(view).navigate(R.id.action_recipeView_to_recipeList);
-        accessRecipes.deleteRecipe(this.recipe);
     }
 }
