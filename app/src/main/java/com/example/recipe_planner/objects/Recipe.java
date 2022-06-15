@@ -22,6 +22,7 @@ public class Recipe {
         this.isDefault = false;
     }
 
+    // Use this constructor with isDefault:true when creating our default recipes. The other constructors should be used when a user is creating a recipe.
     public Recipe(String name, ArrayList<Ingredient> ingredients, String instructions, boolean isDefault) {
         this.name = name;
         this.ingredients = ingredients;
