@@ -1,5 +1,7 @@
 # Recipe Planner
 
+**[GitHub Repository](https://github.com/dlarocque/recipe-planner)**
+
 ## Outline
 
 [Team Members](#team-members)
