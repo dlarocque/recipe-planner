@@ -1,11 +1,9 @@
 package com.example.recipe_planner.presentation;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -16,14 +14,12 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.recipe_planner.R;
 import com.example.recipe_planner.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity{
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
     private BottomNavigationView bottomNavigationView;
-    private FloatingActionButton floatingActionButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +36,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
-
-        floatingActionButton = findViewById(R.id.floatingActionButton);
-        floatingActionButton.setOnClickListener(this);
 
     }
 
@@ -74,10 +67,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         NavController navController = Navigation.findNavController(this, R.id.fragment);
         return NavigationUI.navigateUp(navController, appBarConfiguration)
                 || super.onSupportNavigateUp();
-    }
-
-    @Override
-    public void onClick(View view) {
-        Navigation.findNavController(view).navigate(R.id.action_recipeList_to_createRecipe);
     }
 }

@@ -7,12 +7,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.recipe_planner.R;
 import com.example.recipe_planner.business.AccessRecipes;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 /** A fragment representing a list of Recipes. */
 public class RecipeItem extends Fragment {
@@ -62,6 +64,16 @@ public class RecipeItem extends Fragment {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, columnCount));
             }
             recyclerView.setAdapter(new RecipeRecyclerViewAdapter(accessRecipes.getRecipes()));
+        } else {
+            // on click listener for button
+            FloatingActionButton button = (FloatingActionButton) view.findViewById(R.id.createRecipeButton);
+            button.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v){
+                    Navigation.findNavController(v).navigate(R.id.action_recipeList_to_createRecipe);
+                }
+            });
         }
         return view;
     }
