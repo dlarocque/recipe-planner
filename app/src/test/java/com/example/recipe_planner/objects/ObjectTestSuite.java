@@ -22,11 +22,11 @@ import org.junit.runners.Suite.SuiteClasses;
         })
 public class ObjectTestSuite {
     @Before
-    private static void beginTests() {
+    public static void beginTests() {
         System.out.println("Running object tests...");
     }
     @After
-    private static void completeTests() {
+    public static void completeTests() {
         System.out.println("Object tests complete!");
     }
 }
