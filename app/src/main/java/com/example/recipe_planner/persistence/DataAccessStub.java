@@ -131,9 +131,8 @@ public class DataAccessStub {
                 hiddenRecipes.add(recipe);
             }
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     public List<Recipe> getHiddenRecipes() {
