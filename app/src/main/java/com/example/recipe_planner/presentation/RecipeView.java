@@ -1,5 +1,7 @@
 package com.example.recipe_planner.presentation;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -72,9 +74,27 @@ public class RecipeView extends Fragment {
         ImageButton button = view.findViewById(R.id.deleteButton);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Log.d("RecipeView", "Delete Recipe button clicked");
-                Navigation.findNavController(view).navigate(R.id.action_recipeView_to_recipeList);
-                accessRecipes.deleteRecipe(recipe);
+                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                builder.setTitle("Delete Recipe");
+                builder.setMessage("Do you want to delete this recipe?");
+                builder.setIcon(R.drawable.ic_launcher_delete_foreground);
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                        Log.d("RecipeView", "Delete Recipe button clicked");
+                        Navigation.findNavController(v).navigate(R.id.action_recipeView_to_recipeList);
+                        accessRecipes.deleteRecipe(recipe);
+                    }
+                });
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                });
+                AlertDialog alert = builder.create();
+                alert.show();
             }
         });
 
