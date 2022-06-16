@@ -134,4 +134,19 @@ public class TestRecipe {
 
         assertTrue(empty.isDefault());
     }
+
+    @Test
+    public void testDefaultRecipe() {
+        Recipe defaultRecipe = new Recipe("", new ArrayList<>(), "", true);
+        assertTrue(defaultRecipe.isDefault());
+    }
+
+    @Test
+    public void testUserCreatedRecipe() {
+        Recipe userCreatedRecipe = new Recipe("", new ArrayList<>(), "", false);
+        assertFalse(userCreatedRecipe.isDefault());
+
+        userCreatedRecipe = new Recipe("", new ArrayList<>(), "");
+        assertFalse(userCreatedRecipe.isDefault());
+    }
 }
