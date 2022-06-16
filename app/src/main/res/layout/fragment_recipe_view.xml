@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.RecipeView"
-    android:layout_marginTop="30dp">
+    android:layout_marginTop="30dp"
+    tools:context=".presentation.RecipeView">
 
     <EditText
         android:id="@+id/recipe_instruction_edit"
@@ -14,11 +14,11 @@
         android:layout_marginStart="45dp"
         android:layout_marginTop="225dp"
         android:layout_marginEnd="45dp"
+        android:autofillHints=""
         android:background="@android:color/transparent"
+        android:inputType="textMultiLine"
         android:text="@string/placeholder_instructions"
         android:textSize="20sp"
-        android:autofillHints=""
-        android:inputType="textMultiLine"
         tools:ignore="LabelFor" />
 
     <EditText
@@ -28,11 +28,11 @@
         android:layout_gravity="top"
         android:layout_marginStart="45dp"
         android:layout_marginTop="150dp"
-        android:background="@android:color/transparent"
-        android:text="@string/placeholder_recipe"
-        android:textSize="20sp"
         android:autofillHints=""
-        android:inputType="textMultiLine"/>
+        android:background="@android:color/transparent"
+        android:inputType="textMultiLine"
+        android:text="@string/placeholder_recipe"
+        android:textSize="20sp" />
 
     <ImageButton
         android:id="@+id/deleteButton"
