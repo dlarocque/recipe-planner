@@ -23,38 +23,38 @@ Team members then highlighted which developer stories they would complete over t
 
 
 ## June 13, 4:30 PM (40 minutes)
-Did an overview of what features have been done so far, and the basic structure of the codebase.  
+Did an overview of what features have been done so far, and the basic structure of the codebase.
 
 Discussed how the remaining stories should be completed, as well as discussing who’d be working on what for the days leading up to the submission date.
-	
+
 ## June 15, 9:45 PM (30 minutes)
-Resolving merge conflicts and working out bugs regarding creating recipes. 
+Resolving merge conflicts and working out bugs regarding creating recipes.
 We summarised our work for the iteration and which features we weren’t able to complete on time. Made a plan for editing, revising, cleaning up code and submission of our release.
 
 # Decisions
 
 ### June 2 (All members)
 We will use GitHub actions runners to verify that the application builds before each PR, and that all tests pass.
-	
+
 ### June 2 (All members)
 We agreed upon a branching strategy that was detailed in the group chat, based on what most students used during their co-op work terms.
 
 ### June 9 (All members)
 We agreed to follow a minimal commenting style, opting to let well-written code explain itself and reserve comments to situation where readability of a complex flow may be unclear or time-consuming to parse.
-	
+
 ### June 9 (Daniel, Izan, Sam)
 We will implement basic navigation through the app before moving on to other UI stories, as it will ease the development of the stories.
-	
+
 ### June 10 (Sam, Daniel)
 We will use google-java-format AOSP style (an Android Studio Plugin) as a standard for code formatting.
 Auto-formatters in GitHub CI/CD are very limited, so we will need to stick to using the formatter in the IDE.
-	
+
 ### June 12 (Daniel, Sam)
 We will add a “Count” unit for ingredients that are simply an amount of something
-	
+
 ### June 15 (All members)
 Decided to exclude the feature of creating new recipes from the iteration release, due to difficulties with Android fragments and time constraints.
-	
+
 # Individual work
 
 	Sam
@@ -188,6 +188,10 @@ Decided to exclude the feature of creating new recipes from the iteration releas
 	Sam
 	Started cleaning up code: refactoring and formatters
 	15 minutes
+
+    Daniel
+    Removed unused files and code, renamed layout files, commented presentation files, and made minor fixes
+    2 hours
 
 # Outstanding Bugs
 
