@@ -40,13 +40,15 @@ From the list of recipes at the landing page of the application, a user is able 
 
 From the full-screen view of a recipe, the user is able to click on the text boxes containing the recipe name and instructions to then be able to modify the text.  Any modifications to recipes will be persistent throughout the app, and are reflected when the user exits the full-screen view of the recipe.
 
-**Creating a recipe**
-
-TODO 
-
 **Deleting a recipe**
 
-TODO
+Once viewing a recipe, the user can delete the recipe by tapping the trash icon in the upper right corner of the window. A dialog prompt will appear, asking the user to confirm or cancel their action. Once confirmed, the app will return to the recipe list, and the deleted recipe will no longer appear in the list.
+
+## Missing features
+
+**Creating a recipe**
+
+We decided to exclude our implementation of creating a new recipe due to issues we encountered with floating buttons and linking to the Create A Recipe fragment. Resolving the issues proved too time-intensive under the conditions, so we stuck to Agile – to be included in a future iteration.
 
 ## Architecture
 
@@ -102,6 +104,7 @@ This project uses GitHub actions to automate testing on all pull requests and al
 
 - Ubuntu latest
 - Script: `./gradlew test`
+- [AllTests.java](/app/src/test/java/com/example/recipe_planner/AllTests.java)
 
 
 ## Changelog
