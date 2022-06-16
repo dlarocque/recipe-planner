@@ -9,61 +9,48 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.recipe_planner.R;
 import com.example.recipe_planner.business.AccessRecipes;
 
-/** A fragment representing a list of Recipes. */
-public class RecipeItem extends Fragment
+/** A {@link Fragment} representing a list of Recipes. */
+public class RecipeList extends Fragment
         implements RecipeRecyclerViewAdapter.OnRecipeClickListener {
 
-    private static final String ARG_COLUMN_COUNT = "column-count";
-    private int columnCount = 1;
+    public static final String ARG_POSITION_IN_LIST = "positionInList";
     private AccessRecipes accessRecipes;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the fragment (e.g. upon
      * screen orientation changes).
      */
-    public RecipeItem() {
+    public RecipeList() {
         // Mandatory empty constructor
     }
 
     @SuppressWarnings("unused")
-    public static RecipeItem newInstance(int columnCount) {
-        RecipeItem fragment = new RecipeItem();
-        Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
-        fragment.setArguments(args);
-        return fragment;
+    public static RecipeList newInstance(int columnCount) {
+        return new RecipeList();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            columnCount = getArguments().getInt(ARG_COLUMN_COUNT);
-        }
         accessRecipes = new AccessRecipes();
     }
 
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_recipe_item_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_recipe_list, container, false);
 
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
-            if (columnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, columnCount));
-            }
+            recyclerView.setLayoutManager(new LinearLayoutManager(context));
             recyclerView.setAdapter(
                     new RecipeRecyclerViewAdapter(accessRecipes.getRecipes(), this));
         }
@@ -71,10 +58,11 @@ public class RecipeItem extends Fragment
     }
 
     @Override
-    public void onRecipeClick(int position, View view) {
-        Log.d("RecipeList", "Recipe " + position + " clicked");
+    public void onRecipeClick(int positionInList, View view) {
+        Log.d("RecipeList", "Recipe " + positionInList + " clicked");
+        // Navigate to the recipe view for the recipe that was clicked
         Bundle bundle = new Bundle();
-        bundle.putInt("position", position);
+        bundle.putInt(ARG_POSITION_IN_LIST, positionInList);
         Navigation.findNavController(view).navigate(R.id.action_recipeList_to_recipeView, bundle);
     }
 }

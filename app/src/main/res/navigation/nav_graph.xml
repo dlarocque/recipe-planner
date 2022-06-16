@@ -40,9 +40,9 @@
     </fragment>
     <fragment
         android:id="@+id/recipeList"
-        android:name="com.example.recipe_planner.presentation.RecipeItem"
+        android:name="com.example.recipe_planner.presentation.RecipeList"
         android:label="fragment_recipe_item_list"
-        tools:layout="@layout/fragment_recipe_item_list">
+        tools:layout="@layout/fragment_recipe_list">
         <action
             android:id="@+id/action_recipeList_to_mealSchedule"
             app:destination="@id/mealSchedule" />

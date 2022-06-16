@@ -5,14 +5,13 @@
     android:layout_height="match_parent"
     tools:context=".presentation.MealSchedule">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="150dp"
         android:layout_marginTop="300dp"
         android:layout_marginRight="150dp"
-        android:text="Meal Schedule"
+        android:text="@string/meal_schedule"
         android:textColor="@color/purple_700"
         android:textSize="20sp"
         android:textStyle="bold"

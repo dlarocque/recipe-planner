@@ -12,9 +12,10 @@
     <string name="shopping">Shopping</string>
     <string name="recipes">Recipes</string>
     <string name="schedule">Schedule</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="edit_button">Edit Button</string>
     <string name="placeholder_recipe">Placeholder Recipe</string>
     <string name="placeholder_instructions">Placeholder Instructions</string>
+    <string name="meal_schedule">Meal Schedule</string>
+    <string name="delete">Delete</string>
+    <string name="shopping_list">Shopping List</string>
 </resources>

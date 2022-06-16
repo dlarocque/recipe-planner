@@ -25,7 +25,7 @@
     <include layout="@layout/bottom_navigation" />
 
     <fragment
-        android:id="@+id/fragment"
+        android:id="@+id/fragment_container"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

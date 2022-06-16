@@ -8,7 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.recipe_planner.databinding.FragmentRecipeItemBinding;
+import com.example.recipe_planner.databinding.FragmentRecipeListItemBinding;
 import com.example.recipe_planner.objects.Recipe;
 
 import java.util.List;
@@ -29,17 +29,18 @@ public class RecipeRecyclerViewAdapter
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
+        // Inflate the layout for this fragment
         return new ViewHolder(
-                FragmentRecipeItemBinding.inflate(
+                FragmentRecipeListItemBinding.inflate(
                         LayoutInflater.from(parent.getContext()), parent, false),
                 onRecipeClickListener);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.recipe = recipes.get(position);
-        holder.idView.setText(recipes.get(position).getName());
+        // Set up the view for a recipe in the list
+        Recipe recipeToDisplay = recipes.get(position);
+        holder.idView.setText(recipeToDisplay.getName());
     }
 
     @Override
@@ -51,16 +52,15 @@ public class RecipeRecyclerViewAdapter
         void onRecipeClick(int position, View view);
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public final TextView idView;
-        public Recipe recipe;
-        OnRecipeClickListener onRecipeClickListener;
+        private final OnRecipeClickListener onRecipeClickListener;
 
         public ViewHolder(
-                FragmentRecipeItemBinding binding, OnRecipeClickListener onRecipeClickListener) {
+                FragmentRecipeListItemBinding binding,
+                OnRecipeClickListener onRecipeClickListener) {
             super(binding.getRoot());
-            // Register the click listener, so that when a view is clicked, the click listener is
-            // called
+            // When a recipe in the list is clicked, we call the declared click listener
             idView = binding.itemNumber;
             this.onRecipeClickListener = onRecipeClickListener;
 
@@ -72,6 +72,7 @@ public class RecipeRecyclerViewAdapter
             onRecipeClickListener.onRecipeClick(getBindingAdapterPosition(), view);
         }
 
+        @NonNull
         @Override
         public String toString() {
             return super.toString();

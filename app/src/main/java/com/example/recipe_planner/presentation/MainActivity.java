@@ -14,6 +14,10 @@ import com.example.recipe_planner.R;
 import com.example.recipe_planner.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+/**
+ * Main activity for the application that contains fragments, application-level fragments such as
+ * navigation and app bars, and handles navigation through fragments.
+ */
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
@@ -27,13 +31,14 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        // Set up the navigation and application bars
+        NavController navController = Navigation.findNavController(this, R.id.fragment_container);
+
         setSupportActionBar(binding.toolbar);
-
-        bottomNavigationView = findViewById(R.id.bottom_navigation);
-        NavController navController = Navigation.findNavController(this, R.id.fragment);
-
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
     }
 
@@ -51,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
@@ -61,7 +65,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.fragment);
+        // Let our navigation controller handle up (back) navigation
+        NavController navController = Navigation.findNavController(this, R.id.fragment_container);
         return NavigationUI.navigateUp(navController, appBarConfiguration)
                 || super.onSupportNavigateUp();
     }
