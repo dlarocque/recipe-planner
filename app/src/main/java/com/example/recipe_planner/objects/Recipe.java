@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class Recipe {
     private final ArrayList<Ingredient> ingredients;
+    private final boolean isDefault;
     private String name;
     private String instructions;
 
@@ -11,12 +12,27 @@ public class Recipe {
         this.name = name;
         this.ingredients = new ArrayList<>();
         this.instructions = null;
+        this.isDefault = false;
     }
 
     public Recipe(String name, ArrayList<Ingredient> ingredients, String instructions) {
         this.name = name;
         this.ingredients = ingredients;
         this.instructions = instructions;
+        this.isDefault = false;
+    }
+
+    // Use this constructor with isDefault:true when creating our default recipes.
+    // The other constructors should be used when a user is creating a recipe.
+    public Recipe(
+            String name,
+            ArrayList<Ingredient> ingredients,
+            String instructions,
+            boolean isDefault) {
+        this.name = name;
+        this.ingredients = ingredients;
+        this.instructions = instructions;
+        this.isDefault = isDefault;
     }
 
     // getters
@@ -43,5 +59,9 @@ public class Recipe {
     // public methods
     public void addIngredient(Ingredient newIngredient) {
         this.ingredients.add(newIngredient);
+    }
+
+    public boolean isDefault() {
+        return isDefault;
     }
 }
