@@ -106,10 +106,5 @@ This project uses GitHub actions to automate testing on all pull requests and al
 - Script: `./gradlew test`
 - [AllTests.java](/app/src/test/java/com/example/recipe_planner/AllTests.java)
 
-
-## Changelog
-
-Changelog is located at `/docs/CHANGELOG.md` ([GitHub](https://github.com/dlarocque/recipe-planner/blob/iteration1/docs/CHANGELOG.md]))
-
 ## Development Log
 
