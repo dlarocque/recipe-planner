@@ -15,8 +15,9 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.example.recipe_planner.R;
-import com.example.recipe_planner.business.AccessRecipes;
+import com.example.recipe_planner.application.Services;
 import com.example.recipe_planner.objects.Recipe;
+import com.example.recipe_planner.persistence.DataAccessStub;
 
 public class RecipeView extends Fragment {
 
@@ -38,10 +39,11 @@ public class RecipeView extends Fragment {
 
                 @Override
                 public void afterTextChanged(Editable s) {
-                    updateRecipe();
+                    updateRecipe(); // When there is a change made to editable test, we want to
+                                    // update the recipe objects to reflect those changes.
                 }
             };
-    private AccessRecipes accessRecipes;
+    private DataAccessStub dataAccess;
 
     public RecipeView() {
         // Required empty public constructor
@@ -50,7 +52,7 @@ public class RecipeView extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        accessRecipes = new AccessRecipes();
+        this.dataAccess = Services.getDataAccess();
     }
 
     @Override
@@ -61,7 +63,7 @@ public class RecipeView extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_recipe_view, container, false);
         int positionInRecipeList = getArguments().getInt(RecipeList.ARG_POSITION_IN_LIST);
-        this.recipe = accessRecipes.getRecipe(positionInRecipeList);
+        this.recipe = dataAccess.getRecipe(positionInRecipeList);
         this.recipeName = view.findViewById(R.id.recipe_name_edit);
         this.recipeInstructions = view.findViewById(R.id.recipe_instruction_edit);
 
@@ -85,7 +87,7 @@ public class RecipeView extends Fragment {
                                 Log.d("RecipeView", "Delete Recipe button clicked");
                                 Navigation.findNavController(clickedView)
                                         .navigate(R.id.action_recipeView_to_recipeList);
-                                accessRecipes.deleteRecipe(recipe);
+                                dataAccess.deleteRecipe(recipe);
                             });
                     alertDialogBuilder.setNegativeButton("No", (dialog, id) -> dialog.dismiss());
                     AlertDialog alertDialog = alertDialogBuilder.create();
