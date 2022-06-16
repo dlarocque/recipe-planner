@@ -38,8 +38,8 @@ public class RecipeRecyclerViewAdapter
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.recipe = recipes.get(position);
-        holder.idView.setText(recipes.get(position).getName());
+        Recipe recipeToDisplay = recipes.get(position);
+        holder.idView.setText(recipeToDisplay.getName());
     }
 
     @Override
@@ -51,10 +51,9 @@ public class RecipeRecyclerViewAdapter
         void onRecipeClick(int position, View view);
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public final TextView idView;
-        public Recipe recipe;
-        OnRecipeClickListener onRecipeClickListener;
+        private final OnRecipeClickListener onRecipeClickListener;
 
         public ViewHolder(
                 FragmentRecipeItemBinding binding, OnRecipeClickListener onRecipeClickListener) {
@@ -72,6 +71,7 @@ public class RecipeRecyclerViewAdapter
             onRecipeClickListener.onRecipeClick(getBindingAdapterPosition(), view);
         }
 
+        @NonNull
         @Override
         public String toString() {
             return super.toString();
