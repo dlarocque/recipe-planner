@@ -31,13 +31,16 @@ Discussed how the remaining stories should be completed, as well as discussing w
 Resolving merge conflicts and working out bugs regarding creating recipes. 
 We summarised our work for the iteration and which features we weren’t able to complete on time. Made a plan for editing, revising, cleaning up code and submission of our release.
 
-# Discussions
+# Decisions
 
 ### June 2 (All members)
 We will use GitHub actions runners to verify that the application builds before each PR, and that all tests pass.
 	
 ### June 2 (All members)
 We agreed upon a branching strategy that was detailed in the group chat, based on what most students used during their co-op work terms.
+
+### June 9 (All members)
+We agreed to follow a minimal commenting style, opting to let well-written code explain itself and reserve comments to situation where readability of a complex flow may be unclear or time-consuming to parse.
 	
 ### June 9 (Daniel, Izan, Sam)
 We will implement basic navigation through the app before moving on to other UI stories, as it will ease the development of the stories.
