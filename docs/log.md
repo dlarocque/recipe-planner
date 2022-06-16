@@ -182,8 +182,8 @@ Decided to exclude the feature of creating new recipes from the iteration releas
 	1 hour
 
 	Sam
-	updated documentation: added more complete and missing features to README, added log.txt to repo
-	30 minutes
+	updated documentation: added more complete and missing features to README, added markdown-formatted log to repo
+	1.5 hours
 
 	Sam
 	Started cleaning up code: refactoring and formatters
