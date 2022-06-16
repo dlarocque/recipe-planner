@@ -56,7 +56,7 @@ public class RecipeView extends Fragment {
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        assert(getArguments() != null);
+        assert (getArguments() != null);
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_recipe_view, container, false);
@@ -68,6 +68,7 @@ public class RecipeView extends Fragment {
         recipeName.setText(recipe.getName());
         recipeName.addTextChangedListener(textWatcher);
         recipeInstructions.setText(recipe.getInstructions());
+        recipeInstructions.addTextChangedListener(textWatcher);
 
         ImageButton button = view.findViewById(R.id.deleteButton);
         button.setOnClickListener(
@@ -94,9 +95,7 @@ public class RecipeView extends Fragment {
         return view;
     }
 
-    /**
-    Saves the changes made to the recipe, called when the recipes are edited.
-     */
+    /** Saves the changes made to the recipe, called when the recipes are edited. */
     public void updateRecipe() {
         String newInstructions = this.recipeInstructions.getText().toString();
         String newName = this.recipeName.getText().toString();
