@@ -3,7 +3,6 @@ package com.example.recipe_planner.presentation;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -15,7 +14,7 @@ import com.example.recipe_planner.R;
 import com.example.recipe_planner.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
@@ -36,9 +35,7 @@ public class MainActivity extends AppCompatActivity{
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
-
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
