@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.recipe_planner.R;
 
-/** A simple {@link Fragment} subclass. */
+/** A {@link Fragment} representing a meal schedule (stub). */
 public class MealSchedule extends Fragment {
 
     public MealSchedule() {

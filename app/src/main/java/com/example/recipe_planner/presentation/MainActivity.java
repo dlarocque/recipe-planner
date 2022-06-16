@@ -14,6 +14,10 @@ import com.example.recipe_planner.R;
 import com.example.recipe_planner.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+/**
+ * Main activity for the application that contains fragments, application-level fragments such as
+ * navigation and app bars, and handles navigation through fragments.
+ */
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
@@ -27,13 +31,14 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        setSupportActionBar(binding.toolbar);
-
-        bottomNavigationView = findViewById(R.id.bottom_navigation);
+        // Set up the navigation and application bars
         NavController navController = Navigation.findNavController(this, R.id.fragment_container);
 
+        setSupportActionBar(binding.toolbar);
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
     }
 
@@ -60,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onSupportNavigateUp() {
+        // Let our navigation controller handle up (back) navigation
         NavController navController = Navigation.findNavController(this, R.id.fragment_container);
         return NavigationUI.navigateUp(navController, appBarConfiguration)
                 || super.onSupportNavigateUp();

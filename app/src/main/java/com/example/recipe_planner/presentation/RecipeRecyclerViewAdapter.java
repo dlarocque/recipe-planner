@@ -29,7 +29,7 @@ public class RecipeRecyclerViewAdapter
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
+        // Inflate the layout for this fragment
         return new ViewHolder(
                 FragmentRecipeListItemBinding.inflate(
                         LayoutInflater.from(parent.getContext()), parent, false),
@@ -38,6 +38,7 @@ public class RecipeRecyclerViewAdapter
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
+        // Set up the view for a recipe in the list
         Recipe recipeToDisplay = recipes.get(position);
         holder.idView.setText(recipeToDisplay.getName());
     }
@@ -56,10 +57,10 @@ public class RecipeRecyclerViewAdapter
         private final OnRecipeClickListener onRecipeClickListener;
 
         public ViewHolder(
-                FragmentRecipeListItemBinding binding, OnRecipeClickListener onRecipeClickListener) {
+                FragmentRecipeListItemBinding binding,
+                OnRecipeClickListener onRecipeClickListener) {
             super(binding.getRoot());
-            // Register the click listener, so that when a view is clicked, the click listener is
-            // called
+            // When a recipe in the list is clicked, we call the declared click listener
             idView = binding.itemNumber;
             this.onRecipeClickListener = onRecipeClickListener;
 

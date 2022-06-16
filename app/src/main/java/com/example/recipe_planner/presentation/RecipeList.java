@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.recipe_planner.R;
 import com.example.recipe_planner.business.AccessRecipes;
 
-/** A fragment representing a list of Recipes. */
+/** A {@link Fragment} representing a list of Recipes. */
 public class RecipeList extends Fragment
         implements RecipeRecyclerViewAdapter.OnRecipeClickListener {
 
@@ -60,6 +60,7 @@ public class RecipeList extends Fragment
     @Override
     public void onRecipeClick(int positionInList, View view) {
         Log.d("RecipeList", "Recipe " + positionInList + " clicked");
+        // Navigate to the recipe view for the recipe that was clicked
         Bundle bundle = new Bundle();
         bundle.putInt(ARG_POSITION_IN_LIST, positionInList);
         Navigation.findNavController(view).navigate(R.id.action_recipeList_to_recipeView, bundle);

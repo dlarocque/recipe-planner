@@ -9,9 +9,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.recipe_planner.R;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+/** A {@link Fragment} representing a shopping list (stub). */
 public class ShoppingList extends Fragment {
 
     public ShoppingList() {
@@ -22,7 +20,7 @@ public class ShoppingList extends Fragment {
      * Use this factory method to create a new instance of this fragment using the provided
      * parameters.
      *
-     *  @return A new instance of fragment ShoppingList.
+     * @return A new instance of fragment ShoppingList.
      */
     public static ShoppingList newInstance() {
         return new ShoppingList();

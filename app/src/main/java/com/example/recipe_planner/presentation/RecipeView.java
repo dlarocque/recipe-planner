@@ -19,6 +19,9 @@ import com.example.recipe_planner.application.Services;
 import com.example.recipe_planner.objects.Recipe;
 import com.example.recipe_planner.persistence.DataAccessStub;
 
+/**
+ * {@link Fragment} that displays a single {@link Recipe}, specifically its name and instructions
+ */
 public class RecipeView extends Fragment {
 
     private Recipe recipe;
@@ -40,7 +43,7 @@ public class RecipeView extends Fragment {
                 @Override
                 public void afterTextChanged(Editable s) {
                     updateRecipe(); // When there is a change made to editable test, we want to
-                                    // update the recipe objects to reflect those changes.
+                    // update the recipe objects to reflect those changes.
                 }
             };
     private DataAccessStub dataAccess;
@@ -62,16 +65,21 @@ public class RecipeView extends Fragment {
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_recipe_view, container, false);
+
+        // Retrieve recipe data to display
         int positionInRecipeList = getArguments().getInt(RecipeList.ARG_POSITION_IN_LIST);
         this.recipe = dataAccess.getRecipe(positionInRecipeList);
         this.recipeName = view.findViewById(R.id.recipe_name_edit);
         this.recipeInstructions = view.findViewById(R.id.recipe_instruction_edit);
 
+        // Set up the text boxes and listeners
         recipeName.setText(recipe.getName());
         recipeName.addTextChangedListener(textWatcher);
         recipeInstructions.setText(recipe.getInstructions());
         recipeInstructions.addTextChangedListener(textWatcher);
 
+        // Set up the delete button to delete the recipe upon confirmation of a dialog.
+        // Once the recipe is deleted, we navigate back to the recipe list.
         ImageButton button = view.findViewById(R.id.deleteButton);
         button.setOnClickListener(
                 clickedView -> {
