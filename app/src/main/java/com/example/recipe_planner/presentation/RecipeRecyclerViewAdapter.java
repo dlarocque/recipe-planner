@@ -8,7 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.recipe_planner.databinding.FragmentRecipeItemBinding;
+import com.example.recipe_planner.databinding.FragmentRecipeListItemBinding;
 import com.example.recipe_planner.objects.Recipe;
 
 import java.util.List;
@@ -31,7 +31,7 @@ public class RecipeRecyclerViewAdapter
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         return new ViewHolder(
-                FragmentRecipeItemBinding.inflate(
+                FragmentRecipeListItemBinding.inflate(
                         LayoutInflater.from(parent.getContext()), parent, false),
                 onRecipeClickListener);
     }
@@ -56,7 +56,7 @@ public class RecipeRecyclerViewAdapter
         private final OnRecipeClickListener onRecipeClickListener;
 
         public ViewHolder(
-                FragmentRecipeItemBinding binding, OnRecipeClickListener onRecipeClickListener) {
+                FragmentRecipeListItemBinding binding, OnRecipeClickListener onRecipeClickListener) {
             super(binding.getRoot());
             // Register the click listener, so that when a view is clicked, the click listener is
             // called
