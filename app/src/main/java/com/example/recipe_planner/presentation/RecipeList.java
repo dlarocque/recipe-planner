@@ -17,7 +17,7 @@ import com.example.recipe_planner.R;
 import com.example.recipe_planner.business.AccessRecipes;
 
 /** A fragment representing a list of Recipes. */
-public class RecipeItem extends Fragment
+public class RecipeList extends Fragment
         implements RecipeRecyclerViewAdapter.OnRecipeClickListener {
 
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -28,13 +28,13 @@ public class RecipeItem extends Fragment
      * Mandatory empty constructor for the fragment manager to instantiate the fragment (e.g. upon
      * screen orientation changes).
      */
-    public RecipeItem() {
+    public RecipeList() {
         // Mandatory empty constructor
     }
 
     @SuppressWarnings("unused")
-    public static RecipeItem newInstance(int columnCount) {
-        RecipeItem fragment = new RecipeItem();
+    public static RecipeList newInstance(int columnCount) {
+        RecipeList fragment = new RecipeList();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);

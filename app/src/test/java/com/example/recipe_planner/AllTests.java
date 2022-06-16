@@ -9,12 +9,13 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({ ObjectTestSuite.class })
+@SuiteClasses({ObjectTestSuite.class})
 public class AllTests {
     @Before
     public static void beginTests() {
         System.out.println("Running all tests...");
     }
+
     @After
     public static void completeTests() {
         System.out.println("All tests complete!");
