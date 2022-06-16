@@ -96,7 +96,7 @@ Contains the major UI elements for the application.
 
 ### Environment
 
-The application was tested on a Nexus 7 tablet, with Android 6.0 Marshmallow (API level 23).
+The application was tested on the Android Studio emulator for the Nexus 7 tablet, running Android 6.0 Marshmallow (API level 23).
 
 ### Unit Tests
 

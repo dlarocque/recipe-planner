@@ -165,8 +165,14 @@ Work (individual)
 	Sam
 	Investigated bugs with floating button elements in fragments not displaying correctly. Learned from documentation.
 	1 hour
-	
 
+	Sam
+	updated documentation: added more complete and missing features to README, added log.txt to repo
+	30 minutes
+	
+	Sam
+	Started cleaning up code: refactoring and formatters
+	15 minutes
 
 Outstanding Bugs
 
