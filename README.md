@@ -108,3 +108,4 @@ This project uses GitHub actions to automate testing on all pull requests and al
 
 ## Development Log
 
+[log.md](/docs/log.md)
