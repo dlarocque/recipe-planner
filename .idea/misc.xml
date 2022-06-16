@@ -3,16 +3,6 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/3350/recipe-planner/app/src/main/res/layout/activity_main.xml" value="0.33" />
-        <entry key="..\:/3350/recipe-planner/app/src/main/res/layout/bottom_navigation.xml" value="0.2223731884057971" />
-        <entry key="..\:/3350/recipe-planner/app/src/main/res/layout/content_main.xml" value="0.2223731884057971" />
-        <entry key="..\:/3350/recipe-planner/app/src/main/res/layout/fragment_create_recipe.xml" value="0.33" />
-        <entry key="..\:/3350/recipe-planner/app/src/main/res/layout/fragment_meal_schedule.xml" value="0.33" />
-        <entry key="..\:/3350/recipe-planner/app/src/main/res/layout/fragment_recipe_item.xml" value="0.35104166666666664" />
-        <entry key="..\:/3350/recipe-planner/app/src/main/res/layout/fragment_recipe_item_list.xml" value="0.35104166666666664" />
-        <entry key="..\:/3350/recipe-planner/app/src/main/res/layout/fragment_shopping_list.xml" value="0.35104166666666664" />
-        <entry key="..\:/3350/recipe-planner/app/src/main/res/menu/menu_main.xml" value="0.35104166666666664" />
-        <entry key="..\:/3350/recipe-planner/app/src/main/res/menu/navigation_items.xml" value="0.35104166666666664" />
         <entry key="app/src/main/res/drawable/ic_baseline_calendar_today_24.xml" value="0.14" />
         <entry key="app/src/main/res/drawable/sample_food_background.xml" value="0.244" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
@@ -31,7 +21,6 @@
       </map>
     </option>
   </component>
-  <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
