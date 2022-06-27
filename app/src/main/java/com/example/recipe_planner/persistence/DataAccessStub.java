@@ -1,7 +1,9 @@
 package com.example.recipe_planner.persistence;
 
+import com.example.recipe_planner.objects.DaySchedule;
 import com.example.recipe_planner.objects.Ingredient;
 import com.example.recipe_planner.objects.Recipe;
+import com.example.recipe_planner.objects.Schedule;
 import com.example.recipe_planner.objects.measurements.Cup;
 import com.example.recipe_planner.objects.measurements.Gram;
 import com.example.recipe_planner.objects.measurements.Ounce;
@@ -10,6 +12,8 @@ import com.example.recipe_planner.objects.measurements.Teaspoon;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -22,6 +26,7 @@ public class DataAccessStub {
     private final Random random;
     private ArrayList<Recipe> recipes;
     private ArrayList<Recipe> hiddenRecipes;
+    private Schedule schedule;
 
     public DataAccessStub(String dbName) {
         this.dbName = dbName;
@@ -39,6 +44,9 @@ public class DataAccessStub {
         recipes = new ArrayList<>();
         fillRecipes(recipes);
         hiddenRecipes = new ArrayList<>();
+
+        schedule = new Schedule();
+        fillSchedule(schedule);
     }
 
     public Recipe getRecipe(int index) {
@@ -177,7 +185,7 @@ public class DataAccessStub {
                                 new Ingredient("Bread Flour", new Cup(2)),
                                 new Ingredient("Active Yeast", new Teaspoon(3 * HALF)),
                                 new Ingredient("Honey", new Cup(1)) // TODO: Fix to quantity
-                                ));
+                        ));
 
         instructions =
                 "Add to your bread machine per manufacturer instructions.\n"
@@ -236,6 +244,25 @@ public class DataAccessStub {
                         + "7. Savor every bite.";
 
         recipes.add(new Recipe("Heirloom Apple Pie", ingredients, instructions, true));
+    }
+
+    public DaySchedule getDayScheduleOrDefault(Date date) {
+        return this.schedule.getDayScheduleOrDefault(date);
+    }
+
+    public void fillSchedule(Schedule schedule) {
+        DaySchedule daySchedule = new DaySchedule();
+        assert(recipes.size() > 0);
+        Recipe breakfast = recipes.get(0);
+        daySchedule.setBreakfast(breakfast);
+        // Set the sample schedule to be for today's date
+        schedule.setDaySchedule(Calendar.getInstance().getTime(), daySchedule);
+
+        // TODO: Add sample meals for different days
+
+        // TODO: Add duplicate scheduled meals on same day
+
+        // TODO: Add duplicate schedule meals on different days
     }
 
     public String getDbName() {
