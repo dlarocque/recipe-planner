@@ -9,7 +9,7 @@ public class CalendarUtils {
     public static Date selectedDate;
 
     public static String formattedDate(Date date) {
-        return DateFormat.format("EEE, d MMM yyyy", date).toString();
+        return DateFormat.format("EEE, MMM dd", date).toString();
     }
 
     public static Date incrementDay(Date date, int days) {

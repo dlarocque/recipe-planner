@@ -18,4 +18,11 @@
     <string name="meal_schedule">Meal Schedule</string>
     <string name="delete">Delete</string>
     <string name="shopping_list">Shopping List</string>
+    <string name="back"><![CDATA[<-]]></string>
+    <string name="forward"><![CDATA[->]]></string>
+    <string name="breakfast">Breakfast</string>
+    <string name="dinner">Dinner</string>
+    <string name="lunch">Lunch</string>
+    <string name="sample_date">Mon, Jun 27</string>
+    <string name="no_meal_scheduled">No Meal Scheduled</string>
 </resources>
