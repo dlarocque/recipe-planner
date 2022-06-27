@@ -2,6 +2,7 @@ package com.example.recipe_planner.persistence;
 
 import com.example.recipe_planner.objects.Ingredient;
 import com.example.recipe_planner.objects.Recipe;
+import com.example.recipe_planner.objects.measurements.Count;
 import com.example.recipe_planner.objects.measurements.Cup;
 import com.example.recipe_planner.objects.measurements.Gram;
 import com.example.recipe_planner.objects.measurements.Ounce;
@@ -148,10 +149,10 @@ public class DataAccessStub {
                                 new Ingredient("Basil Leaves", new Cup(QUARTER)),
                                 new Ingredient("Olive Oil", new Tablespoon(2)),
                                 new Ingredient(
-                                        "Plum Tomatoes", new Cup(4)), // TODO: Fix to quantity
+                                        "Plum Tomatoes", new Count(4)),
                                 new Ingredient(
                                         "Boneless Skinless Chicken Breast",
-                                        new Cup(4)))); // TODO: Fix to quantity
+                                        new Count(4))));
         String instructions =
                 "After washing basil and tomatoes, blot them dry with clean paper towel.\n"
                         + "\n"
@@ -176,7 +177,7 @@ public class DataAccessStub {
                                 new Ingredient("White Sugar", new Teaspoon(2 * THIRD)),
                                 new Ingredient("Bread Flour", new Cup(2)),
                                 new Ingredient("Active Yeast", new Teaspoon(3 * HALF)),
-                                new Ingredient("Honey", new Cup(1)) // TODO: Fix to quantity
+                                new Ingredient("Honey", new Cup(1))
                                 ));
 
         instructions =
@@ -212,8 +213,8 @@ public class DataAccessStub {
                         Arrays.asList(
                                 new Ingredient(
                                         "Pastry Double Crust Pie",
-                                        new Cup(1)), // TODO: Fix to quantity
-                                new Ingredient("Apple", new Cup(6)), // TODO: Fix to quantity
+                                        new Count(1)),
+                                new Ingredient("Apple", new Count(6)),
                                 new Ingredient("White Sugar", new Cup(THIRD)),
                                 new Ingredient("Brown Sugar", new Cup(THIRD)),
                                 new Ingredient("Flour", new Teaspoon(2)),
