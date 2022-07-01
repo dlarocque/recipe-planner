@@ -16,15 +16,15 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({
-    TestCount.class,
-    TestCup.class,
-    TestGram.class,
-    TestMillilitre.class,
-    TestOunce.class,
-    TestTablespoon.class,
-    TestTeaspoon.class,
-    TestIngredient.class,
-    TestRecipe.class
+        TestCount.class,
+        TestCup.class,
+        TestGram.class,
+        TestMillilitre.class,
+        TestOunce.class,
+        TestTablespoon.class,
+        TestTeaspoon.class,
+        TestIngredient.class,
+        TestRecipe.class
 })
 public class ObjectTestSuite {
     @Before

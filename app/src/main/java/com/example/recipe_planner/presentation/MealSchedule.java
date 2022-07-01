@@ -5,7 +5,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -15,7 +14,6 @@ import com.example.recipe_planner.CalendarUtils;
 import com.example.recipe_planner.R;
 import com.example.recipe_planner.business.AccessSchedule;
 import com.example.recipe_planner.objects.DaySchedule;
-import com.example.recipe_planner.objects.Schedule;
 
 import java.util.Calendar;
 import java.util.Date;

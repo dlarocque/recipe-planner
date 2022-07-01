@@ -252,7 +252,7 @@ public class DataAccessStub {
 
     public void fillSchedule(Schedule schedule) {
         DaySchedule daySchedule = new DaySchedule();
-        assert(recipes.size() > 0);
+        assert (recipes.size() > 0);
         Recipe breakfast = recipes.get(0);
         daySchedule.setBreakfast(breakfast);
         // Set the sample schedule to be for today's date

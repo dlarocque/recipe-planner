@@ -15,7 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.recipe_planner.R;
 import com.example.recipe_planner.business.AccessRecipes;
 
-/** A {@link Fragment} representing a list of Recipes. */
+/**
+ * A {@link Fragment} representing a list of Recipes.
+ */
 public class RecipeList extends Fragment
         implements RecipeRecyclerViewAdapter.OnRecipeClickListener {
 
