@@ -1,5 +1,7 @@
 package com.example.recipe_planner.persistence;
 
+import android.util.Log;
+
 import com.example.recipe_planner.objects.DaySchedule;
 import com.example.recipe_planner.objects.Ingredient;
 import com.example.recipe_planner.objects.Recipe;
@@ -9,6 +11,8 @@ import com.example.recipe_planner.objects.measurements.Gram;
 import com.example.recipe_planner.objects.measurements.Ounce;
 import com.example.recipe_planner.objects.measurements.Tablespoon;
 import com.example.recipe_planner.objects.measurements.Teaspoon;
+import com.example.recipe_planner.presentation.MealSchedule;
+import com.example.recipe_planner.utils.CalendarUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -253,16 +257,22 @@ public class DataAccessStub {
     public void fillSchedule(Schedule schedule) {
         DaySchedule daySchedule = new DaySchedule();
         assert (recipes.size() > 0);
-        Recipe breakfast = recipes.get(0);
-        daySchedule.setBreakfast(breakfast);
+        Recipe first_recipe = recipes.get(0);
+        daySchedule.setBreakfast(first_recipe);
         // Set the sample schedule to be for today's date
         schedule.setDaySchedule(Calendar.getInstance().getTime(), daySchedule);
 
-        // TODO: Add sample meals for different days
+        // Different meal on next day
+        DaySchedule nextDaySchedule = new DaySchedule();
+        Date nextDay = CalendarUtils.incrementDay(Calendar.getInstance().getTime(), MealSchedule.DAY_INCREMENT);
+        Recipe lunch = recipes.get(1);
+        nextDaySchedule.setLunch(lunch);
+        schedule.setDaySchedule(nextDay, nextDaySchedule);
 
-        // TODO: Add duplicate scheduled meals on same day
-
-        // TODO: Add duplicate schedule meals on different days
+        // Same meal on the same day
+        daySchedule.setDinner(first_recipe);
+        // Same meal on different days
+        nextDaySchedule.setDinner(first_recipe);
     }
 
     public String getDbName() {
