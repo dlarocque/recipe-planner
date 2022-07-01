@@ -74,8 +74,7 @@
                     android:layout_width="350dp"
                     android:layout_height="175dp"
                     android:layout_margin="10dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/sample_food" />
+                    android:scaleType="centerCrop" />
 
             </LinearLayout>
 

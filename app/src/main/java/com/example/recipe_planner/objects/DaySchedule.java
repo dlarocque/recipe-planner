@@ -1,5 +1,8 @@
 package com.example.recipe_planner.objects;
 
+/**
+ * A daily schedule that contains a {@link Recipe} for each of breakfast, lunch and dinner.
+ */
 public class DaySchedule {
     private Recipe breakfast;
     private Recipe lunch;
