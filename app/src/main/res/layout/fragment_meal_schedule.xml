@@ -43,13 +43,18 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:layout_margin="15dp">
+            android:layout_margin="15dp"
+            android:elevation="8dp">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:layout_marginStart="13dp"
+                android:layout_marginTop="8dp"
+                android:gravity="start"
                 android:text="@string/breakfast"
-                android:textSize="40sp" />
+                android:textColor="@color/black"
+                android:textSize="35sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -66,8 +71,8 @@
                     android:textAppearance="?attr/textAppearanceHeadline6" />
 
                 <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="350dp"
+                    android:layout_height="175dp"
                     android:layout_margin="10dp"
                     android:scaleType="centerCrop"
                     android:src="@drawable/sample_food" />
@@ -84,8 +89,12 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:layout_marginStart="13dp"
+                android:layout_marginTop="8dp"
+                android:gravity="start"
                 android:text="@string/lunch"
-                android:textSize="40sp" />
+                android:textColor="@color/black"
+                android:textSize="35sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -102,8 +111,8 @@
                     android:textAppearance="?attr/textAppearanceHeadline6" />
 
                 <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="350dp"
+                    android:layout_height="175dp"
                     android:layout_margin="10dp"
                     android:scaleType="centerCrop" />
 
@@ -119,8 +128,12 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:layout_marginStart="13dp"
+                android:layout_marginTop="8dp"
+                android:gravity="start"
                 android:text="@string/dinner"
-                android:textSize="40sp" />
+                android:textColor="@color/black"
+                android:textSize="35sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -137,8 +150,8 @@
                     android:textAppearance="?attr/textAppearanceHeadline6" />
 
                 <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="350dp"
+                    android:layout_height="175dp"
                     android:layout_margin="10dp"
                     android:scaleType="centerCrop" />
 
