@@ -1,7 +1,5 @@
 package com.example.recipe_planner.persistence;
 
-import android.util.Log;
-
 import com.example.recipe_planner.objects.DaySchedule;
 import com.example.recipe_planner.objects.Ingredient;
 import com.example.recipe_planner.objects.Recipe;

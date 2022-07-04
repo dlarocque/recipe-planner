@@ -22,8 +22,8 @@ import java.util.Date;
  * A {@link Fragment} representing a {@link DaySchedule} schedule.
  */
 public class MealSchedule extends Fragment {
-    private final String TAG = this.getClass().getSimpleName();
     public static final int DAY_INCREMENT = 1;
+    private final String TAG = this.getClass().getSimpleName();
     private AccessSchedule accessSchedule;
     private Date selectedDate;
     private TextView dateText;
