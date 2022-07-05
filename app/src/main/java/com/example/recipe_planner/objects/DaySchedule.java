@@ -12,7 +12,9 @@ public class DaySchedule {
     }
 
     public void setMeal(final Meal MEAL, Recipe recipe) {
-        this.meals.put(MEAL, recipe);
+        if (recipe != null) {
+            this.meals.put(MEAL, recipe);
+        }
     }
 
     public String getMealName(final Meal MEAL) {
