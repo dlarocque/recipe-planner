@@ -76,18 +76,18 @@ public class MealSchedule extends Fragment {
         Log.d(TAG, "Updated day schedule to day " + CalendarUtils.formattedDate(selectedDate));
 
         // Display the current recipe name or the default string if there is no recipe scheduled
-        if (daySchedule.breakfastIsScheduled()) {
-            breakfastMealName.setText(accessSchedule.getDayScheduleOrDefault(selectedDate).getBreakfastName());
+        if (daySchedule.mealIsScheduled(DaySchedule.Meal.BREAKFAST)) {
+            breakfastMealName.setText(accessSchedule.getDayScheduleOrDefault(selectedDate).getMealName(DaySchedule.Meal.BREAKFAST));
         } else {
             breakfastMealName.setText(NO_MEAL_SCHEDULED);
         }
-        if (daySchedule.lunchIsScheduled()) {
-            lunchMealName.setText(accessSchedule.getDayScheduleOrDefault(selectedDate).getLunchName());
+        if (daySchedule.mealIsScheduled(DaySchedule.Meal.LUNCH)) {
+            lunchMealName.setText(accessSchedule.getDayScheduleOrDefault(selectedDate).getMealName(DaySchedule.Meal.LUNCH));
         } else {
             lunchMealName.setText(NO_MEAL_SCHEDULED);
         }
-        if (daySchedule.dinnerIsScheduled()) {
-            dinnerMealName.setText(accessSchedule.getDayScheduleOrDefault(selectedDate).getDinnerName());
+        if (daySchedule.mealIsScheduled(DaySchedule.Meal.DINNER)) {
+            dinnerMealName.setText(accessSchedule.getDayScheduleOrDefault(selectedDate).getMealName(DaySchedule.Meal.DINNER));
         } else {
             dinnerMealName.setText(NO_MEAL_SCHEDULED);
         }

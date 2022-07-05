@@ -256,7 +256,7 @@ public class DataAccessStub {
         DaySchedule daySchedule = new DaySchedule();
         assert (recipes.size() > 0);
         Recipe first_recipe = recipes.get(0);
-        daySchedule.setBreakfast(first_recipe);
+        daySchedule.setMeal(DaySchedule.Meal.BREAKFAST, first_recipe);
         // Set the sample schedule to be for today's date
         schedule.setDaySchedule(Calendar.getInstance().getTime(), daySchedule);
 
@@ -264,13 +264,13 @@ public class DataAccessStub {
         DaySchedule nextDaySchedule = new DaySchedule();
         Date nextDay = CalendarUtils.incrementDay(Calendar.getInstance().getTime(), MealSchedule.DAY_INCREMENT);
         Recipe lunch = recipes.get(1);
-        nextDaySchedule.setLunch(lunch);
+        nextDaySchedule.setMeal(DaySchedule.Meal.LUNCH, lunch);
         schedule.setDaySchedule(nextDay, nextDaySchedule);
 
         // Same meal on the same day
-        daySchedule.setDinner(first_recipe);
+        daySchedule.setMeal(DaySchedule.Meal.DINNER, first_recipe);
         // Same meal on different days
-        nextDaySchedule.setDinner(first_recipe);
+        nextDaySchedule.setMeal(DaySchedule.Meal.DINNER, first_recipe);
     }
 
     public String getDbName() {

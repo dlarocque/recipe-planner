@@ -1,56 +1,36 @@
 package com.example.recipe_planner.objects;
 
+import java.util.HashMap;
+
 /**
  * A daily schedule that contains a {@link Recipe} for each of breakfast, lunch and dinner.
  */
 public class DaySchedule {
-    private Recipe breakfast;
-    private Recipe lunch;
-    private Recipe dinner;
+    private final HashMap<Meal, Recipe> meals = new HashMap<>();
 
     public DaySchedule() {
     }
 
-    public DaySchedule(Recipe breakfast, Recipe lunch, Recipe dinner) {
-        this.breakfast = breakfast;
-        this.lunch = lunch;
-        this.dinner = dinner;
+    public void setMeal(final Meal MEAL, Recipe recipe) {
+        this.meals.put(MEAL, recipe);
     }
 
-    public String getBreakfastName() {
-        return breakfast.getName();
+    public String getMealName(final Meal MEAL) {
+        Recipe meal = this.meals.get(MEAL);
+        if (meal == null) {
+            return "";
+        } else {
+            return meal.getName();
+        }
     }
 
-    public void setBreakfast(Recipe breakfast) {
-        this.breakfast = breakfast;
+    public boolean mealIsScheduled(final Meal MEAL) {
+        return this.meals.containsKey(MEAL);
     }
 
-    public String getLunchName() {
-        return lunch.getName();
+    public enum Meal {
+        BREAKFAST,
+        LUNCH,
+        DINNER
     }
-
-    public void setLunch(Recipe lunch) {
-        this.lunch = lunch;
-    }
-
-    public String getDinnerName() {
-        return dinner.getName();
-    }
-
-    public void setDinner(Recipe dinner) {
-        this.dinner = dinner;
-    }
-
-    public boolean breakfastIsScheduled() {
-        return this.breakfast != null;
-    }
-
-    public boolean lunchIsScheduled() {
-        return this.lunch != null;
-    }
-
-    public boolean dinnerIsScheduled() {
-        return this.dinner != null;
-    }
-
 }
