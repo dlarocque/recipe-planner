@@ -12,12 +12,12 @@ import org.junit.runners.Suite.SuiteClasses;
 @SuiteClasses({ObjectTestSuite.class})
 public class AllTests {
     @Before
-    public static void beginTests() {
+    public void beginTests() {
         System.out.println("Running all tests...");
     }
 
     @After
-    public static void completeTests() {
+    public void completeTests() {
         System.out.println("All tests complete!");
     }
 }

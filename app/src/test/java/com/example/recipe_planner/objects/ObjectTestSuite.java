@@ -24,7 +24,9 @@ import org.junit.runners.Suite.SuiteClasses;
         TestTablespoon.class,
         TestTeaspoon.class,
         TestIngredient.class,
-        TestRecipe.class
+        TestRecipe.class,
+        TestDaySchedule.class,
+        TestSchedule.class
 })
 public class ObjectTestSuite {
     @Before
