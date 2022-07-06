@@ -2,6 +2,8 @@ package com.example.recipe_planner.objects;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import com.example.recipe_planner.utils.CalendarUtils;
 
@@ -67,5 +69,19 @@ public class TestSchedule {
         DaySchedule daySchedule = schedule.getDayScheduleOrDefault(today);
         DaySchedule newDaySchedule = schedule.getDayScheduleOrDefault(tomorrow);
         assertNotEquals(daySchedule, newDaySchedule);
+    }
+
+    @Test
+    public void TestDeleteSchedule() {
+        init();
+
+        DaySchedule daySchedule = schedule.getDayScheduleOrDefault(today);
+        schedule.setDaySchedule(today, daySchedule);
+        assertNotNull(schedule.getDayScheduleOrDefault(today));
+        assertEquals(daySchedule ,schedule.getDayScheduleOrDefault(today));
+
+        schedule.setDaySchedule(today, null);
+        assertNotNull(schedule.getDayScheduleOrDefault(today));
+        assertNotEquals(daySchedule, schedule.getDayScheduleOrDefault(today));
     }
 }

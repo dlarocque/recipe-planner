@@ -166,4 +166,18 @@ public class TestDaySchedule {
         assertFalse(daySchedule.mealIsScheduled(DaySchedule.Meal.BREAKFAST));
         assertEquals(daySchedule.getMealName(DaySchedule.Meal.BREAKFAST), "");
     }
+
+    @Test
+    public void TestRescheduleMealNull() {
+        init();
+
+        Recipe meal = firstValidRecipe;
+        daySchedule.setMeal(DaySchedule.Meal.BREAKFAST, meal);
+        assertTrue(daySchedule.mealIsScheduled(DaySchedule.Meal.BREAKFAST));
+        assertEquals(daySchedule.getMealName(DaySchedule.Meal.BREAKFAST), meal.getName());
+
+        daySchedule.setMeal(DaySchedule.Meal.BREAKFAST, null);
+        assertFalse(daySchedule.mealIsScheduled(DaySchedule.Meal.BREAKFAST));
+        assertEquals(daySchedule.getMealName(DaySchedule.Meal.BREAKFAST), "");
+    }
 }
