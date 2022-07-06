@@ -77,17 +77,17 @@ public class MealSchedule extends Fragment {
 
         // Display the current recipe name or the default string if there is no recipe scheduled
         if (daySchedule.mealIsScheduled(DaySchedule.Meal.BREAKFAST)) {
-            breakfastMealName.setText(accessSchedule.getDayScheduleOrDefault(selectedDate).getMealName(DaySchedule.Meal.BREAKFAST));
+            breakfastMealName.setText(daySchedule.getMealName(DaySchedule.Meal.BREAKFAST));
         } else {
             breakfastMealName.setText(NO_MEAL_SCHEDULED);
         }
         if (daySchedule.mealIsScheduled(DaySchedule.Meal.LUNCH)) {
-            lunchMealName.setText(accessSchedule.getDayScheduleOrDefault(selectedDate).getMealName(DaySchedule.Meal.LUNCH));
+            lunchMealName.setText(daySchedule.getMealName(DaySchedule.Meal.LUNCH));
         } else {
             lunchMealName.setText(NO_MEAL_SCHEDULED);
         }
         if (daySchedule.mealIsScheduled(DaySchedule.Meal.DINNER)) {
-            dinnerMealName.setText(accessSchedule.getDayScheduleOrDefault(selectedDate).getMealName(DaySchedule.Meal.DINNER));
+            dinnerMealName.setText(daySchedule.getMealName(DaySchedule.Meal.DINNER));
         } else {
             dinnerMealName.setText(NO_MEAL_SCHEDULED);
         }
