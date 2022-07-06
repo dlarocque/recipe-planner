@@ -12,9 +12,7 @@ public class DaySchedule {
     }
 
     public void setMeal(final Meal MEAL, Recipe recipe) {
-        if (recipe != null) {
-            this.meals.put(MEAL, recipe);
-        }
+        this.meals.put(MEAL, recipe);
     }
 
     public String getMealName(final Meal MEAL) {
@@ -27,7 +25,7 @@ public class DaySchedule {
     }
 
     public boolean mealIsScheduled(final Meal MEAL) {
-        return this.meals.containsKey(MEAL);
+        return this.meals.containsKey(MEAL) && this.meals.get(MEAL) != null;
     }
 
     public enum Meal {
