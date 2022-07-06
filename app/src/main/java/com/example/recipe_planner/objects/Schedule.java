@@ -40,7 +40,7 @@ public class Schedule {
     public DaySchedule getDayScheduleOrDefault(Date date) {
         DaySchedule emptySchedule;
         // Create and return new schedule for day if there is no schedule yet
-        if (!this.schedule.containsKey(dateHash(date))) {
+        if (!this.schedule.containsKey(dateHash(date)) || this.schedule.get(dateHash(date)) == null) {
             emptySchedule = new DaySchedule();
             this.setDaySchedule(date, emptySchedule);
         }
