@@ -30,6 +30,9 @@ public class MealSchedule extends Fragment {
     private TextView breakfastMealName;
     private TextView lunchMealName;
     private TextView dinnerMealName;
+    private ImageButton descheduleBreakfastButton;
+    private ImageButton descheduleLunchButton;
+    private ImageButton descheduleDinnerButton;
 
     public MealSchedule() {
         // Required empty public constructor
@@ -52,22 +55,35 @@ public class MealSchedule extends Fragment {
         breakfastMealName = view.findViewById(R.id.breakfastRecipeName);
         lunchMealName = view.findViewById(R.id.lunchRecipeName);
         dinnerMealName = view.findViewById(R.id.dinnerRecipeName);
+        descheduleBreakfastButton = view.findViewById(R.id.descheduleBreakfastButton);
+        descheduleLunchButton = view.findViewById(R.id.descheduleLunchButton);
+        descheduleDinnerButton = view.findViewById(R.id.descheduleDinnerButton);
+
 
         ImageButton previousDayButton = view.findViewById(R.id.previousDayButton);
         previousDayButton.setOnClickListener(previousDayClick -> {
             incrementDay(-DAY_INCREMENT);
-            updateDaySchedule();
+            updateView();
         });
 
         ImageButton nextDayButton = view.findViewById(R.id.nextDayButton);
         nextDayButton.setOnClickListener(nextDayClick -> {
             incrementDay(DAY_INCREMENT);
-            updateDaySchedule();
+            updateView();
         });
 
+
+        updateView();
+        return view;
+    }
+
+    /**
+     * Update all of the UI elements in the fragment.
+     */
+    private void updateView() {
         updateDate();
         updateDaySchedule();
-        return view;
+        updateDeleteButtons();
     }
 
     private void updateDaySchedule() {
@@ -96,6 +112,33 @@ public class MealSchedule extends Fragment {
     private void updateDate() {
         dateText.setText(CalendarUtils.formattedDate(selectedDate));
         Log.d(TAG, "Updated date to " + CalendarUtils.formattedDate(selectedDate));
+    }
+
+    private void updateDeleteButtons() {
+        DaySchedule daySchedule = accessSchedule.getDayScheduleOrDefault(selectedDate);
+
+        updateDeleteButton(descheduleBreakfastButton, daySchedule, DaySchedule.Meal.BREAKFAST);
+        updateDeleteButton(descheduleLunchButton, daySchedule, DaySchedule.Meal.LUNCH);
+        updateDeleteButton(descheduleDinnerButton, daySchedule, DaySchedule.Meal.DINNER);
+    }
+
+    private void updateDeleteButton(ImageButton deleteButton, DaySchedule daySchedule, final DaySchedule.Meal MEAL) {
+        boolean isEnabled = daySchedule.mealIsScheduled(MEAL);
+        deleteButton.setEnabled(isEnabled);
+        if (isEnabled) {
+            deleteButton.setVisibility(View.VISIBLE);
+        } else {
+            deleteButton.setVisibility(View.INVISIBLE);
+        }
+
+        deleteButton.setOnClickListener(descheduleMeal(daySchedule, MEAL));
+    }
+
+    private View.OnClickListener descheduleMeal(DaySchedule daySchedule, final DaySchedule.Meal MEAL) {
+        return clickListener -> {
+            daySchedule.setMeal(MEAL, null);
+            updateView();
+        };
     }
 
     private void incrementDay(int increment) {

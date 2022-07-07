@@ -78,6 +78,13 @@
 
             </LinearLayout>
 
+            <ImageButton
+                android:id="@+id/descheduleBreakfastButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="bottom"
+                android:background="@drawable/ic_baseline_delete_24" />
+
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
@@ -117,6 +124,13 @@
 
             </LinearLayout>
 
+            <ImageButton
+                android:id="@+id/descheduleLunchButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="bottom"
+                android:background="@drawable/ic_baseline_delete_24" />
+
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
@@ -155,6 +169,13 @@
                     android:scaleType="centerCrop" />
 
             </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/descheduleDinnerButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="bottom"
+                android:background="@drawable/ic_baseline_delete_24" />
 
         </com.google.android.material.card.MaterialCardView>
 
