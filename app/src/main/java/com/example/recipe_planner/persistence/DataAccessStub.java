@@ -27,6 +27,7 @@ public class DataAccessStub implements DataAccess {
     private final String dbType = "stub";
     private ArrayList<Recipe> recipes;
     private ArrayList<Recipe> hiddenRecipes;
+    private ArrayList<DaySchedule> savedDaySchedules;
     private Schedule schedule;
 
     public DataAccessStub(String dbName) {
@@ -43,6 +44,8 @@ public class DataAccessStub implements DataAccess {
         hiddenRecipes = new ArrayList<>();
         schedule = new Schedule();
         fillSchedule(schedule);
+
+        savedDaySchedules = new ArrayList<>();
     }
 
     public void close() {
@@ -250,6 +253,14 @@ public class DataAccessStub implements DataAccess {
         daySchedule.setMeal(DaySchedule.Meal.DINNER, first_recipe);
         // Same meal on different days
         nextDaySchedule.setMeal(DaySchedule.Meal.DINNER, first_recipe);
+    }
+
+    public void saveDaySchedule(DaySchedule daySchedule) {
+        this.savedDaySchedules.add(daySchedule);
+    }
+
+    public ArrayList<DaySchedule> getSavedDaySchedules() {
+        return this.savedDaySchedules;
     }
 
     public String getDbName() {
