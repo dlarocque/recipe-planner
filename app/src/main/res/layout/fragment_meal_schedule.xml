@@ -1,185 +1,205 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_height="780dp">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:gravity="center"
-        android:orientation="horizontal">
-
-        <ImageButton
-            android:id="@+id/previousDayButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/ic_baseline_keyboard_arrow_left_24" />
-
-        <!-- TODO: Update text to a better default string resource-->
-        <TextView
-            android:id="@+id/dateText"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:text="@string/sample_date"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="35sp" />
-
-        <ImageButton
-            android:id="@+id/nextDayButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/ic_baseline_keyboard_arrow_right_24" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="780dp"
         android:orientation="vertical">
 
-        <com.google.android.material.card.MaterialCardView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_margin="15dp"
-            android:elevation="8dp">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:orientation="horizontal">
 
+            <ImageButton
+                android:id="@+id/previousDayButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_baseline_keyboard_arrow_left_24" />
+
+            <!-- TODO: Update text to a better default string resource-->
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginStart="13dp"
-                android:layout_marginTop="8dp"
-                android:gravity="start"
-                android:text="@string/breakfast"
+                android:id="@+id/dateText"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:text="@string/sample_date"
+                android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="35sp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center">
-
-                <TextView
-                    android:id="@+id/breakfastRecipeName"
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/text_margin"
-                    android:gravity="center_horizontal"
-                    android:text="@string/no_meal_scheduled"
-                    android:textAppearance="?attr/textAppearanceHeadline6" />
-
-                <ImageView
-                    android:layout_width="350dp"
-                    android:layout_height="175dp"
-                    android:layout_margin="10dp"
-                    android:scaleType="centerCrop" />
-
-            </LinearLayout>
-
             <ImageButton
-                android:id="@+id/descheduleBreakfastButton"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="bottom"
-                android:background="@drawable/ic_baseline_delete_24" />
+                android:id="@+id/nextDayButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_baseline_keyboard_arrow_right_24" />
 
-        </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
 
-        <com.google.android.material.card.MaterialCardView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_margin="15dp">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <TextView
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginStart="13dp"
-                android:layout_marginTop="8dp"
-                android:gravity="start"
-                android:text="@string/lunch"
-                android:textColor="@color/black"
-                android:textSize="35sp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center">
+                android:layout_height="200dp"
+                android:layout_margin="15dp"
+                android:elevation="8dp">
 
                 <TextView
-                    android:id="@+id/lunchRecipeName"
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/text_margin"
-                    android:gravity="center_horizontal"
-                    android:text="@string/no_meal_scheduled"
-                    android:textAppearance="?attr/textAppearanceHeadline6" />
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="13dp"
+                    android:layout_marginTop="8dp"
+                    android:gravity="start"
+                    android:text="@string/breakfast"
+                    android:textColor="@color/black"
+                    android:textSize="35sp" />
 
-                <ImageView
-                    android:layout_width="350dp"
-                    android:layout_height="175dp"
-                    android:layout_margin="10dp"
-                    android:scaleType="centerCrop" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center">
 
-            </LinearLayout>
+                    <TextView
+                        android:id="@+id/breakfastRecipeName"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/text_margin"
+                        android:gravity="center_horizontal"
+                        android:text="@string/no_meal_scheduled"
+                        android:textAppearance="?attr/textAppearanceHeadline6" />
 
-            <ImageButton
-                android:id="@+id/descheduleLunchButton"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="bottom"
-                android:background="@drawable/ic_baseline_delete_24" />
+                    <ImageView
+                        android:layout_width="350dp"
+                        android:layout_height="175dp"
+                        android:layout_margin="10dp"
+                        android:scaleType="centerCrop" />
 
-        </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
 
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_margin="15dp">
+                <ImageButton
+                    android:id="@+id/descheduleBreakfastButton"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="bottom"
+                    android:background="@drawable/ic_baseline_delete_24" />
 
-            <TextView
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginStart="13dp"
-                android:layout_marginTop="8dp"
-                android:gravity="start"
-                android:text="@string/dinner"
-                android:textColor="@color/black"
-                android:textSize="35sp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center">
+                android:layout_height="200dp"
+                android:layout_margin="15dp">
 
                 <TextView
-                    android:id="@+id/dinnerRecipeName"
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/text_margin"
-                    android:gravity="center_horizontal"
-                    android:text="@string/no_meal_scheduled"
-                    android:textAppearance="?attr/textAppearanceHeadline6" />
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="13dp"
+                    android:layout_marginTop="8dp"
+                    android:gravity="start"
+                    android:text="@string/lunch"
+                    android:textColor="@color/black"
+                    android:textSize="35sp" />
 
-                <ImageView
-                    android:layout_width="350dp"
-                    android:layout_height="175dp"
-                    android:layout_margin="10dp"
-                    android:scaleType="centerCrop" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center">
 
-            </LinearLayout>
+                    <TextView
+                        android:id="@+id/lunchRecipeName"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/text_margin"
+                        android:gravity="center_horizontal"
+                        android:text="@string/no_meal_scheduled"
+                        android:textAppearance="?attr/textAppearanceHeadline6" />
 
-            <ImageButton
-                android:id="@+id/descheduleDinnerButton"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="bottom"
-                android:background="@drawable/ic_baseline_delete_24" />
+                    <ImageView
+                        android:layout_width="350dp"
+                        android:layout_height="175dp"
+                        android:layout_margin="10dp"
+                        android:scaleType="centerCrop" />
 
-        </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
 
+                <ImageButton
+                    android:id="@+id/descheduleLunchButton"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="bottom"
+                    android:background="@drawable/ic_baseline_delete_24" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_margin="15dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="13dp"
+                    android:layout_marginTop="8dp"
+                    android:gravity="start"
+                    android:text="@string/dinner"
+                    android:textColor="@color/black"
+                    android:textSize="35sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/dinnerRecipeName"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/text_margin"
+                        android:gravity="center_horizontal"
+                        android:text="@string/no_meal_scheduled"
+                        android:textAppearance="?attr/textAppearanceHeadline6" />
+
+                    <ImageView
+                        android:layout_width="350dp"
+                        android:layout_height="175dp"
+                        android:layout_margin="10dp"
+                        android:scaleType="centerCrop" />
+
+                </LinearLayout>
+
+                <ImageButton
+                    android:id="@+id/descheduleDinnerButton"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="bottom"
+                    android:background="@drawable/ic_baseline_delete_24" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
 
     </LinearLayout>
 
-</LinearLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/scheduleSaveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="@dimen/fab_margin"
+        android:layout_marginBottom="16dp"
+        android:background="@color/black"
+        android:backgroundTint="@color/white"
+        android:src="@android:drawable/ic_menu_save"
+        app:backgroundTint="#FFFFFF"
+        app:elevation="6dp"
+        app:rippleColor="@color/black" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

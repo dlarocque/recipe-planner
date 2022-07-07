@@ -16,6 +16,7 @@ import com.example.recipe_planner.business.AccessSchedule;
 import com.example.recipe_planner.objects.DaySchedule;
 import com.example.recipe_planner.objects.Recipe;
 import com.example.recipe_planner.utils.CalendarUtils;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -30,6 +31,7 @@ public class MealSchedule extends Fragment {
     private final HashMap<DaySchedule.Meal, TextView> mealTextViews;
     private AccessSchedule accessSchedule;
     private AccessRecipes accessRecipes;
+    private AccessSavedDaySchedules accessSavedDaySchedules;
     private Date selectedDate;
     private TextView dateText;
     private TextView breakfastMealName;
@@ -49,6 +51,7 @@ public class MealSchedule extends Fragment {
         super.onCreate(savedInstanceState);
         accessSchedule = new AccessSchedule();
         accessRecipes = new AccessRecipes();
+        accessSavedDaySchedules = new AccessSavedDaySchedules();
     }
 
     @Override
@@ -70,6 +73,8 @@ public class MealSchedule extends Fragment {
         this.mealTextViews.put(DaySchedule.Meal.LUNCH, lunchMealName);
         this.mealTextViews.put(DaySchedule.Meal.DINNER, dinnerMealName);
 
+        FloatingActionButton scheduleSaveButton = view.findViewById(R.id.scheduleSaveButton);
+
         ImageButton previousDayButton = view.findViewById(R.id.previousDayButton);
         previousDayButton.setOnClickListener(previousDayClick -> {
             incrementDay(-DAY_INCREMENT);
@@ -82,6 +87,7 @@ public class MealSchedule extends Fragment {
             updateView();
         });
 
+        scheduleSaveButton.setOnClickListener(saveSchedule());
 
         updateView();
         return view;
@@ -151,6 +157,18 @@ public class MealSchedule extends Fragment {
         return clickListener -> {
             accessSchedule.descheduleMeal(date, meal);
             updateView();
+        };
+    }
+
+    private View.OnClickListener saveSchedule() {
+        DaySchedule daySchedule = accessSchedule.getDayScheduleOrDefault(selectedDate);
+        return clickListener -> {
+            if (daySchedule.mealIsScheduled(DaySchedule.Meal.BREAKFAST)
+                    || daySchedule.mealIsScheduled(DaySchedule.Meal.LUNCH)
+                    || daySchedule.mealIsScheduled(DaySchedule.Meal.DINNER)) {
+                Log.d(TAG, "Saving schedule");
+                this.accessSavedDaySchedules.saveDaySchedule(daySchedule);
+            }
         };
     }
 
