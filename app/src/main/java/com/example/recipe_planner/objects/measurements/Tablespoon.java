@@ -1,12 +1,23 @@
 package com.example.recipe_planner.objects.measurements;
 
-public class Tablespoon implements IVolume {
-    // see IVolume.java declaration for unit specifics
-    private static final double toTsp = 3;
-    private static final double toMl = 14.78672;
-    private static final double toCup = 0.0625;
+import static java.util.Map.entry;
+
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
+public class Tablespoon implements IConvertibleUnit {
 
     private final double amount;
+
+    private static final Map<Unit, Double> CONVERSION;
+    static {
+        Map<Unit, Double> temp = new HashMap<>();
+        temp.put(Unit.TSP, 3.0);
+        temp.put(Unit.ML, 14.78672);
+        temp.put(Unit.CUP, 0.0625);
+        CONVERSION = Collections.unmodifiableMap(temp);
+    }
 
     public Tablespoon(double amount) {
         this.amount = amount;
@@ -17,22 +28,11 @@ public class Tablespoon implements IVolume {
     }
 
     @Override
-    public double convertToCup() {
-        return this.amount * toCup;
-    }
-
-    @Override
-    public double convertToMl() {
-        return this.amount * toMl;
-    }
-
-    @Override
-    public double convertToTablespoon() {
-        return this.getAmount();
-    }
-
-    @Override
-    public double convertToTeaspoon() {
-        return this.amount * toTsp;
+    public double convertTo(Unit unit) {
+        if (CONVERSION.get(unit) != null) {
+        return this.amount * CONVERSION.get(unit);
+        } else {
+            throw new UnsupportedOperationException("Conversion from Tablespoon to " + unit + "is not supported.");
+        }
     }
 }
