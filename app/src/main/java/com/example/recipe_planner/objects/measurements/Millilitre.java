@@ -1,12 +1,23 @@
 package com.example.recipe_planner.objects.measurements;
 
-public class Millilitre implements IVolume {
-    // see IVolume.java declaration for unit specifics
-    private static final double toTbsp = 0.06762826;
-    private static final double toTsp = 0.2028848;
-    private static final double toCup = 0.004226766249;
+import static java.util.Map.entry;
+
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
+public class Millilitre implements IConvertibleUnit {
 
     private final double amount;
+
+    private static final Map<Unit, Double> CONVERSION;
+    static {
+        Map<Unit, Double> temp = new HashMap<>();
+        temp.put(Unit.TBSP, 0.06762826);
+        temp.put(Unit.TSP, 0.2028848);
+        temp.put(Unit.CUP, 0.004226766249);
+        CONVERSION = Collections.unmodifiableMap(temp);
+    }
 
     public Millilitre(double amount) {
         this.amount = amount;
@@ -17,22 +28,11 @@ public class Millilitre implements IVolume {
     }
 
     @Override
-    public double convertToCup() {
-        return this.amount * toCup;
-    }
-
-    @Override
-    public double convertToMl() {
-        return this.getAmount();
-    }
-
-    @Override
-    public double convertToTablespoon() {
-        return this.amount * toTbsp;
-    }
-
-    @Override
-    public double convertToTeaspoon() {
-        return this.amount * toTsp;
+    public double convertTo(Unit unit) {
+        if (CONVERSION.get(unit) != null) {
+            return this.amount * CONVERSION.get(unit);
+        } else {
+            throw new UnsupportedOperationException("Conversion from Millilitre to " + unit + "is not supported.");
+        }
     }
 }
