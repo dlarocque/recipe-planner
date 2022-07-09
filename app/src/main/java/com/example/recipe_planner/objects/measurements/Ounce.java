@@ -1,21 +1,20 @@
 package com.example.recipe_planner.objects.measurements;
 
-import static java.util.Map.entry;
-
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Ounce implements IConvertibleUnit {
 
-    private final double amount;
-
     private static final Map<Unit, Double> CONVERSION;
+
     static {
         Map<Unit, Double> temp = new HashMap<>();
-        temp.put(Unit.GRAM, 0.03527396);
+        temp.put(Unit.GRAM, 0.0357);
         CONVERSION = Collections.unmodifiableMap(temp);
     }
+
+    private final double amount;
 
     public Ounce(double amount) {
         this.amount = amount;
@@ -31,7 +30,8 @@ public class Ounce implements IConvertibleUnit {
         if (CONVERSION.get(unit) != null) {
             return this.amount * CONVERSION.get(unit);
         } else {
-            throw new UnsupportedOperationException("Conversion from Ounce to " + unit + "is not supported.");
+            throw new UnsupportedOperationException(
+                    "Conversion from Ounce to " + unit + "is not supported.");
         }
     }
 }
