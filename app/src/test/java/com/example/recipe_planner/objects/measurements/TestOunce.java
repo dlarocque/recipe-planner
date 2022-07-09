@@ -1,20 +1,19 @@
 package com.example.recipe_planner.objects.measurements;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
 public class TestOunce {
-    private static final double toGram = 0.03527396;
-
+    /** supported conversions and factors toGram = 0.0357 */
     @Test
     public void testTypicalAmount() {
         double typical = 4;
         Ounce testOunce = new Ounce(typical);
 
         assertEquals(typical, testOunce.getAmount(), 0);
-        assertEquals(typical, testOunce.convertToOunce(), 0);
-        assertEquals(typical * toGram, testOunce.convertToGram(), 0);
+        assertEquals(0.1428, testOunce.convertTo(Unit.GRAM), 0);
     }
 
     @Test
@@ -23,8 +22,7 @@ public class TestOunce {
         Ounce testOunce = new Ounce(negative);
 
         assertEquals(negative, testOunce.getAmount(), 0);
-        assertEquals(negative, testOunce.convertToOunce(), 0);
-        assertEquals(negative * toGram, testOunce.convertToGram(), 0);
+        assertEquals(-0.0714, testOunce.convertTo(Unit.GRAM), 0);
     }
 
     @Test
@@ -32,8 +30,7 @@ public class TestOunce {
         Ounce testOunce = new Ounce(0);
 
         assertEquals(0, testOunce.getAmount(), 0);
-        assertEquals(0, testOunce.convertToOunce(), 0);
-        assertEquals(0, testOunce.convertToGram(), 0);
+        assertEquals(0, testOunce.convertTo(Unit.GRAM), 0);
     }
 
     @Test
@@ -42,7 +39,18 @@ public class TestOunce {
         Ounce testOunce = new Ounce(small);
 
         assertEquals(small, testOunce.getAmount(), 0);
-        assertEquals(small, testOunce.convertToOunce(), 0);
-        assertEquals(small * toGram, testOunce.convertToGram(), 0);
+        assertEquals(0.000714, testOunce.convertTo(Unit.GRAM), 0.0001);
+    }
+
+    @Test
+    public void testInvalidConversion() {
+        double amount = 2.5;
+        Gram testGram = new Gram(amount);
+
+        try {
+            testGram.convertTo(null);
+            fail("expected UnsupportedOperationException");
+        } catch (UnsupportedOperationException e) {
+        }
     }
 }

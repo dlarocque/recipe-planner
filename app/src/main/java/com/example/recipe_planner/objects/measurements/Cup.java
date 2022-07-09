@@ -1,21 +1,18 @@
 package com.example.recipe_planner.objects.measurements;
 
-import static java.util.Map.entry;
-
-import java.util.AbstractMap;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Stream;
 
 public class Cup implements IConvertibleUnit {
 
     private static final Map<Unit, Double> CONVERSION;
+
     static {
         Map<Unit, Double> temp = new HashMap<>();
         temp.put(Unit.TBSP, 16.0);
         temp.put(Unit.TSP, 48.0);
-        temp.put(Unit.ML, 236.5875);
+        temp.put(Unit.ML, 237.0);
         CONVERSION = Collections.unmodifiableMap(temp);
     }
 
@@ -34,7 +31,8 @@ public class Cup implements IConvertibleUnit {
         if (CONVERSION.get(unit) != null) {
             return this.amount * CONVERSION.get(unit);
         } else {
-            throw new UnsupportedOperationException("Conversion from Cup to " + unit + "is not supported.");
+            throw new UnsupportedOperationException(
+                    "Conversion from Cup to " + unit + "is not supported.");
         }
     }
 }

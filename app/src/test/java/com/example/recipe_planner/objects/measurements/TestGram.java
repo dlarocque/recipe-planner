@@ -1,20 +1,19 @@
 package com.example.recipe_planner.objects.measurements;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
 public class TestGram {
-    private static final double toOunce = 28.34952;
-
+    /** supported conversions and factors toOunce = 28 */
     @Test
     public void testTypicalAmount() {
         double typical = 4;
         Gram testGram = new Gram(typical);
 
         assertEquals(typical, testGram.getAmount(), 0);
-        assertEquals(typical, testGram.convertToGram(), 0);
-        assertEquals(typical * toOunce, testGram.convertToOunce(), 0);
+        assertEquals(112, testGram.convertTo(Unit.OUNCE), 0);
     }
 
     @Test
@@ -23,8 +22,7 @@ public class TestGram {
         Gram testGram = new Gram(negative);
 
         assertEquals(negative, testGram.getAmount(), 0);
-        assertEquals(negative, testGram.convertToGram(), 0);
-        assertEquals(negative * toOunce, testGram.convertToOunce(), 0);
+        assertEquals(-56, testGram.convertTo(Unit.OUNCE), 0);
     }
 
     @Test
@@ -32,8 +30,7 @@ public class TestGram {
         Gram testGram = new Gram(0);
 
         assertEquals(0, testGram.getAmount(), 0);
-        assertEquals(0, testGram.convertToGram(), 0);
-        assertEquals(0, testGram.convertToOunce(), 0);
+        assertEquals(0, testGram.convertTo(Unit.OUNCE), 0);
     }
 
     @Test
@@ -42,7 +39,18 @@ public class TestGram {
         Gram testGram = new Gram(small);
 
         assertEquals(small, testGram.getAmount(), 0);
-        assertEquals(small, testGram.convertToGram(), 0);
-        assertEquals(small * toOunce, testGram.convertToOunce(), 0);
+        assertEquals(0.56, testGram.convertTo(Unit.OUNCE), 0);
+    }
+
+    @Test
+    public void testInvalidConversion() {
+        double amount = 2.5;
+        Gram testGram = new Gram(amount);
+
+        try {
+            testGram.convertTo(null);
+            fail("expected UnsupportedOperationException");
+        } catch (UnsupportedOperationException e) {
+        }
     }
 }
