@@ -1,24 +1,19 @@
 package com.example.recipe_planner.objects.measurements;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
 public class TestMillilitre {
-    private static final double toTbsp = 0.06762826;
-    private static final double toTsp = 0.2028848;
-    private static final double toCup = 0.004226766249;
-
+    /** supported conversions and factors toTbsp = 0.0667 toTsp = 0.2 toCup = 0.0042 */
     @Test
     public void testTypicalAmount() {
         double typical = 4;
         Millilitre testMillilitre = new Millilitre(typical);
 
         assertEquals(typical, testMillilitre.getAmount(), 0);
-        assertEquals(typical, testMillilitre.convertToMl(), 0);
-        assertEquals(typical * toTsp, testMillilitre.convertToTeaspoon(), 0);
-        assertEquals(typical * toCup, testMillilitre.convertToCup(), 0);
-        assertEquals(typical * toTbsp, testMillilitre.convertToTablespoon(), 0);
+        assertEquals(0.2668, testMillilitre.convertTo(Unit.TBSP), 0);
     }
 
     @Test
@@ -27,10 +22,7 @@ public class TestMillilitre {
         Millilitre testMillilitre = new Millilitre(negative);
 
         assertEquals(negative, testMillilitre.getAmount(), 0);
-        assertEquals(negative, testMillilitre.convertToMl(), 0);
-        assertEquals(negative * toTsp, testMillilitre.convertToTeaspoon(), 0);
-        assertEquals(negative * toCup, testMillilitre.convertToCup(), 0);
-        assertEquals(negative * toTbsp, testMillilitre.convertToTablespoon(), 0);
+        assertEquals(-0.0084, testMillilitre.convertTo(Unit.CUP), 0);
     }
 
     @Test
@@ -38,10 +30,7 @@ public class TestMillilitre {
         Millilitre testMillilitre = new Millilitre(0);
 
         assertEquals(0, testMillilitre.getAmount(), 0);
-        assertEquals(0, testMillilitre.convertToTablespoon(), 0);
-        assertEquals(0, testMillilitre.convertToTeaspoon(), 0);
-        assertEquals(0, testMillilitre.convertToCup(), 0);
-        assertEquals(0, testMillilitre.convertToMl(), 0);
+        assertEquals(0, testMillilitre.convertTo(Unit.TSP), 0);
     }
 
     @Test
@@ -50,9 +39,18 @@ public class TestMillilitre {
         Millilitre testMillilitre = new Millilitre(small);
 
         assertEquals(small, testMillilitre.getAmount(), 0);
-        assertEquals(small, testMillilitre.convertToMl(), 0);
-        assertEquals(small * toTsp, testMillilitre.convertToTeaspoon(), 0);
-        assertEquals(small * toCup, testMillilitre.convertToCup(), 0);
-        assertEquals(small * toTbsp, testMillilitre.convertToTablespoon(), 0);
+        assertEquals(0.000084, testMillilitre.convertTo(Unit.CUP), 0);
+    }
+
+    @Test
+    public void testInvalidConversion() {
+        double amount = 2.5;
+        Gram testGram = new Gram(amount);
+
+        try {
+            testGram.convertTo(null);
+            fail("expected UnsupportedOperationException");
+        } catch (UnsupportedOperationException e) {
+        }
     }
 }
