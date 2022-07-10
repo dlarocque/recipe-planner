@@ -1,5 +1,7 @@
 package com.example.recipe_planner.persistence;
 
+import android.util.Log;
+
 import com.example.recipe_planner.objects.Ingredient;
 import com.example.recipe_planner.objects.Recipe;
 import com.example.recipe_planner.objects.measurements.Count;
@@ -52,20 +54,13 @@ public class DataAccessDB implements DataAccess{
             st2 = c1.createStatement();
             st3 = c1.createStatement();
 
-            // populate with initial data, if no data is already present
-            rs2 = st1.executeQuery("select * from recipes");
-            if (!rs2.next()) {
-                for ( String script : populateScript) {
-                    System.out.println("executing:\n" + script);
-                    st2.executeQuery(script);
-                }
-            }
+            initData();
         }
-        catch (Exception e)
+        catch (Exception error)
         {
-            processSQLError(e);
+            processSQLError(error);
         }
-        System.out.println("Opened " +dbType +" database " +dbPath);
+        Log.d("OpenDatabase", "Opened " + dbType + " database " + dbPath);
     }
 
     public void close()
@@ -76,11 +71,11 @@ public class DataAccessDB implements DataAccess{
             rs2 = st1.executeQuery(cmdString);
             c1.close();
         }
-        catch (Exception e)
+        catch (Exception error)
         {
-            processSQLError(e);
+            processSQLError(error);
         }
-        System.out.println("Closed " +dbType +" database " +dbName);
+        Log.d("CloseDatabase", "Closed " + dbType + " database " + dbName);
     }
 
     public List<Recipe> getRecipes(){
@@ -170,6 +165,24 @@ public class DataAccessDB implements DataAccess{
         e.printStackTrace();
 
         return result;
+    }
+
+    /**
+     * If no data is present, populate the database with initial data
+     */
+    private void initData() {
+        try {
+            st1 = c1.createStatement();
+
+            rs2 = st1.executeQuery("select * from recipes");
+            if (!rs2.next()) {
+                for ( String script : populateScript) {
+                    st2.executeQuery(script);
+                }
+            }
+        } catch (Exception error) {
+            processSQLError(error);
+        }
     }
 
     /**
