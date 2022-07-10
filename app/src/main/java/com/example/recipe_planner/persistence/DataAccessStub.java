@@ -1,5 +1,7 @@
 package com.example.recipe_planner.persistence;
 
+import android.util.Log;
+
 import com.example.recipe_planner.objects.Ingredient;
 import com.example.recipe_planner.objects.Recipe;
 import com.example.recipe_planner.objects.measurements.Count;
@@ -14,7 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-public class DataAccessStub {
+public class DataAccessStub implements DataAccess {
     private static final double QUARTER = 1.0 / 4.0;
     private static final double THIRD = 1.0 / 3.0;
     private static final double HALF = 1.0 / 2.0;
@@ -27,19 +29,22 @@ public class DataAccessStub {
     public DataAccessStub(String dbName) {
         this.dbName = dbName;
         this.random = new Random();
-        init();
     }
 
     public DataAccessStub() {
         this.dbName = "Recipes";
         this.random = new Random();
-        init();
     }
 
-    public void init() {
+    public void open(String dbPath) {
         recipes = new ArrayList<>();
         fillRecipes(recipes);
         hiddenRecipes = new ArrayList<>();
+        Log.d("OpenDatabase", "Opened " + dbType + " database " + dbName);
+    }
+
+    public void close() {
+        Log.d("ClosedDatabase", "Closed " + dbType +" database " + dbName);
     }
 
     public Recipe getRecipe(int index) {

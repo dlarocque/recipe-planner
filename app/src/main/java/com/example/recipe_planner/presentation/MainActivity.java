@@ -14,6 +14,8 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.recipe_planner.R;
+import com.example.recipe_planner.application.Main;
+import com.example.recipe_planner.application.Services;
 import com.example.recipe_planner.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -38,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
 
         copyDatabaseToDevice();
 
+        Main.startUp();
+
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -50,6 +54,13 @@ public class MainActivity extends AppCompatActivity {
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        Main.shutDown();
     }
 
     @Override

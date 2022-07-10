@@ -54,7 +54,10 @@ public class DataAccessDB implements DataAccess{
             st2 = c1.createStatement();
             st3 = c1.createStatement();
 
-            initData();
+            rs2 = st1.executeQuery("select * from recipes");
+            if (!rs2.next()) {
+                initData();
+            }
         }
         catch (Exception error)
         {
@@ -174,11 +177,8 @@ public class DataAccessDB implements DataAccess{
         try {
             st1 = c1.createStatement();
 
-            rs2 = st1.executeQuery("select * from recipes");
-            if (!rs2.next()) {
-                for ( String script : populateScript) {
-                    st2.executeQuery(script);
-                }
+            for ( String script : populateScript) {
+                st2.executeQuery(script);
             }
         } catch (Exception error) {
             processSQLError(error);
