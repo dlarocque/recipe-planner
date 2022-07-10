@@ -1,6 +1,7 @@
 package com.example.recipe_planner.presentation;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -13,6 +14,8 @@ import android.widget.ImageButton;
 
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.recipe_planner.R;
 import com.example.recipe_planner.application.Services;
@@ -23,6 +26,8 @@ import com.example.recipe_planner.persistence.DataAccessStub;
  * {@link Fragment} that displays a single {@link Recipe}, specifically its name and instructions
  */
 public class RecipeView extends Fragment {
+
+    public static final String RECIPE_POSITION_IN_LIST = "positionInList";
 
     private Recipe recipe;
     private EditText recipeName;
@@ -101,6 +106,18 @@ public class RecipeView extends Fragment {
                     AlertDialog alertDialog = alertDialogBuilder.create();
                     alertDialog.show();
                 });
+        ImageButton editIngredients = view.findViewById(R.id.editIngredients);
+        editIngredients.setOnClickListener(view1 -> {
+            Bundle bundle = new Bundle();
+            bundle.putInt(RECIPE_POSITION_IN_LIST, positionInRecipeList);
+            Navigation.findNavController(view1).navigate(R.id.action_recipeView_to_ingredientEdit, bundle);
+        });
+
+        Context context = view.getContext();
+        RecyclerView recyclerView = view.findViewById(R.id.ingredientList);
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        recyclerView.setAdapter(
+                new IngredientRecyclerViewAdapter(recipe.getIngredients()));
 
         return view;
     }
