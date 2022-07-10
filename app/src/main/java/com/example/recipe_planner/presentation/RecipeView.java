@@ -68,7 +68,7 @@ public class RecipeView extends Fragment {
 
         // Retrieve recipe data to display
         int positionInRecipeList = getArguments().getInt(RecipeList.ARG_POSITION_IN_LIST);
-        this.recipe = dataAccess.getRecipe(positionInRecipeList);
+        this.recipe = dataAccess.getRecipeAt(positionInRecipeList);
         this.recipeName = view.findViewById(R.id.recipe_name_edit);
         this.recipeInstructions = view.findViewById(R.id.recipe_instruction_edit);
 

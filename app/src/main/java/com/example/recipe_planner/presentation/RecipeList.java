@@ -130,7 +130,7 @@ public class RecipeList extends Fragment
             Date scheduledDate = calendar.getTime();
 
             // Get the schedule for the selected date
-            Recipe scheduledRecipe = accessRecipes.getRecipe(bundle.getInt(ARG_POSITION_IN_LIST));
+            Recipe scheduledRecipe = accessRecipes.getRecipeAt(bundle.getInt(ARG_POSITION_IN_LIST));
             DaySchedule selectedDateSchedule = accessSchedule.getDayScheduleOrDefault(scheduledDate);
 
             // Prompt the user to select a meal, and schedule the meal

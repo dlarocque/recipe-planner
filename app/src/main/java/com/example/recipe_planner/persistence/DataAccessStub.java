@@ -51,8 +51,20 @@ public class DataAccessStub {
         fillSchedule(schedule);
     }
 
-    public Recipe getRecipe(int index) {
+    public Recipe getRecipeAt(int index) {
         return recipes.get(index);
+    }
+
+    public Recipe getRecipeWithName(String recipeName) {
+        Recipe recipe = null;
+
+        for (Recipe otherRecipe : recipes) {
+            if (otherRecipe.getName().equals(recipeName)) {
+                recipe = otherRecipe;
+            }
+        }
+
+        return recipe;
     }
 
     public List<Recipe> getRecipes() {

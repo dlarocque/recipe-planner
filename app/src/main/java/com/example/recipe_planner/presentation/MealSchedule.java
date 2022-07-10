@@ -11,12 +11,15 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import com.example.recipe_planner.R;
+import com.example.recipe_planner.business.AccessRecipes;
 import com.example.recipe_planner.business.AccessSchedule;
 import com.example.recipe_planner.objects.DaySchedule;
+import com.example.recipe_planner.objects.Recipe;
 import com.example.recipe_planner.utils.CalendarUtils;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 
 /**
  * A {@link Fragment} representing a {@link DaySchedule} schedule.
@@ -24,7 +27,9 @@ import java.util.Date;
 public class MealSchedule extends Fragment {
     public static final int DAY_INCREMENT = 1;
     private final String TAG = this.getClass().getSimpleName();
+    private final HashMap<DaySchedule.Meal, TextView> mealTextViews;
     private AccessSchedule accessSchedule;
+    private AccessRecipes accessRecipes;
     private Date selectedDate;
     private TextView dateText;
     private TextView breakfastMealName;
@@ -36,12 +41,14 @@ public class MealSchedule extends Fragment {
 
     public MealSchedule() {
         // Required empty public constructor
+        this.mealTextViews = new HashMap<>();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         accessSchedule = new AccessSchedule();
+        accessRecipes = new AccessRecipes();
     }
 
     @Override
@@ -59,6 +66,9 @@ public class MealSchedule extends Fragment {
         descheduleLunchButton = view.findViewById(R.id.descheduleLunchButton);
         descheduleDinnerButton = view.findViewById(R.id.descheduleDinnerButton);
 
+        this.mealTextViews.put(DaySchedule.Meal.BREAKFAST, breakfastMealName);
+        this.mealTextViews.put(DaySchedule.Meal.LUNCH, lunchMealName);
+        this.mealTextViews.put(DaySchedule.Meal.DINNER, dinnerMealName);
 
         ImageButton previousDayButton = view.findViewById(R.id.previousDayButton);
         previousDayButton.setOnClickListener(previousDayClick -> {
@@ -91,22 +101,25 @@ public class MealSchedule extends Fragment {
         final String NO_MEAL_SCHEDULED = "No Meal Scheduled";
         Log.d(TAG, "Updated day schedule to day " + CalendarUtils.formattedDate(selectedDate));
 
-        // Display the current recipe name or the default string if there is no recipe scheduled
-        if (daySchedule.mealIsScheduled(DaySchedule.Meal.BREAKFAST)) {
-            breakfastMealName.setText(daySchedule.getMealName(DaySchedule.Meal.BREAKFAST));
-        } else {
-            breakfastMealName.setText(NO_MEAL_SCHEDULED);
+        Recipe scheduledRecipe;
+        TextView mealTextView;
+
+        // For all meals, display the current recipe name or the default string if there is no recipe scheduled
+        for (DaySchedule.Meal meal : DaySchedule.Meal.values()) {
+            if ((mealTextView = this.mealTextViews.get(meal)) != null) {
+                scheduledRecipe = daySchedule.getMeal(meal);
+                if (recipeExists(scheduledRecipe)) {
+                    mealTextView.setText(scheduledRecipe.getName());
+                } else {
+                    mealTextView.setText(NO_MEAL_SCHEDULED);
+                }
+            }
         }
-        if (daySchedule.mealIsScheduled(DaySchedule.Meal.LUNCH)) {
-            lunchMealName.setText(daySchedule.getMealName(DaySchedule.Meal.LUNCH));
-        } else {
-            lunchMealName.setText(NO_MEAL_SCHEDULED);
-        }
-        if (daySchedule.mealIsScheduled(DaySchedule.Meal.DINNER)) {
-            dinnerMealName.setText(daySchedule.getMealName(DaySchedule.Meal.DINNER));
-        } else {
-            dinnerMealName.setText(NO_MEAL_SCHEDULED);
-        }
+    }
+
+    private boolean recipeExists(Recipe recipe) {
+        return recipe != null
+                && this.accessRecipes.getRecipeWithName(recipe.getName()) != null;
     }
 
     private void updateDate() {
@@ -123,7 +136,7 @@ public class MealSchedule extends Fragment {
     }
 
     private void updateDeleteButton(ImageButton deleteButton, DaySchedule daySchedule, final DaySchedule.Meal MEAL) {
-        boolean isEnabled = daySchedule.mealIsScheduled(MEAL);
+        boolean isEnabled = recipeExists(daySchedule.getMeal(MEAL));
         deleteButton.setEnabled(isEnabled);
         if (isEnabled) {
             deleteButton.setVisibility(View.VISIBLE);

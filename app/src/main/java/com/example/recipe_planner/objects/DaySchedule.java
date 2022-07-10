@@ -15,13 +15,8 @@ public class DaySchedule {
         this.meals.put(MEAL, recipe);
     }
 
-    public String getMealName(final Meal MEAL) {
-        Recipe meal = this.meals.get(MEAL);
-        if (meal == null) {
-            return "";
-        } else {
-            return meal.getName();
-        }
+    public Recipe getMeal(final Meal MEAL) {
+        return this.meals.get(MEAL);
     }
 
     public boolean mealIsScheduled(final Meal MEAL) {

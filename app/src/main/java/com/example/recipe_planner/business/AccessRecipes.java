@@ -13,8 +13,8 @@ public class AccessRecipes {
         dataAccess = Services.getDataAccess();
     }
 
-    public Recipe getRecipe(int index) {
-        return dataAccess.getRecipe(index);
+    public Recipe getRecipeAt(int index) {
+        return dataAccess.getRecipeAt(index);
     }
 
     public List<Recipe> getRecipes() {
@@ -27,6 +27,10 @@ public class AccessRecipes {
 
     public List<Recipe> getRecipesWithIngredientName(String ingredientName) {
         return dataAccess.getRecipesWithIngredientName(ingredientName);
+    }
+
+    public Recipe getRecipeWithName(String recipeName) {
+        return dataAccess.getRecipeWithName(recipeName);
     }
 
     public List<Recipe> getRecipesWithName(String recipeName) {
