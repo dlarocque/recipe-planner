@@ -11,4 +11,9 @@ public class Count implements IUnit {
     public double getAmount() {
         return this.amount;
     }
+
+    @Override
+    public String toString() {
+        return "" + this.amount;
+    }
 }
