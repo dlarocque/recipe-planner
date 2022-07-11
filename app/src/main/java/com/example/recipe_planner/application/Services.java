@@ -8,8 +8,9 @@ import com.example.recipe_planner.persistence.DataAccessStub;
 
 public class Services {
     private static DataAccess dataAccessService = null;
+    private static final String TAG = "Services";
 
-    public static DataAccess createDataAccess(String dbName) {
+    public static DataAccess createDataAccess(String dbName, String dbType) {
         if (dataAccessService == null) {
             dataAccessService = new DataAccessDB(dbName);
             dataAccessService.open(Main.getDBPathName());
@@ -19,7 +20,7 @@ public class Services {
 
     public static DataAccess getDataAccess(String dbName) {
         if (dataAccessService == null) {
-            Log.d("DatabaseConnection", "No connection to database has been established");
+            Log.d(TAG, "No connection to database has been established");
             System.exit(1);
         }
         return dataAccessService;

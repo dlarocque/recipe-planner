@@ -15,7 +15,6 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.recipe_planner.R;
 import com.example.recipe_planner.application.Main;
-import com.example.recipe_planner.application.Services;
 import com.example.recipe_planner.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 

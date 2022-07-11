@@ -1,5 +1,7 @@
 package com.example.recipe_planner.business;
 
+import static org.junit.Assert.assertNotNull;
+
 import com.example.recipe_planner.application.Main;
 import com.example.recipe_planner.objects.Recipe;
 import com.example.recipe_planner.persistence.DataAccess;
@@ -9,10 +11,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class DataAccessTest {
@@ -20,10 +18,10 @@ public class DataAccessTest {
     private DataAccess dataAccess;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         System.out.println("\nStarting Persistence test DataAccess");
 
-         dataAccess = new DataAccessDB("Recipes");
+        dataAccess = new DataAccessDB("Recipes");
         dataAccess.open(Main.getDBPathName());
     }
 
@@ -33,7 +31,7 @@ public class DataAccessTest {
     }
 
     @Test
-    public void testGetDefaults(){
+    public void testGetDefaults() {
         List<Recipe> recipes;
 
         recipes = dataAccess.getRecipes();

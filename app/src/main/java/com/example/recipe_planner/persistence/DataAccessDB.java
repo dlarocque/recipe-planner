@@ -13,220 +13,21 @@ import com.example.recipe_planner.objects.measurements.Ounce;
 import com.example.recipe_planner.objects.measurements.Tablespoon;
 import com.example.recipe_planner.objects.measurements.Teaspoon;
 
-import java.sql.ResultSetMetaData;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.DriverManager;
-import java.sql.SQLWarning;
-import java.sql.DatabaseMetaData;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DataAccessDB implements DataAccess{
-
-    private Statement st1, st2, st3;
-    private Connection c1;
-    private ResultSet rs2, rs3, rs4, rs5;
-
-    private String dbName;
-    private String dbType;
-
-    private String cmdString;
-    private int updateCount;
-    private String result;
-    private static String EOF = "  ";
-
-    public DataAccessDB(String dbName)
-    {
-        this.dbName = dbName;
-    }
-
-    public void open(String dbPath) {
-        String url;
-        try {
-            // Setup for HSQL
-            dbType = "HSQL";
-            Class.forName("org.hsqldb.jdbcDriver").newInstance();
-            url = "jdbc:hsqldb:file:" + dbPath; // stored on disk mode
-            c1 = DriverManager.getConnection(url, "SA", "");
-            st1 = c1.createStatement();
-            st2 = c1.createStatement();
-            st3 = c1.createStatement();
-
-            rs2 = st1.executeQuery("select * from recipes");
-            if (!rs2.next()) {
-                initData();
-            }
-        }
-        catch (Exception error)
-        {
-            processSQLError(error);
-        }
-        //Log.d("OpenDatabase", "Opened " + dbType + " database " + dbPath);
-    }
-
-    public void close()
-    {
-        try
-        {	// commit all changes to the database
-            cmdString = "shutdown compact";
-            rs2 = st1.executeQuery(cmdString);
-            c1.close();
-        }
-        catch (Exception error)
-        {
-            processSQLError(error);
-        }
-        //Log.d("CloseDatabase", "Closed " + dbType + " database " + dbName);
-    }
-
-    public List<Recipe> getRecipes() {
-        ArrayList<Recipe> recipes = null;
-        ArrayList<Ingredient> ingredients = null;
-        String recipeName, instructions, ingredientName;
-        boolean isDefault;
-        int recipeId, ingredientQuantity;
-
-        // get table of recipes
-        try {
-            cmdString = "SELECT * FROM RECIPES";
-            rs2 = st1.executeQuery(cmdString);
-        }
-        catch (Exception error) {
-            processSQLError(error);
-        }
-
-        // build list of recipes
-        try {
-            recipes = new ArrayList<Recipe>();
-            ingredients = new ArrayList<Ingredient>();
-
-            while (rs2.next()) {
-
-                recipeId = rs2.getInt("ID");
-                recipeName = rs2.getString("NAME");
-                instructions = rs2.getString("INSTRUCTIONS");
-                isDefault = rs2.getBoolean("IS_DEFAULT");
-                ingredients = new ArrayList<>(getRecipeIngredients(recipeId));
-
-                Recipe recipe = new Recipe(recipeId, recipeName, ingredients, instructions, isDefault);
-
-                recipes.add(recipe);
-            }
-            rs2.close();
-        }
-        catch (Exception error) {
-            result = processSQLError(error);
-        }
-
-        return recipes;
-    }
-
-    public List<Ingredient> getRecipeIngredients(int recipeId) {
-        ArrayList<Ingredient> ingredients = null;
-        Ingredient ingredient = null;
-        int ingredientId;
-        double quantity;
-        String unit, name;
-
-        // get all ingredients associated with the recipe
-        try {
-            cmdString = "select INGREDIENTID, QUANTITY, UNIT from RECIPEINGREDIENTS where RECIPEID=" + recipeId + ";";
-            rs3 = st1.executeQuery(cmdString);
-        } catch (Exception error) {
-            processSQLError(error);
-        }
-
-        // build the list of ingredients
-        try {
-            ingredients = new ArrayList<Ingredient>();
-
-            while (rs3.next()) {
-                ingredientId = rs3.getInt("INGREDIENTID");
-                quantity = rs3.getDouble("QUANTITY");
-                unit = rs3.getString("UNIT");
-                name = null;
-
-                cmdString = "select (NAME) from INGREDIENTS where ID=" +ingredientId + ";";
-                rs4 = st2.executeQuery(cmdString);
-                if (rs4.next()) {
-                    name = rs4.getString("NAME");
-                }
-
-                ingredient = new Ingredient(name, factory(unit, quantity));
-                ingredients.add(ingredient);
-            }
-
-            rs3.close();
-        } catch (Exception error) {
-            processSQLError(error);
-        }
-        return ingredients;
-    }
-
-    @Override
-    public boolean deleteRecipe(int recipeId) {
-        try {
-            cmdString = "delete from RECIPES where ID=" + recipeId + ";";
-            st1.executeUpdate(cmdString);
-            return true;
-        } catch (Exception error) {
-            processSQLError(error);
-            return false;
-        }
-    }
-
-    private IUnit factory(String unit, double quantity) {
-        IUnit result = null;
-
-        if(unit.equalsIgnoreCase("Cup"))
-            result = new Cup(quantity);
-        else if(unit.equalsIgnoreCase("Count"))
-            result = new Count(quantity);
-        else if(unit.equalsIgnoreCase("Gram"))
-            result = new Gram(quantity);
-        else if(unit.equalsIgnoreCase("Millilitre"))
-            result = new Millilitre(quantity);
-        else if(unit.equalsIgnoreCase("Ounce"))
-            result = new Ounce(quantity);
-        else if(unit.equalsIgnoreCase("Tablespoon"))
-            result = new Tablespoon(quantity);
-        else if(unit.equalsIgnoreCase("Teaspoon"))
-            result = new Teaspoon(quantity);
-
-        return result;
-    }
-
-    public String processSQLError(Exception e)
-    {
-        String result = "*** SQL Error: " + e.getMessage();
-
-        // Remember, this will NOT be seen by the user!
-        e.printStackTrace();
-
-        return result;
-    }
-
-    /**
-     * If no data is present, populate the database with initial data
-     */
-    private void initData() {
-        try {
-            for ( String script : populateScript ) {
-                st1.executeUpdate(script);
-            }
-        } catch (Exception error) {
-            processSQLError(error);
-        }
-    }
+public class DataAccessDB implements DataAccess {
 
     /**
      * this field contains sql script to populate the DB with initial data
      * this exact script inside the Recipes.script file itself was producing errors with keys, so we will do it separately here.
      */
-    private static String[] populateScript = {
+    private static final String[] populateScript = {
             "INSERT INTO RECIPES (ID, NAME, INSTRUCTIONS, IS_DEFAULT) VALUES(NULL, 'Grilled Basil Chicken',\n"
                     + "    'After washing basil and tomatoes, blot them dry with clean paper towel.\n'\n"
                     + "    + '\\n'\n"
@@ -323,4 +124,184 @@ public class DataAccessDB implements DataAccess{
                     + "INSERT INTO RECIPEINGREDIENTS VALUES(3, 21, 1, 'TSP')\n"
                     + "INSERT INTO RECIPEINGREDIENTS VALUES(3, 22, 1, 'TBSP')"
     };
+    private final String TAG = this.getClass().getSimpleName();
+    private Connection connection;
+    private String dbName;
+
+    public DataAccessDB(String dbName) {
+        this.dbName = dbName;
+    }
+
+    public void open(String dbPath) {
+        String url;
+        try {
+            // Setup for HSQL
+            Class.forName("org.hsqldb.jdbcDriver").newInstance();
+            url = "jdbc:hsqldb:file:" + dbPath; // stored on disk mode
+            connection = DriverManager.getConnection(url, "SA", "");
+
+            // TODO: Don't do this
+            ResultSet resultSet = connection.createStatement().executeQuery("SELECT * from recipes");
+            if (!resultSet.next()) {
+                initData();
+            }
+        } catch (SQLException | ClassNotFoundException | IllegalAccessException | InstantiationException exception) {
+            Log.e(TAG, "Failed to open HSQLDB");
+            exception.printStackTrace();
+        }
+        Log.i(TAG, "Successfully opened HSQLDB database at " + dbPath);
+    }
+
+    public void close() {
+        try {
+            // Commit all changes to the database
+            Statement statement = connection.createStatement();
+            statement.executeQuery("SHUTDOWN COMPACT");
+            connection.close();
+        } catch (SQLException sqlException) {
+            Log.e(TAG, "Failed to close HSQLDB");
+            sqlException.printStackTrace();
+        }
+        Log.i(TAG, "Closed HSQLDB database");
+    }
+
+    @Override
+    public List<Recipe> getRecipes() {
+        ArrayList<Recipe> recipes = new ArrayList<>();
+        ArrayList<Ingredient> ingredients;
+        int recipeId;
+        String recipeName, instructions;
+        boolean isDefault;
+        Statement statement;
+        ResultSet allRecipes;
+
+        // Build list of recipes
+        try {
+            // Get all recipes
+            statement = connection.createStatement();
+            allRecipes = statement.executeQuery("SELECT * FROM RECIPES");
+
+            while (allRecipes.next()) {
+                // Get all the components of a recipe, create a recipe, and add it to our list of recipes
+                recipeId = allRecipes.getInt("ID");
+                recipeName = allRecipes.getString("NAME");
+                instructions = allRecipes.getString("INSTRUCTIONS");
+                isDefault = allRecipes.getBoolean("IS_DEFAULT");
+                ingredients = new ArrayList<>(getRecipeIngredients(recipeId));
+
+                Recipe recipe = new Recipe(recipeId, recipeName, ingredients, instructions, isDefault);
+                recipes.add(recipe);
+            }
+
+            allRecipes.close();
+            statement.close();
+        } catch (SQLException sqlException) {
+            Log.e(TAG, "Failed to get all recipes from HSQLDB");
+            sqlException.printStackTrace();
+        }
+
+        return recipes;
+    }
+
+    @Override
+    public List<Ingredient> getRecipeIngredients(int recipeId) {
+        ArrayList<Ingredient> ingredients = null;
+        Ingredient ingredient;
+        int ingredientId;
+        double quantity;
+        String unit, name;
+        Statement statement;
+        ResultSet recipeIngredients, ingredientName;
+
+        // Build the list of ingredients
+        try {
+            statement = connection.createStatement();
+            recipeIngredients = statement.executeQuery("SELECT INGREDIENTID, QUANTITY, UNIT FROM RECIPEINGREDIENTS WHERE RECIPEID=" + recipeId + ";");
+
+            ingredients = new ArrayList<>();
+            while (recipeIngredients.next()) {
+                ingredientId = recipeIngredients.getInt("INGREDIENTID");
+                quantity = recipeIngredients.getDouble("QUANTITY");
+                unit = recipeIngredients.getString("UNIT");
+                name = null;
+
+                ingredientName = statement.executeQuery("SELECT NAME FROM INGREDIENTS WHERE ID=" + ingredientId + ";");
+                if (ingredientName.next()) {
+                    name = ingredientName.getString("NAME");
+                } else {
+                    Log.w(TAG, "Ingredient name for id " + ingredientId + " was not found in database");
+                }
+
+                ingredient = new Ingredient(name, createUnit(unit, quantity)); // name can be NULL
+                ingredients.add(ingredient);
+            }
+
+            recipeIngredients.close();
+        } catch (SQLException sqlException) {
+            Log.e(TAG, "Failed to retrieve ingredients for recipe with id " + recipeId);
+            sqlException.printStackTrace();
+        }
+
+        return ingredients;
+    }
+
+    @Override
+    public boolean deleteRecipe(int recipeId) {
+        Statement statement;
+        try {
+            statement = connection.createStatement();
+            statement.executeUpdate("DELETE FROM RECIPES WHERE ID=" + recipeId + ";");
+            statement.close();
+            return true;
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+            return false;
+        }
+    }
+
+    private IUnit createUnit(String unit, double quantity) {
+        IUnit result = null;
+
+        switch (unit) {
+            case "Cup":
+                result = new Cup(quantity);
+                break;
+            case "Count":
+                result = new Count(quantity);
+                break;
+            case "Gram":
+                result = new Gram(quantity);
+                break;
+            case "Mililitre":
+                result = new Millilitre(quantity);
+                break;
+            case "Ounce":
+                result = new Ounce(quantity);
+                break;
+            case "Tablespoon":
+                result = new Tablespoon(quantity);
+                break;
+            case "Teaspoon":
+                result = new Teaspoon(quantity);
+                break;
+        }
+
+        return result;
+    }
+
+    /**
+     * If no data is present, populate the database with initial data
+     */
+    private void initData() {
+        Statement statement;
+
+        try {
+            statement = connection.createStatement();
+            for (String script : populateScript) {
+                statement.executeUpdate(script);
+            }
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+        }
+    }
 }

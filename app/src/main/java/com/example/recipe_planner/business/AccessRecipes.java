@@ -19,7 +19,9 @@ public class AccessRecipes {
         return dataAccess.getRecipes();
     }
 
-    public List<Ingredient> getRecipeIngredients(int recipeId) { return dataAccess.getRecipeIngredients(recipeId); }
+    public List<Ingredient> getRecipeIngredients(int recipeId) {
+        return dataAccess.getRecipeIngredients(recipeId);
+    }
 
     public void deleteRecipe(int recipeId) {
         dataAccess.deleteRecipe(recipeId);

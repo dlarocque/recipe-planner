@@ -62,5 +62,7 @@ public class Recipe {
         return this.isDefault;
     }
 
-    public int getId() { return this.id; }
+    public int getId() {
+        return this.id;
+    }
 }
