@@ -6,9 +6,9 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import com.example.recipe_planner.objects.measurements.Cup;
-import com.example.recipe_planner.objects.measurements.Gram;
-import com.example.recipe_planner.objects.measurements.Millilitre;
+import com.example.recipe_planner.objects.measurements.ConvertibleUnit;
+import com.example.recipe_planner.objects.measurements.Count;
+import com.example.recipe_planner.objects.measurements.Unit;
 
 import org.junit.Test;
 
@@ -23,9 +23,9 @@ public class TestRecipe {
         ArrayList<Ingredient> list =
                 new ArrayList<>(
                         Arrays.asList(
-                                new Ingredient("chili peppers", new Cup(0.5)),
-                                new Ingredient("cheddar", new Gram(400)),
-                                new Ingredient("ketchup", new Cup(4))));
+                                new Ingredient("chili peppers", new Count(0.5)),
+                                new Ingredient("cheddar", new ConvertibleUnit(Unit.GRAM, 400)),
+                                new Ingredient("ketchup", new ConvertibleUnit(Unit.CUP, 4))));
         Recipe typical = new Recipe(0, name, list, instructions);
 
         assertEquals(0, typical.getId());
@@ -42,14 +42,14 @@ public class TestRecipe {
         ArrayList<Ingredient> list =
                 new ArrayList<>(
                         Arrays.asList(
-                                new Ingredient("McDonald's Chicken Nuggets", new Gram(400)),
-                                new Ingredient("Pickle Juice", new Millilitre(250)),
-                                new Ingredient("Gravy", new Cup(3.5))));
+                                new Ingredient("McDonald's Chicken Nuggets", new Count(400)),
+                                new Ingredient("Pickle Juice", new ConvertibleUnit(Unit.ML, 250)),
+                                new Ingredient("Gravy", new ConvertibleUnit(Unit.CUP, 3.5))));
         Recipe typical = new Recipe(0, name, list, instructions, true);
 
         assertEquals(list, typical.getIngredients());
 
-        Ingredient added = new Ingredient("shrimp", new Gram(300));
+        Ingredient added = new Ingredient("shrimp", new ConvertibleUnit(Unit.GRAM, 300));
         list.add(added);
         typical.addIngredient(added);
 
@@ -110,7 +110,7 @@ public class TestRecipe {
 
         assertEquals(0, empty.getIngredients().size());
 
-        Ingredient added = new Ingredient("", new Gram(0));
+        Ingredient added = new Ingredient("", new ConvertibleUnit(Unit.GRAM, 0));
         empty.addIngredient(added);
 
         assertEquals(1, empty.getIngredients().size());
