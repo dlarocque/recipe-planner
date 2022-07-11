@@ -10,6 +10,11 @@ public class ConvertibleUnit implements IConvertibleUnit {
 
     private static final Map<Unit, HashMap> CONVERSION;
 
+    /**
+     * Initialize the conversion values. We opted for a single-class hierarchy based
+     * on feedback, and decided to store conversion values statically within the class
+     * to avoid tightly coupling our domain objects and database.
+     */
     static {
         Map<Unit, HashMap> parent = new HashMap<>();
         Map<Unit, Double> cup = new HashMap<>();
@@ -19,7 +24,7 @@ public class ConvertibleUnit implements IConvertibleUnit {
         parent.put(Unit.CUP, new HashMap<>(Collections.unmodifiableMap(cup)));
 
         Map<Unit, Double> gram = new HashMap<>();
-        gram.put(Unit.OUNCE, 28.0);
+        gram.put(Unit.OUNCE, 0.0357);
         parent.put(Unit.GRAM, new HashMap<>(Collections.unmodifiableMap(gram)));
 
         Map<Unit, Double> millilitre = new HashMap<>();
@@ -29,7 +34,7 @@ public class ConvertibleUnit implements IConvertibleUnit {
         parent.put(Unit.ML, new HashMap<>(Collections.unmodifiableMap(millilitre)));
 
         Map<Unit, Double> ounce = new HashMap<>();
-        ounce.put(Unit.GRAM, 0.0357);
+        ounce.put(Unit.GRAM, 28.0);
         parent.put(Unit.OUNCE, new HashMap<>(Collections.unmodifiableMap(ounce)));
 
         Map<Unit, Double> tablespoon = new HashMap<>();
@@ -58,6 +63,9 @@ public class ConvertibleUnit implements IConvertibleUnit {
     }
 
     @Override
+    public Unit getUnit() { return this.unit; }
+
+    @Override
     public double convertTo(Unit newUnit) {
         // 1. grab conversion factor, update amount
         if (CONVERSION.containsKey(this.unit)) {
@@ -68,6 +76,15 @@ public class ConvertibleUnit implements IConvertibleUnit {
                 return this.amount;
             }
         }
-        throw new UnsupportedOperationException("Conversion not supported from " + unit.toString() + " to " + newUnit.toString());
+        throw new UnsupportedOperationException("Conversion not supported");
+    }
+
+    @Override
+    public String toString() {
+        try {
+            return this.amount + " " + this.unit.toString();
+        } catch (NullPointerException invalidUnit) {
+            return this.amount + " [invalid unit]";
+        }
     }
 }

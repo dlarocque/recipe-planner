@@ -9,7 +9,6 @@ package com.example.recipe_planner.objects.measurements;
  *   Ounce is US Ounce (1/16th pound)
  */
 public enum Unit {
-    COUNT,
     CUP,
     GRAM,
     ML,
