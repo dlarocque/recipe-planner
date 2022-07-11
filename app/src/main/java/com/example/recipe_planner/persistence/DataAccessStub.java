@@ -47,96 +47,30 @@ public class DataAccessStub implements DataAccess {
         Log.d("ClosedDatabase", "Closed " + dbType +" database " + dbName);
     }
 
-    public Recipe getRecipe(int index) {
-        return recipes.get(index);
-    }
-
     public List<Recipe> getRecipes() {
         return recipes;
     }
 
-    public Recipe getRandomRecipe() {
-        return recipes.get(random.nextInt(recipes.size()));
-    }
-
-    public List<Recipe> getRecipesWithIngredientName(String ingredientName) {
-        ArrayList<Recipe> recipesWithIngredientName = new ArrayList<>();
-        for (Recipe recipe : recipes) {
-            for (Ingredient ingredient : recipe.getIngredients()) {
-                if (ingredient.getName().equals(ingredientName)) {
-                    recipesWithIngredientName.add(recipe);
-                    break;
-                }
-            }
-        }
-
-        return recipesWithIngredientName;
-    }
-
-    public List<Recipe> getRecipesWithName(String recipeName) {
-        ArrayList<Recipe> recipesWithName = new ArrayList<>();
-        for (Recipe recipe : recipes) {
-            if (recipe.getName().equals(recipeName)) recipesWithName.add(recipe);
-        }
-
-        return recipesWithName;
-    }
-
-    public ArrayList<Ingredient> getIngredientsFromRecipe(String recipeName) {
+    public ArrayList<Ingredient> getRecipeIngredients(int recipeId) {
         ArrayList<Ingredient> recipeIngredients = new ArrayList<>();
         for (Recipe recipe : recipes) {
-            if (recipe.getName().equals(recipeName)) {
+            if (recipe.getId() == recipeId) {
                 recipeIngredients.addAll(recipe.getIngredients());
             }
         }
         return recipeIngredients;
     }
 
-    public String getRecipeInstructions(String recipeName) {
-        String instructions = "";
-        for (Recipe recipe : recipes) {
-            if (recipe.getName().equals(recipeName)) {
-                instructions = instructions + (recipe.getInstructions());
-                break;
-            }
-        }
-        return instructions;
-    }
-
-    public void setRecipeInstructions(String editInstructions, String recipeName) {
-        for (Recipe recipe : recipes) {
-            if (recipe.getName().equals(recipeName)) {
-                recipe.setInstructions(editInstructions);
-                break;
-            }
-        }
-    }
-
-    public void setRecipeName(String recipeName, String editRecipe) {
-        for (Recipe recipe : recipes) {
-            if (recipe.getName().equals(recipeName)) {
-                recipe.setName(editRecipe);
-                break;
-            }
-        }
-    }
-
-    public void insertRecipe(Recipe recipe) {
-        recipes.add(recipe);
-    }
-
-    // Returns true if recipes is changed as a result of this call
-    public boolean insertRecipes(List<Recipe> newRecipes) {
-        return recipes.addAll(newRecipes);
-    }
-
     // Returns true if the recipe exists in recipes.
-    public boolean deleteRecipe(Recipe recipe) {
-        if (recipes.remove(recipe)) {
-            if (recipe.isDefault()) {
-                hiddenRecipes.add(recipe);
+    public boolean deleteRecipe(int recipeId) {
+        for (int i = 0; i < recipes.size(); i++) {
+            if (recipes.get(i).getId() == recipeId) {
+                if (recipes.get(i).isDefault()) {
+                    hiddenRecipes.add(recipes.get(i));
+                }
+                recipes.remove(i);
+                return true;
             }
-            return true;
         }
         return false;
     }
@@ -170,7 +104,7 @@ public class DataAccessStub implements DataAccess {
                         + "orange quote icon Wash hands with soap and water after handling uncooked chicken.\n"
                         + "\n"
                         + "Place chicken on an oiled grill rack over medium heat. Do not reuse marinades used on raw foods. Grill chicken 4-6 minutes per side. Cook until internal temperature reaches 165 °F as measured with a food thermometer. ";
-        recipes.add(new Recipe("Grilled Basil Chicken", ingredients, instructions, true));
+        recipes.add(new Recipe(0, "Grilled Basil Chicken", ingredients, instructions, true));
 
         ingredients =
                 new ArrayList<>(
@@ -189,7 +123,7 @@ public class DataAccessStub implements DataAccess {
                 "Add to your bread machine per manufacturer instructions.\n"
                         + "While bread is baking drizzle with honey if desired.";
 
-        recipes.add(new Recipe("Sweet Honey French Bread", ingredients, instructions, true));
+        recipes.add(new Recipe(1, "Sweet Honey French Bread", ingredients, instructions, true));
 
         ingredients =
                 new ArrayList<>(
@@ -211,7 +145,7 @@ public class DataAccessStub implements DataAccess {
                         + "\n"
                         + "Salt and pepper to taste.";
 
-        recipes.add(new Recipe("Crushed Heirloom Potatoes", ingredients, instructions, true));
+        recipes.add(new Recipe(2, "Crushed Heirloom Potatoes", ingredients, instructions, true));
 
         ingredients =
                 new ArrayList<>(
@@ -241,7 +175,7 @@ public class DataAccessStub implements DataAccess {
                         + "\n"
                         + "7. Savor every bite.";
 
-        recipes.add(new Recipe("Heirloom Apple Pie", ingredients, instructions, true));
+        recipes.add(new Recipe(3, "Heirloom Apple Pie", ingredients, instructions, true));
     }
 
     public String getDbName() {

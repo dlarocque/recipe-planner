@@ -64,7 +64,7 @@ public class DataAccessDB implements DataAccess{
         {
             processSQLError(error);
         }
-        Log.d("OpenDatabase", "Opened " + dbType + " database " + dbPath);
+        //Log.d("OpenDatabase", "Opened " + dbType + " database " + dbPath);
     }
 
     public void close()
@@ -79,7 +79,7 @@ public class DataAccessDB implements DataAccess{
         {
             processSQLError(error);
         }
-        Log.d("CloseDatabase", "Closed " + dbType + " database " + dbName);
+        //Log.d("CloseDatabase", "Closed " + dbType + " database " + dbName);
     }
 
     public List<Recipe> getRecipes() {
@@ -133,7 +133,7 @@ public class DataAccessDB implements DataAccess{
 
         // get all ingredients associated with the recipe
         try {
-            cmdString = "select (INGREDIENTID, QUANTITY, UNIT) from RECIPEINGREDIENTS where RECIPEID=" + recipeId + ";";
+            cmdString = "select INGREDIENTID, QUANTITY, UNIT from RECIPEINGREDIENTS where RECIPEID=" + recipeId + ";";
             rs2 = st1.executeQuery(cmdString);
         } catch (Exception error) {
             processSQLError(error);
@@ -164,6 +164,12 @@ public class DataAccessDB implements DataAccess{
             processSQLError(error);
         }
         return ingredients;
+    }
+
+    @Override
+    public boolean deleteRecipe(int recipeId) {
+        // placeholder
+        return false;
     }
 
     private IUnit factory(String unit, double quantity) {

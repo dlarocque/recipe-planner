@@ -2,6 +2,7 @@ package com.example.recipe_planner.presentation;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.recipe_planner.R;
 import com.example.recipe_planner.business.AccessRecipes;
+import com.example.recipe_planner.objects.Recipe;
+
+import java.util.ArrayList;
 
 /** A {@link Fragment} representing a list of Recipes. */
 public class RecipeList extends Fragment
@@ -52,7 +56,7 @@ public class RecipeList extends Fragment
             RecyclerView recyclerView = (RecyclerView) view;
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
             recyclerView.setAdapter(
-                    new RecipeRecyclerViewAdapter(accessRecipes.getRecipes(), this));
+                    new RecipeRecyclerViewAdapter(this.accessRecipes.getRecipes(), this));
         }
         return view;
     }
