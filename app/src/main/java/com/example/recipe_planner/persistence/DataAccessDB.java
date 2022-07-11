@@ -14,6 +14,7 @@ import com.example.recipe_planner.objects.measurements.Tablespoon;
 import com.example.recipe_planner.objects.measurements.Teaspoon;
 
 import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -81,65 +82,91 @@ public class DataAccessDB implements DataAccess{
         Log.d("CloseDatabase", "Closed " + dbType + " database " + dbName);
     }
 
-    public List<Recipe> getRecipes(){
+    public List<Recipe> getRecipes() {
         ArrayList<Recipe> recipes = null;
         ArrayList<Ingredient> ingredients = null;
-        String recipe_name, instructions, ingredient_name, unit;
-        float quantity;
+        String recipeName, instructions, ingredientName;
         boolean isDefault;
+        int recipeId, ingredientQuantity;
 
+        // get table of recipes
         try {
-//            cmdString = "SELECT " +
-//                    "RECIPES.NAME as RECIPENAME," +
-//                    "RECIPES.INSTRUCTIONS," +
-//                    "RECIPEINGREDIENTS.NAME as INGREDIENTNAME," +
-//                    "RECIPEINGREDIENTS.QUANTITY," +
-//                    "RECIPEINGREDIENTS.UNIT " +
-//                    "FROM RECIPES " +
-//                    "LEFT JOIN RECIPEINGREDIENTS ON " +
-//                    "RECIPES.ID = RECIPEINGREDIENTS.RECIPE";
             cmdString = "SELECT * FROM RECIPES";
-            System.out.println(cmdString);
             rs2 = st1.executeQuery(cmdString);
-            c1.close();
         }
-        catch (Exception e)
-        {
-            processSQLError(e);
+        catch (Exception error) {
+            processSQLError(error);
         }
 
-        try
-        {
+        // build list of recipes
+        try {
             recipes = new ArrayList<Recipe>();
             ingredients = new ArrayList<Ingredient>();
 
-            while (rs2.next())
-            {
-                recipe_name = rs2.getString("NAME");
+            while (rs2.next()) {
+
+                recipeId = rs2.getInt("ID");
+                recipeName = rs2.getString("NAME");
                 instructions = rs2.getString("INSTRUCTIONS");
-                ingredient_name = rs2.getString("INGREDIENTNAME");
-                unit = rs2.getString("UNIT");
-                quantity = rs2.getFloat("QUANTITY");
+                isDefault = rs2.getBoolean("IS_DEFAULT");
+                ingredients = new ArrayList<>(getRecipeIngredients(recipeId));
 
-                Ingredient i = new Ingredient(ingredient_name, factory(unit, quantity));
-
-                ingredients.add(i);
-
-                Recipe recipe = new Recipe(recipe_name, ingredients, instructions);
+                Recipe recipe = new Recipe(recipeId, recipeName, ingredients, instructions, isDefault);
 
                 recipes.add(recipe);
             }
             rs2.close();
         }
-        catch (Exception e)
-        {
-            result = processSQLError(e);
+        catch (Exception error) {
+            result = processSQLError(error);
         }
 
         return recipes;
     }
 
-    private IUnit factory(String unit, float quantity){
+    public List<Ingredient> getRecipeIngredients(int recipeId) {
+        ArrayList<Ingredient> ingredients = null;
+        Ingredient ingredient = null;
+        int ingredientId;
+        double quantity;
+        String unit, name;
+
+        // get all ingredients associated with the recipe
+        try {
+            cmdString = "select (INGREDIENTID, QUANTITY, UNIT) from RECIPEINGREDIENTS where RECIPEID=" + recipeId + ";";
+            rs2 = st1.executeQuery(cmdString);
+        } catch (Exception error) {
+            processSQLError(error);
+        }
+
+        // build the list of ingredients
+        try {
+            ingredients = new ArrayList<Ingredient>();
+
+            while (rs2.next()) {
+                ingredientId = rs2.getInt("INGREDIENTID");
+                quantity = rs2.getDouble("QUANTITY");
+                unit = rs2.getString("UNIT");
+                name = null;
+
+                cmdString = "select (NAME) from INGREDIENTS where ID=" +ingredientId + ";";
+                rs3 = st1.executeQuery(cmdString);
+                if (rs3.next()) {
+                    name = rs3.getString("NAME");
+                }
+
+                ingredient = new Ingredient(name, factory(unit, quantity));
+                ingredients.add(ingredient);
+            }
+
+            rs2.close();
+        } catch (Exception error) {
+            processSQLError(error);
+        }
+        return ingredients;
+    }
+
+    private IUnit factory(String unit, double quantity) {
         IUnit result = null;
 
         if(unit.equalsIgnoreCase("Cup"))

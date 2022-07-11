@@ -5,7 +5,7 @@ package com.example.recipe_planner.application;
  * In the future, this facilitates adding a CLI version of the app
  */
 public class Main {
-    private static final String dbName = "Recipes";
+    public static final String dbName = "Recipes";
     private static String dbPathName = "database/Recipes";
 
     public static void startUp() {
