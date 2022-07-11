@@ -5,15 +5,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ConvertibleUnit implements IConvertibleUnit {
-    private double amount;
-    private Unit unit;
-
     private static final Map<Unit, HashMap> CONVERSION;
 
     /**
-     * Initialize the conversion values. We opted for a single-class hierarchy based
-     * on feedback, and decided to store conversion values statically within the class
-     * to avoid tightly coupling our domain objects and database.
+     * Initialize the conversion values. We opted for a single-class hierarchy based on feedback,
+     * and decided to store conversion values statically within the class to avoid tightly coupling
+     * our domain objects and database.
      */
     static {
         Map<Unit, HashMap> parent = new HashMap<>();
@@ -52,6 +49,9 @@ public class ConvertibleUnit implements IConvertibleUnit {
         CONVERSION = Collections.unmodifiableMap(parent);
     }
 
+    private double amount;
+    private Unit unit;
+
     public ConvertibleUnit(Unit unit, double amount) {
         this.amount = amount;
         this.unit = unit;
@@ -63,7 +63,9 @@ public class ConvertibleUnit implements IConvertibleUnit {
     }
 
     @Override
-    public Unit getUnit() { return this.unit; }
+    public Unit getUnit() {
+        return this.unit;
+    }
 
     @Override
     public double convertTo(Unit newUnit) {
