@@ -22,18 +22,15 @@ public class DataAccessStub implements DataAccess {
     private static final double HALF = 1.0 / 2.0;
     private final String dbName;
     private final String dbType = "stub";
-    private final Random random;
     private ArrayList<Recipe> recipes;
     private ArrayList<Recipe> hiddenRecipes;
 
     public DataAccessStub(String dbName) {
         this.dbName = dbName;
-        this.random = new Random();
     }
 
     public DataAccessStub() {
         this.dbName = "Recipes";
-        this.random = new Random();
     }
 
     public void open(String dbPath) {

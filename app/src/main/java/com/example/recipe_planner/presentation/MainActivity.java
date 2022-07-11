@@ -109,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
 
             copyAssetsToDirectory(assetNames, dataDirectory);
 
+            Main.setDBPathName(dataDirectory.toString() + "/" + Main.dbName);
         } catch (IOException ioe) {
             Log.d("CopyDatabase", "Copying database resulted in IOException: " + ioe.getMessage());
         }

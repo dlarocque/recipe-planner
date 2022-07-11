@@ -3,6 +3,7 @@ package com.example.recipe_planner.application;
 import android.util.Log;
 
 import com.example.recipe_planner.persistence.DataAccess;
+import com.example.recipe_planner.persistence.DataAccessDB;
 import com.example.recipe_planner.persistence.DataAccessStub;
 
 public class Services {
@@ -10,8 +11,8 @@ public class Services {
 
     public static DataAccess createDataAccess(String dbName) {
         if (dataAccessService == null) {
-            dataAccessService = new DataAccessStub(dbName);
-            dataAccessService.open(dbName);
+            dataAccessService = new DataAccessDB(dbName);
+            dataAccessService.open(Main.getDBPathName());
         }
         return dataAccessService;
     }

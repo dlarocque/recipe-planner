@@ -1,5 +1,6 @@
 package com.example.recipe_planner.business;
 
+import com.example.recipe_planner.application.Main;
 import com.example.recipe_planner.objects.Recipe;
 import com.example.recipe_planner.persistence.DataAccess;
 import com.example.recipe_planner.persistence.DataAccessDB;
@@ -23,7 +24,7 @@ public class DataAccessTest {
         System.out.println("\nStarting Persistence test DataAccess");
 
          dataAccess = new DataAccessDB("Recipes");
-         dataAccess.open("database/Recipes");
+        dataAccess.open(Main.getDBPathName());
     }
 
     @After
