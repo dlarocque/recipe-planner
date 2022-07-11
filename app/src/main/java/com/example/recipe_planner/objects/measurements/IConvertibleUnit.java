@@ -5,5 +5,6 @@ package com.example.recipe_planner.objects.measurements;
  */
 public interface IConvertibleUnit extends IUnit {
     double convertTo(Unit unit);
+
     Unit getUnit();
 }
