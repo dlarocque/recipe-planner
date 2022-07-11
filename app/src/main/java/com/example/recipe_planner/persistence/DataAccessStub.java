@@ -36,11 +36,11 @@ public class DataAccessStub implements DataAccess {
         recipes = new ArrayList<>();
         fillRecipes(recipes);
         hiddenRecipes = new ArrayList<>();
-        Log.d("OpenDatabase", "Opened " + dbType + " database " + dbName);
+        System.out.println("OpenDatabase " + "Opened " + dbType + " database " + dbName);
     }
 
     public void close() {
-        Log.d("ClosedDatabase", "Closed " + dbType + " database " + dbName);
+        System.out.println("ClosedDatabase" + "Closed " + dbType + " database " + dbName);
     }
 
     public List<Recipe> getRecipes() {
