@@ -70,13 +70,11 @@ public class RecipeList extends Fragment
         View view = inflater.inflate(R.layout.fragment_recipe_list, container, false);
 
         // Set the adapter
-        if (view instanceof RecyclerView) {
             Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
+            RecyclerView recyclerView = view.findViewById(R.id.recipeList);
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
             recyclerView.setAdapter(
                     new RecipeRecyclerViewAdapter(accessRecipes.getRecipes(), this, this));
-        }
         return view;
     }
 

@@ -3,9 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2865" />
-        <entry key="app/src/main/res/drawable/edit_screen_back_foreground.xml" value="0.1555" />
-        <entry key="app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.189" />
+        <entry key="app/src/main/res/drawable/ic_launcher_edit_foreground.xml" value="0.347" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
+        <entry key="app/src/main/res/layout/bottom_navigation.xml" value="0.36666666666666664" />
+        <entry key="app/src/main/res/layout/content_main.xml" value="0.36666666666666664" />
+        <entry key="app/src/main/res/layout/fragment_edit_ingredient_item.xml" value="0.365625" />
+        <entry key="app/src/main/res/layout/fragment_edit_ingredients.xml" value="0.365625" />
+        <entry key="app/src/main/res/layout/fragment_ingredient_list_item.xml" value="0.36666666666666664" />
+        <entry key="app/src/main/res/layout/fragment_meal_schedule.xml" value="0.36666666666666664" />
+        <entry key="app/src/main/res/layout/fragment_recipe_list.xml" value="0.36666666666666664" />
+        <entry key="app/src/main/res/layout/fragment_recipe_list_item.xml" value="0.36666666666666664" />
+        <entry key="app/src/main/res/layout/fragment_recipe_view.xml" value="0.36666666666666664" />
+        <entry key="app/src/main/res/layout/fragment_shopping_list.xml" value="0.36666666666666664" />
         <entry key="app/src/main/res/drawable/ic_baseline_calendar_today_24.xml" value="0.14" />
         <entry key="app/src/main/res/drawable/ic_baseline_delete_24.xml" value="0.203" />
         <entry key="app/src/main/res/drawable/ic_baseline_shopping_cart_24.xml" value="0.2865" />
