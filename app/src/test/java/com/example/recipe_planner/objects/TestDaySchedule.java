@@ -31,7 +31,7 @@ public class TestDaySchedule {
                                 new Ingredient("chili peppers", new Cup(0.5)),
                                 new Ingredient("cheddar", new Gram(400)),
                                 new Ingredient("ketchup", new Cup(4))));
-        firstValidRecipe = new Recipe(firstValidRecipeName, firstValidRecipeIngredients, firstValidRecipeInstructions);
+        firstValidRecipe = new Recipe(1, firstValidRecipeName, firstValidRecipeIngredients, firstValidRecipeInstructions);
 
         String secondValidRecipeName = "fun chunks";
         String secondValidRecipeInstructions =
@@ -42,7 +42,7 @@ public class TestDaySchedule {
                                 new Ingredient("McDonald's Chicken Nuggets", new Gram(400)),
                                 new Ingredient("Pickle Juice", new Millilitre(250)),
                                 new Ingredient("Gravy", new Cup(3.5))));
-        secondValidRecipe = new Recipe(secondValidRecipeName, secondValidRecipeIngredients, secondValidRecipeInstructions);
+        secondValidRecipe = new Recipe(2, secondValidRecipeName, secondValidRecipeIngredients, secondValidRecipeInstructions);
 
         String thirdValidRecipeName = "Peanut Butter Sandwich";
         String thirdValidRecipeInstructions =
@@ -52,7 +52,7 @@ public class TestDaySchedule {
                         Arrays.asList(
                                 new Ingredient("Rye Bread", new Count(2)),
                                 new Ingredient("Peanut Butter", new Tablespoon(2))));
-        thirdValidRecipe = new Recipe(thirdValidRecipeName, thirdValidRecipeIngredients, thirdValidRecipeInstructions);
+        thirdValidRecipe = new Recipe(3, thirdValidRecipeName, thirdValidRecipeIngredients, thirdValidRecipeInstructions);
 
         daySchedule = new DaySchedule();
     }
