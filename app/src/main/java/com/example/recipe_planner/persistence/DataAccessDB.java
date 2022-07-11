@@ -134,7 +134,7 @@ public class DataAccessDB implements DataAccess{
         // get all ingredients associated with the recipe
         try {
             cmdString = "select INGREDIENTID, QUANTITY, UNIT from RECIPEINGREDIENTS where RECIPEID=" + recipeId + ";";
-            rs2 = st1.executeQuery(cmdString);
+            rs3 = st1.executeQuery(cmdString);
         } catch (Exception error) {
             processSQLError(error);
         }
@@ -143,23 +143,23 @@ public class DataAccessDB implements DataAccess{
         try {
             ingredients = new ArrayList<Ingredient>();
 
-            while (rs2.next()) {
-                ingredientId = rs2.getInt("INGREDIENTID");
-                quantity = rs2.getDouble("QUANTITY");
-                unit = rs2.getString("UNIT");
+            while (rs3.next()) {
+                ingredientId = rs3.getInt("INGREDIENTID");
+                quantity = rs3.getDouble("QUANTITY");
+                unit = rs3.getString("UNIT");
                 name = null;
 
                 cmdString = "select (NAME) from INGREDIENTS where ID=" +ingredientId + ";";
-                rs3 = st1.executeQuery(cmdString);
-                if (rs3.next()) {
-                    name = rs3.getString("NAME");
+                rs4 = st2.executeQuery(cmdString);
+                if (rs4.next()) {
+                    name = rs4.getString("NAME");
                 }
 
                 ingredient = new Ingredient(name, factory(unit, quantity));
                 ingredients.add(ingredient);
             }
 
-            rs2.close();
+            rs3.close();
         } catch (Exception error) {
             processSQLError(error);
         }
@@ -208,10 +208,8 @@ public class DataAccessDB implements DataAccess{
      */
     private void initData() {
         try {
-            st1 = c1.createStatement();
-
-            for ( String script : populateScript) {
-                st2.executeQuery(script);
+            for ( String script : populateScript ) {
+                st1.executeUpdate(script);
             }
         } catch (Exception error) {
             processSQLError(error);
@@ -224,7 +222,7 @@ public class DataAccessDB implements DataAccess{
      */
     private static String[] populateScript = {
             "INSERT INTO RECIPES (ID, NAME, INSTRUCTIONS, IS_DEFAULT) VALUES(NULL, 'Grilled Basil Chicken',\n"
-                    + "    'After washing basil and tomatoes, blot them dry with clean paper towel.\\n'\n"
+                    + "    'After washing basil and tomatoes, blot them dry with clean paper towel.\n'\n"
                     + "    + '\\n'\n"
                     + "    + 'Using a clean cutting board, cut tomatoes into quarters.\\n'\n"
                     + "    + '\\n'\n"
@@ -275,7 +273,7 @@ public class DataAccessDB implements DataAccess{
                     + "INSERT INTO INGREDIENTS VALUES (NULL, 'Plum Tomatoes')\n"
                     + "INSERT INTO INGREDIENTS VALUES (NULL, 'Boneless Skinless Chicken Breast')",
             "INSERT INTO RECIPEINGREDIENTS VALUES (0, 0, 0.75, 'CUP')\n"
-                    + "INSERT INTO RECIPEINGREDIENTS VALUES (0, 1, 0.25, 'BOOGA')\n"
+                    + "INSERT INTO RECIPEINGREDIENTS VALUES (0, 1, 0.25,'CUP')\n"
                     + "INSERT INTO RECIPEINGREDIENTS VALUES (0, 2, 2, 'TBSP')\n"
                     + "INSERT INTO RECIPEINGREDIENTS VALUES (0, 3, 4, 'COUNT')\n"
                     + "INSERT INTO RECIPEINGREDIENTS VALUES (0, 4, 4, 'COUNT')",
