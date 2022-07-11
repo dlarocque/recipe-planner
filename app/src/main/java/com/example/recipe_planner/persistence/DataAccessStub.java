@@ -14,7 +14,6 @@ import com.example.recipe_planner.objects.measurements.Teaspoon;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 public class DataAccessStub implements DataAccess {
     private static final double QUARTER = 1.0 / 4.0;
@@ -41,7 +40,7 @@ public class DataAccessStub implements DataAccess {
     }
 
     public void close() {
-        Log.d("ClosedDatabase", "Closed " + dbType +" database " + dbName);
+        Log.d("ClosedDatabase", "Closed " + dbType + " database " + dbName);
     }
 
     public List<Recipe> getRecipes() {
@@ -114,7 +113,7 @@ public class DataAccessStub implements DataAccess {
                                 new Ingredient("Bread Flour", new Cup(2)),
                                 new Ingredient("Active Yeast", new Teaspoon(3 * HALF)),
                                 new Ingredient("Honey", new Cup(1))
-                                ));
+                        ));
 
         instructions =
                 "Add to your bread machine per manufacturer instructions.\n"

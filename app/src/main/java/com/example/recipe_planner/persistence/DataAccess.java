@@ -11,9 +11,9 @@ public interface DataAccess {
 
     void close();
 
-    public List<Recipe> getRecipes();
+    List<Recipe> getRecipes();
 
-    public List<Ingredient> getRecipeIngredients(int recipeId);
+    List<Ingredient> getRecipeIngredients(int recipeId);
 
-    public boolean deleteRecipe(int recipeId);
+    boolean deleteRecipe(int recipeId);
 }

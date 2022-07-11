@@ -15,12 +15,8 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.example.recipe_planner.R;
-import com.example.recipe_planner.application.Main;
-import com.example.recipe_planner.application.Services;
 import com.example.recipe_planner.business.AccessRecipes;
 import com.example.recipe_planner.objects.Recipe;
-import com.example.recipe_planner.persistence.DataAccess;
-import com.example.recipe_planner.persistence.DataAccessStub;
 
 import java.util.ArrayList;
 
@@ -32,8 +28,6 @@ public class RecipeView extends Fragment {
     private Recipe recipe;
     private EditText recipeName;
     private EditText recipeInstructions;
-    private ArrayList<Recipe> recipeList;
-
     TextWatcher textWatcher =
             new TextWatcher() {
 
@@ -53,6 +47,7 @@ public class RecipeView extends Fragment {
                     // update the recipe objects to reflect those changes.
                 }
             };
+    private ArrayList<Recipe> recipeList;
     private AccessRecipes accessRecipes;
 
     public RecipeView() {
@@ -115,7 +110,9 @@ public class RecipeView extends Fragment {
         return view;
     }
 
-    /** Saves the changes made to the recipe, called when the recipes are edited. */
+    /**
+     * Saves the changes made to the recipe, called when the recipes are edited.
+     */
     public void updateRecipe() {
         String newInstructions = this.recipeInstructions.getText().toString();
         String newName = this.recipeName.getText().toString();
