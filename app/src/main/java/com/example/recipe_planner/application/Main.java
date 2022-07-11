@@ -9,7 +9,7 @@ public class Main {
     private static String dbPathName = "database/Recipes";
 
     public static void startUp() {
-        Services.createDataAccess(dbName);
+        Services.createDataAccess(Main.dbName);
     }
 
     public static void shutDown() {

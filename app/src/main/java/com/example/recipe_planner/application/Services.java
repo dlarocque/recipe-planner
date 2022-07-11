@@ -10,7 +10,7 @@ public class Services {
     private static DataAccess dataAccessService = null;
     private static final String TAG = "Services";
 
-    public static DataAccess createDataAccess(String dbName, String dbType) {
+    public static DataAccess createDataAccess(String dbName) {
         if (dataAccessService == null) {
             dataAccessService = new DataAccessDB(dbName);
             dataAccessService.open(Main.getDBPathName());
