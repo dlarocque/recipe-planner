@@ -28,4 +28,8 @@ public class Ingredient {
     public IUnit getUnit() {
         return this.quantity;
     }
+
+    public boolean equals(Ingredient other) {
+        return this.name.equals(other.name) && this.quantity == other.quantity;
+    }
 }

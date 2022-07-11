@@ -149,7 +149,7 @@ public class DataAccessDB implements DataAccess{
                 unit = rs3.getString("UNIT");
                 name = null;
 
-                cmdString = "select (NAME) from INGREDIENTS where ID=" +ingredientId + ";";
+                cmdString = "select NAME from INGREDIENTS where ID=" +ingredientId + ";";
                 rs4 = st2.executeQuery(cmdString);
                 if (rs4.next()) {
                     name = rs4.getString("NAME");

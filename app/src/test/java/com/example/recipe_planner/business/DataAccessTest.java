@@ -1,6 +1,7 @@
 package com.example.recipe_planner.business;
 
 import com.example.recipe_planner.application.Main;
+import com.example.recipe_planner.objects.Ingredient;
 import com.example.recipe_planner.objects.Recipe;
 import com.example.recipe_planner.persistence.DataAccess;
 import com.example.recipe_planner.persistence.DataAccessDB;
@@ -9,6 +10,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
@@ -23,8 +25,8 @@ public class DataAccessTest {
     public void setUp(){
         System.out.println("\nStarting Persistence test DataAccess");
 
-         dataAccess = new DataAccessDB("Recipes");
-        dataAccess.open(Main.getDBPathName());
+         dataAccess = new DataAccessDB(Main.dbName);
+         dataAccess.open(Main.getDBPathName());
     }
 
     @After
@@ -33,11 +35,20 @@ public class DataAccessTest {
     }
 
     @Test
-    public void testGetDefaults(){
-        List<Recipe> recipes;
+    public void testGetDefaultIngredients(){
+        List<Ingredient> ingredients;
 
-        recipes = dataAccess.getRecipes();
+        ingredients = dataAccess.getRecipeIngredients(0);
 
-        assertNotNull(recipes);
+        for(Ingredient i : ingredients){
+            System.out.println(i.getName());
+        }
+
+        for(Ingredient i : ingredients){
+            System.out.println(i.getAmount());
+        }
+
+        System.out.println(ingredients.size());
+        assertEquals("Balsamic Vinegar", ingredients.get(0).getName());
     }
 }
