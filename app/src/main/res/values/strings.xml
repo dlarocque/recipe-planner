@@ -25,4 +25,6 @@
     <string name="lunch">Lunch</string>
     <string name="sample_date">Mon, Jun 27</string>
     <string name="no_meal_scheduled">No Meal Scheduled</string>
+    <string name="search_label">Search</string>
+    <string name="search_hint">Search for Recipes</string>
 </resources>

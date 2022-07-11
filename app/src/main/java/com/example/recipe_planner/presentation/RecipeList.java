@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
+import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
@@ -26,12 +27,14 @@ import com.example.recipe_planner.objects.Recipe;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /**
  * A {@link Fragment} representing a list of Recipes.
  */
 public class RecipeList extends Fragment
-        implements RecipeRecyclerViewAdapter.OnRecipeClickListener, RecipeRecyclerViewAdapter.OnScheduleRecipeClickListener {
+        implements RecipeRecyclerViewAdapter.OnRecipeClickListener,
+                RecipeRecyclerViewAdapter.OnScheduleRecipeClickListener {
 
     public static final String ARG_RECIPE_ID = "recipeId";
     private final String TAG = this.getClass().getSimpleName();
@@ -75,6 +78,25 @@ public class RecipeList extends Fragment
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(
                 new RecipeRecyclerViewAdapter(accessRecipes.getRecipes(), this, this));
+
+        SearchView simpleSearchView = (SearchView) view.findViewById(R.id.SearchRecipes);
+        simpleSearchView.setOnQueryTextListener(
+                new SearchView.OnQueryTextListener() {
+                    @Override
+                    public boolean onQueryTextSubmit(String query) {
+                        List<Recipe> results = accessRecipes.getRecipesWithPartialName(query);
+                        recyclerView.setAdapter(
+                                new RecipeRecyclerViewAdapter(
+                                        results, RecipeList.this, RecipeList.this));
+                        return true;
+                    }
+
+                    @Override
+                    public boolean onQueryTextChange(String newText) {
+                        return onQueryTextSubmit(newText);
+                    }
+                });
+
         return view;
     }
 
@@ -98,7 +120,8 @@ public class RecipeList extends Fragment
         df.show(this.getChildFragmentManager(), TAG);
     }
 
-    public static class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
+    public static class DatePickerFragment extends DialogFragment
+            implements DatePickerDialog.OnDateSetListener {
         AccessRecipes accessRecipes;
         AccessSchedule accessSchedule;
         Bundle bundle;

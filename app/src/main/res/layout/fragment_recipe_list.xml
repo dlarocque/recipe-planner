@@ -7,11 +7,16 @@
     android:orientation="vertical">
 
     <android.widget.SearchView
-        android:layout_width="match_parent"
+        android:id="@+id/SearchRecipes"
+        android:layout_width="wrap_content"
         android:layout_height="50dp"
+        android:layout_gravity="top|end"
         android:layout_marginTop="16dp"
-        android:layout_gravity="top"
-        android:background="@color/cardview_shadow_start_color" />
+        android:background="@color/cardview_shadow_start_color"
+        android:iconifiedByDefault="true"
+        android:layoutMode="opticalBounds"
+        android:queryHint="@string/search_hint"
+        tools:context=".presentation.RecipeList" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recipeList"

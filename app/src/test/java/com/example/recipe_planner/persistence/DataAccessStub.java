@@ -18,6 +18,8 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.Random;
 
 public class DataAccessStub implements DataAccess {
     private static final double QUARTER = 1.0 / 4.0;
@@ -140,7 +142,7 @@ public class DataAccessStub implements DataAccess {
                                 new Ingredient("Bread Flour", new Cup(2)),
                                 new Ingredient("Active Yeast", new Teaspoon(3 * HALF)),
                                 new Ingredient("Honey", new Cup(1))
-                        ));
+                                ));
 
         instructions =
                 "Add to your bread machine per manufacturer instructions.\n"
