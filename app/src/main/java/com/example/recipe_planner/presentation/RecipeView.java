@@ -25,7 +25,7 @@ import com.example.recipe_planner.persistence.DataAccessStub;
 /**
  * {@link Fragment} that displays a single {@link Recipe}, specifically its name and instructions
  */
-public class RecipeView extends Fragment {
+public class  RecipeView extends Fragment {
 
     public static final String RECIPE_POSITION_IN_LIST = "positionInList";
 

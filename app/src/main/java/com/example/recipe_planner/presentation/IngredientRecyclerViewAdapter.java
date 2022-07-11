@@ -37,7 +37,7 @@ public class IngredientRecyclerViewAdapter
     public void onBindViewHolder(final ViewHolder holder, int position) {
         // Set up the view for an Ingredient in the list
         Ingredient ingredientToDisplay = ingredients.get(position);
-        String unitName = holder.getUnitString(ingredientToDisplay);
+        String unitName = getUnitString(ingredientToDisplay);
         holder.name.setText(ingredientToDisplay.getName());
         holder.amount.setText(String.valueOf(ingredientToDisplay.getAmount()));
         holder.unit.setText(unitName);
@@ -67,9 +67,9 @@ public class IngredientRecyclerViewAdapter
             return super.toString();
         }
 
-        public String getUnitString(Ingredient ingredient){
-            return ingredient.getUnit().getClass().getSimpleName();
-        }
+    }
+    public String getUnitString(Ingredient ingredient){
+        return ingredient.getUnit().getClass().getSimpleName();
     }
 }
 
