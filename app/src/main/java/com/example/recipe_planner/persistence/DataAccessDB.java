@@ -168,8 +168,14 @@ public class DataAccessDB implements DataAccess{
 
     @Override
     public boolean deleteRecipe(int recipeId) {
-        // placeholder
-        return false;
+        try {
+            cmdString = "delete from RECIPES where ID=" + recipeId + ";";
+            st1.executeUpdate(cmdString);
+            return true;
+        } catch (Exception error) {
+            processSQLError(error);
+            return false;
+        }
     }
 
     private IUnit factory(String unit, double quantity) {
