@@ -29,7 +29,9 @@ public class Ingredient {
         return this.quantity;
     }
 
-    public boolean equals(Ingredient other) {
-        return this.name.equals(other.name) && this.quantity == other.quantity;
+    @Override
+    public boolean equals(Object other) {
+        Ingredient i = (Ingredient) other;
+        return this.name.equals(i.getName()) && Double.compare(this.getAmount(), i.getAmount()) == 0;
     }
 }
