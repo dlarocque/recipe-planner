@@ -3,9 +3,9 @@ package com.example.recipe_planner.objects;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
-import com.example.recipe_planner.objects.measurements.Cup;
-import com.example.recipe_planner.objects.measurements.Gram;
-import com.example.recipe_planner.objects.measurements.Millilitre;
+import com.example.recipe_planner.objects.measurements.ConvertibleUnit;
+import com.example.recipe_planner.objects.measurements.Count;
+import com.example.recipe_planner.objects.measurements.Unit;
 
 import org.junit.Test;
 
@@ -13,8 +13,8 @@ public class TestIngredient {
     @Test
     public void testTypicalValues() {
         String typicalName = "food";
-        Millilitre typicalQuantity = new Millilitre(250);
-        Millilitre newQuantity = new Millilitre(132.5);
+        ConvertibleUnit typicalQuantity = new ConvertibleUnit(Unit.ML, 250);
+        ConvertibleUnit newQuantity = new ConvertibleUnit(Unit.OUNCE, 132.5);
         Ingredient typicalIngredient = new Ingredient(typicalName, typicalQuantity);
 
         assertEquals(typicalName, typicalIngredient.getName());
@@ -36,14 +36,14 @@ public class TestIngredient {
 
     @Test
     public void testEmptyString() {
-        Ingredient emptyName = new Ingredient("", new Cup(2));
+        Ingredient emptyName = new Ingredient("", new Count(2));
 
         assertEquals("", emptyName.getName());
     }
 
     @Test
     public void testZeroQuantity() {
-        Gram empty = new Gram(0);
+        ConvertibleUnit empty = new ConvertibleUnit(Unit.GRAM, 0);
         Ingredient zeroQuantity = new Ingredient("nothing!", empty);
 
         assertEquals(empty, zeroQuantity.getUnit());
@@ -52,7 +52,7 @@ public class TestIngredient {
 
     @Test
     public void testNegativeQuantity() {
-        Gram tapeworm = new Gram(-199);
+        ConvertibleUnit tapeworm = new ConvertibleUnit(Unit.GRAM, -199);
         Ingredient zeroQuantity = new Ingredient("nothing!", tapeworm);
 
         assertEquals(tapeworm, zeroQuantity.getUnit());
