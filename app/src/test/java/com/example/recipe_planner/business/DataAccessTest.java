@@ -30,7 +30,7 @@ public class DataAccessTest {
 
     public void setUp() {
         System.out.println("\nStarting Persistence test DataAccess");
-        dataAccess = new DataAccessStub(Main.dbName);
+        dataAccess = new DataAccessStub();
         dataAccess.open(Main.getDBPathName());
     }
 

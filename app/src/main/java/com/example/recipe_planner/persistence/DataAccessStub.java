@@ -23,18 +23,12 @@ public class DataAccessStub implements DataAccess {
     private static final double QUARTER = 1.0 / 4.0;
     private static final double THIRD = 1.0 / 3.0;
     private static final double HALF = 1.0 / 2.0;
-    private final String dbName;
     private final String dbType = "stub";
     private ArrayList<Recipe> recipes;
     private ArrayList<Recipe> hiddenRecipes;
     private Schedule schedule;
 
-    public DataAccessStub(String dbName) {
-        this.dbName = dbName;
-    }
-
     public DataAccessStub() {
-        this.dbName = "Recipes";
     }
 
     public void open(String dbPath) {
@@ -250,10 +244,6 @@ public class DataAccessStub implements DataAccess {
         daySchedule.setMeal(DaySchedule.Meal.DINNER, first_recipe);
         // Same meal on different days
         nextDaySchedule.setMeal(DaySchedule.Meal.DINNER, first_recipe);
-    }
-
-    public String getDbName() {
-        return this.dbName;
     }
 
     public String getDbType() {
