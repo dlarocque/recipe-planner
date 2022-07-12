@@ -40,7 +40,8 @@ public class DataAccessStub implements DataAccess {
         schedule = new Schedule();
     }
 
-    public void close() {}
+    public void close() {
+    }
 
     public Recipe getRecipe(int recipeId) {
         Recipe recipe = null;
@@ -123,7 +124,7 @@ public class DataAccessStub implements DataAccess {
                     String compName = ingredients.get(k).getName();
                     double compQuantity = ingredients.get(k).getAmount();
                     String unit = ingredients.get(k).getUnit().getClass().getSimpleName();
-                    if (compName.equals(ingredientName)){
+                    if (compName.equals(ingredientName)) {
                         IUnit newUnit;
                         switch (unit) {
                             case "Cup":
@@ -214,7 +215,7 @@ public class DataAccessStub implements DataAccess {
                                 new Ingredient("Bread Flour", new Cup(2)),
                                 new Ingredient("Active Yeast", new Teaspoon(3 * HALF)),
                                 new Ingredient("Honey", new Cup(1))
-                                ));
+                        ));
 
         instructions =
                 "Add to your bread machine per manufacturer instructions.\n"

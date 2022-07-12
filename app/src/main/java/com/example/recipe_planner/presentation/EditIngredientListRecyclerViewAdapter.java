@@ -1,19 +1,16 @@
 package com.example.recipe_planner.presentation;
 
 import android.app.AlertDialog;
-import android.media.Image;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.recipe_planner.R;
@@ -22,19 +19,20 @@ import com.example.recipe_planner.business.AccessRecipes;
 import com.example.recipe_planner.databinding.FragmentEditIngredientItemBinding;
 import com.example.recipe_planner.objects.Ingredient;
 import com.example.recipe_planner.objects.Recipe;
-import com.example.recipe_planner.persistence.DataAccess;
 
 import java.util.List;
 
-/** {@link RecyclerView.Adapter} that can display a {@link Recipe}. */
+/**
+ * {@link RecyclerView.Adapter} that can display a {@link Recipe}.
+ */
 public class EditIngredientListRecyclerViewAdapter
         extends RecyclerView.Adapter<EditIngredientListRecyclerViewAdapter.ViewHolder> {
 
-    private AccessRecipes accessRecipes;
-    private AccessIngredients accessIngredients;
+    private final AccessRecipes accessRecipes;
+    private final AccessIngredients accessIngredients;
 
-    private Recipe recipe;
-    private List<Ingredient> ingredients;
+    private final Recipe recipe;
+    private final List<Ingredient> ingredients;
 
     public EditIngredientListRecyclerViewAdapter(Recipe recipe) {
         this.recipe = recipe;
@@ -90,12 +88,23 @@ public class EditIngredientListRecyclerViewAdapter
         return ingredients.size();
     }
 
+    public void deleteIngredientAction(int position) {
+        Ingredient deleteIngredient = ingredients.get(position);
+        String name = deleteIngredient.getName();
+        double quantity = deleteIngredient.getAmount();
+        String unit = deleteIngredient.getUnit().getClass().getSimpleName().toUpperCase();
+        accessIngredients.deleteIngredient(recipe.getId(), name, quantity, unit);
+    }
+
+    public String getUnitString(Ingredient ingredient) {
+        return ingredient.getUnit().getClass().getSimpleName();
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
+        public final ImageButton delete;
         public TextView name;
         public EditText quantity;
         public TextView unit;
-        public final ImageButton delete;
-
         public QuantityEditTextListener quantityListener;
 
         public ViewHolder(
@@ -116,18 +125,6 @@ public class EditIngredientListRecyclerViewAdapter
         public String toString() {
             return super.toString();
         }
-    }
-
-    public void deleteIngredientAction(int position) {
-        Ingredient deleteIngredient = ingredients.get(position);
-        String name = deleteIngredient.getName();
-        double quantity = deleteIngredient.getAmount();
-        String unit = deleteIngredient.getUnit().getClass().getSimpleName().toUpperCase();
-        accessIngredients.deleteIngredient(recipe.getId(), name, quantity, unit);
-    }
-
-    public String getUnitString(Ingredient ingredient) {
-        return ingredient.getUnit().getClass().getSimpleName();
     }
 
     private class QuantityEditTextListener implements TextWatcher {

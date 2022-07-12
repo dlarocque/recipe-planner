@@ -32,108 +32,109 @@ public class DataAccessDB implements DataAccess {
      * here.
      */
     private static final String[] populateScript = {
-        "INSERT INTO RECIPES (ID, NAME, INSTRUCTIONS, IS_DEFAULT) VALUES(NULL, 'Grilled Basil Chicken',\n"
-                + "    'After washing basil and tomatoes, blot them dry with clean paper towel.\n'\n"
-                + "    + '\\n'\n"
-                + "    + 'Using a clean cutting board, cut tomatoes into quarters.\\n'\n"
-                + "    + '\\n'\n"
-                + "    + 'For marinade, place first six ingredients in a blender. Cover and process until well blended.\\n'\n"
-                + "    + '\\n'\n"
-                + "    + 'Place chicken breasts in a shallow dish; orange do not rinse raw poultry. Cover with marinade. Cover dish. Refrigerate about 1 hour, turning occasionally. Wash dish after touching raw poultry.\\n'\n"
-                + "    + '\\n'\n"
-                + "    + 'orange quote icon Wash hands with soap and water after handling uncooked chicken.\\n'\n"
-                + "    + '\\n'\n"
-                + "    + 'Place chicken on an oiled grill rack over medium heat. Do not reuse marinades used on raw foods. Grill chicken 4-6 minutes per side. Cook until internal temperature reaches 165 °F as measured with a food thermometer. ',\n"
-                + "    1\n"
-                + ")",
-        "INSERT INTO RECIPES VALUES(NULL, 'Sweet Honey French Bread',\n"
-                + "    'Add to your bread machine per manufacturer instructions.\\n'\n"
-                + "    + 'While bread is baking drizzle with honey if desired.',\n"
-                + "    1\n"
-                + ")",
-        "INSERT INTO RECIPES VALUES (NULL, 'Crushed Heirloom Potatoes',\n"
-                + "    'Boil potatoes until they are just tender 2040 minutes depending on variety drain and then return them to pot.\\n'\n"
-                + "    + '\\n'\n"
-                + "    + 'Using a large wooden spoon coarsely crush potatoes in pot.\\n'\n"
-                + "    + '\\n'\n"
-                + "    + 'Stir in cheese nuts oil and arugula and toss to blend.\\n'\n"
-                + "    + '\\n'\n"
-                + "    + 'Salt and pepper to taste.',\n"
-                + "    1\n"
-                + ")",
-        "INSERT INTO RECIPES (NAME, INSTRUCTIONS, IS_DEFAULT) VALUES('Heirloom Apple Pie',\n"
-                + "    '1. Mix apples white and brown sugar flour and cinnamon all together in a large bowl and pour into pie crust in pan.\\n'\n"
-                + "    + '\\n'\n"
-                + "    + '2. Dot with butter and cover with top crust sealing and fluting edges.\\n'\n"
-                + "    + '\\n'\n"
-                + "    + '3. Slit a few holes in top crust.\\n'\n"
-                + "    + '\\n'\n"
-                + "    + '4. Brush cream lightly on top crust all over and sprinkle with sugar.\\n'\n"
-                + "    + '\\n'\n"
-                + "    + '5. Bake at 450 for 15 minutes.\\n'\n"
-                + "    + '\\n'\n"
-                + "    + '6. Reduce heat to 350 and bake another 5055 minutes until bubbly and apples are soft.\\n'\n"
-                + "    + '\\n'\n"
-                + "    + '7. Savor every bite.',\n"
-                + "    1\n"
-                + ")",
+            "INSERT INTO RECIPES (ID, NAME, INSTRUCTIONS, IS_DEFAULT) VALUES(NULL, 'Grilled Basil Chicken',\n"
+                    + "    'After washing basil and tomatoes, blot them dry with clean paper towel.\n'\n"
+                    + "    + '\\n'\n"
+                    + "    + 'Using a clean cutting board, cut tomatoes into quarters.\\n'\n"
+                    + "    + '\\n'\n"
+                    + "    + 'For marinade, place first six ingredients in a blender. Cover and process until well blended.\\n'\n"
+                    + "    + '\\n'\n"
+                    + "    + 'Place chicken breasts in a shallow dish; orange do not rinse raw poultry. Cover with marinade. Cover dish. Refrigerate about 1 hour, turning occasionally. Wash dish after touching raw poultry.\\n'\n"
+                    + "    + '\\n'\n"
+                    + "    + 'orange quote icon Wash hands with soap and water after handling uncooked chicken.\\n'\n"
+                    + "    + '\\n'\n"
+                    + "    + 'Place chicken on an oiled grill rack over medium heat. Do not reuse marinades used on raw foods. Grill chicken 4-6 minutes per side. Cook until internal temperature reaches 165 °F as measured with a food thermometer. ',\n"
+                    + "    1\n"
+                    + ")",
+            "INSERT INTO RECIPES VALUES(NULL, 'Sweet Honey French Bread',\n"
+                    + "    'Add to your bread machine per manufacturer instructions.\\n'\n"
+                    + "    + 'While bread is baking drizzle with honey if desired.',\n"
+                    + "    1\n"
+                    + ")",
+            "INSERT INTO RECIPES VALUES (NULL, 'Crushed Heirloom Potatoes',\n"
+                    + "    'Boil potatoes until they are just tender 2040 minutes depending on variety drain and then return them to pot.\\n'\n"
+                    + "    + '\\n'\n"
+                    + "    + 'Using a large wooden spoon coarsely crush potatoes in pot.\\n'\n"
+                    + "    + '\\n'\n"
+                    + "    + 'Stir in cheese nuts oil and arugula and toss to blend.\\n'\n"
+                    + "    + '\\n'\n"
+                    + "    + 'Salt and pepper to taste.',\n"
+                    + "    1\n"
+                    + ")",
+            "INSERT INTO RECIPES (NAME, INSTRUCTIONS, IS_DEFAULT) VALUES('Heirloom Apple Pie',\n"
+                    + "    '1. Mix apples white and brown sugar flour and cinnamon all together in a large bowl and pour into pie crust in pan.\\n'\n"
+                    + "    + '\\n'\n"
+                    + "    + '2. Dot with butter and cover with top crust sealing and fluting edges.\\n'\n"
+                    + "    + '\\n'\n"
+                    + "    + '3. Slit a few holes in top crust.\\n'\n"
+                    + "    + '\\n'\n"
+                    + "    + '4. Brush cream lightly on top crust all over and sprinkle with sugar.\\n'\n"
+                    + "    + '\\n'\n"
+                    + "    + '5. Bake at 450 for 15 minutes.\\n'\n"
+                    + "    + '\\n'\n"
+                    + "    + '6. Reduce heat to 350 and bake another 5055 minutes until bubbly and apples are soft.\\n'\n"
+                    + "    + '\\n'\n"
+                    + "    + '7. Savor every bite.',\n"
+                    + "    1\n"
+                    + ")",
 
-        "INSERT INTO INGREDIENTS VALUES (NULL, 'Balsamic Vinegar')",
-        "INSERT INTO INGREDIENTS VALUES (NULL, 'Balsamic Vinegar')\n"
-                + "INSERT INTO INGREDIENTS VALUES (NULL, 'Basil Leaves')\n"
-                + "INSERT INTO INGREDIENTS VALUES (NULL, 'Olive Oil')\n"
-                + "INSERT INTO INGREDIENTS VALUES (NULL, 'Plum Tomatoes')\n"
-                + "INSERT INTO INGREDIENTS VALUES (NULL, 'Boneless Skinless Chicken Breast')",
-        "INSERT INTO RECIPEINGREDIENTS VALUES (0, 0, 0.75, 'CUP')\n"
-                + "INSERT INTO RECIPEINGREDIENTS VALUES (0, 1, 0.25,'CUP')\n"
-                + "INSERT INTO RECIPEINGREDIENTS VALUES (0, 2, 2, 'TBSP')\n"
-                + "INSERT INTO RECIPEINGREDIENTS VALUES (0, 3, 4, 'COUNT')\n"
-                + "INSERT INTO RECIPEINGREDIENTS VALUES (0, 4, 4, 'COUNT')",
-        "INSERT INTO INGREDIENTS VALUES (NULL, 'Water')\n"
-                + "INSERT INTO INGREDIENTS VALUES (NULL, 'Honey')\n"
-                + "INSERT INTO INGREDIENTS VALUES (NULL, 'Salt')\n"
-                + "INSERT INTO INGREDIENTS VALUES (NULL, 'White Sugar')\n"
-                + "INSERT INTO INGREDIENTS VALUES (NULL, 'Bread Flour')\n"
-                + "INSERT INTO INGREDIENTS VALUES (NULL, 'Active Yeast')",
-        "INSERT INTO RECIPEINGREDIENTS VALUES(1, 5, 0.75, 'CUP')\n"
-                + "INSERT INTO RECIPEINGREDIENTS VALUES(1, 6, 2, 'TSP')\n"
-                + "INSERT INTO RECIPEINGREDIENTS VALUES(1, 2, 2, 'TSP')\n"
-                + "INSERT INTO RECIPEINGREDIENTS VALUES(1, 7, 2/3, 'TSP')\n"
-                + "INSERT INTO RECIPEINGREDIENTS VALUES(1, 8, 2/3, 'TSP')\n"
-                + "INSERT INTO RECIPEINGREDIENTS VALUES(1, 9, 2, 'CUP')\n"
-                + "INSERT INTO RECIPEINGREDIENTS VALUES(1, 10, 1.5, 'TSP')\n"
-                + "INSERT INTO RECIPEINGREDIENTS VALUES(1, 11, 1, 'CUP')",
-        "INSERT INTO INGREDIENTS VALUES (NULL, 'Unpeeled Potato')\n"
-                + "INSERT INTO INGREDIENTS VALUES (NULL, 'Gorgonzola')\n"
-                + "INSERT INTO INGREDIENTS VALUES (NULL, 'Pecan')\n"
-                + "INSERT INTO INGREDIENTS VALUES (NULL, 'Extra Virgin Olive Oil')\n"
-                + "INSERT INTO INGREDIENTS VALUES (NULL, 'Baby Arugula')",
-        "INSERT INTO RECIPEINGREDIENTS VALUES(2, 5, 0.75, 'CUP')\n"
-                + "INSERT INTO RECIPEINGREDIENTS VALUES(2, 12, 907, 'GRAM')\n"
-                + "INSERT INTO RECIPEINGREDIENTS VALUES(2, 13, 2, 'OUNCE')\n"
-                + "INSERT INTO RECIPEINGREDIENTS VALUES(2, 14, 0.5, 'CUP')\n"
-                + "INSERT INTO RECIPEINGREDIENTS VALUES(2, 15, 0.25, 'CUP')\n"
-                + "INSERT INTO RECIPEINGREDIENTS VALUES(2, 16, 2, 'CUP')\n"
-                + "INSERT INTO RECIPEINGREDIENTS VALUES(2, 7, 0.5, 'TSP')",
-        "INSERT INTO INGREDIENTS VALUES (NULL, 'Pastry Double Crust Pie')\n"
-                + "INSERT INTO INGREDIENTS VALUES (NULL, 'Apple')\n"
-                + "INSERT INTO INGREDIENTS VALUES (NULL, 'Brown Sugar')\n"
-                + "INSERT INTO INGREDIENTS VALUES (NULL, 'Flour')\n"
-                + "INSERT INTO INGREDIENTS VALUES (NULL, 'Cinnamon')\n"
-                + "INSERT INTO INGREDIENTS VALUES (NULL, 'Butter')",
-        "INSERT INTO RECIPEINGREDIENTS VALUES(3, 17, 1, 'COUNT')\n"
-                + "INSERT INTO RECIPEINGREDIENTS VALUES(3, 18, 6, 'COUNT')\n"
-                + "INSERT INTO RECIPEINGREDIENTS VALUES(3, 8, 1/3, 'CUP')\n"
-                + "INSERT INTO RECIPEINGREDIENTS VALUES(3, 19, 1/3, 'CUP')\n"
-                + "INSERT INTO RECIPEINGREDIENTS VALUES(3, 20, 2, 'TSP')\n"
-                + "INSERT INTO RECIPEINGREDIENTS VALUES(3, 21, 1, 'TSP')\n"
-                + "INSERT INTO RECIPEINGREDIENTS VALUES(3, 22, 1, 'TBSP')"
+            "INSERT INTO INGREDIENTS VALUES (NULL, 'Balsamic Vinegar')",
+            "INSERT INTO INGREDIENTS VALUES (NULL, 'Balsamic Vinegar')\n"
+                    + "INSERT INTO INGREDIENTS VALUES (NULL, 'Basil Leaves')\n"
+                    + "INSERT INTO INGREDIENTS VALUES (NULL, 'Olive Oil')\n"
+                    + "INSERT INTO INGREDIENTS VALUES (NULL, 'Plum Tomatoes')\n"
+                    + "INSERT INTO INGREDIENTS VALUES (NULL, 'Boneless Skinless Chicken Breast')",
+            "INSERT INTO RECIPEINGREDIENTS VALUES (0, 0, 0.75, 'CUP')\n"
+                    + "INSERT INTO RECIPEINGREDIENTS VALUES (0, 1, 0.25,'CUP')\n"
+                    + "INSERT INTO RECIPEINGREDIENTS VALUES (0, 2, 2, 'TBSP')\n"
+                    + "INSERT INTO RECIPEINGREDIENTS VALUES (0, 3, 4, 'COUNT')\n"
+                    + "INSERT INTO RECIPEINGREDIENTS VALUES (0, 4, 4, 'COUNT')",
+            "INSERT INTO INGREDIENTS VALUES (NULL, 'Water')\n"
+                    + "INSERT INTO INGREDIENTS VALUES (NULL, 'Honey')\n"
+                    + "INSERT INTO INGREDIENTS VALUES (NULL, 'Salt')\n"
+                    + "INSERT INTO INGREDIENTS VALUES (NULL, 'White Sugar')\n"
+                    + "INSERT INTO INGREDIENTS VALUES (NULL, 'Bread Flour')\n"
+                    + "INSERT INTO INGREDIENTS VALUES (NULL, 'Active Yeast')",
+            "INSERT INTO RECIPEINGREDIENTS VALUES(1, 5, 0.75, 'CUP')\n"
+                    + "INSERT INTO RECIPEINGREDIENTS VALUES(1, 6, 2, 'TSP')\n"
+                    + "INSERT INTO RECIPEINGREDIENTS VALUES(1, 2, 2, 'TSP')\n"
+                    + "INSERT INTO RECIPEINGREDIENTS VALUES(1, 7, 2/3, 'TSP')\n"
+                    + "INSERT INTO RECIPEINGREDIENTS VALUES(1, 8, 2/3, 'TSP')\n"
+                    + "INSERT INTO RECIPEINGREDIENTS VALUES(1, 9, 2, 'CUP')\n"
+                    + "INSERT INTO RECIPEINGREDIENTS VALUES(1, 10, 1.5, 'TSP')\n"
+                    + "INSERT INTO RECIPEINGREDIENTS VALUES(1, 11, 1, 'CUP')",
+            "INSERT INTO INGREDIENTS VALUES (NULL, 'Unpeeled Potato')\n"
+                    + "INSERT INTO INGREDIENTS VALUES (NULL, 'Gorgonzola')\n"
+                    + "INSERT INTO INGREDIENTS VALUES (NULL, 'Pecan')\n"
+                    + "INSERT INTO INGREDIENTS VALUES (NULL, 'Extra Virgin Olive Oil')\n"
+                    + "INSERT INTO INGREDIENTS VALUES (NULL, 'Baby Arugula')",
+            "INSERT INTO RECIPEINGREDIENTS VALUES(2, 5, 0.75, 'CUP')\n"
+                    + "INSERT INTO RECIPEINGREDIENTS VALUES(2, 12, 907, 'GRAM')\n"
+                    + "INSERT INTO RECIPEINGREDIENTS VALUES(2, 13, 2, 'OUNCE')\n"
+                    + "INSERT INTO RECIPEINGREDIENTS VALUES(2, 14, 0.5, 'CUP')\n"
+                    + "INSERT INTO RECIPEINGREDIENTS VALUES(2, 15, 0.25, 'CUP')\n"
+                    + "INSERT INTO RECIPEINGREDIENTS VALUES(2, 16, 2, 'CUP')\n"
+                    + "INSERT INTO RECIPEINGREDIENTS VALUES(2, 7, 0.5, 'TSP')",
+            "INSERT INTO INGREDIENTS VALUES (NULL, 'Pastry Double Crust Pie')\n"
+                    + "INSERT INTO INGREDIENTS VALUES (NULL, 'Apple')\n"
+                    + "INSERT INTO INGREDIENTS VALUES (NULL, 'Brown Sugar')\n"
+                    + "INSERT INTO INGREDIENTS VALUES (NULL, 'Flour')\n"
+                    + "INSERT INTO INGREDIENTS VALUES (NULL, 'Cinnamon')\n"
+                    + "INSERT INTO INGREDIENTS VALUES (NULL, 'Butter')",
+            "INSERT INTO RECIPEINGREDIENTS VALUES(3, 17, 1, 'COUNT')\n"
+                    + "INSERT INTO RECIPEINGREDIENTS VALUES(3, 18, 6, 'COUNT')\n"
+                    + "INSERT INTO RECIPEINGREDIENTS VALUES(3, 8, 1/3, 'CUP')\n"
+                    + "INSERT INTO RECIPEINGREDIENTS VALUES(3, 19, 1/3, 'CUP')\n"
+                    + "INSERT INTO RECIPEINGREDIENTS VALUES(3, 20, 2, 'TSP')\n"
+                    + "INSERT INTO RECIPEINGREDIENTS VALUES(3, 21, 1, 'TSP')\n"
+                    + "INSERT INTO RECIPEINGREDIENTS VALUES(3, 22, 1, 'TBSP')"
     };
 
     private final String TAG = this.getClass().getSimpleName();
     private Connection connection;
 
-    public DataAccessDB() {}
+    public DataAccessDB() {
+    }
 
     public void open(String dbPath) {
         String url;
@@ -143,7 +144,6 @@ public class DataAccessDB implements DataAccess {
             url = "jdbc:hsqldb:file:" + dbPath; // stored on disk mode
             connection = DriverManager.getConnection(url, "SA", "");
 
-            // TODO: Don't do this
             ResultSet resultSet =
                     connection.createStatement().executeQuery("SELECT * from recipes");
             if (!resultSet.next()) {
@@ -559,7 +559,9 @@ public class DataAccessDB implements DataAccess {
         }
     }
 
-    /** If no data is present, populate the database with initial data */
+    /**
+     * If no data is present, populate the database with initial data
+     */
     private void initData() {
         Statement statement;
 
