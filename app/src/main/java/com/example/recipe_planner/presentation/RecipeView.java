@@ -128,7 +128,9 @@ public class RecipeView extends Fragment {
         return view;
     }
 
-    /** Saves the changes made to the recipe, called when the recipes are edited. */
+    /**
+     * Saves the changes made to the recipe, called when the recipes are edited.
+     */
     public void updateRecipe() {
         String newInstructions = this.recipeInstructions.getText().toString();
         String newName = this.recipeName.getText().toString();

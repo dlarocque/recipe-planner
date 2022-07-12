@@ -1,6 +1,5 @@
 package com.example.recipe_planner.presentation;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -13,9 +12,10 @@ import com.example.recipe_planner.objects.Ingredient;
 import com.example.recipe_planner.objects.Recipe;
 
 import java.util.ArrayList;
-import java.util.List;
 
-/** {@link RecyclerView.Adapter} that can display a {@link Ingredient}. */
+/**
+ * {@link RecyclerView.Adapter} that can display a {@link Ingredient}.
+ */
 public class IngredientRecyclerViewAdapter
         extends RecyclerView.Adapter<IngredientRecyclerViewAdapter.ViewHolder> {
 
@@ -49,6 +49,10 @@ public class IngredientRecyclerViewAdapter
         return ingredients.size();
     }
 
+    public String getUnitString(Ingredient ingredient) {
+        return ingredient.getUnit().getClass().getSimpleName();
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public final TextView name;
         public final TextView amount;
@@ -67,9 +71,5 @@ public class IngredientRecyclerViewAdapter
         public String toString() {
             return super.toString();
         }
-    }
-
-    public String getUnitString(Ingredient ingredient) {
-        return ingredient.getUnit().getClass().getSimpleName();
     }
 }

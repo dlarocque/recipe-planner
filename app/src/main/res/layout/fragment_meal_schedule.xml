@@ -17,7 +17,6 @@
             android:layout_height="wrap_content"
             android:background="@drawable/ic_baseline_keyboard_arrow_left_24" />
 
-        <!-- TODO: Update text to a better default string resource-->
         <TextView
             android:id="@+id/dateText"
             android:layout_width="250dp"

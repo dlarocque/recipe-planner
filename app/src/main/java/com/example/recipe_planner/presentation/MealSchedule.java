@@ -21,7 +21,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
-/** A {@link Fragment} representing a {@link DaySchedule} schedule. */
+/**
+ * A {@link Fragment} representing a {@link DaySchedule} schedule.
+ */
 public class MealSchedule extends Fragment {
     public static final int DAY_INCREMENT = 1;
     private final String TAG = this.getClass().getSimpleName();
@@ -86,7 +88,9 @@ public class MealSchedule extends Fragment {
         return view;
     }
 
-    /** Update all of the UI elements in the fragment. */
+    /**
+     * Update all of the UI elements in the fragment.
+     */
     private void updateView() {
         updateDate();
         updateDaySchedule();
