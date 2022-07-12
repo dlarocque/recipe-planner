@@ -77,6 +77,7 @@ public class DataAccessDB implements DataAccess {
                 + "    + '7. Savor every bite.',\n"
                 + "    1\n"
                 + ")",
+
         "INSERT INTO INGREDIENTS VALUES (NULL, 'Balsamic Vinegar')",
         "INSERT INTO INGREDIENTS VALUES (NULL, 'Balsamic Vinegar')\n"
                 + "INSERT INTO INGREDIENTS VALUES (NULL, 'Basil Leaves')\n"
@@ -96,7 +97,7 @@ public class DataAccessDB implements DataAccess {
                 + "INSERT INTO INGREDIENTS VALUES (NULL, 'Active Yeast')",
         "INSERT INTO RECIPEINGREDIENTS VALUES(1, 5, 0.75, 'CUP')\n"
                 + "INSERT INTO RECIPEINGREDIENTS VALUES(1, 6, 2, 'TSP')\n"
-                + "INSERT INTO RECIPEINGREDIENTS VALUES(1, 2 , 2, 'TSP')\n"
+                + "INSERT INTO RECIPEINGREDIENTS VALUES(1, 2, 2, 'TSP')\n"
                 + "INSERT INTO RECIPEINGREDIENTS VALUES(1, 7, 2/3, 'TSP')\n"
                 + "INSERT INTO RECIPEINGREDIENTS VALUES(1, 8, 2/3, 'TSP')\n"
                 + "INSERT INTO RECIPEINGREDIENTS VALUES(1, 9, 2, 'CUP')\n"
@@ -243,6 +244,53 @@ public class DataAccessDB implements DataAccess {
             statement.close();
         } catch (SQLException sqlException) {
             Log.e(TAG, "Failed to get all recipes from HSQLDB");
+            sqlException.printStackTrace();
+        }
+
+        return recipes;
+    }
+
+    @Override
+    public List<Recipe> getRecipesWithPartialName(String recipePartialName) {
+        ArrayList<Recipe> recipes = new ArrayList<>();
+        ArrayList<Ingredient> ingredients;
+        int recipeId;
+        String recipeName, instructions;
+        boolean isDefault;
+        Statement statement;
+        ResultSet allRecipes;
+
+        if (recipePartialName == null) {
+            return recipes;
+        }
+
+        // Build list of recipes
+        try {
+            // Get all recipes
+            statement = connection.createStatement();
+            allRecipes =
+                    statement.executeQuery(
+                            "SELECT * FROM RECIPES WHERE LCASE(NAME) LIKE '%"
+                                    + recipePartialName.toLowerCase()
+                                    + "%'");
+
+            while (allRecipes.next()) {
+                // Get all the components of a recipe, create a recipe, and add it to our list of recipes
+                recipeId = allRecipes.getInt("ID");
+                recipeName = allRecipes.getString("NAME");
+                instructions = allRecipes.getString("INSTRUCTIONS");
+                isDefault = allRecipes.getBoolean("IS_DEFAULT");
+                ingredients = new ArrayList<>(getRecipeIngredients(recipeId));
+
+                Recipe recipe =
+                        new Recipe(recipeId, recipeName, ingredients, instructions, isDefault);
+                recipes.add(recipe);
+            }
+
+            allRecipes.close();
+            statement.close();
+        } catch (SQLException sqlException) {
+            Log.e(TAG, "Failed to get recipes searched by partial name from HSQLDB");
             sqlException.printStackTrace();
         }
 

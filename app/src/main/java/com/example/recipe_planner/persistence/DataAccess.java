@@ -17,6 +17,8 @@ public interface DataAccess {
 
     List<Recipe> getRecipes();
 
+    List<Recipe> getRecipesWithPartialName(String recipePartialName);
+
     List<Ingredient> getRecipeIngredients(int recipeId);
 
     boolean deleteRecipe(int recipeId);

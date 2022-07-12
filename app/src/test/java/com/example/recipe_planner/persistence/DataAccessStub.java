@@ -68,6 +68,18 @@ public class DataAccessStub implements DataAccess {
         return recipeIngredients;
     }
 
+    public List<Recipe> getRecipesWithPartialName(String recipePartialName) {
+        ArrayList<Recipe> recipesWithPartialName = new ArrayList<>();
+        if (recipePartialName != null) {
+            for (Recipe recipe : recipes) {
+                if (recipe.getName().toLowerCase().contains(recipePartialName.toLowerCase()))
+                    recipesWithPartialName.add(recipe);
+            }
+        }
+
+        return recipesWithPartialName;
+    }
+
     // Returns true if the recipe exists in recipes.
     public boolean deleteRecipe(int recipeId) {
         for (int i = 0; i < recipes.size(); i++) {
@@ -201,7 +213,8 @@ public class DataAccessStub implements DataAccess {
                                 new Ingredient("White Sugar", new Teaspoon(2 * THIRD)),
                                 new Ingredient("Bread Flour", new Cup(2)),
                                 new Ingredient("Active Yeast", new Teaspoon(3 * HALF)),
-                                new Ingredient("Honey", new Cup(1))));
+                                new Ingredient("Honey", new Cup(1))
+                                ));
 
         instructions =
                 "Add to your bread machine per manufacturer instructions.\n"

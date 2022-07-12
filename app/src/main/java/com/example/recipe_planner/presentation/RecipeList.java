@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
+import android.widget.ImageView;
+import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
@@ -26,6 +28,7 @@ import com.example.recipe_planner.objects.Recipe;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /** A {@link Fragment} representing a list of Recipes. */
 public class RecipeList extends Fragment
@@ -74,6 +77,33 @@ public class RecipeList extends Fragment
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(
                 new RecipeRecyclerViewAdapter(accessRecipes.getRecipes(), this, this));
+
+        SearchView simpleSearchView = (SearchView) view.findViewById(R.id.SearchRecipes);
+        simpleSearchView.setOnQueryTextListener(
+                new SearchView.OnQueryTextListener() {
+                    @Override
+                    public boolean onQueryTextSubmit(String query) {
+                        List<Recipe> results = accessRecipes.getRecipesWithPartialName(query);
+                        ImageView emptyRecipeListView = view.findViewById(R.id.emptySearch);
+                        if (results.isEmpty()) {
+                            recyclerView.setVisibility(View.INVISIBLE);
+                            emptyRecipeListView.setVisibility(View.VISIBLE);
+                        } else {
+                            recyclerView.setVisibility(View.VISIBLE);
+                            emptyRecipeListView.setVisibility(View.INVISIBLE);
+                            recyclerView.setAdapter(
+                                    new RecipeRecyclerViewAdapter(
+                                            results, RecipeList.this, RecipeList.this));
+                        }
+                        return true;
+                    }
+
+                    @Override
+                    public boolean onQueryTextChange(String newText) {
+                        return onQueryTextSubmit(newText);
+                    }
+                });
+
         return view;
     }
 
