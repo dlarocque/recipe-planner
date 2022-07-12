@@ -1,5 +1,6 @@
 package com.example.recipe_planner;
 
+import com.example.recipe_planner.business.DataAccessTest;
 import com.example.recipe_planner.objects.ObjectTestSuite;
 
 import org.junit.After;
@@ -9,7 +10,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({ObjectTestSuite.class})
+@SuiteClasses({ObjectTestSuite.class, DataAccessTest.class})
 public class AllTests {
     @Before
     public void beginTests() {

@@ -9,7 +9,6 @@ import static org.junit.Assert.fail;
 import com.example.recipe_planner.objects.measurements.Cup;
 import com.example.recipe_planner.objects.measurements.Gram;
 import com.example.recipe_planner.objects.measurements.Millilitre;
-import com.example.recipe_planner.objects.measurements.Ounce;
 
 import org.junit.Test;
 
@@ -27,8 +26,9 @@ public class TestRecipe {
                                 new Ingredient("chili peppers", new Cup(0.5)),
                                 new Ingredient("cheddar", new Gram(400)),
                                 new Ingredient("ketchup", new Cup(4))));
-        Recipe typical = new Recipe(name, list, instructions);
+        Recipe typical = new Recipe(0, name, list, instructions);
 
+        assertEquals(0, typical.getId());
         assertEquals(name, typical.getName());
         assertEquals(instructions, typical.getInstructions());
         assertFalse(typical.isDefault());
@@ -45,7 +45,7 @@ public class TestRecipe {
                                 new Ingredient("McDonald's Chicken Nuggets", new Gram(400)),
                                 new Ingredient("Pickle Juice", new Millilitre(250)),
                                 new Ingredient("Gravy", new Cup(3.5))));
-        Recipe typical = new Recipe(name, list, instructions, true);
+        Recipe typical = new Recipe(0, name, list, instructions, true);
 
         assertEquals(list, typical.getIngredients());
 
@@ -58,24 +58,8 @@ public class TestRecipe {
     }
 
     @Test
-    public void testDefineNameOnly() {
-        Recipe onlyName = new Recipe("I have no details");
-
-        assertEquals("I have no details", onlyName.getName());
-        assertEquals(0, onlyName.getIngredients().size());
-        assertNull(onlyName.getInstructions());
-
-        Ingredient added = new Ingredient("bubblegum", new Ounce(20));
-        onlyName.addIngredient(added);
-
-        assertEquals(1, onlyName.getIngredients().size());
-        assertEquals(added, onlyName.getIngredients().get(0));
-        assertFalse(onlyName.isDefault());
-    }
-
-    @Test
     public void testNullNameInstructions() {
-        Recipe nullCake = new Recipe(null, null, null);
+        Recipe nullCake = new Recipe(0, null, null, null);
 
         assertNull(nullCake.getName());
         assertNull(nullCake.getInstructions());
@@ -90,7 +74,7 @@ public class TestRecipe {
 
     @Test
     public void testNullIngredients() {
-        Recipe nullCake = new Recipe(null, null, null);
+        Recipe nullCake = new Recipe(0, null, null, null);
 
         assertNull(nullCake.getIngredients());
 
@@ -106,7 +90,7 @@ public class TestRecipe {
 
     @Test
     public void testEmptyNameInstructions() {
-        Recipe empty = new Recipe("", new ArrayList<>(), "", false);
+        Recipe empty = new Recipe(0, "", new ArrayList<>(), "", false);
 
         assertEquals("", empty.getName());
         assertEquals("", empty.getInstructions());
@@ -122,7 +106,7 @@ public class TestRecipe {
 
     @Test
     public void testEmptyIngredients() {
-        Recipe empty = new Recipe("", new ArrayList<>(), "", true);
+        Recipe empty = new Recipe(0, "", new ArrayList<>(), "", true);
 
         assertEquals(0, empty.getIngredients().size());
 
@@ -137,16 +121,16 @@ public class TestRecipe {
 
     @Test
     public void testDefaultRecipe() {
-        Recipe defaultRecipe = new Recipe("", new ArrayList<>(), "", true);
+        Recipe defaultRecipe = new Recipe(0, "", new ArrayList<>(), "", true);
         assertTrue(defaultRecipe.isDefault());
     }
 
     @Test
     public void testUserCreatedRecipe() {
-        Recipe userCreatedRecipe = new Recipe("", new ArrayList<>(), "", false);
+        Recipe userCreatedRecipe = new Recipe(0, "", new ArrayList<>(), "", false);
         assertFalse(userCreatedRecipe.isDefault());
 
-        userCreatedRecipe = new Recipe("", new ArrayList<>(), "");
+        userCreatedRecipe = new Recipe(0, "", new ArrayList<>(), "");
         assertFalse(userCreatedRecipe.isDefault());
     }
 }

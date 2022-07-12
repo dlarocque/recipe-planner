@@ -7,15 +7,10 @@ public class Recipe {
     private final boolean isDefault;
     private String name;
     private String instructions;
+    private final int id;
 
-    public Recipe(String name) {
-        this.name = name;
-        this.ingredients = new ArrayList<>();
-        this.instructions = null;
-        this.isDefault = false;
-    }
-
-    public Recipe(String name, ArrayList<Ingredient> ingredients, String instructions) {
+    public Recipe(int id, String name, ArrayList<Ingredient> ingredients, String instructions) {
+        this.id = id;
         this.name = name;
         this.ingredients = ingredients;
         this.instructions = instructions;
@@ -25,10 +20,12 @@ public class Recipe {
     // Use this constructor with isDefault:true when creating our default recipes.
     // The other constructors should be used when a user is creating a recipe.
     public Recipe(
+            int id,
             String name,
             ArrayList<Ingredient> ingredients,
             String instructions,
             boolean isDefault) {
+        this.id = id;
         this.name = name;
         this.ingredients = ingredients;
         this.instructions = instructions;
@@ -62,6 +59,10 @@ public class Recipe {
     }
 
     public boolean isDefault() {
-        return isDefault;
+        return this.isDefault;
+    }
+
+    public int getId() {
+        return this.id;
     }
 }

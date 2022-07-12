@@ -11,6 +11,12 @@ public class DaySchedule {
     public DaySchedule() {
     }
 
+    public DaySchedule(Recipe breakfast, Recipe lunch, Recipe dinner) {
+        setMeal(Meal.BREAKFAST, breakfast);
+        setMeal(Meal.LUNCH, lunch);
+        setMeal(Meal.DINNER, dinner);
+    }
+
     public void setMeal(final Meal MEAL, Recipe recipe) {
         this.meals.put(MEAL, recipe);
     }

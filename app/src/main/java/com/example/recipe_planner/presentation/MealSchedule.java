@@ -119,7 +119,7 @@ public class MealSchedule extends Fragment {
 
     private boolean recipeExists(Recipe recipe) {
         return recipe != null
-                && this.accessRecipes.getRecipeWithName(recipe.getName()) != null;
+                && this.accessRecipes.getRecipe(recipe.getId()) != null;
     }
 
     private void updateDate() {
@@ -130,13 +130,13 @@ public class MealSchedule extends Fragment {
     private void updateDeleteButtons() {
         DaySchedule daySchedule = accessSchedule.getDayScheduleOrDefault(selectedDate);
 
-        updateDeleteButton(descheduleBreakfastButton, daySchedule, DaySchedule.Meal.BREAKFAST);
-        updateDeleteButton(descheduleLunchButton, daySchedule, DaySchedule.Meal.LUNCH);
-        updateDeleteButton(descheduleDinnerButton, daySchedule, DaySchedule.Meal.DINNER);
+        updateDeleteButton(descheduleBreakfastButton, daySchedule, selectedDate, DaySchedule.Meal.BREAKFAST);
+        updateDeleteButton(descheduleLunchButton, daySchedule, selectedDate, DaySchedule.Meal.LUNCH);
+        updateDeleteButton(descheduleDinnerButton, daySchedule, selectedDate, DaySchedule.Meal.DINNER);
     }
 
-    private void updateDeleteButton(ImageButton deleteButton, DaySchedule daySchedule, final DaySchedule.Meal MEAL) {
-        boolean isEnabled = recipeExists(daySchedule.getMeal(MEAL));
+    private void updateDeleteButton(ImageButton deleteButton, DaySchedule daySchedule, Date date, DaySchedule.Meal meal) {
+        boolean isEnabled = recipeExists(daySchedule.getMeal(meal));
         deleteButton.setEnabled(isEnabled);
         if (isEnabled) {
             deleteButton.setVisibility(View.VISIBLE);
@@ -144,12 +144,12 @@ public class MealSchedule extends Fragment {
             deleteButton.setVisibility(View.INVISIBLE);
         }
 
-        deleteButton.setOnClickListener(descheduleMeal(daySchedule, MEAL));
+        deleteButton.setOnClickListener(descheduleMeal(date, meal));
     }
 
-    private View.OnClickListener descheduleMeal(DaySchedule daySchedule, final DaySchedule.Meal MEAL) {
+    private View.OnClickListener descheduleMeal(Date date, DaySchedule.Meal meal) {
         return clickListener -> {
-            daySchedule.setMeal(MEAL, null);
+            accessSchedule.descheduleMeal(date, meal);
             updateView();
         };
     }

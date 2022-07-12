@@ -33,9 +33,10 @@ import java.util.Date;
 public class RecipeList extends Fragment
         implements RecipeRecyclerViewAdapter.OnRecipeClickListener, RecipeRecyclerViewAdapter.OnScheduleRecipeClickListener {
 
-    public static final String ARG_POSITION_IN_LIST = "positionInList";
+    public static final String ARG_RECIPE_ID = "recipeId";
     private final String TAG = this.getClass().getSimpleName();
     private AccessRecipes accessRecipes;
+    private AccessSchedule accessSchedule;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the fragment (e.g. upon
@@ -60,6 +61,7 @@ public class RecipeList extends Fragment
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         accessRecipes = new AccessRecipes();
+        accessSchedule = new AccessSchedule();
     }
 
     @Override
@@ -83,7 +85,8 @@ public class RecipeList extends Fragment
         Log.d("RecipeList", "Recipe " + positionInList + " clicked");
         // Navigate to the recipe view for the recipe that was clicked
         Bundle bundle = new Bundle();
-        bundle.putInt(ARG_POSITION_IN_LIST, positionInList);
+        Recipe clickedRecipe = accessRecipes.getRecipes().get(positionInList);
+        bundle.putInt(ARG_RECIPE_ID, clickedRecipe.getId()); // TODO fix in view
         Navigation.findNavController(view).navigate(R.id.action_recipeList_to_recipeView, bundle);
     }
 
@@ -91,7 +94,8 @@ public class RecipeList extends Fragment
     public void onScheduleRecipeClick(int positionInList, View view) {
         Log.d(TAG, "Scheduling Button for recipe " + positionInList + " clicked");
         Bundle bundle = new Bundle();
-        bundle.putInt(ARG_POSITION_IN_LIST, positionInList);
+        Recipe clickedRecipe = accessRecipes.getRecipes().get(positionInList);
+        bundle.putInt(ARG_RECIPE_ID, clickedRecipe.getId());
         DialogFragment df = new DatePickerFragment(bundle);
         df.show(this.getChildFragmentManager(), TAG);
     }
@@ -130,8 +134,7 @@ public class RecipeList extends Fragment
             Date scheduledDate = calendar.getTime();
 
             // Get the schedule for the selected date
-            Recipe scheduledRecipe = accessRecipes.getRecipeAt(bundle.getInt(ARG_POSITION_IN_LIST));
-            DaySchedule selectedDateSchedule = accessSchedule.getDayScheduleOrDefault(scheduledDate);
+            Recipe scheduledRecipe = accessRecipes.getRecipe(bundle.getInt(ARG_RECIPE_ID));
 
             // Prompt the user to select a meal, and schedule the meal
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(view.getContext());
@@ -139,7 +142,8 @@ public class RecipeList extends Fragment
             alertDialogBuilder.setItems(dialogItems, (dialogInterface, i) -> {
                 Log.d("RecipeList", "Selected meal " + dialogItems[i]);
                 DaySchedule.Meal selectedMeal = DaySchedule.Meal.values()[i];
-                selectedDateSchedule.setMeal(selectedMeal, scheduledRecipe);
+                // selectedDateSchedule.setMeal(selectedMeal, scheduledRecipe);
+                accessSchedule.setMeal(scheduledDate, selectedMeal, scheduledRecipe);
             });
             AlertDialog alertDialog = alertDialogBuilder.create();
             alertDialog.show();
