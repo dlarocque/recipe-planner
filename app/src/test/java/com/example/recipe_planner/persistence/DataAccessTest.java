@@ -9,9 +9,9 @@ import com.example.recipe_planner.application.Main;
 import com.example.recipe_planner.application.Services;
 import com.example.recipe_planner.objects.Ingredient;
 import com.example.recipe_planner.objects.Recipe;
+import com.example.recipe_planner.objects.measurements.ConvertibleUnit;
 import com.example.recipe_planner.objects.measurements.Count;
-import com.example.recipe_planner.objects.measurements.Cup;
-import com.example.recipe_planner.objects.measurements.Tablespoon;
+import com.example.recipe_planner.objects.measurements.Unit;
 import com.example.recipe_planner.persistence.DataAccess;
 import com.example.recipe_planner.persistence.DataAccessStub;
 
