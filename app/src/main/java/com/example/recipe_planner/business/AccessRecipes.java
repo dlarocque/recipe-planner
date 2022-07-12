@@ -22,6 +22,10 @@ public class AccessRecipes {
         return dataAccess.getRecipes();
     }
 
+    public List<Recipe> getRecipesWithPartialName(String recipePartialName) {
+        return dataAccess.getRecipesWithPartialName(recipePartialName);
+    }
+
     public List<Ingredient> getRecipeIngredients(int recipeId) {
         return dataAccess.getRecipeIngredients(recipeId);
     }

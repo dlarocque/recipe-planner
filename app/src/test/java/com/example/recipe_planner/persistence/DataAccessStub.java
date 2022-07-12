@@ -37,8 +37,7 @@ public class DataAccessStub implements DataAccess {
         schedule = new Schedule();
     }
 
-    public void close() {
-    }
+    public void close() {}
 
     public Recipe getRecipe(int recipeId) {
         Recipe recipe = null;
@@ -64,6 +63,18 @@ public class DataAccessStub implements DataAccess {
             }
         }
         return recipeIngredients;
+    }
+
+    public List<Recipe> getRecipesWithPartialName(String recipePartialName) {
+        ArrayList<Recipe> recipesWithPartialName = new ArrayList<>();
+        if (recipePartialName != null) {
+            for (Recipe recipe : recipes) {
+                if (recipe.getName().toLowerCase().contains(recipePartialName.toLowerCase()))
+                    recipesWithPartialName.add(recipe);
+            }
+        }
+
+        return recipesWithPartialName;
     }
 
     // Returns true if the recipe exists in recipes.
@@ -110,11 +121,8 @@ public class DataAccessStub implements DataAccess {
                                 new Ingredient("Balsamic Vinegar", new Cup(3 * QUARTER)),
                                 new Ingredient("Basil Leaves", new Cup(QUARTER)),
                                 new Ingredient("Olive Oil", new Tablespoon(2)),
-                                new Ingredient(
-                                        "Plum Tomatoes", new Count(4)),
-                                new Ingredient(
-                                        "Boneless Skinless Chicken Breast",
-                                        new Count(4))));
+                                new Ingredient("Plum Tomatoes", new Count(4)),
+                                new Ingredient("Boneless Skinless Chicken Breast", new Count(4))));
         String instructions =
                 "After washing basil and tomatoes, blot them dry with clean paper towel.\n"
                         + "\n"
@@ -140,7 +148,7 @@ public class DataAccessStub implements DataAccess {
                                 new Ingredient("Bread Flour", new Cup(2)),
                                 new Ingredient("Active Yeast", new Teaspoon(3 * HALF)),
                                 new Ingredient("Honey", new Cup(1))
-                        ));
+                                ));
 
         instructions =
                 "Add to your bread machine per manufacturer instructions.\n"
@@ -173,9 +181,7 @@ public class DataAccessStub implements DataAccess {
         ingredients =
                 new ArrayList<>(
                         Arrays.asList(
-                                new Ingredient(
-                                        "Pastry Double Crust Pie",
-                                        new Count(1)),
+                                new Ingredient("Pastry Double Crust Pie", new Count(1)),
                                 new Ingredient("Apple", new Count(6)),
                                 new Ingredient("White Sugar", new Cup(THIRD)),
                                 new Ingredient("Brown Sugar", new Cup(THIRD)),
