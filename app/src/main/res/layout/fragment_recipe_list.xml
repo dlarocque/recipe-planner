@@ -16,6 +16,7 @@
         android:iconifiedByDefault="true"
         android:layoutMode="opticalBounds"
         android:queryHint="@string/search_hint"
+        android:visibility="visible"
         tools:context=".presentation.RecipeList" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -23,13 +24,23 @@
         android:name="com.example.recipe_planner.RecipeItem"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="65dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
         android:layout_gravity="bottom"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="65dp"
+        android:layout_marginRight="16dp"
+        android:visibility="visible"
         app:layoutManager="LinearLayoutManager"
         tools:context=".presentation.RecipeList"
-        tools:listitem="@layout/fragment_recipe_list_item">
-    </androidx.recyclerview.widget.RecyclerView>
+        tools:listitem="@layout/fragment_recipe_list_item" />
+
+    <ImageView
+        android:id="@+id/emptySearch"
+        android:layout_width="match_parent"
+        android:layout_height="343dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginRight="16dp"
+        android:src="@mipmap/ic_empty_search_foreground"
+        android:visibility="invisible" />
 
 </FrameLayout>

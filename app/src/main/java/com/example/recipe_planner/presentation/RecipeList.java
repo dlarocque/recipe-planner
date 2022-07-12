@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
@@ -29,9 +30,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-/**
- * A {@link Fragment} representing a list of Recipes.
- */
+/** A {@link Fragment} representing a list of Recipes. */
 public class RecipeList extends Fragment
         implements RecipeRecyclerViewAdapter.OnRecipeClickListener,
                 RecipeRecyclerViewAdapter.OnScheduleRecipeClickListener {
@@ -85,10 +84,19 @@ public class RecipeList extends Fragment
                     @Override
                     public boolean onQueryTextSubmit(String query) {
                         List<Recipe> results = accessRecipes.getRecipesWithPartialName(query);
-                        recyclerView.setAdapter(
-                                new RecipeRecyclerViewAdapter(
-                                        results, RecipeList.this, RecipeList.this));
-                        return true;
+                        ImageView emptyRecipeListView = view.findViewById(R.id.emptySearch);
+                        if (results.isEmpty()) {
+                            recyclerView.setVisibility(View.INVISIBLE);
+                            emptyRecipeListView.setVisibility(View.VISIBLE);
+                            return true;
+                        } else {
+                            recyclerView.setVisibility(View.VISIBLE);
+                            emptyRecipeListView.setVisibility(View.INVISIBLE);
+                            recyclerView.setAdapter(
+                                    new RecipeRecyclerViewAdapter(
+                                            results, RecipeList.this, RecipeList.this));
+                            return true;
+                        }
                     }
 
                     @Override
