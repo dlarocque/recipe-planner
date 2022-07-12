@@ -16,9 +16,7 @@ public class Ingredient {
         return this.name;
     }
 
-    public double getAmount() {
-        return this.quantity.getAmount();
-    }
+    public double getAmount() {return this.quantity.getAmount(); }
 
     // setters
     public void setAmount(IUnit newAmount) {

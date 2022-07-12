@@ -10,18 +10,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.recipe_planner.databinding.FragmentIngredientListItemBinding;
 import com.example.recipe_planner.objects.Ingredient;
+import com.example.recipe_planner.objects.Recipe;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /** {@link RecyclerView.Adapter} that can display a {@link Ingredient}. */
 public class IngredientRecyclerViewAdapter
         extends RecyclerView.Adapter<IngredientRecyclerViewAdapter.ViewHolder> {
 
-    private final List<Ingredient> ingredients;
+    private final ArrayList<Ingredient> ingredients;
 
     public IngredientRecyclerViewAdapter(
-            List<Ingredient> items) {
-        this.ingredients = items;
+            Recipe recipe) {
+        this.ingredients = recipe.getIngredients();
     }
 
     @NonNull
@@ -39,6 +41,7 @@ public class IngredientRecyclerViewAdapter
         Ingredient ingredientToDisplay = ingredients.get(position);
         String unitName = getUnitString(ingredientToDisplay);
         holder.name.setText(ingredientToDisplay.getName());
+        Double bruh = ingredientToDisplay.getAmount();
         holder.amount.setText(String.valueOf(ingredientToDisplay.getAmount()));
         holder.unit.setText(unitName);
     }

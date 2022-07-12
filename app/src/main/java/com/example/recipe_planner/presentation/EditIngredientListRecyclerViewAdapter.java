@@ -28,7 +28,7 @@ public class EditIngredientListRecyclerViewAdapter
 
     private List<Ingredient> ingredients;
     public String ingName;
-    public String ingAmount;
+    public String ingQuantity;
     public String ingUnit;
 
     public EditIngredientListRecyclerViewAdapter(
@@ -43,7 +43,7 @@ public class EditIngredientListRecyclerViewAdapter
         return new ViewHolder(
                 FragmentEditIngredientItemBinding.inflate(
                         LayoutInflater.from(parent.getContext()), parent, false), new IngredientEditTextListener(),
-                new AmountEditTextListener(), new UnitEditTextListener());
+                new QuantityEditTextListener(), new UnitEditTextListener());
     }
 
     @Override
@@ -52,11 +52,11 @@ public class EditIngredientListRecyclerViewAdapter
         Ingredient ingredientToDisplay = ingredients.get(position);
         String unitName = getUnitString(ingredientToDisplay);
         holder.name.setText(ingredientToDisplay.getName());
-        holder.amount.setText(String.valueOf(ingredientToDisplay.getAmount()));
+        holder.quantity.setText(String.valueOf(ingredientToDisplay.getAmount()));
         holder.unit.setText(unitName);
 
         holder.nameListener.updatePosition(holder.getBindingAdapterPosition());
-        holder.amountListener.updatePosition(holder.getBindingAdapterPosition());
+        holder.quantityListener.updatePosition(holder.getBindingAdapterPosition());
         holder.unitListener.updatePosition(holder.getBindingAdapterPosition());
     }
 
@@ -67,29 +67,29 @@ public class EditIngredientListRecyclerViewAdapter
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public EditText name;
-        public EditText amount;
+        public EditText quantity;
         public EditText unit;
         public final ImageButton delete;
 
         public IngredientEditTextListener nameListener;
-        public AmountEditTextListener amountListener;
+        public QuantityEditTextListener quantityListener;
         public UnitEditTextListener unitListener;
 
         public ViewHolder(FragmentEditIngredientItemBinding binding, IngredientEditTextListener nameListener,
-                          AmountEditTextListener amountListener, UnitEditTextListener unitListener) {
+                          QuantityEditTextListener quantityListener, UnitEditTextListener unitListener) {
             super(binding.getRoot());
 
             name = binding.ingredientName;
-            amount = binding.ingredientAmount;
+            quantity = binding.ingredientQuantity;
             unit = binding.ingredientUnit;
             delete = binding.deleteIngredient;
 
             this.nameListener = nameListener;
-            this.amountListener = amountListener;
+            this.quantityListener = quantityListener;
             this.unitListener = unitListener;
 
             this.name.addTextChangedListener(nameListener);
-            this.amount.addTextChangedListener(amountListener);
+            this.quantity.addTextChangedListener(quantityListener);
             this.unit.addTextChangedListener(unitListener);
 
             delete.setOnClickListener(editView -> {
@@ -146,7 +146,7 @@ public class EditIngredientListRecyclerViewAdapter
 
     }
 
-    private class AmountEditTextListener implements TextWatcher{
+    private class QuantityEditTextListener implements TextWatcher{
         private int position;
 
         public void updatePosition(int position){

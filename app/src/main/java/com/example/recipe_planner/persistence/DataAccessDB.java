@@ -95,7 +95,7 @@ public class DataAccessDB implements DataAccess {
                     + "INSERT INTO INGREDIENTS VALUES (NULL, 'Active Yeast')",
             "INSERT INTO RECIPEINGREDIENTS VALUES(1, 5, 0.75, 'CUP')\n"
                     + "INSERT INTO RECIPEINGREDIENTS VALUES(1, 6, 2, 'TSP')\n"
-                    + "INSERT INTO RECIPEINGREDIENTS VALUES(1, 2, 2, 'TSP')\n"
+                    + "INSERT INTO RECIPEINGREDIENTS VALUES(1, 2 , 2, 'TSP')\n"
                     + "INSERT INTO RECIPEINGREDIENTS VALUES(1, 7, 2/3, 'TSP')\n"
                     + "INSERT INTO RECIPEINGREDIENTS VALUES(1, 8, 2/3, 'TSP')\n"
                     + "INSERT INTO RECIPEINGREDIENTS VALUES(1, 9, 2, 'CUP')\n"
@@ -296,6 +296,49 @@ public class DataAccessDB implements DataAccess {
         }
     }
 
+//    @Override
+//    public boolean deleteIngredient(int recipeID, int ingredientID){
+//        Statement statement;
+//        try {
+//            statement = connection.createStatement();
+//            statement.executeUpdate("DELETE FROM RECIPEINGREDIENTS WHERE RECIPEID=" + recipeID + "AND INGREDIENTID=" + ingredientID + ";");
+//            statement.close();
+//            return true;
+//        } catch (SQLException sqlException) {
+//            sqlException.printStackTrace();
+//            return false;
+//        }
+//    }
+//
+//    @Override
+//    boolean addIngredient(int recipeID, String ingredientName, String unit, Double quantity){
+//        Statement statement;
+//        try {
+//            statement = connection.createStatement();
+//            statement.executeUpdate("DELETE FROM RECIPEINGREDIENTS WHERE RECIPEID=" + recipeID + "AND INGREDIENTID=" + ingredientID + ";");
+//            statement.close();
+//            return true;
+//        } catch (SQLException sqlException) {
+//            sqlException.printStackTrace();
+//            return false;
+//        }
+//    }
+//
+//    @Override
+//    boolean updateIngredientName(int recipeID, String ingredientName){
+//
+//    }
+//
+//    @Override
+//    boolean updateIngredientQuantity(int recipeID, Double quantity){
+//
+//    }
+//
+//    @Override
+//    boolean updateIngredientUnit(int recipeID, String unit){
+//
+//    }
+
     @Override
     public DaySchedule getDaySchedule(Date date) {
         DaySchedule daySchedule = null;
@@ -376,25 +419,25 @@ public class DataAccessDB implements DataAccess {
         IUnit result = null;
 
         switch (unit) {
-            case "Cup":
+            case "CUP":
                 result = new Cup(quantity);
                 break;
-            case "Count":
+            case "COUNT":
                 result = new Count(quantity);
                 break;
-            case "Gram":
+            case "GRAM":
                 result = new Gram(quantity);
                 break;
-            case "Mililitre":
+            case "ML":
                 result = new Millilitre(quantity);
                 break;
-            case "Ounce":
+            case "OUNCE":
                 result = new Ounce(quantity);
                 break;
-            case "Tablespoon":
+            case "TBSP":
                 result = new Tablespoon(quantity);
                 break;
-            case "Teaspoon":
+            case "TSP":
                 result = new Teaspoon(quantity);
                 break;
         }

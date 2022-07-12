@@ -21,6 +21,16 @@ public interface DataAccess {
 
     boolean deleteRecipe(int recipeId);
 
+//    boolean deleteIngredient(int recipeID, int ingredientID);
+//
+//    boolean addIngredient(int recipeID, String ingredientName, String unit, Double quantity);
+//
+//    boolean updateIngredientName(int recipeID, String ingredientName);
+//
+//    boolean updateIngredientQuantity(int recipeID, Double quantity);
+//
+//    boolean updateIngredientUnit(int recipeID, String unit);
+
     DaySchedule getDaySchedule(Date date);
 
     void initializeDaySchedule(Date date);

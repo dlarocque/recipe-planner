@@ -28,7 +28,7 @@ import java.util.ArrayList;
  */
 public class  RecipeView extends Fragment {
 
-    public static final String RECIPE_POSITION_IN_LIST = "positionInList";
+    public static final String RECIPE_ID = "recipeID";
 
     private Recipe recipe;
     private EditText recipeName;
@@ -75,8 +75,8 @@ public class  RecipeView extends Fragment {
         View view = inflater.inflate(R.layout.fragment_recipe_view, container, false);
 
         // Retrieve recipe data to display
-        int positionInRecipeList = getArguments().getInt(RecipeList.ARG_RECIPE_ID);
-        this.recipe = recipeList.get(positionInRecipeList);
+        int recipeID = getArguments().getInt(RecipeList.ARG_RECIPE_ID);
+        this.recipe = accessRecipes.getRecipe(recipeID);
         this.recipeName = view.findViewById(R.id.recipe_name_edit);
         this.recipeInstructions = view.findViewById(R.id.recipe_instruction_edit);
 
@@ -114,7 +114,7 @@ public class  RecipeView extends Fragment {
         ImageButton editIngredients = view.findViewById(R.id.editIngredients);
         editIngredients.setOnClickListener(view1 -> {
             Bundle bundle = new Bundle();
-            bundle.putInt(RECIPE_POSITION_IN_LIST, positionInRecipeList);
+            bundle.putInt(RecipeList.ARG_RECIPE_ID, recipeID);
             Navigation.findNavController(view1).navigate(R.id.action_recipeView_to_ingredientEdit, bundle);
         });
 
@@ -122,7 +122,7 @@ public class  RecipeView extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.ingredientList);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(
-                new IngredientRecyclerViewAdapter(recipe.getIngredients()));
+                new IngredientRecyclerViewAdapter(recipe));
 
         return view;
     }

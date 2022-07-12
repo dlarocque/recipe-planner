@@ -45,6 +45,7 @@ public class EditIngredientList extends Fragment{
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_edit_ingredients, container, false);
+        assert (getArguments() != null);
 
         addIngredient = view.findViewById(R.id.addIngredient);
 
@@ -52,8 +53,8 @@ public class EditIngredientList extends Fragment{
             //
         });
 
-        int positionInRecipeList = getArguments().getInt(RecipeList.ARG_POSITION_IN_LIST);
-        Recipe recipe = accessRecipes.getRecipe(positionInRecipeList);
+        int recipeID = getArguments().getInt(RecipeList.ARG_RECIPE_ID);
+        Recipe recipe = accessRecipes.getRecipe(recipeID);
 
         List<Ingredient> ingredientList = fetchIngredients(recipe);
 
