@@ -2,10 +2,14 @@ package com.example.recipe_planner.presentation;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageButton;
 
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
@@ -22,6 +26,8 @@ import java.util.List;
 public class EditIngredientList extends Fragment{
 
     private AccessRecipes accessRecipes;
+
+    private ImageButton addIngredient;
 
     public EditIngredientList() {
         // Mandatory empty constructor
@@ -40,23 +46,29 @@ public class EditIngredientList extends Fragment{
             LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_edit_ingredients, container, false);
 
+        addIngredient = view.findViewById(R.id.addIngredient);
+
+        addIngredient.setOnClickListener(addView -> {
+            //
+        });
+
         int positionInRecipeList = getArguments().getInt(RecipeList.ARG_POSITION_IN_LIST);
         Recipe recipe = accessRecipes.getRecipe(positionInRecipeList);
 
         List<Ingredient> ingredientList = fetchIngredients(recipe);
 
         // Set the adapter
-        if (view instanceof RecyclerView) {
             Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
+            RecyclerView recyclerView = view.findViewById(R.id.editIngredientList);
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
             recyclerView.setAdapter(
                     new EditIngredientListRecyclerViewAdapter(ingredientList));
-        }
         return view;
     }
 
     public List<Ingredient> fetchIngredients(Recipe recipe){
         return recipe.getIngredients();
     }
+
+
 }
