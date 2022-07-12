@@ -116,32 +116,38 @@ public class DataAccessStub implements DataAccess {
     @Override
     public void updateIngredientQuantity(int recipeID, double quantity, String ingredientName) {
         for (int i = 0; i < recipes.size(); i++) {
-
             if (recipes.get(i).getId() == recipeID) {
                 ArrayList<Ingredient> ingredients = recipes.get(i).getIngredients();
-
                 for (int k = 0; k < ingredients.size(); k++) {
                     String compName = ingredients.get(k).getName();
                     double compQuantity = ingredients.get(k).getAmount();
                     String unit = ingredients.get(k).getUnit().getClass().getSimpleName();
-
-                    if (compName.equals(ingredientName)) {
-                        ConvertibleUnit newUnit;
-                        switch(unit) {
-                            case "CUP":
-                                newUnit = new ConvertibleUnit(Unit.CUP, compQuantity);
-                            case "ML":
-                                newUnit = new ConvertibleUnit(Unit.ML, compQuantity);
-                            case "GRAM":
-                                newUnit = new ConvertibleUnit(Unit.GRAM, compQuantity);
-                            case "OUNCE":
-                                newUnit = new ConvertibleUnit(Unit.OUNCE, compQuantity);
-                            case "TSP":
-                                newUnit = new ConvertibleUnit(Unit.TSP, compQuantity);
-                            case "TBSP":
-                                newUnit = new ConvertibleUnit(Unit.TBSP, compQuantity);
+                    if (compName.equals(ingredientName)){
+                        IUnit newUnit;
+                        switch (unit) {
+                            case "Cup":
+                                newUnit = new Cup(quantity);
+                                break;
+                            case "Count":
+                                newUnit = new Count(quantity);
+                                break;
+                            case "Gram":
+                                newUnit = new Gram(quantity);
+                                break;
+                            case "Mililitre":
+                                newUnit = new Millilitre(quantity);
+                                break;
+                            case "Ounce":
+                                newUnit = new Ounce(quantity);
+                                break;
+                            case "Tablespoon":
+                                newUnit = new Tablespoon(quantity);
+                                break;
+                            case "Teaspoon":
+                                newUnit = new Teaspoon(quantity);
+                                break;
                             default:
-                                newUnit = new ConvertibleUnit(null, compQuantity);
+                                throw new IllegalStateException("Unexpected value: " + unit);
                         }
                         ingredients.get(k).setAmount(newUnit);
                     }
