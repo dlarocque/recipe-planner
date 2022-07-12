@@ -73,8 +73,9 @@ For example, if the user visits the shopping fragment, then the schedule fragmen
 
 ## Search Button
 
-When the search bar on the recipe list page is opened and the keyboard is closed, the search bar remains open.
-The search remains active until the text in the search box is cleared.
+ - When the search bar on the recipe list page is opened and the keyboard is closed, the search bar remains open.
+ - The search remains active until the text in the search box is cleared.
+ - When a search is done and recipes are filtered, the incorrect recipe will be opened when a recipe is clicked.  It will open the recipe at the position that that recipe would be in the original, unfiltered list.
 
 ## Settings page
 
@@ -155,8 +156,6 @@ Contains the major UI elements for the application.
 The application was tested on the Android Studio emulator for the Nexus 7 tablet, running Android 6.0 Marshmallow (API level 23).
 
 ### Unit Tests
-
-This project uses GitHub actions to automate testing on all pull requests and all pushes to `develop` and `master` branches.
 
 - Ubuntu latest
 - Script: `./gradlew test`
