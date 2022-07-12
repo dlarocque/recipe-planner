@@ -66,9 +66,38 @@ With a real database powered by HSQLDB, changes now persist after closing/relaun
 
 # KNOWN ISSUES
 
+## Back button
 
+The back button only brings the user back to the root view in the application, instead of the most previous view.
+For example, if the user visits the shopping fragment, then the schedule fragment, the back button brings the user back to the recipe list page since that is the root view.
 
-#
+## Search Button
+
+When the search bar on the recipe list page is opened and the keyboard is closed, the search bar remains open.
+The search remains active until the text in the search box is cleared.
+
+## Settings page
+
+The settings page was not implemented in this iteration, so when a user attempts to visit the settings page by clicking
+the three dots at the top-right corner of the application then 'settings', nothing will happen.
+
+## Deleting Ingredients
+
+A user cannot delete recipes that are used in other recipes.
+To update the list of ingredients after an ingredient was deleted, the user must exit and re-enter the edit page.
+
+## Modifying Ingredients
+
+When changing the quantity of an ingredient, the app will crash when the user presses backspace until there is no value in the quantity.
+
+## Recipe Ingredient Names In Edit Page
+
+When a user is editing the ingredients of a recipe, the name of the ingredient is vertically truncated when it is too long.
+
+## Recipe Instructions
+
+Some recipe instructions contain text with '\n'.
+Also, recipe instructions with long instructions, the user cannot scroll through the long instructions since the edit page will open.
 
 ## Architecture
 
