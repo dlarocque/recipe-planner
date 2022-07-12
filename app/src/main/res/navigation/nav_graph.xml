@@ -69,17 +69,5 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
-        <action
-            android:id="@+id/action_recipeView_to_ingredientEdit"
-            app:destination="@id/ingredientEdit" />
-    </fragment>
-    <fragment
-        android:id="@+id/ingredientEdit"
-        android:name="com.example.recipe_planner.presentation.EditIngredientList"
-        android:label="fragment_edit_ingredients"
-        tools:layout="@layout/fragment_edit_ingredients">
-        <action
-            android:id="@+id/action_ingredientEdit_to_recipeView"
-            app:destination="@id/recipeView" />
     </fragment>
 </navigation>
