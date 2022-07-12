@@ -110,36 +110,43 @@ Important source code files are located at `recipe-planner/app/src/main/java/com
 ### `application`
 Contains the service that the presentation layer uses to access its instance of the stub database.
 
+- `Main.java` contains the name of the application and the location of the database, and will be useful when a CLI version of the application is created
 - `Service.java` allows the presentation layer to initialize the stub database, or access it if it has already been initialized
 
 ### `business`
-Contains the business layer of our application, that is in the middle of our three-layer architecture (betweem presentation and persistence).
+Contains the business layer of our application, that is in the middle of our three-layer architecture (between presentation and persistence).
 
-- `AccessRecipes.java` defines an interface that our presentation layer can call to interact with the persistence layer.
+- `AccessRecipes.java` defines an interface that our presentation layer can call to interact with the recipe data in the persistence layer.
+- `AccessSchedule.java` defines an interface that our presentation layer can call to interact with the schedule data in the persistence layer.
+- `AccessIngredients.java` defines an interface that our presentation layer can call to interact with the ingredient data in the persistence layer.
 
 ### `objects`
+
 Contains domain-specific objects.
 
 - `Ingredient.java` is the class that defines an ingredient with a name, and a quantity of a unit (e.g. grams).
 - `Recipe.java` is the class that defines a recipe with a name, a list of ingredients, and instructions
 - `measurements` is a package that contains a hierarchy of objects that define all of the possible units that ingredients can be, as well as the conversions between these units
 
-
 ### `persistence`
 
 Contains the stub database that is currently used to store a list of recipes.
 
-- `DataAccessStub.java` acts as the applications stub database.
+- `DataAccess.java` defines the interface that will be implemented by our database and stub database.
+- `DataAccessDB.java` implements the `DataAccess.java` interface, and implements all of the methods to interact with the HSQLDB
 
 ### `presentation`
 
 Contains the major UI elements for the application.
 
 - `MainActivity.java` is the main activity for the application, and is responsible for setting up components that are present throughout the application (app bar, navigation bar)
-- `MealSchedule.java` is a stub fragment that simply contains a text view, this will be implemented in future iterations
-- `RecipeList.java` is a fragment representing a scrollabe, dynamic list of recipes, in a card view containing recipe names and preview images
+- `MealSchedule.java` is a fragment representing a daily meal schedule, three meals, and the navigation through each day
+- `RecipeList.java` is a fragment representing a scrollable, dynamic list of recipes, in a card view containing recipe names and preview images
 - `RecipeRecyclerViewAdapter.java` is a RecyclerView adapter that can display a Recipe, this is used to display recipes in the list of recipes.
 - `ShoppingList.java` is a stub fragment that simply contains a text view, this will be implemented at a later date
+- `EditIngredientList.java` is a list of ingredients that are editable
+- `EditIngredientListRecyclerViewAdapter.java` is the adapter for editable ingredients that is used in the list of ingredients to edit
+- `IngredientRecyclerViewAdapter.java` is the adapter for the list of ingredients in the recipe view
 
 ## Testing
 
