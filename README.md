@@ -48,7 +48,7 @@ Once viewing a recipe, the user can delete the recipe by tapping the trash icon 
 
 **Daily Meal Schedule**
 
-Users can now schedule a meal by clicking on the + (PLUS) icon on a recipe from the Recipes List. A dialog will allow them to select a data, and then select which meal (breakfast, lunch or dinner) the recipe should be applied to.
+Users can now schedule a meal by clicking on the + (PLUS) icon on a recipe from the Recipes List. A dialog will allow them to select a date, and then select which meal (breakfast, lunch or dinner) the recipe should be applied to.
 
 In the Schedule tab, users will see meals they have added to any day, to keep track of their meal plans. They can scroll through the days using the arrows at the top, and can remove a recipe from a meal slot if they wish.
 
@@ -109,12 +109,14 @@ Also, recipe instructions with long instructions, the user cannot scroll through
 Important source code files are located at `recipe-planner/app/src/main/java/com/example/recipe_planner/`, the important packages within this directly are as follows.
 
 ### `application`
+
 Contains the service that the presentation layer uses to access its instance of the stub database.
 
 - `Main.java` contains the name of the application and the location of the database, and will be useful when a CLI version of the application is created
 - `Service.java` allows the presentation layer to initialize the stub database, or access it if it has already been initialized
 
 ### `business`
+
 Contains the business layer of our application, that is in the middle of our three-layer architecture (between presentation and persistence).
 
 - `AccessRecipes.java` defines an interface that our presentation layer can call to interact with the recipe data in the persistence layer.
