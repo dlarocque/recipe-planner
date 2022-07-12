@@ -4,17 +4,16 @@ import com.example.recipe_planner.application.Main;
 import com.example.recipe_planner.objects.DaySchedule;
 import com.example.recipe_planner.objects.Ingredient;
 import com.example.recipe_planner.objects.Recipe;
+
 import com.example.recipe_planner.objects.Schedule;
 import com.example.recipe_planner.objects.measurements.Count;
-import com.example.recipe_planner.objects.measurements.Cup;
-import com.example.recipe_planner.objects.measurements.Gram;
-import com.example.recipe_planner.objects.measurements.IUnit;
-import com.example.recipe_planner.objects.measurements.Millilitre;
-import com.example.recipe_planner.objects.measurements.Ounce;
-import com.example.recipe_planner.objects.measurements.Tablespoon;
-import com.example.recipe_planner.objects.measurements.Teaspoon;
 import com.example.recipe_planner.presentation.MealSchedule;
 import com.example.recipe_planner.utils.CalendarUtils;
+
+import com.example.recipe_planner.objects.measurements.ConvertibleUnit;
+import com.example.recipe_planner.objects.measurements.Count;
+import com.example.recipe_planner.objects.measurements.Unit;
+
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -123,32 +122,24 @@ public class DataAccessStub implements DataAccess {
                     String compName = ingredients.get(k).getName();
                     double compQuantity = ingredients.get(k).getAmount();
                     String unit = ingredients.get(k).getUnit().getClass().getSimpleName();
-                    if (compName.equals(ingredientName)){
-                        IUnit newUnit;
+
+                    if (compName.equals(ingredientName)) {
+                        ConvertibleUnit newUnit;
                         switch (unit) {
-                            case "Cup":
-                                newUnit = new Cup(quantity);
-                                break;
-                            case "Count":
-                                newUnit = new Count(quantity);
-                                break;
-                            case "Gram":
-                                newUnit = new Gram(quantity);
-                                break;
-                            case "Mililitre":
-                                newUnit = new Millilitre(quantity);
-                                break;
-                            case "Ounce":
-                                newUnit = new Ounce(quantity);
-                                break;
-                            case "Tablespoon":
-                                newUnit = new Tablespoon(quantity);
-                                break;
-                            case "Teaspoon":
-                                newUnit = new Teaspoon(quantity);
-                                break;
+                            case "CUP":
+                                newUnit = new ConvertibleUnit(Unit.CUP, compQuantity);
+                            case "ML":
+                                newUnit = new ConvertibleUnit(Unit.ML, compQuantity);
+                            case "GRAM":
+                                newUnit = new ConvertibleUnit(Unit.GRAM, compQuantity);
+                            case "OUNCE":
+                                newUnit = new ConvertibleUnit(Unit.OUNCE, compQuantity);
+                            case "TSP":
+                                newUnit = new ConvertibleUnit(Unit.TSP, compQuantity);
+                            case "TBSP":
+                                newUnit = new ConvertibleUnit(Unit.TBSP, compQuantity);
                             default:
-                                throw new IllegalStateException("Unexpected value: " + unit);
+                                newUnit = new ConvertibleUnit(null, compQuantity);
                         }
                         ingredients.get(k).setAmount(newUnit);
                     }
@@ -184,11 +175,12 @@ public class DataAccessStub implements DataAccess {
         ingredients =
                 new ArrayList<>(
                         Arrays.asList(
-                                new Ingredient("Balsamic Vinegar", new Cup(3 * QUARTER)),
-                                new Ingredient("Basil Leaves", new Cup(QUARTER)),
-                                new Ingredient("Olive Oil", new Tablespoon(2)),
+                                new Ingredient("Balsamic Vinegar", new ConvertibleUnit(Unit.CUP, 3 * QUARTER)),
+                                new Ingredient("Basil Leaves", new ConvertibleUnit(Unit.CUP, QUARTER)),
+                                new Ingredient("Olive Oil", new ConvertibleUnit(Unit.TBSP, 2)),
                                 new Ingredient("Plum Tomatoes", new Count(4)),
-                                new Ingredient("Boneless Skinless Chicken Breast", new Count(4))));
+                                new Ingredient("Boneless Skinless Chicken Breast", new Count(4))
+                        ));
         String instructions =
                 "After washing basil and tomatoes, blot them dry with clean paper towel.\n"
                         + "\n"
@@ -206,16 +198,17 @@ public class DataAccessStub implements DataAccess {
         ingredients =
                 new ArrayList<>(
                         Arrays.asList(
-                                new Ingredient("Water", new Cup(3 * QUARTER)),
-                                new Ingredient("Honey", new Teaspoon(2)),
-                                new Ingredient("Olive Oil", new Teaspoon(2)),
-                                new Ingredient("Salt", new Teaspoon(2 * THIRD)),
-                                new Ingredient("White Sugar", new Teaspoon(2 * THIRD)),
-                                new Ingredient("Bread Flour", new Cup(2)),
-                                new Ingredient("Active Yeast", new Teaspoon(3 * HALF)),
-                                new Ingredient("Honey", new Cup(1))
-                                ));
-
+                                new Ingredient("Water", new ConvertibleUnit(Unit.CUP, 3 * QUARTER)),
+                                new Ingredient("Honey", new ConvertibleUnit(Unit.TSP, 3)),
+                                new Ingredient("Olive Oil", new ConvertibleUnit(Unit.TSP, 2)),
+                                new Ingredient("Salt", new ConvertibleUnit(Unit.TSP, 2 * THIRD)),
+                                new Ingredient(
+                                        "White Sugar", new ConvertibleUnit(Unit.TSP, 2 * THIRD)),
+                                new Ingredient("Bread Flour", new ConvertibleUnit(Unit.CUP, 2)),
+                                new Ingredient(
+                                        "Active Yeast", new ConvertibleUnit(Unit.TSP, 3 * HALF)),
+                                new Ingredient("Honey", new ConvertibleUnit(Unit.CUP, 1))
+                        ));
         instructions =
                 "Add to your bread machine per manufacturer instructions.\n"
                         + "While bread is baking drizzle with honey if desired.";
@@ -225,14 +218,17 @@ public class DataAccessStub implements DataAccess {
         ingredients =
                 new ArrayList<>(
                         Arrays.asList(
-                                new Ingredient("Water", new Cup(3 * QUARTER)),
-                                new Ingredient("Unpeeled Potato", new Gram(907)),
-                                new Ingredient("Gorgonzola", new Ounce(2)),
-                                new Ingredient("Pecan", new Cup(HALF)),
-                                new Ingredient("Extra Virgin Olive Oil", new Cup(QUARTER)),
-                                new Ingredient("Baby Arugula", new Cup(2)),
-                                new Ingredient("Salt", new Teaspoon(HALF))));
-
+                                new Ingredient("Water", new ConvertibleUnit(Unit.CUP, 3 * QUARTER)),
+                                new Ingredient(
+                                        "Unpeeled Potato", new ConvertibleUnit(Unit.GRAM, 907)),
+                                new Ingredient("Gorgonzola", new ConvertibleUnit(Unit.OUNCE, 2)),
+                                new Ingredient("Pecan", new ConvertibleUnit(Unit.CUP, HALF)),
+                                new Ingredient(
+                                        "Extra Virgin Olive Oil",
+                                        new ConvertibleUnit(Unit.CUP, QUARTER)),
+                                new Ingredient("Baby Arugula", new ConvertibleUnit(Unit.CUP, 2)),
+                                new Ingredient("Salt", new ConvertibleUnit(Unit.TSP, HALF))
+                        ));
         instructions =
                 "Boil potatoes until they are just tender 2040 minutes depending on variety drain and then return them to pot.\n"
                         + "\n"
@@ -249,12 +245,12 @@ public class DataAccessStub implements DataAccess {
                         Arrays.asList(
                                 new Ingredient("Pastry Double Crust Pie", new Count(1)),
                                 new Ingredient("Apple", new Count(6)),
-                                new Ingredient("White Sugar", new Cup(THIRD)),
-                                new Ingredient("Brown Sugar", new Cup(THIRD)),
-                                new Ingredient("Flour", new Teaspoon(2)),
-                                new Ingredient("Cinnamon", new Teaspoon(1)),
-                                new Ingredient("Butter", new Tablespoon(1))));
-
+                                new Ingredient("White Sugar", new ConvertibleUnit(Unit.CUP, THIRD)),
+                                new Ingredient("Brown Sugar", new ConvertibleUnit(Unit.CUP, THIRD)),
+                                new Ingredient("Flour", new ConvertibleUnit(Unit.TSP, 2)),
+                                new Ingredient("Cinnamon", new ConvertibleUnit(Unit.TSP, 1)),
+                                new Ingredient("Butter", new ConvertibleUnit(Unit.TBSP, 1))
+                        ));
         instructions =
                 "1. Mix apples white and brown sugar flour and cinnamon all together in a large bowl and pour into pie crust in pan.\n"
                         + "\n"

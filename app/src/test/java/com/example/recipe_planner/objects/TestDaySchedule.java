@@ -5,11 +5,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import com.example.recipe_planner.objects.measurements.ConvertibleUnit;
 import com.example.recipe_planner.objects.measurements.Count;
-import com.example.recipe_planner.objects.measurements.Cup;
-import com.example.recipe_planner.objects.measurements.Gram;
-import com.example.recipe_planner.objects.measurements.Millilitre;
-import com.example.recipe_planner.objects.measurements.Tablespoon;
+import com.example.recipe_planner.objects.measurements.Unit;
 
 import org.junit.Test;
 
@@ -28,15 +26,10 @@ public class TestDaySchedule {
         ArrayList<Ingredient> firstValidRecipeIngredients =
                 new ArrayList<>(
                         Arrays.asList(
-                                new Ingredient("chili peppers", new Cup(0.5)),
-                                new Ingredient("cheddar", new Gram(400)),
-                                new Ingredient("ketchup", new Cup(4))));
-        firstValidRecipe =
-                new Recipe(
-                        1,
-                        firstValidRecipeName,
-                        firstValidRecipeIngredients,
-                        firstValidRecipeInstructions);
+                                new Ingredient("chili peppers", new Count(0.5)),
+                                new Ingredient("cheddar", new ConvertibleUnit(Unit.GRAM, 400)),
+                                new Ingredient("ketchup", new ConvertibleUnit(Unit.CUP, 4))));
+        firstValidRecipe = new Recipe(1, firstValidRecipeName, firstValidRecipeIngredients, firstValidRecipeInstructions);
 
         String secondValidRecipeName = "fun chunks";
         String secondValidRecipeInstructions =
@@ -44,15 +37,10 @@ public class TestDaySchedule {
         ArrayList<Ingredient> secondValidRecipeIngredients =
                 new ArrayList<>(
                         Arrays.asList(
-                                new Ingredient("McDonald's Chicken Nuggets", new Gram(400)),
-                                new Ingredient("Pickle Juice", new Millilitre(250)),
-                                new Ingredient("Gravy", new Cup(3.5))));
-        secondValidRecipe =
-                new Recipe(
-                        2,
-                        secondValidRecipeName,
-                        secondValidRecipeIngredients,
-                        secondValidRecipeInstructions);
+                                new Ingredient("McDonald's Chicken Nuggets", new Count(400)),
+                                new Ingredient("Pickle Juice", new ConvertibleUnit(Unit.ML, 250)),
+                                new Ingredient("Gravy", new ConvertibleUnit(Unit.CUP, 3.5))));
+        secondValidRecipe = new Recipe(2, secondValidRecipeName, secondValidRecipeIngredients, secondValidRecipeInstructions);
 
         String thirdValidRecipeName = "Peanut Butter Sandwich";
         String thirdValidRecipeInstructions =
@@ -61,13 +49,8 @@ public class TestDaySchedule {
                 new ArrayList<>(
                         Arrays.asList(
                                 new Ingredient("Rye Bread", new Count(2)),
-                                new Ingredient("Peanut Butter", new Tablespoon(2))));
-        thirdValidRecipe =
-                new Recipe(
-                        3,
-                        thirdValidRecipeName,
-                        thirdValidRecipeIngredients,
-                        thirdValidRecipeInstructions);
+                                new Ingredient("Peanut Butter", new ConvertibleUnit(Unit.TBSP, 2))));
+        thirdValidRecipe = new Recipe(3, thirdValidRecipeName, thirdValidRecipeIngredients, thirdValidRecipeInstructions);
 
         daySchedule = new DaySchedule();
     }
