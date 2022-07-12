@@ -73,7 +73,8 @@ public class DataAccessDB implements DataAccess {
                 + "    + '7. Savor every bite.',\n"
                 + "    1\n"
                 + ")",
-        "INSERT INTO INGREDIENTS VALUES (NULL, 'Balsamic Vinegar');",
+
+        "INSERT INTO INGREDIENTS VALUES (NULL, 'Balsamic Vinegar')",
         "INSERT INTO INGREDIENTS VALUES (NULL, 'Balsamic Vinegar')\n"
                 + "INSERT INTO INGREDIENTS VALUES (NULL, 'Basil Leaves')\n"
                 + "INSERT INTO INGREDIENTS VALUES (NULL, 'Olive Oil')\n"
@@ -355,6 +356,63 @@ public class DataAccessDB implements DataAccess {
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
             return false;
+        }
+    }
+
+    @Override
+    public boolean deleteIngredient(int recipeID, String name, double quantity, String unit) {
+        Statement statement;
+        ResultSet ingredientIDSet;
+        int ingredientID = 0;
+        try {
+            statement = connection.createStatement();
+            ingredientIDSet =
+                    statement.executeQuery("SELECT ID FROM INGREDIENTS WHERE NAME='" + name + "';");
+            if (ingredientIDSet.next()) {
+                ingredientID = ingredientIDSet.getInt("ID");
+            }
+            statement.executeUpdate(
+                    "DELETE FROM RECIPEINGREDIENTS WHERE RECIPEID="
+                            + recipeID
+                            + " AND INGREDIENTID="
+                            + ingredientID
+                            + " AND QUANTITY="
+                            + quantity
+                            + " AND UNIT='"
+                            + unit
+                            + "';");
+            statement.close();
+            return true;
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public void updateIngredientQuantity(int recipeID, double quantity, String ingredientName) {
+        Statement statement;
+        ResultSet ingredientIDSet = null;
+        int ingredientID = -1;
+        try {
+            statement = connection.createStatement();
+            ingredientIDSet =
+                    statement.executeQuery(
+                            "SELECT ID FROM INGREDIENTS WHERE NAME='" + ingredientName + "';");
+            if (ingredientIDSet.next()) {
+                ingredientID = ingredientIDSet.getInt("ID");
+            }
+            statement.executeUpdate(
+                    "UPDATE RECIPEINGREDIENTS SET QUANTITY="
+                            + quantity
+                            + " WHERE INGREDIENTID="
+                            + ingredientID
+                            + " AND RECIPEID="
+                            + recipeID
+                            + ";");
+            statement.close();
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
         }
     }
 

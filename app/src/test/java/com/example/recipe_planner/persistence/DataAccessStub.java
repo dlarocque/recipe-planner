@@ -1,5 +1,6 @@
 package com.example.recipe_planner.persistence;
 
+import com.example.recipe_planner.application.Main;
 import com.example.recipe_planner.objects.DaySchedule;
 import com.example.recipe_planner.objects.Ingredient;
 import com.example.recipe_planner.objects.Recipe;
@@ -90,6 +91,69 @@ public class DataAccessStub implements DataAccess {
             }
         }
         return false;
+    }
+
+    @Override
+    public boolean deleteIngredient(int recipeID, String name, double quantity, String unit) {
+        for (int i = 0; i < recipes.size(); i++) {
+            if (recipes.get(i).getId() == recipeID) {
+                ArrayList<Ingredient> ingredients = recipes.get(i).getIngredients();
+                for (int k = 0; k < ingredients.size(); k++) {
+                    String compName = ingredients.get(k).getName();
+                    String compUnit = ingredients.get(k).getUnit().getClass().getSimpleName();
+                    double compQuantity = ingredients.get(k).getAmount();
+                    if (compName.equals(name)
+                            && compQuantity == quantity
+                            && compUnit.equals(unit)) {
+                        recipes.get(i).getIngredients().remove(k);
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public void updateIngredientQuantity(int recipeID, double quantity, String ingredientName) {
+        for (int i = 0; i < recipes.size(); i++) {
+            if (recipes.get(i).getId() == recipeID) {
+                ArrayList<Ingredient> ingredients = recipes.get(i).getIngredients();
+                for (int k = 0; k < ingredients.size(); k++) {
+                    String compName = ingredients.get(k).getName();
+                    double compQuantity = ingredients.get(k).getAmount();
+                    String unit = ingredients.get(k).getUnit().getClass().getSimpleName();
+                    if (compName.equals(ingredientName)){
+                        IUnit newUnit;
+                        switch (unit) {
+                            case "Cup":
+                                newUnit = new Cup(quantity);
+                                break;
+                            case "Count":
+                                newUnit = new Count(quantity);
+                                break;
+                            case "Gram":
+                                newUnit = new Gram(quantity);
+                                break;
+                            case "Mililitre":
+                                newUnit = new Millilitre(quantity);
+                                break;
+                            case "Ounce":
+                                newUnit = new Ounce(quantity);
+                                break;
+                            case "Tablespoon":
+                                newUnit = new Tablespoon(quantity);
+                                break;
+                            case "Teaspoon":
+                                newUnit = new Teaspoon(quantity);
+                                break;
+                            default:
+                                throw new IllegalStateException("Unexpected value: " + unit);
+                        }
+                        ingredients.get(k).setAmount(newUnit);
+                    }
+                }
+            }
+        }
     }
 
     @Override
@@ -211,5 +275,36 @@ public class DataAccessStub implements DataAccess {
                         + "7. Savor every bite.";
 
         recipes.add(new Recipe(3, "Heirloom Apple Pie", ingredients, instructions, true));
+    }
+
+    public DaySchedule getDayScheduleOrDefault(Date date) {
+        return this.schedule.getDayScheduleOrDefault(date);
+    }
+
+    public void fillSchedule(Schedule schedule) {
+        DaySchedule daySchedule = new DaySchedule();
+        assert (recipes.size() > 0);
+        Recipe first_recipe = recipes.get(0);
+        daySchedule.setMeal(DaySchedule.Meal.BREAKFAST, first_recipe);
+        // Set the sample schedule to be for today's date
+        schedule.setDaySchedule(Calendar.getInstance().getTime(), daySchedule);
+
+        // Different meal on next day
+        DaySchedule nextDaySchedule = new DaySchedule();
+        Date nextDay =
+                CalendarUtils.incrementDay(
+                        Calendar.getInstance().getTime(), MealSchedule.DAY_INCREMENT);
+        Recipe lunch = recipes.get(1);
+        nextDaySchedule.setMeal(DaySchedule.Meal.LUNCH, lunch);
+        schedule.setDaySchedule(nextDay, nextDaySchedule);
+
+        // Same meal on the same day
+        daySchedule.setMeal(DaySchedule.Meal.DINNER, first_recipe);
+        // Same meal on different days
+        nextDaySchedule.setMeal(DaySchedule.Meal.DINNER, first_recipe);
+    }
+
+    public String getDbName() {
+        return Main.dbName;
     }
 }

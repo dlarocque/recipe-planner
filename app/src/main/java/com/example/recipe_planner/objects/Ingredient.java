@@ -32,6 +32,7 @@ public class Ingredient {
     @Override
     public boolean equals(Object other) {
         Ingredient i = (Ingredient) other;
-        return this.name.equals(i.getName()) && Double.compare(this.getAmount(), i.getAmount()) == 0;
+        return this.name.equals(i.getName())
+                && Double.compare(this.getAmount(), i.getAmount()) == 0;
     }
 }

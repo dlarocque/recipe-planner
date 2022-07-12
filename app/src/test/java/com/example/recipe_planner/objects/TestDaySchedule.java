@@ -115,7 +115,9 @@ public class TestDaySchedule {
         DaySchedule differentDay = new DaySchedule();
         differentDay.setMeal(DaySchedule.Meal.DINNER, meal);
 
-        assertEquals(daySchedule.getMeal(DaySchedule.Meal.BREAKFAST), differentDay.getMeal(DaySchedule.Meal.DINNER));
+        assertEquals(
+                daySchedule.getMeal(DaySchedule.Meal.BREAKFAST),
+                differentDay.getMeal(DaySchedule.Meal.DINNER));
     }
 
     @Test
@@ -127,9 +129,13 @@ public class TestDaySchedule {
         DaySchedule differentDay = new DaySchedule();
         differentDay.setMeal(DaySchedule.Meal.DINNER, meal);
 
-        assertEquals(daySchedule.getMeal(DaySchedule.Meal.BREAKFAST), differentDay.getMeal(DaySchedule.Meal.DINNER));
+        assertEquals(
+                daySchedule.getMeal(DaySchedule.Meal.BREAKFAST),
+                differentDay.getMeal(DaySchedule.Meal.DINNER));
         meal.setName("New Name");
-        assertEquals(daySchedule.getMeal(DaySchedule.Meal.BREAKFAST), differentDay.getMeal(DaySchedule.Meal.DINNER));
+        assertEquals(
+                daySchedule.getMeal(DaySchedule.Meal.BREAKFAST),
+                differentDay.getMeal(DaySchedule.Meal.DINNER));
     }
 
     @Test
@@ -140,7 +146,9 @@ public class TestDaySchedule {
         daySchedule.setMeal(DaySchedule.Meal.BREAKFAST, meal);
         daySchedule.setMeal(DaySchedule.Meal.LUNCH, meal);
 
-        assertEquals(daySchedule.getMeal(DaySchedule.Meal.BREAKFAST), daySchedule.getMeal(DaySchedule.Meal.LUNCH));
+        assertEquals(
+                daySchedule.getMeal(DaySchedule.Meal.BREAKFAST),
+                daySchedule.getMeal(DaySchedule.Meal.LUNCH));
     }
 
     @Test
@@ -151,9 +159,13 @@ public class TestDaySchedule {
         daySchedule.setMeal(DaySchedule.Meal.BREAKFAST, meal);
         daySchedule.setMeal(DaySchedule.Meal.LUNCH, meal);
 
-        assertEquals(daySchedule.getMeal(DaySchedule.Meal.BREAKFAST), daySchedule.getMeal(DaySchedule.Meal.LUNCH));
+        assertEquals(
+                daySchedule.getMeal(DaySchedule.Meal.BREAKFAST),
+                daySchedule.getMeal(DaySchedule.Meal.LUNCH));
         meal.setName("New Name");
-        assertEquals(daySchedule.getMeal(DaySchedule.Meal.BREAKFAST), daySchedule.getMeal(DaySchedule.Meal.LUNCH));
+        assertEquals(
+                daySchedule.getMeal(DaySchedule.Meal.BREAKFAST),
+                daySchedule.getMeal(DaySchedule.Meal.LUNCH));
     }
 
     @Test
