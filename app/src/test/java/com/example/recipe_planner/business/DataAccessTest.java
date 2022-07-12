@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import com.example.recipe_planner.application.Main;
+import com.example.recipe_planner.application.Services;
 import com.example.recipe_planner.objects.Ingredient;
 import com.example.recipe_planner.objects.Recipe;
 import com.example.recipe_planner.objects.measurements.Count;
@@ -27,16 +28,16 @@ public class DataAccessTest {
     private DataAccess dataAccess;
 
     @Before
-
     public void setUp() {
         System.out.println("\nStarting Persistence test DataAccess");
         dataAccess = new DataAccessStub();
-        dataAccess.open(Main.getDBPathName());
+        dataAccess.open(Main.dbName);
     }
 
     @After
     public void tearDown() {
         System.out.println("Finished Persistence test DataAccess (using stub)");
+        Services.closeDataAccess();
     }
 
     @Test
