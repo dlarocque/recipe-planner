@@ -87,12 +87,10 @@ public class DataAccessTest {
         assertEquals(new Ingredient("Balsamic Vinegar", new Cup(3 * QUARTER)), ingredients.get(0));
         assertEquals(new Ingredient("Basil Leaves", new Cup(QUARTER)), ingredients.get(1));
         assertEquals(new Ingredient("Olive Oil", new Tablespoon(2)), ingredients.get(2));
-        assertEquals(new Ingredient(
-                "Plum Tomatoes", new Count(4)), ingredients.get(3));
-        assertEquals(new Ingredient(
-                "Boneless Skinless Chicken Breast",
-                new Count(4)), ingredients.get(4));
-
+        assertEquals(new Ingredient("Plum Tomatoes", new Count(4)), ingredients.get(3));
+        assertEquals(
+                new Ingredient("Boneless Skinless Chicken Breast", new Count(4)),
+                ingredients.get(4));
 
         // check instructions
         String instructions =
@@ -111,6 +109,89 @@ public class DataAccessTest {
 
         // check if default
         assertTrue(recipe.isDefault());
+    }
+
+    @Test
+    public void testGetRecipesWithInvalidPartialName() {
+        List<Recipe> recipes;
+        recipes = dataAccess.getRecipesWithPartialName("Recipe that doesn't exist ^_^");
+        assertNotNull(recipes);
+
+        assertTrue(recipes.isEmpty());
+    }
+
+    @Test
+    public void testGetRecipesWithValidPartialName() {
+        List<Recipe> recipes;
+        recipes = dataAccess.getRecipesWithPartialName("basil chicken");
+        assertNotNull(recipes);
+        assertEquals(1, recipes.size());
+
+        Recipe recipe = recipes.get(0);
+        assertNotNull(recipe);
+
+        // check name
+        assertEquals("Grilled Basil Chicken", recipe.getName());
+
+        // check ingredients
+        ArrayList<Ingredient> ingredients = recipe.getIngredients();
+        assertEquals(5, ingredients.size());
+        assertEquals(new Ingredient("Balsamic Vinegar", new Cup(3 * QUARTER)), ingredients.get(0));
+        assertEquals(new Ingredient("Basil Leaves", new Cup(QUARTER)), ingredients.get(1));
+        assertEquals(new Ingredient("Olive Oil", new Tablespoon(2)), ingredients.get(2));
+        assertEquals(new Ingredient("Plum Tomatoes", new Count(4)), ingredients.get(3));
+        assertEquals(
+                new Ingredient("Boneless Skinless Chicken Breast", new Count(4)),
+                ingredients.get(4));
+
+        // check instructions
+        String instructions =
+                "After washing basil and tomatoes, blot them dry with clean paper towel.\n"
+                        + "\n"
+                        + "Using a clean cutting board, cut tomatoes into quarters.\n"
+                        + "\n"
+                        + "For marinade, place first six ingredients in a blender. Cover and process until well blended.\n"
+                        + "\n"
+                        + "Place chicken breasts in a shallow dish; orange do not rinse raw poultry. Cover with marinade. Cover dish. Refrigerate about 1 hour, turning occasionally. Wash dish after touching raw poultry.\n"
+                        + "\n"
+                        + "orange quote icon Wash hands with soap and water after handling uncooked chicken.\n"
+                        + "\n"
+                        + "Place chicken on an oiled grill rack over medium heat. Do not reuse marinades used on raw foods. Grill chicken 4-6 minutes per side. Cook until internal temperature reaches 165 °F as measured with a food thermometer. ";
+        assertEquals(instructions, recipe.getInstructions());
+
+        // check if default
+        assertTrue(recipe.isDefault());
+    }
+
+    @Test
+    public void testGetRecipesWithNullPartialName() {
+        List<Recipe> recipes;
+        recipes = dataAccess.getRecipesWithPartialName(null);
+        assertNotNull(recipes);
+
+        assertTrue(recipes.isEmpty());
+    }
+
+    @Test
+    public void testGetRecipesWithPartialNameWithMultipleResults() {
+        List<Recipe> recipes;
+        String query = "heirloom";
+        recipes = dataAccess.getRecipesWithPartialName(query);
+        assertNotNull(recipes);
+
+        assertEquals(2, recipes.size());
+
+        Recipe recipe1 = recipes.get(0);
+        assertNotNull(recipe1);
+        String recipe1Name = recipe1.getName();
+        assertNotNull(recipe1Name);
+        assertTrue(recipe1Name.toLowerCase().contains(query));
+
+        Recipe recipe2 = recipes.get(1);
+        assertNotNull(recipe2);
+        String recipe2Name = recipe2.getName();
+        assertNotNull(recipe2Name);
+        assertTrue(recipe2Name.toLowerCase().contains(query));
     }
 
     @Test

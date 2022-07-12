@@ -18,7 +18,6 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 public class DataAccessStub implements DataAccess {
     private static final double QUARTER = 1.0 / 4.0;
@@ -68,11 +67,11 @@ public class DataAccessStub implements DataAccess {
 
     public List<Recipe> getRecipesWithPartialName(String recipePartialName) {
         ArrayList<Recipe> recipesWithPartialName = new ArrayList<>();
-        for (Recipe recipe : recipes) {
-            if (recipe.getName()
-                    .toLowerCase(Locale.ROOT)
-                    .contains(recipePartialName.toLowerCase(Locale.ROOT)))
-                recipesWithPartialName.add(recipe);
+        if (recipePartialName != null) {
+            for (Recipe recipe : recipes) {
+                if (recipe.getName().toLowerCase().contains(recipePartialName.toLowerCase()))
+                    recipesWithPartialName.add(recipe);
+            }
         }
 
         return recipesWithPartialName;
