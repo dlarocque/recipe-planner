@@ -24,18 +24,11 @@ public class DataAccessStub implements DataAccess {
     private static final double QUARTER = 1.0 / 4.0;
     private static final double THIRD = 1.0 / 3.0;
     private static final double HALF = 1.0 / 2.0;
-    private final String dbName;
-    private final String dbType = "stub";
     private ArrayList<Recipe> recipes;
     private ArrayList<Recipe> hiddenRecipes;
     private Schedule schedule;
 
-    public DataAccessStub(String dbName) {
-        this.dbName = dbName;
-    }
-
     public DataAccessStub() {
-        this.dbName = "Recipes";
     }
 
     public void open(String dbPath) {
@@ -43,11 +36,9 @@ public class DataAccessStub implements DataAccess {
         fillRecipes(recipes);
         hiddenRecipes = new ArrayList<>();
         schedule = new Schedule();
-        fillSchedule(schedule);
     }
 
-    public void close() {
-    }
+    public void close() {}
 
     public Recipe getRecipe(int recipeId) {
         Recipe recipe = null;
@@ -55,22 +46,6 @@ public class DataAccessStub implements DataAccess {
             if (otherRecipe.getId() == recipeId) {
                 recipe = otherRecipe;
                 break;
-            }
-        }
-
-        return recipe;
-    }
-
-    public Recipe getRecipeAt(int index) {
-        return recipes.get(index);
-    }
-
-    public Recipe getRecipeWithName(String recipeName) {
-        Recipe recipe = null;
-
-        for (Recipe otherRecipe : recipes) {
-            if (otherRecipe.getName().equals(recipeName)) {
-                recipe = otherRecipe;
             }
         }
 
@@ -91,6 +66,18 @@ public class DataAccessStub implements DataAccess {
         return recipeIngredients;
     }
 
+    public List<Recipe> getRecipesWithPartialName(String recipePartialName) {
+        ArrayList<Recipe> recipesWithPartialName = new ArrayList<>();
+        if (recipePartialName != null) {
+            for (Recipe recipe : recipes) {
+                if (recipe.getName().toLowerCase().contains(recipePartialName.toLowerCase()))
+                    recipesWithPartialName.add(recipe);
+            }
+        }
+
+        return recipesWithPartialName;
+    }
+
     // Returns true if the recipe exists in recipes.
     public boolean deleteRecipe(int recipeId) {
         for (int i = 0; i < recipes.size(); i++) {
@@ -107,26 +94,24 @@ public class DataAccessStub implements DataAccess {
 
     @Override
     public DaySchedule getDaySchedule(Date date) {
-        return null; // TODO
+        return schedule.getDayScheduleOrDefault(date);
     }
 
     @Override
     public void initializeDaySchedule(Date date) {
-        // TODO
+        schedule.setDaySchedule(date, new DaySchedule());
     }
 
     @Override
     public void setDayScheduleMeal(Date date, DaySchedule.Meal meal, Recipe recipe) {
-        // TODO
+        DaySchedule daySchedule = schedule.getDayScheduleOrDefault(date);
+        daySchedule.setMeal(meal, recipe);
     }
 
     @Override
     public void setDayScheduleMealNull(Date date, DaySchedule.Meal meal) {
-        // TODO
-    }
-
-    public List<Recipe> getHiddenRecipes() {
-        return hiddenRecipes;
+        DaySchedule daySchedule = schedule.getDayScheduleOrDefault(date);
+        daySchedule.setMeal(meal, null);
     }
 
     private void fillRecipes(ArrayList<Recipe> recipes) {
@@ -226,38 +211,5 @@ public class DataAccessStub implements DataAccess {
                         + "7. Savor every bite.";
 
         recipes.add(new Recipe(3, "Heirloom Apple Pie", ingredients, instructions, true));
-    }
-
-    public DaySchedule getDayScheduleOrDefault(Date date) {
-        return this.schedule.getDayScheduleOrDefault(date);
-    }
-
-    public void fillSchedule(Schedule schedule) {
-        DaySchedule daySchedule = new DaySchedule();
-        assert (recipes.size() > 0);
-        Recipe first_recipe = recipes.get(0);
-        daySchedule.setMeal(DaySchedule.Meal.BREAKFAST, first_recipe);
-        // Set the sample schedule to be for today's date
-        schedule.setDaySchedule(Calendar.getInstance().getTime(), daySchedule);
-
-        // Different meal on next day
-        DaySchedule nextDaySchedule = new DaySchedule();
-        Date nextDay = CalendarUtils.incrementDay(Calendar.getInstance().getTime(), MealSchedule.DAY_INCREMENT);
-        Recipe lunch = recipes.get(1);
-        nextDaySchedule.setMeal(DaySchedule.Meal.LUNCH, lunch);
-        schedule.setDaySchedule(nextDay, nextDaySchedule);
-
-        // Same meal on the same day
-        daySchedule.setMeal(DaySchedule.Meal.DINNER, first_recipe);
-        // Same meal on different days
-        nextDaySchedule.setMeal(DaySchedule.Meal.DINNER, first_recipe);
-    }
-
-    public String getDbName() {
-        return this.dbName;
-    }
-
-    public String getDbType() {
-        return this.dbType;
     }
 }

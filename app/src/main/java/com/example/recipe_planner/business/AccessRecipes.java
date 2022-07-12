@@ -1,6 +1,5 @@
 package com.example.recipe_planner.business;
 
-import com.example.recipe_planner.application.Main;
 import com.example.recipe_planner.application.Services;
 import com.example.recipe_planner.objects.Ingredient;
 import com.example.recipe_planner.objects.Recipe;
@@ -21,6 +20,10 @@ public class AccessRecipes {
 
     public List<Recipe> getRecipes() {
         return dataAccess.getRecipes();
+    }
+
+    public List<Recipe> getRecipesWithPartialName(String recipePartialName) {
+        return dataAccess.getRecipesWithPartialName(recipePartialName);
     }
 
     public List<Ingredient> getRecipeIngredients(int recipeId) {

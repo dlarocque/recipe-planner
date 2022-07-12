@@ -5,9 +5,9 @@ import java.util.ArrayList;
 public class Recipe {
     private final ArrayList<Ingredient> ingredients;
     private final boolean isDefault;
+    private final int id;
     private String name;
     private String instructions;
-    private final int id;
 
     public Recipe(int id, String name, ArrayList<Ingredient> ingredients, String instructions) {
         this.id = id;
