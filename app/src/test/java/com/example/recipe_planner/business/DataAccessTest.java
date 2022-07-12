@@ -1,6 +1,7 @@
 package com.example.recipe_planner.business;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -38,6 +39,32 @@ public class DataAccessTest {
     public void tearDown() {
         System.out.println("Finished Persistence test DataAccess (using stub)");
         Services.closeDataAccess();
+    }
+
+    @Test
+    public void testDeleteInvalidRecipeIndex(){
+        boolean deleted;
+
+        deleted = dataAccess.deleteRecipe(-1);
+        assertFalse(deleted);
+
+        List<Recipe> recipes;
+        recipes = dataAccess.getRecipes();
+        assertNotNull(recipes);
+        assertEquals(4, recipes.size());
+    }
+
+    @Test
+    public void testDeleteDefaultRecipe() {
+        boolean deleted;
+
+        deleted = dataAccess.deleteRecipe(3);
+        assertTrue(deleted);
+
+        List<Recipe> recipes;
+        recipes = dataAccess.getRecipes();
+        assertNotNull(recipes);
+        assertEquals(3, recipes.size());
     }
 
     @Test
