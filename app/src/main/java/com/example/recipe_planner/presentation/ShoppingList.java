@@ -9,9 +9,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.recipe_planner.R;
 
-/**
- * A {@link Fragment} representing a shopping list (stub).
- */
+/** A {@link Fragment} representing a shopping list (stub). */
 public class ShoppingList extends Fragment {
 
     public ShoppingList() {

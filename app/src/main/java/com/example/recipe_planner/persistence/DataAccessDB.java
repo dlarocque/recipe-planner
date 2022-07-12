@@ -77,7 +77,8 @@ public class DataAccessDB implements DataAccess {
                 + "    + '7. Savor every bite.',\n"
                 + "    1\n"
                 + ")",
-        "INSERT INTO INGREDIENTS VALUES (NULL, 'Balsamic Vinegar');",
+
+        "INSERT INTO INGREDIENTS VALUES (NULL, 'Balsamic Vinegar')",
         "INSERT INTO INGREDIENTS VALUES (NULL, 'Balsamic Vinegar')\n"
                 + "INSERT INTO INGREDIENTS VALUES (NULL, 'Basil Leaves')\n"
                 + "INSERT INTO INGREDIENTS VALUES (NULL, 'Olive Oil')\n"
@@ -363,6 +364,63 @@ public class DataAccessDB implements DataAccess {
     }
 
     @Override
+    public boolean deleteIngredient(int recipeID, String name, double quantity, String unit) {
+        Statement statement;
+        ResultSet ingredientIDSet;
+        int ingredientID = 0;
+        try {
+            statement = connection.createStatement();
+            ingredientIDSet =
+                    statement.executeQuery("SELECT ID FROM INGREDIENTS WHERE NAME='" + name + "';");
+            if (ingredientIDSet.next()) {
+                ingredientID = ingredientIDSet.getInt("ID");
+            }
+            statement.executeUpdate(
+                    "DELETE FROM RECIPEINGREDIENTS WHERE RECIPEID="
+                            + recipeID
+                            + " AND INGREDIENTID="
+                            + ingredientID
+                            + " AND QUANTITY="
+                            + quantity
+                            + " AND UNIT='"
+                            + unit
+                            + "';");
+            statement.close();
+            return true;
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public void updateIngredientQuantity(int recipeID, double quantity, String ingredientName) {
+        Statement statement;
+        ResultSet ingredientIDSet = null;
+        int ingredientID = -1;
+        try {
+            statement = connection.createStatement();
+            ingredientIDSet =
+                    statement.executeQuery(
+                            "SELECT ID FROM INGREDIENTS WHERE NAME='" + ingredientName + "';");
+            if (ingredientIDSet.next()) {
+                ingredientID = ingredientIDSet.getInt("ID");
+            }
+            statement.executeUpdate(
+                    "UPDATE RECIPEINGREDIENTS SET QUANTITY="
+                            + quantity
+                            + " WHERE INGREDIENTID="
+                            + ingredientID
+                            + " AND RECIPEID="
+                            + recipeID
+                            + ";");
+            statement.close();
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+        }
+    }
+
+    @Override
     public DaySchedule getDaySchedule(Date date) {
         DaySchedule daySchedule = null;
         String dateKey = CalendarUtils.formattedDate(date);
@@ -454,25 +512,25 @@ public class DataAccessDB implements DataAccess {
         IUnit result = null;
 
         switch (unit) {
-            case "Cup":
+            case "CUP":
                 result = new Cup(quantity);
                 break;
-            case "Count":
+            case "COUNT":
                 result = new Count(quantity);
                 break;
-            case "Gram":
+            case "GRAM":
                 result = new Gram(quantity);
                 break;
-            case "Mililitre":
+            case "ML":
                 result = new Millilitre(quantity);
                 break;
-            case "Ounce":
+            case "OUNCE":
                 result = new Ounce(quantity);
                 break;
-            case "Tablespoon":
+            case "TBSP":
                 result = new Tablespoon(quantity);
                 break;
-            case "Teaspoon":
+            case "TSP":
                 result = new Teaspoon(quantity);
                 break;
         }
