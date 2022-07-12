@@ -254,7 +254,11 @@ public class DataAccessDB implements DataAccess {
         try {
             // Get all recipes
             statement = connection.createStatement();
-            allRecipes = statement.executeQuery("SELECT * FROM RECIPES WHERE LCASE(NAME) LIKE '%" + recipePartialName.toLowerCase() + "%'");
+            allRecipes =
+                    statement.executeQuery(
+                            "SELECT * FROM RECIPES WHERE LCASE(NAME) LIKE '%"
+                                    + recipePartialName.toLowerCase()
+                                    + "%'");
 
             while (allRecipes.next()) {
                 // Get all the components of a recipe, create a recipe, and add it to our list of recipes

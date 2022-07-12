@@ -167,12 +167,14 @@ public class RecipeList extends Fragment
             // Prompt the user to select a meal, and schedule the meal
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(view.getContext());
             alertDialogBuilder.setTitle("Select A Meal");
-            alertDialogBuilder.setItems(dialogItems, (dialogInterface, i) -> {
-                Log.d("RecipeList", "Selected meal " + dialogItems[i]);
-                DaySchedule.Meal selectedMeal = DaySchedule.Meal.values()[i];
-                // selectedDateSchedule.setMeal(selectedMeal, scheduledRecipe);
-                accessSchedule.setMeal(scheduledDate, selectedMeal, scheduledRecipe);
-            });
+            alertDialogBuilder.setItems(
+                    dialogItems,
+                    (dialogInterface, i) -> {
+                        Log.d("RecipeList", "Selected meal " + dialogItems[i]);
+                        DaySchedule.Meal selectedMeal = DaySchedule.Meal.values()[i];
+                        // selectedDateSchedule.setMeal(selectedMeal, scheduledRecipe);
+                        accessSchedule.setMeal(scheduledDate, selectedMeal, scheduledRecipe);
+                    });
             AlertDialog alertDialog = alertDialogBuilder.create();
             alertDialog.show();
         }
