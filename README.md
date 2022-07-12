@@ -6,7 +6,7 @@
 
 [Team Members](#team-members)
 
-[Featues](#features)
+[Features](#features)
 
 [Architecture](#architecture)
 
@@ -26,7 +26,7 @@
 - Izan Cuetara Diez ([@Unstavle](https://github.com/Unstavle))
 - Samuel Barrett ([@samuelbarrett](https://github.com/samuelbarrett))
 
-## Features
+# Features IT-1
 
 **Viewing all recipes**
 
@@ -44,11 +44,31 @@ From the full-screen view of a recipe, the user is able to click on the text box
 
 Once viewing a recipe, the user can delete the recipe by tapping the trash icon in the upper right corner of the window. A dialog prompt will appear, asking the user to confirm or cancel their action. Once confirmed, the app will return to the recipe list, and the deleted recipe will no longer appear in the list.
 
-## Missing features
+# Features IT-2
 
-**Creating a recipe**
+**Daily Meal Schedule**
 
-We decided to exclude our implementation of creating a new recipe due to issues we encountered with floating buttons and linking to the Create A Recipe fragment. Resolving the issues proved too time-intensive under the conditions, so we stuck to Agile – to be included in a future iteration.
+Users can now schedule a meal by clicking on the + (PLUS) icon on a recipe from the Recipes List. A dialog will allow them to select a data, and then select which meal (breakfast, lunch or dinner) the recipe should be applied to.
+
+In the Schedule tab, users will see meals they have added to any day, to keep track of their meal plans. They can scroll through the days using the arrows at the top, and can remove a recipe from a meal slot if they wish.
+
+**Search for recipes**
+
+Users can now search for recipes they want to see! In the Recipes List, a user can click the search button in the upper-right to open a textbox and search for the name of any recipe in the system. The list of recipes will filter accordingly.
+
+**View, Edit and Delete Ingredients**
+
+Users can now view the ingredients of any recipe from within the Recipe View. Clicking on the Edit (PENCIL) button beside the list of ingredients will display the ingredients in a full-screen view. From here, the user can edit quantities of any ingredient, or delete the ingredient from the recipe.
+
+**Persistent Data**
+
+With a real database powered by HSQLDB, changes now persist after closing/relaunching the app. Users benefit from the safety of knowing their changes have been saved to the database.
+
+# KNOWN ISSUES
+
+
+
+#
 
 ## Architecture
 
