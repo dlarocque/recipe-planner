@@ -9,6 +9,7 @@ import com.example.recipe_planner.application.Main;
 import com.example.recipe_planner.application.Services;
 import com.example.recipe_planner.objects.Ingredient;
 import com.example.recipe_planner.objects.Recipe;
+import com.example.recipe_planner.objects.measurements.Gram;
 import com.example.recipe_planner.objects.measurements.Count;
 import com.example.recipe_planner.objects.measurements.Cup;
 import com.example.recipe_planner.objects.measurements.Tablespoon;
@@ -87,12 +88,10 @@ public class DataAccessTest {
         assertEquals(new Ingredient("Balsamic Vinegar", new Cup(3 * QUARTER)), ingredients.get(0));
         assertEquals(new Ingredient("Basil Leaves", new Cup(QUARTER)), ingredients.get(1));
         assertEquals(new Ingredient("Olive Oil", new Tablespoon(2)), ingredients.get(2));
-        assertEquals(new Ingredient(
-                "Plum Tomatoes", new Count(4)), ingredients.get(3));
-        assertEquals(new Ingredient(
-                "Boneless Skinless Chicken Breast",
-                new Count(4)), ingredients.get(4));
-
+        assertEquals(new Ingredient("Plum Tomatoes", new Count(4)), ingredients.get(3));
+        assertEquals(
+                new Ingredient("Boneless Skinless Chicken Breast", new Count(4)),
+                ingredients.get(4));
 
         // check instructions
         String instructions =
@@ -155,5 +154,115 @@ public class DataAccessTest {
         assertNotNull(ingredient);
         assertEquals("Boneless Skinless Chicken Breast", ingredient.getName());
         assertEquals(4.0, ingredient.getAmount(), DELTA);
+    }
+
+    @Test
+    public void testValidIngredientModification() {
+        List<Ingredient> ingredients;
+        Ingredient ingredient;
+
+        // get first default recipe
+        ingredients = dataAccess.getRecipeIngredients(0);
+        assertNotNull(ingredients);
+        assertEquals(5, ingredients.size());
+
+        ingredient = ingredients.get(0);
+
+        // modify the 1st ingredient with valid inputs
+        dataAccess.updateIngredientQuantity(0, 45.0, ingredient.getName());
+        assertEquals(45.0, ingredient.getAmount(), DELTA);
+
+        ingredients = dataAccess.getRecipeIngredients(0);
+
+        assertEquals(new Ingredient("Balsamic Vinegar", new Cup(45.0)), ingredients.get(0));
+    }
+
+    @Test
+    public void testInvalidIngredientModification() {
+        List<Ingredient> ingredients;
+        Ingredient ingredient;
+
+        // get a non-existent default recipe (out of bounds)
+        ingredients = dataAccess.getRecipeIngredients(10);
+        assertNotNull(ingredients);
+        assertEquals(0, ingredients.size());
+
+        // modify the ingredients in the invalid recipe with valid inputs
+        try {
+            ingredient = ingredients.get(0);
+            dataAccess.updateIngredientQuantity(10, 45.0, ingredient.getName());
+            assertEquals(45.0, ingredient.getAmount(), DELTA);
+        }
+        catch (Exception e){
+            System.out.println("Null/invalid recipe's ingredients cannot be modified.");
+        }
+
+        // get second default recipe
+        ingredients = dataAccess.getRecipeIngredients(1);
+        assertNotNull(ingredients);
+        assertEquals(8, ingredients.size());
+        try{
+            double testDouble = Double.parseDouble("");
+            ingredient = ingredients.get(2);
+        // modify the ingredients in a valid recipe with invalid inputs, this won't change the data
+            dataAccess.updateIngredientQuantity(1, testDouble, ingredient.getName());
+            assertEquals(2.0, ingredient.getAmount(), DELTA);
+            }
+        catch (NumberFormatException n){
+           System.out.println("Invalid input, empty inputs or other non-double inputs will cause the program to error out.");
+        }
+
+    }
+
+    @Test
+    public void testValidIngredientDeletion() {
+        List<Ingredient> ingredients;
+        Ingredient ingredient;
+
+        // get first default recipe
+        ingredients = dataAccess.getRecipeIngredients(0);
+        assertNotNull(ingredients);
+        assertEquals(5, ingredients.size());
+
+        ingredient = ingredients.get(0);
+        String unit = ingredient.getUnit().getClass().getSimpleName();
+
+        // delete the first ingredient from the recipe
+        System.out.println(dataAccess.deleteIngredient(0,ingredient.getName(), ingredient.getAmount(), unit));
+        ingredients = dataAccess.getRecipeIngredients(0);
+        assertEquals(4, ingredients.size());
+    }
+
+    @Test
+    public void testInvalidIngredientDeletion() {
+        List<Ingredient> ingredients;
+        Ingredient ingredient;
+
+        // get first default recipe
+        ingredients = dataAccess.getRecipeIngredients(0);
+        assertNotNull(ingredients);
+        assertEquals(5, ingredients.size());
+
+        try
+        {
+        ingredient = ingredients.get(5);
+        String unit = ingredient.getUnit().getClass().getSimpleName();
+
+        // delete the an invalid ingredient from the recipe
+        System.out.println(dataAccess.deleteIngredient(0,ingredient.getName(), ingredient.getAmount(), unit));
+        ingredients = dataAccess.getRecipeIngredients(0);
+        assertEquals(4, ingredients.size());
+        }
+        catch (Exception e){
+            System.out.println("Out of bounds deletions will be met with an OutofBoundsException.");
+        }
+
+            ingredient = ingredients.get(0);
+            String unit = ingredient.getUnit().getClass().getSimpleName();
+
+            // delete the an valid ingredient with invalid quantity from the recipe
+            System.out.println(dataAccess.deleteIngredient(0,ingredient.getName(), 1000.0, unit));
+            ingredients = dataAccess.getRecipeIngredients(0);
+            assertEquals(5, ingredients.size());
     }
 }

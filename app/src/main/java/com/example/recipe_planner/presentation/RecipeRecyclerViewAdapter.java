@@ -16,9 +16,7 @@ import com.example.recipe_planner.objects.Recipe;
 
 import java.util.List;
 
-/**
- * {@link RecyclerView.Adapter} that can display a {@link Recipe}.
- */
+/** {@link RecyclerView.Adapter} that can display a {@link Recipe}. */
 public class RecipeRecyclerViewAdapter
         extends RecyclerView.Adapter<RecipeRecyclerViewAdapter.ViewHolder> {
 
@@ -28,7 +26,9 @@ public class RecipeRecyclerViewAdapter
     private final OnScheduleRecipeClickListener onScheduleRecipeClickListener;
 
     public RecipeRecyclerViewAdapter(
-            List<Recipe> items, OnRecipeClickListener onRecipeClickListener, OnScheduleRecipeClickListener onScheduleRecipeClickListener) {
+            List<Recipe> items,
+            OnRecipeClickListener onRecipeClickListener,
+            OnScheduleRecipeClickListener onScheduleRecipeClickListener) {
         this.recipes = items;
         this.onRecipeClickListener = onRecipeClickListener;
         this.onScheduleRecipeClickListener = onScheduleRecipeClickListener;
@@ -95,7 +95,8 @@ public class RecipeRecyclerViewAdapter
         @Override
         public void onClick(View view) {
             if (view == scheduleButton) {
-                onScheduleRecipeClickListener.onScheduleRecipeClick(getBindingAdapterPosition(), view);
+                onScheduleRecipeClickListener.onScheduleRecipeClick(
+                        getBindingAdapterPosition(), view);
             } else {
                 onRecipeClickListener.onRecipeClick(getBindingAdapterPosition(), view);
             }

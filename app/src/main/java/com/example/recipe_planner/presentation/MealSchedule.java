@@ -21,9 +21,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
-/**
- * A {@link Fragment} representing a {@link DaySchedule} schedule.
- */
+/** A {@link Fragment} representing a {@link DaySchedule} schedule. */
 public class MealSchedule extends Fragment {
     public static final int DAY_INCREMENT = 1;
     private final String TAG = this.getClass().getSimpleName();
@@ -71,25 +69,24 @@ public class MealSchedule extends Fragment {
         this.mealTextViews.put(DaySchedule.Meal.DINNER, dinnerMealName);
 
         ImageButton previousDayButton = view.findViewById(R.id.previousDayButton);
-        previousDayButton.setOnClickListener(previousDayClick -> {
-            incrementDay(-DAY_INCREMENT);
-            updateView();
-        });
+        previousDayButton.setOnClickListener(
+                previousDayClick -> {
+                    incrementDay(-DAY_INCREMENT);
+                    updateView();
+                });
 
         ImageButton nextDayButton = view.findViewById(R.id.nextDayButton);
-        nextDayButton.setOnClickListener(nextDayClick -> {
-            incrementDay(DAY_INCREMENT);
-            updateView();
-        });
-
+        nextDayButton.setOnClickListener(
+                nextDayClick -> {
+                    incrementDay(DAY_INCREMENT);
+                    updateView();
+                });
 
         updateView();
         return view;
     }
 
-    /**
-     * Update all of the UI elements in the fragment.
-     */
+    /** Update all of the UI elements in the fragment. */
     private void updateView() {
         updateDate();
         updateDaySchedule();
@@ -104,7 +101,8 @@ public class MealSchedule extends Fragment {
         Recipe scheduledRecipe;
         TextView mealTextView;
 
-        // For all meals, display the current recipe name or the default string if there is no recipe scheduled
+        // For all meals, display the current recipe name or the default string if there is no
+        // recipe scheduled
         for (DaySchedule.Meal meal : DaySchedule.Meal.values()) {
             if ((mealTextView = this.mealTextViews.get(meal)) != null) {
                 scheduledRecipe = daySchedule.getMeal(meal);
@@ -118,8 +116,7 @@ public class MealSchedule extends Fragment {
     }
 
     private boolean recipeExists(Recipe recipe) {
-        return recipe != null
-                && this.accessRecipes.getRecipe(recipe.getId()) != null;
+        return recipe != null && this.accessRecipes.getRecipe(recipe.getId()) != null;
     }
 
     private void updateDate() {
@@ -130,12 +127,16 @@ public class MealSchedule extends Fragment {
     private void updateDeleteButtons() {
         DaySchedule daySchedule = accessSchedule.getDayScheduleOrDefault(selectedDate);
 
-        updateDeleteButton(descheduleBreakfastButton, daySchedule, selectedDate, DaySchedule.Meal.BREAKFAST);
-        updateDeleteButton(descheduleLunchButton, daySchedule, selectedDate, DaySchedule.Meal.LUNCH);
-        updateDeleteButton(descheduleDinnerButton, daySchedule, selectedDate, DaySchedule.Meal.DINNER);
+        updateDeleteButton(
+                descheduleBreakfastButton, daySchedule, selectedDate, DaySchedule.Meal.BREAKFAST);
+        updateDeleteButton(
+                descheduleLunchButton, daySchedule, selectedDate, DaySchedule.Meal.LUNCH);
+        updateDeleteButton(
+                descheduleDinnerButton, daySchedule, selectedDate, DaySchedule.Meal.DINNER);
     }
 
-    private void updateDeleteButton(ImageButton deleteButton, DaySchedule daySchedule, Date date, DaySchedule.Meal meal) {
+    private void updateDeleteButton(
+            ImageButton deleteButton, DaySchedule daySchedule, Date date, DaySchedule.Meal meal) {
         boolean isEnabled = recipeExists(daySchedule.getMeal(meal));
         deleteButton.setEnabled(isEnabled);
         if (isEnabled) {

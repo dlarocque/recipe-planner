@@ -40,7 +40,9 @@ public class TestSchedule {
         schedule.setDaySchedule(today, daySchedule);
         schedule.setDaySchedule(tomorrow, daySchedule);
 
-        assertEquals(schedule.getDayScheduleOrDefault(today), schedule.getDayScheduleOrDefault(tomorrow));
+        assertEquals(
+                schedule.getDayScheduleOrDefault(today),
+                schedule.getDayScheduleOrDefault(tomorrow));
     }
 
     @Test

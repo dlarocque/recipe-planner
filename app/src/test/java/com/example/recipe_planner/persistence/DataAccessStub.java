@@ -1,5 +1,6 @@
 package com.example.recipe_planner.persistence;
 
+import com.example.recipe_planner.application.Main;
 import com.example.recipe_planner.objects.DaySchedule;
 import com.example.recipe_planner.objects.Ingredient;
 import com.example.recipe_planner.objects.Recipe;
@@ -7,6 +8,8 @@ import com.example.recipe_planner.objects.Schedule;
 import com.example.recipe_planner.objects.measurements.Count;
 import com.example.recipe_planner.objects.measurements.Cup;
 import com.example.recipe_planner.objects.measurements.Gram;
+import com.example.recipe_planner.objects.measurements.IUnit;
+import com.example.recipe_planner.objects.measurements.Millilitre;
 import com.example.recipe_planner.objects.measurements.Ounce;
 import com.example.recipe_planner.objects.measurements.Tablespoon;
 import com.example.recipe_planner.objects.measurements.Teaspoon;
@@ -37,8 +40,7 @@ public class DataAccessStub implements DataAccess {
         schedule = new Schedule();
     }
 
-    public void close() {
-    }
+    public void close() {}
 
     public Recipe getRecipe(int recipeId) {
         Recipe recipe = null;
@@ -81,6 +83,69 @@ public class DataAccessStub implements DataAccess {
     }
 
     @Override
+    public boolean deleteIngredient(int recipeID, String name, double quantity, String unit) {
+        for (int i = 0; i < recipes.size(); i++) {
+            if (recipes.get(i).getId() == recipeID) {
+                ArrayList<Ingredient> ingredients = recipes.get(i).getIngredients();
+                for (int k = 0; k < ingredients.size(); k++) {
+                    String compName = ingredients.get(k).getName();
+                    String compUnit = ingredients.get(k).getUnit().getClass().getSimpleName();
+                    double compQuantity = ingredients.get(k).getAmount();
+                    if (compName.equals(name)
+                            && compQuantity == quantity
+                            && compUnit.equals(unit)) {
+                        recipes.get(i).getIngredients().remove(k);
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public void updateIngredientQuantity(int recipeID, double quantity, String ingredientName) {
+        for (int i = 0; i < recipes.size(); i++) {
+            if (recipes.get(i).getId() == recipeID) {
+                ArrayList<Ingredient> ingredients = recipes.get(i).getIngredients();
+                for (int k = 0; k < ingredients.size(); k++) {
+                    String compName = ingredients.get(k).getName();
+                    double compQuantity = ingredients.get(k).getAmount();
+                    String unit = ingredients.get(k).getUnit().getClass().getSimpleName();
+                    if (compName.equals(ingredientName)){
+                        IUnit newUnit;
+                        switch (unit) {
+                            case "Cup":
+                                newUnit = new Cup(quantity);
+                                break;
+                            case "Count":
+                                newUnit = new Count(quantity);
+                                break;
+                            case "Gram":
+                                newUnit = new Gram(quantity);
+                                break;
+                            case "Mililitre":
+                                newUnit = new Millilitre(quantity);
+                                break;
+                            case "Ounce":
+                                newUnit = new Ounce(quantity);
+                                break;
+                            case "Tablespoon":
+                                newUnit = new Tablespoon(quantity);
+                                break;
+                            case "Teaspoon":
+                                newUnit = new Teaspoon(quantity);
+                                break;
+                            default:
+                                throw new IllegalStateException("Unexpected value: " + unit);
+                        }
+                        ingredients.get(k).setAmount(newUnit);
+                    }
+                }
+            }
+        }
+    }
+
+    @Override
     public DaySchedule getDaySchedule(Date date) {
         return schedule.getDayScheduleOrDefault(date);
     }
@@ -110,11 +175,8 @@ public class DataAccessStub implements DataAccess {
                                 new Ingredient("Balsamic Vinegar", new Cup(3 * QUARTER)),
                                 new Ingredient("Basil Leaves", new Cup(QUARTER)),
                                 new Ingredient("Olive Oil", new Tablespoon(2)),
-                                new Ingredient(
-                                        "Plum Tomatoes", new Count(4)),
-                                new Ingredient(
-                                        "Boneless Skinless Chicken Breast",
-                                        new Count(4))));
+                                new Ingredient("Plum Tomatoes", new Count(4)),
+                                new Ingredient("Boneless Skinless Chicken Breast", new Count(4))));
         String instructions =
                 "After washing basil and tomatoes, blot them dry with clean paper towel.\n"
                         + "\n"
@@ -139,8 +201,7 @@ public class DataAccessStub implements DataAccess {
                                 new Ingredient("White Sugar", new Teaspoon(2 * THIRD)),
                                 new Ingredient("Bread Flour", new Cup(2)),
                                 new Ingredient("Active Yeast", new Teaspoon(3 * HALF)),
-                                new Ingredient("Honey", new Cup(1))
-                        ));
+                                new Ingredient("Honey", new Cup(1))));
 
         instructions =
                 "Add to your bread machine per manufacturer instructions.\n"
@@ -173,9 +234,7 @@ public class DataAccessStub implements DataAccess {
         ingredients =
                 new ArrayList<>(
                         Arrays.asList(
-                                new Ingredient(
-                                        "Pastry Double Crust Pie",
-                                        new Count(1)),
+                                new Ingredient("Pastry Double Crust Pie", new Count(1)),
                                 new Ingredient("Apple", new Count(6)),
                                 new Ingredient("White Sugar", new Cup(THIRD)),
                                 new Ingredient("Brown Sugar", new Cup(THIRD)),
@@ -199,5 +258,36 @@ public class DataAccessStub implements DataAccess {
                         + "7. Savor every bite.";
 
         recipes.add(new Recipe(3, "Heirloom Apple Pie", ingredients, instructions, true));
+    }
+
+    public DaySchedule getDayScheduleOrDefault(Date date) {
+        return this.schedule.getDayScheduleOrDefault(date);
+    }
+
+    public void fillSchedule(Schedule schedule) {
+        DaySchedule daySchedule = new DaySchedule();
+        assert (recipes.size() > 0);
+        Recipe first_recipe = recipes.get(0);
+        daySchedule.setMeal(DaySchedule.Meal.BREAKFAST, first_recipe);
+        // Set the sample schedule to be for today's date
+        schedule.setDaySchedule(Calendar.getInstance().getTime(), daySchedule);
+
+        // Different meal on next day
+        DaySchedule nextDaySchedule = new DaySchedule();
+        Date nextDay =
+                CalendarUtils.incrementDay(
+                        Calendar.getInstance().getTime(), MealSchedule.DAY_INCREMENT);
+        Recipe lunch = recipes.get(1);
+        nextDaySchedule.setMeal(DaySchedule.Meal.LUNCH, lunch);
+        schedule.setDaySchedule(nextDay, nextDaySchedule);
+
+        // Same meal on the same day
+        daySchedule.setMeal(DaySchedule.Meal.DINNER, first_recipe);
+        // Same meal on different days
+        nextDaySchedule.setMeal(DaySchedule.Meal.DINNER, first_recipe);
+    }
+
+    public String getDbName() {
+        return Main.dbName;
     }
 }

@@ -27,11 +27,10 @@ import com.example.recipe_planner.objects.Recipe;
 import java.util.Calendar;
 import java.util.Date;
 
-/**
- * A {@link Fragment} representing a list of Recipes.
- */
+/** A {@link Fragment} representing a list of Recipes. */
 public class RecipeList extends Fragment
-        implements RecipeRecyclerViewAdapter.OnRecipeClickListener, RecipeRecyclerViewAdapter.OnScheduleRecipeClickListener {
+        implements RecipeRecyclerViewAdapter.OnRecipeClickListener,
+                RecipeRecyclerViewAdapter.OnScheduleRecipeClickListener {
 
     public static final String ARG_RECIPE_ID = "recipeId";
     private final String TAG = this.getClass().getSimpleName();
@@ -70,11 +69,11 @@ public class RecipeList extends Fragment
         View view = inflater.inflate(R.layout.fragment_recipe_list, container, false);
 
         // Set the adapter
-            Context context = view.getContext();
-            RecyclerView recyclerView = view.findViewById(R.id.recipeList);
-            recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            recyclerView.setAdapter(
-                    new RecipeRecyclerViewAdapter(accessRecipes.getRecipes(), this, this));
+        Context context = view.getContext();
+        RecyclerView recyclerView = view.findViewById(R.id.recipeList);
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        recyclerView.setAdapter(
+                new RecipeRecyclerViewAdapter(accessRecipes.getRecipes(), this, this));
         return view;
     }
 
@@ -98,7 +97,8 @@ public class RecipeList extends Fragment
         df.show(this.getChildFragmentManager(), TAG);
     }
 
-    public static class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
+    public static class DatePickerFragment extends DialogFragment
+            implements DatePickerDialog.OnDateSetListener {
         AccessRecipes accessRecipes;
         AccessSchedule accessSchedule;
         Bundle bundle;
@@ -137,12 +137,14 @@ public class RecipeList extends Fragment
             // Prompt the user to select a meal, and schedule the meal
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(view.getContext());
             alertDialogBuilder.setTitle("Select A Meal");
-            alertDialogBuilder.setItems(dialogItems, (dialogInterface, i) -> {
-                Log.d("RecipeList", "Selected meal " + dialogItems[i]);
-                DaySchedule.Meal selectedMeal = DaySchedule.Meal.values()[i];
-                // selectedDateSchedule.setMeal(selectedMeal, scheduledRecipe);
-                accessSchedule.setMeal(scheduledDate, selectedMeal, scheduledRecipe);
-            });
+            alertDialogBuilder.setItems(
+                    dialogItems,
+                    (dialogInterface, i) -> {
+                        Log.d("RecipeList", "Selected meal " + dialogItems[i]);
+                        DaySchedule.Meal selectedMeal = DaySchedule.Meal.values()[i];
+                        // selectedDateSchedule.setMeal(selectedMeal, scheduledRecipe);
+                        accessSchedule.setMeal(scheduledDate, selectedMeal, scheduledRecipe);
+                    });
             AlertDialog alertDialog = alertDialogBuilder.create();
             alertDialog.show();
         }

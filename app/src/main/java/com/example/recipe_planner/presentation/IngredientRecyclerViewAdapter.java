@@ -21,8 +21,7 @@ public class IngredientRecyclerViewAdapter
 
     private final ArrayList<Ingredient> ingredients;
 
-    public IngredientRecyclerViewAdapter(
-            Recipe recipe) {
+    public IngredientRecyclerViewAdapter(Recipe recipe) {
         this.ingredients = recipe.getIngredients();
     }
 
@@ -41,7 +40,6 @@ public class IngredientRecyclerViewAdapter
         Ingredient ingredientToDisplay = ingredients.get(position);
         String unitName = getUnitString(ingredientToDisplay);
         holder.name.setText(ingredientToDisplay.getName());
-        Double bruh = ingredientToDisplay.getAmount();
         holder.amount.setText(String.valueOf(ingredientToDisplay.getAmount()));
         holder.unit.setText(unitName);
     }
@@ -51,7 +49,7 @@ public class IngredientRecyclerViewAdapter
         return ingredients.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         public final TextView name;
         public final TextView amount;
         public final TextView unit;
@@ -69,10 +67,9 @@ public class IngredientRecyclerViewAdapter
         public String toString() {
             return super.toString();
         }
-
     }
-    public String getUnitString(Ingredient ingredient){
+
+    public String getUnitString(Ingredient ingredient) {
         return ingredient.getUnit().getClass().getSimpleName();
     }
 }
-

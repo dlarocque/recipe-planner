@@ -16,7 +16,9 @@ public class Ingredient {
         return this.name;
     }
 
-    public double getAmount() {return this.quantity.getAmount(); }
+    public double getAmount() {
+        return this.quantity.getAmount();
+    }
 
     // setters
     public void setAmount(IUnit newAmount) {
@@ -30,6 +32,7 @@ public class Ingredient {
     @Override
     public boolean equals(Object other) {
         Ingredient i = (Ingredient) other;
-        return this.name.equals(i.getName()) && Double.compare(this.getAmount(), i.getAmount()) == 0;
+        return this.name.equals(i.getName())
+                && Double.compare(this.getAmount(), i.getAmount()) == 0;
     }
 }

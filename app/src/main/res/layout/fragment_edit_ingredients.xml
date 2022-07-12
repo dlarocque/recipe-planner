@@ -6,19 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".presentation.EditIngredientList">
 
-    <ImageButton
-        android:id="@+id/addIngredient"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_gravity="bottom|center"
-        android:layout_marginBottom="45dp"
-        android:background="@android:drawable/ic_menu_add" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/editIngredientList"
         android:name="com.example.recipe_planner.RecipeItem"
         android:layout_width="match_parent"
-        android:layout_height="800dp"
+        android:layout_height="match_parent"
         android:layout_gravity="top"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"

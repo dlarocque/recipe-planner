@@ -26,7 +26,7 @@ import java.util.ArrayList;
 /**
  * {@link Fragment} that displays a single {@link Recipe}, specifically its name and instructions
  */
-public class  RecipeView extends Fragment {
+public class RecipeView extends Fragment {
 
     public static final String RECIPE_ID = "recipeID";
 
@@ -112,24 +112,23 @@ public class  RecipeView extends Fragment {
                     alertDialog.show();
                 });
         ImageButton editIngredients = view.findViewById(R.id.editIngredients);
-        editIngredients.setOnClickListener(view1 -> {
-            Bundle bundle = new Bundle();
-            bundle.putInt(RecipeList.ARG_RECIPE_ID, recipeID);
-            Navigation.findNavController(view1).navigate(R.id.action_recipeView_to_ingredientEdit, bundle);
-        });
+        editIngredients.setOnClickListener(
+                view1 -> {
+                    Bundle bundle = new Bundle();
+                    bundle.putInt(RecipeList.ARG_RECIPE_ID, recipeID);
+                    Navigation.findNavController(view1)
+                            .navigate(R.id.action_recipeView_to_ingredientEdit, bundle);
+                });
 
         Context context = view.getContext();
         RecyclerView recyclerView = view.findViewById(R.id.ingredientList);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        recyclerView.setAdapter(
-                new IngredientRecyclerViewAdapter(recipe));
+        recyclerView.setAdapter(new IngredientRecyclerViewAdapter(recipe));
 
         return view;
     }
 
-    /**
-     * Saves the changes made to the recipe, called when the recipes are edited.
-     */
+    /** Saves the changes made to the recipe, called when the recipes are edited. */
     public void updateRecipe() {
         String newInstructions = this.recipeInstructions.getText().toString();
         String newName = this.recipeName.getText().toString();

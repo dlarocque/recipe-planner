@@ -10,15 +10,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.recipe_planner.R;
+import com.example.recipe_planner.business.AccessIngredients;
+import com.example.recipe_planner.business.AccessRecipes;
 import com.example.recipe_planner.databinding.FragmentEditIngredientItemBinding;
 import com.example.recipe_planner.objects.Ingredient;
 import com.example.recipe_planner.objects.Recipe;
+import com.example.recipe_planner.persistence.DataAccess;
 
 import java.util.List;
 
@@ -26,14 +30,17 @@ import java.util.List;
 public class EditIngredientListRecyclerViewAdapter
         extends RecyclerView.Adapter<EditIngredientListRecyclerViewAdapter.ViewHolder> {
 
-    private List<Ingredient> ingredients;
-    public String ingName;
-    public String ingQuantity;
-    public String ingUnit;
+    private AccessRecipes accessRecipes;
+    private AccessIngredients accessIngredients;
 
-    public EditIngredientListRecyclerViewAdapter(
-            List<Ingredient> items){
-        this.ingredients = items;
+    private Recipe recipe;
+    private List<Ingredient> ingredients;
+
+    public EditIngredientListRecyclerViewAdapter(Recipe recipe) {
+        this.recipe = recipe;
+        this.ingredients = recipe.getIngredients();
+        accessRecipes = new AccessRecipes();
+        accessIngredients = new AccessIngredients();
     }
 
     @NonNull
@@ -42,8 +49,8 @@ public class EditIngredientListRecyclerViewAdapter
         // Inflate the layout for this fragment
         return new ViewHolder(
                 FragmentEditIngredientItemBinding.inflate(
-                        LayoutInflater.from(parent.getContext()), parent, false), new IngredientEditTextListener(),
-                new QuantityEditTextListener(), new UnitEditTextListener());
+                        LayoutInflater.from(parent.getContext()), parent, false),
+                new QuantityEditTextListener());
     }
 
     @Override
@@ -55,9 +62,27 @@ public class EditIngredientListRecyclerViewAdapter
         holder.quantity.setText(String.valueOf(ingredientToDisplay.getAmount()));
         holder.unit.setText(unitName);
 
-        holder.nameListener.updatePosition(holder.getBindingAdapterPosition());
+        holder.quantity.addTextChangedListener(holder.quantityListener);
+
         holder.quantityListener.updatePosition(holder.getBindingAdapterPosition());
-        holder.unitListener.updatePosition(holder.getBindingAdapterPosition());
+
+        holder.delete.setOnClickListener(
+                editView -> {
+                    AlertDialog.Builder alertDialogBuilder =
+                            new AlertDialog.Builder(editView.getContext());
+                    alertDialogBuilder.setTitle("Delete Ingredient");
+                    alertDialogBuilder.setIcon(R.drawable.ic_launcher_delete_foreground);
+                    alertDialogBuilder.setPositiveButton(
+                            "Yes",
+                            (dialog, id) -> {
+                                dialog.dismiss();
+                                Log.d("EditIngredientView", "Delete ingredient button clicked");
+                                deleteIngredientAction(position);
+                            });
+                    alertDialogBuilder.setNegativeButton("No", (dialog, id) -> dialog.dismiss());
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
+                });
     }
 
     @Override
@@ -66,17 +91,16 @@ public class EditIngredientListRecyclerViewAdapter
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public EditText name;
+        public TextView name;
         public EditText quantity;
-        public EditText unit;
+        public TextView unit;
         public final ImageButton delete;
 
-        public IngredientEditTextListener nameListener;
         public QuantityEditTextListener quantityListener;
-        public UnitEditTextListener unitListener;
 
-        public ViewHolder(FragmentEditIngredientItemBinding binding, IngredientEditTextListener nameListener,
-                          QuantityEditTextListener quantityListener, UnitEditTextListener unitListener) {
+        public ViewHolder(
+                FragmentEditIngredientItemBinding binding,
+                QuantityEditTextListener quantityListener) {
             super(binding.getRoot());
 
             name = binding.ingredientName;
@@ -84,30 +108,7 @@ public class EditIngredientListRecyclerViewAdapter
             unit = binding.ingredientUnit;
             delete = binding.deleteIngredient;
 
-            this.nameListener = nameListener;
             this.quantityListener = quantityListener;
-            this.unitListener = unitListener;
-
-            this.name.addTextChangedListener(nameListener);
-            this.quantity.addTextChangedListener(quantityListener);
-            this.unit.addTextChangedListener(unitListener);
-
-            delete.setOnClickListener(editView -> {
-                AlertDialog.Builder alertDialogBuilder =
-                        new AlertDialog.Builder(editView.getContext());
-                alertDialogBuilder.setTitle("Delete Ingredient");
-                alertDialogBuilder.setIcon(R.drawable.ic_launcher_delete_foreground);
-                alertDialogBuilder.setPositiveButton(
-                        "Yes",
-                        (dialog, id) -> {
-                            dialog.dismiss();
-                            Log.d("EditIngredientView", "Delete ingredient button clicked");
-                            //f
-                        });
-                alertDialogBuilder.setNegativeButton("No", (dialog, id) -> dialog.dismiss());
-                AlertDialog alertDialog = alertDialogBuilder.create();
-                alertDialog.show();
-            });
         }
 
         @NonNull
@@ -115,17 +116,24 @@ public class EditIngredientListRecyclerViewAdapter
         public String toString() {
             return super.toString();
         }
-
     }
 
-    public String getUnitString(Ingredient ingredient){
+    public void deleteIngredientAction(int position) {
+        Ingredient deleteIngredient = ingredients.get(position);
+        String name = deleteIngredient.getName();
+        double quantity = deleteIngredient.getAmount();
+        String unit = deleteIngredient.getUnit().getClass().getSimpleName().toUpperCase();
+        accessIngredients.deleteIngredient(recipe.getId(), name, quantity, unit);
+    }
+
+    public String getUnitString(Ingredient ingredient) {
         return ingredient.getUnit().getClass().getSimpleName();
     }
 
-    private class IngredientEditTextListener implements TextWatcher{
+    private class QuantityEditTextListener implements TextWatcher {
         private int position;
 
-        public void updatePosition(int position){
+        public void updatePosition(int position) {
             this.position = position;
         }
 
@@ -136,62 +144,15 @@ public class EditIngredientListRecyclerViewAdapter
 
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            // Required override, stub function
+            double quantity = Double.parseDouble(charSequence.toString());
+            Ingredient ingredientToModify = ingredients.get(position);
+            String ingredientName = ingredientToModify.getName();
+            accessIngredients.updateIngredientQuantity(recipe.getId(), quantity, ingredientName);
         }
 
         @Override
         public void afterTextChanged(Editable s) {
             // Required override, stub function
         }
-
     }
-
-    private class QuantityEditTextListener implements TextWatcher{
-        private int position;
-
-        public void updatePosition(int position){
-            this.position = position;
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            // Required override, stub function
-        }
-
-        @Override
-        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            // Required override, stub function
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-            // Required override, stub function
-        }
-
-    }
-
-    private class UnitEditTextListener implements TextWatcher{
-        private int position;
-
-        public void updatePosition(int position){
-            this.position = position;
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            // Required override, stub function
-        }
-
-        @Override
-        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            // Required override, stub function
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-            // Required override, stub function
-        }
-
-    }
-
 }
