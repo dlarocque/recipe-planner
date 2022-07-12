@@ -10,190 +10,235 @@ Team 5
 
 # Meetings
 
-## June 2, 6 PM (1 hour)
-Selected “As a user, I want to be able to create/remove/edit recipes” as the big user story to focus on for iteration 1.  Team members agreed that this user story seemed to be the most fundamental feature the application needs (creating, removing, and editing are the primary features of the app), and would provide a good base to begin working on later features.
+June 21, 2022
 
-Team members spent five minutes creating developer stories for each of the user stories that belong to the selected big user story, and then refined these stories together.  Some developer stories were created that did not necessarily belong to any user stories (e.g. setting up GitHub actions).
+## Iteration 2 Planning
 
-Gave estimates for development tasks (hours)
-Once developer stories were agreed upon by all team members, the team then went over each of the developer stories and discussed which tasks needed to be done to complete each story and provided a time estimate (hours) based on the complexity and size of those tasks.
+Discussed requirements to complete by the end of iteration 2, and the big user stories that the team would work on during the iteration
+Members assigned themselves to user stories
+Created and modified user stories that to be more appropriate to requirements
+Created user stories to satisfy database requirements
+Members created developer tasks for their assigned user stories
+Members assigned themselves to developer tasks and provided hour estimates for them
+
+## Discussions / Decisions
+
+Team has agreed to finishing tasks 3 days before the iteration deadline (July 9) to give time for refactoring, clean-up and incomplete stories to be completed
+Team decided to refactor Unit classes to Count and ConvertibleUnit, and hence refactoring conversion methods for easier use and testing. This was based on feedback received for Iteration 1 and discussion of several possible improvements.
+Log
+(name) 
+(description of task)
+(time spent on task)
+
+# Log
+
+```
+Sam
+Writing new and modified user story cards for IT-2 (document)
+1 hour
+
+Sam
+Reading sample DB code and learning about HSQLDB
+30 mins
+
+Daniel
+Creating Schedule View Page
+3 hours
+
+Daniel
+Creating Schedule and DaySchedule classes and integrating with Schedule Fragment
+2 hours
+
+Sam
+Added HSQLDB to project, wrote DB script to match stub
+1.5 hours
+
+Daniel
+Writing Unit Tests for Schedule and DaySchedule
+2 hours
+
+Sam
+Investigating/adding requirements and fixes to-do, based on IT-1 feedback
+30 mins
+
+Sam
+Investigating alternatives to units of measurement classes/design based on feedback
+2 hours
+
+Emerson
+Worked on logic for adding recipes and looked at database interface
+2 hours
+
+Daniel
+Made changes based on code review for schedule view PR
+30 minutes
+
+Daniel
+Added functionality for selecting dates to schedule recipes for
+3.5 hours
+
+Daniel
+Added button to delete scheduled recipes
+1 hour
+
+Daniel
+Added save button to meal schedule UI
+1.5 hours
+
+Daniel 
+Created stub data and data access for saved schedules, with unit tests
+1.5 hours
+
+Sam
+refactor units of measurement: new and improved conversion
+2 hours
+
+Sam
+add db to device files on launch, fix primary keys, investigate CLI db access (SqlTool, JDBC)
+1.5 hours
+
+Anthony
+Explored LiveData as a possible option for dynamic recipe ingredient lists (Add, delete, edit, etc.)
+3 hours
+
+Emerson
+Dealt with gradle file sync error
+1.5 hours
+
+Sam
+Wrote unit tests for improved Unit classes and conversion
+1.5 hours
+
+Emerson
+Partially implemented database interface. Investigated error in which db wasn't properly being initialized
+4 hours
+
+Sam
+Fixed a bug with db script: separate population from initialization to circumvent weird sql errors
+3.5 hours
+
+Emerson
+Helped debug db script. Testing different SQL scripts and file locations
+1.5 hours
+
+Anthony 
+Started work on feature branch view_ingredients
+1 hour
+
+Anthony
+Started work on editing a recipe’s ingredients 
+2.5 hours
+
+Daniel
+Fixed bug where a deleted recipe was able to be displayed in a meal schedule
+1 hour
+
+Izan
+Started work on feature: search recipes (added search bar to recipe list page)
+6 hours
+
+Sam
+Implement database, its initialization and a few queries
+4 hours
+
+Sam
+Fix RecipeView to conform to Access/DataAccess, utilize Recipe IDs
+1 hour
+
+Anthony
+Finished main ingredient viewing features in recipeview fragment
+6 hours
+
+Anthony
+Started work on ingredient editing view and logic
+4 hours
+
+Sam
+Get database working in place of stub
+2 hours
+
+Emerson
+Completed initial unit tests for DataAccess interface with stub db
+2 hours
+
+Sam
+Finish new units and conversions, wrote tests, refactors for suggested changes
+1.5 hours
+
+Izan
+Finished Search recipes feature, including fixes after rebasing with real DB changes
+8 hours
+
+Daniel
+Refactored hsqldb query code
+1 hour
+
+Daniel
+Added schedule data and queries in hsqldb
+1.5 hours
+
+Daniel
+Integrated schedule changes with database, as opposed to the stub database
+4 hours
+
+Daniel
+Resolved and merged conflicts between database and schedule database branches
+1 hour
+
+Izan
+Wrote Unit Tests for the Search recipes feature
+2 hours
+
+Sam
+Copiloting with team members to resolve merge conflicts, bugs, and help learn about persistence layer functionality
+3 hours
+
+Emerson
+Assisted with resolving merge conflicts
+1 hour
+
+Izan
+Resolved conflicts from rebasing onto develop after other changes, and merged
+1 hour
+
+Anthony
+Finished UI for editing, deleting recipe ingredients. Started work on backend interactions and logic behind actions.
+4 hours
+
+Anthony
+Resolved merge conflicts between database and view ingredients branches
+1 hour
+
+Daniel
+Integrated save day schedule feature with the database
+1.5 hours
+
+Emerson
+Added additional unit tests for db interface
+1.5 hours
 
 
-Team members then highlighted which developer stories they would complete over the iteration.  Discussion was made on how many hours each team member could commit.
+Emerson
+Created dev task and user stories doc
+1 hour
 
+Sam
+Updating README and architecture documentation
+1 hour
 
-## June 13, 4:30 PM (40 minutes)
-Did an overview of what features have been done so far, and the basic structure of the codebase.
+Anthony
+Finished writing tests
+4 hours
 
-Discussed how the remaining stories should be completed, as well as discussing who’d be working on what for the days leading up to the submission date.
+Daniel
+Wrote unit tests for the business layer
+2 hours
 
-## June 15, 9:45 PM (30 minutes)
-Resolving merge conflicts and working out bugs regarding creating recipes.
-We summarised our work for the iteration and which features we weren’t able to complete on time. Made a plan for editing, revising, cleaning up code and submission of our release.
-
-# Decisions
-
-### June 2 (All members)
-We will use GitHub actions runners to verify that the application builds before each PR, and that all tests pass.
-
-### June 2 (All members)
-We agreed upon a branching strategy that was detailed in the group chat, based on what most students used during their co-op work terms.
-
-### June 9 (All members)
-We agreed to follow a minimal commenting style, opting to let well-written code explain itself and reserve comments to situation where readability of a complex flow may be unclear or time-consuming to parse.
-
-### June 9 (Daniel, Izan, Sam)
-We will implement basic navigation through the app before moving on to other UI stories, as it will ease the development of the stories.
-
-### June 10 (Sam, Daniel)
-We will use google-java-format AOSP style (an Android Studio Plugin) as a standard for code formatting.
-Auto-formatters in GitHub CI/CD are very limited, so we will need to stick to using the formatter in the IDE.
-
-### June 12 (Daniel, Sam)
-We will add a “Count” unit for ingredients that are simply an amount of something
-
-### June 15 (All members)
-Decided to exclude the feature of creating new recipes from the iteration release, due to difficulties with Android fragments and time constraints.
-
-# Individual work
-
-	Sam
-	Create application architecture diagram. PR
-	15 mins
-
-	Izan
-	Learned about interactive components in Figma
-	1 hour
-
-	Izan
-	Create UI draft in Figma
-	2 hour
-
-	Daniel
-	Initialize Android Project. PR
-	30 mins
-
-	Anthony
-	Created Kanban board cards on Github for assigned work
-	5 mins
-
-	Daniel
-	Add pre-commit configuration to run formatters after each commit. PR
-	30 minutes
-
-	Daniel
-	Set up GitHub actions (Unit tests, build) to run after each change in a Pull Request and push to `develop` and `master` branches. PR
-	2 hours
-
-	Sam
-	Create recipe, ingredient, IUnit class hierarchy. PR
-	3 hours
-
-	Daniel
-	Add a recipe list page PR
-	3 hours
-
-	Sam
-	Create unit tests for Recipe, Ingredient, IUnit classes. PR
-	3 hours
-
-	Daniel
-	Learned and documented the basics of Android Development
-	4 hours
-
-	Daniel
-	Implemented app navigation and navigation bar PR
-	4 hours
-
-	Daniel
-	Created stub database PR
-	2 hours
-
-	Daniel
-	Created business layer PR
-	1 hour
-
-	Izan
-	Began implementing logic for deleting or hiding recipes based on default vs user-made
-	1 hour
-
-	Sam
-	Learned about fragments/views and navigation
-	1.5 hours
-
-	Anthony
-	Learned the basics of fragment-based navigation, bundling
-	2 hours
-
-	Anthony
-	Acclimated to the existing codebase, started feature branch
-	2 hours
-
-	Sam
-	Began implementing RecipeView, was completed separately in PR.
-	1 hour
-
-	Anthony
-	Created fragment for editing recipes, text fields for editing recipe name and instructions, getters and setters for the db PR
-	7 hours
-
-	Daniel
-	Made some touch-ups to the recipe view
-	1.5 hours
-
-	Daniel
-	Worked on documentation in README.md  PR
-	30 minutes
-
-	Sam
-	Touching up/reviewing README.md
-	15 minutes
-
-	Sam
-	Implemented testing suites (AllTests, ObjectTestSuite) PR,
-	1 hour
-
-	Sam
-	Updated Recipe tests
-	15 minutes
-
-	Emerson
-	Created feature branch, familiarized self with android studio and the repo
-	1 Hour
-
-	Emerson
-	Learned about fragments and navigation
-	1.5 Hours
-
-	Emerson
-	Worked on button to navigate to create recipe fragment
-	2 Hours
-
-	Izan
-	Finished all the work for deleting/hiding recipes, both the logic and UI parts, and updated the Recipe Unit Tests
-	4 Hours
-
-	Emerson
-	Worked on bug where recipe list does not inflate
-	4 Hours
-
-	Sam
-	Investigated bugs with floating button elements in fragments not displaying correctly. Learned from documentation.
-	1 hour
-
-	Sam
-	updated documentation: added more complete and missing features to README, added markdown-formatted log to repo
-	1.5 hours
-
-	Sam
-	Started cleaning up code: refactoring and formatters
-	15 minutes
-
-    Daniel
-    Removed unused files and code, renamed layout files, commented presentation files, and made minor fixes
-    2 hours
+Daniel
+Updated README.md before submission
+1 hour
+```
 
 # Outstanding Bugs
 
-## Back button not fully functional (severity: medium)
-The back button currently only brings the user back to the initial page in the app, rather than the most recently visited page in the app
+Documented in `README.md`.
