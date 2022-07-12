@@ -4,16 +4,12 @@ import com.example.recipe_planner.application.Main;
 import com.example.recipe_planner.objects.DaySchedule;
 import com.example.recipe_planner.objects.Ingredient;
 import com.example.recipe_planner.objects.Recipe;
-
 import com.example.recipe_planner.objects.Schedule;
-import com.example.recipe_planner.objects.measurements.Count;
-import com.example.recipe_planner.presentation.MealSchedule;
-import com.example.recipe_planner.utils.CalendarUtils;
-
 import com.example.recipe_planner.objects.measurements.ConvertibleUnit;
 import com.example.recipe_planner.objects.measurements.Count;
 import com.example.recipe_planner.objects.measurements.Unit;
-
+import com.example.recipe_planner.presentation.MealSchedule;
+import com.example.recipe_planner.utils.CalendarUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -39,7 +35,8 @@ public class DataAccessStub implements DataAccess {
         schedule = new Schedule();
     }
 
-    public void close() {}
+    public void close() {
+    }
 
     public Recipe getRecipe(int recipeId) {
         Recipe recipe = null;

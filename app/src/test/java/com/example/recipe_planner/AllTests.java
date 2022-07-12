@@ -1,8 +1,8 @@
 package com.example.recipe_planner;
 
 import com.example.recipe_planner.business.BusinessTestSuite;
-import com.example.recipe_planner.persistence.DataAccessTest;
 import com.example.recipe_planner.objects.ObjectTestSuite;
+import com.example.recipe_planner.persistence.DataAccessTest;
 
 import org.junit.After;
 import org.junit.Before;

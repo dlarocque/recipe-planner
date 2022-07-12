@@ -1,6 +1,5 @@
 package com.example.recipe_planner.business;
 
-import com.example.recipe_planner.application.Main;
 import com.example.recipe_planner.application.Services;
 import com.example.recipe_planner.objects.DaySchedule;
 import com.example.recipe_planner.objects.Recipe;

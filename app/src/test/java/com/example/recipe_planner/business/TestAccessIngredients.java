@@ -2,12 +2,10 @@ package com.example.recipe_planner.business;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 
 import com.example.recipe_planner.application.Main;
 import com.example.recipe_planner.application.Services;
 import com.example.recipe_planner.objects.Ingredient;
-import com.example.recipe_planner.objects.Recipe;
 import com.example.recipe_planner.persistence.DataAccess;
 import com.example.recipe_planner.persistence.DataAccessStub;
 
@@ -15,13 +13,12 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class TestAccessIngredients {
+    private static final double DELTA = 0.001;
     private DataAccess dataAccess;
     private AccessIngredients accessIngredients;
-    private static final double DELTA = 0.001;
 
     @Before
     public void setUp() {

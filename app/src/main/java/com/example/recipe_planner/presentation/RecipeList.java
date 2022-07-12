@@ -30,10 +30,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-/** A {@link Fragment} representing a list of Recipes. */
+/**
+ * A {@link Fragment} representing a list of Recipes.
+ */
 public class RecipeList extends Fragment
         implements RecipeRecyclerViewAdapter.OnRecipeClickListener,
-                RecipeRecyclerViewAdapter.OnScheduleRecipeClickListener {
+        RecipeRecyclerViewAdapter.OnScheduleRecipeClickListener {
 
     public static final String ARG_RECIPE_ID = "recipeId";
     private final String TAG = this.getClass().getSimpleName();
@@ -113,7 +115,7 @@ public class RecipeList extends Fragment
         // Navigate to the recipe view for the recipe that was clicked
         Bundle bundle = new Bundle();
         Recipe clickedRecipe = accessRecipes.getRecipes().get(positionInList);
-        bundle.putInt(ARG_RECIPE_ID, clickedRecipe.getId()); // TODO fix in view
+        bundle.putInt(ARG_RECIPE_ID, clickedRecipe.getId());
         Navigation.findNavController(view).navigate(R.id.action_recipeList_to_recipeView, bundle);
     }
 
