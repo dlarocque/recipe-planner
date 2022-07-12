@@ -84,8 +84,7 @@ the three dots at the top-right corner of the application then 'settings', nothi
 
 ## Deleting Ingredients
 
-A user cannot delete recipes that are used in other recipes.
-To update the list of ingredients after an ingredient was deleted, the user must exit and re-enter the edit page.
+A user cannot delete ingredients in recipes.
 
 ## Modifying Ingredients
 
