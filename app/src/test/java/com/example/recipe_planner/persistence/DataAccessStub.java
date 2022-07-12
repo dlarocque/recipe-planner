@@ -23,18 +23,11 @@ public class DataAccessStub implements DataAccess {
     private static final double QUARTER = 1.0 / 4.0;
     private static final double THIRD = 1.0 / 3.0;
     private static final double HALF = 1.0 / 2.0;
-    private final String dbName;
-    private final String dbType = "stub";
     private ArrayList<Recipe> recipes;
     private ArrayList<Recipe> hiddenRecipes;
     private Schedule schedule;
 
-    public DataAccessStub(String dbName) {
-        this.dbName = dbName;
-    }
-
     public DataAccessStub() {
-        this.dbName = "Recipes";
     }
 
     public void open(String dbPath) {
@@ -54,22 +47,6 @@ public class DataAccessStub implements DataAccess {
             if (otherRecipe.getId() == recipeId) {
                 recipe = otherRecipe;
                 break;
-            }
-        }
-
-        return recipe;
-    }
-
-    public Recipe getRecipeAt(int index) {
-        return recipes.get(index);
-    }
-
-    public Recipe getRecipeWithName(String recipeName) {
-        Recipe recipe = null;
-
-        for (Recipe otherRecipe : recipes) {
-            if (otherRecipe.getName().equals(recipeName)) {
-                recipe = otherRecipe;
             }
         }
 
@@ -122,10 +99,6 @@ public class DataAccessStub implements DataAccess {
     @Override
     public void setDayScheduleMealNull(Date date, DaySchedule.Meal meal) {
         // TODO
-    }
-
-    public List<Recipe> getHiddenRecipes() {
-        return hiddenRecipes;
     }
 
     private void fillRecipes(ArrayList<Recipe> recipes) {
@@ -227,10 +200,6 @@ public class DataAccessStub implements DataAccess {
         recipes.add(new Recipe(3, "Heirloom Apple Pie", ingredients, instructions, true));
     }
 
-    public DaySchedule getDayScheduleOrDefault(Date date) {
-        return this.schedule.getDayScheduleOrDefault(date);
-    }
-
     public void fillSchedule(Schedule schedule) {
         DaySchedule daySchedule = new DaySchedule();
         assert (recipes.size() > 0);
@@ -250,13 +219,5 @@ public class DataAccessStub implements DataAccess {
         daySchedule.setMeal(DaySchedule.Meal.DINNER, first_recipe);
         // Same meal on different days
         nextDaySchedule.setMeal(DaySchedule.Meal.DINNER, first_recipe);
-    }
-
-    public String getDbName() {
-        return this.dbName;
-    }
-
-    public String getDbType() {
-        return this.dbType;
     }
 }

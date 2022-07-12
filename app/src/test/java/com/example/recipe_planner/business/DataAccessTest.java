@@ -1,10 +1,12 @@
 package com.example.recipe_planner.business;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import com.example.recipe_planner.application.Main;
+import com.example.recipe_planner.application.Services;
 import com.example.recipe_planner.objects.Ingredient;
 import com.example.recipe_planner.objects.Recipe;
 import com.example.recipe_planner.objects.measurements.Count;
@@ -27,16 +29,42 @@ public class DataAccessTest {
     private DataAccess dataAccess;
 
     @Before
-
     public void setUp() {
         System.out.println("\nStarting Persistence test DataAccess");
-        dataAccess = new DataAccessStub(Main.dbName);
-        dataAccess.open(Main.getDBPathName());
+        dataAccess = new DataAccessStub();
+        dataAccess.open(Main.dbName);
     }
 
     @After
     public void tearDown() {
         System.out.println("Finished Persistence test DataAccess (using stub)");
+        Services.closeDataAccess();
+    }
+
+    @Test
+    public void testDeleteInvalidRecipeIndex(){
+        boolean deleted;
+
+        deleted = dataAccess.deleteRecipe(-1);
+        assertFalse(deleted);
+
+        List<Recipe> recipes;
+        recipes = dataAccess.getRecipes();
+        assertNotNull(recipes);
+        assertEquals(4, recipes.size());
+    }
+
+    @Test
+    public void testDeleteDefaultRecipe() {
+        boolean deleted;
+
+        deleted = dataAccess.deleteRecipe(3);
+        assertTrue(deleted);
+
+        List<Recipe> recipes;
+        recipes = dataAccess.getRecipes();
+        assertNotNull(recipes);
+        assertEquals(3, recipes.size());
     }
 
     @Test
