@@ -27,10 +27,9 @@ public class DataAccessTest {
     private DataAccess dataAccess;
 
     @Before
-
     public void setUp() {
         System.out.println("\nStarting Persistence test DataAccess");
-        dataAccess = new DataAccessStub(Main.dbName);
+        dataAccess = new DataAccessStub();
         dataAccess.open(Main.getDBPathName());
     }
 
@@ -56,15 +55,18 @@ public class DataAccessTest {
         // check ingredients
         ArrayList<Ingredient> ingredients = recipe.getIngredients();
         assertEquals(5, ingredients.size());
-        assertEquals(new Ingredient("Balsamic Vinegar", new ConvertibleUnit(Unit.CUP, 3 * QUARTER)), ingredients.get(0));
-        assertEquals(new Ingredient("Basil Leaves", new ConvertibleUnit(Unit.CUP, QUARTER)), ingredients.get(1));
-        assertEquals(new Ingredient("Olive Oil", new ConvertibleUnit(Unit.TBSP, 2)), ingredients.get(2));
-        assertEquals(new Ingredient(
-                "Plum Tomatoes", new Count(4)), ingredients.get(3));
-        assertEquals(new Ingredient(
-                "Boneless Skinless Chicken Breast",
-                new Count(4)), ingredients.get(4));
-
+        assertEquals(
+                new Ingredient("Balsamic Vinegar", new ConvertibleUnit(Unit.CUP, 3 * QUARTER)),
+                ingredients.get(0));
+        assertEquals(
+                new Ingredient("Basil Leaves", new ConvertibleUnit(Unit.CUP, QUARTER)),
+                ingredients.get(1));
+        assertEquals(
+                new Ingredient("Olive Oil", new ConvertibleUnit(Unit.TBSP, 2)), ingredients.get(2));
+        assertEquals(new Ingredient("Plum Tomatoes", new Count(4)), ingredients.get(3));
+        assertEquals(
+                new Ingredient("Boneless Skinless Chicken Breast", new Count(4)),
+                ingredients.get(4));
 
         // check instructions
         String instructions =

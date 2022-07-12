@@ -122,32 +122,24 @@ public class DataAccessStub implements DataAccess {
                     String compName = ingredients.get(k).getName();
                     double compQuantity = ingredients.get(k).getAmount();
                     String unit = ingredients.get(k).getUnit().getClass().getSimpleName();
-                    if (compName.equals(ingredientName)){
-                        IUnit newUnit;
+
+                    if (compName.equals(ingredientName)) {
+                        ConvertibleUnit newUnit;
                         switch (unit) {
-                            case "Cup":
-                                newUnit = new Cup(quantity);
-                                break;
-                            case "Count":
-                                newUnit = new Count(quantity);
-                                break;
-                            case "Gram":
-                                newUnit = new Gram(quantity);
-                                break;
-                            case "Mililitre":
-                                newUnit = new Millilitre(quantity);
-                                break;
-                            case "Ounce":
-                                newUnit = new Ounce(quantity);
-                                break;
-                            case "Tablespoon":
-                                newUnit = new Tablespoon(quantity);
-                                break;
-                            case "Teaspoon":
-                                newUnit = new Teaspoon(quantity);
-                                break;
+                            case "CUP":
+                                newUnit = new ConvertibleUnit(Unit.CUP, compQuantity);
+                            case "ML":
+                                newUnit = new ConvertibleUnit(Unit.ML, compQuantity);
+                            case "GRAM":
+                                newUnit = new ConvertibleUnit(Unit.GRAM, compQuantity);
+                            case "OUNCE":
+                                newUnit = new ConvertibleUnit(Unit.OUNCE, compQuantity);
+                            case "TSP":
+                                newUnit = new ConvertibleUnit(Unit.TSP, compQuantity);
+                            case "TBSP":
+                                newUnit = new ConvertibleUnit(Unit.TBSP, compQuantity);
                             default:
-                                throw new IllegalStateException("Unexpected value: " + unit);
+                                newUnit = new ConvertibleUnit(null, compQuantity);
                         }
                         ingredients.get(k).setAmount(newUnit);
                     }
