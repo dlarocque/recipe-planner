@@ -5,14 +5,10 @@ import android.util.Log;
 import com.example.recipe_planner.objects.DaySchedule;
 import com.example.recipe_planner.objects.Ingredient;
 import com.example.recipe_planner.objects.Recipe;
-import com.example.recipe_planner.objects.measurements.Count;
-import com.example.recipe_planner.objects.measurements.Cup;
-import com.example.recipe_planner.objects.measurements.Gram;
+import com.example.recipe_planner.objects.measurements.ConvertibleUnit;
 import com.example.recipe_planner.objects.measurements.IUnit;
-import com.example.recipe_planner.objects.measurements.Millilitre;
-import com.example.recipe_planner.objects.measurements.Ounce;
-import com.example.recipe_planner.objects.measurements.Tablespoon;
-import com.example.recipe_planner.objects.measurements.Teaspoon;
+
+import com.example.recipe_planner.objects.measurements.Unit;
 import com.example.recipe_planner.utils.CalendarUtils;
 
 import java.sql.Connection;
@@ -336,7 +332,7 @@ public class DataAccessDB implements DataAccess {
                                     + " was not found in database");
                 }
 
-                ingredient = new Ingredient(name, createUnit(unit, quantity)); // name can be NULL
+                ingredient = new Ingredient(name, unitFactory(unit, quantity)); // name can be NULL
                 ingredients.add(ingredient);
             }
 
@@ -508,36 +504,6 @@ public class DataAccessDB implements DataAccess {
         }
     }
 
-    private IUnit createUnit(String unit, double quantity) {
-        IUnit result = null;
-
-        switch (unit) {
-            case "CUP":
-                result = new Cup(quantity);
-                break;
-            case "COUNT":
-                result = new Count(quantity);
-                break;
-            case "GRAM":
-                result = new Gram(quantity);
-                break;
-            case "ML":
-                result = new Millilitre(quantity);
-                break;
-            case "OUNCE":
-                result = new Ounce(quantity);
-                break;
-            case "TBSP":
-                result = new Tablespoon(quantity);
-                break;
-            case "TSP":
-                result = new Teaspoon(quantity);
-                break;
-        }
-
-        return result;
-    }
-
     @Override
     public void setDayScheduleMealNull(Date date, DaySchedule.Meal meal) {
         Statement statement;
@@ -559,7 +525,30 @@ public class DataAccessDB implements DataAccess {
         }
     }
 
-    /** If no data is present, populate the database with initial data */
+
+    private IUnit unitFactory(String unit, double quantity) {
+        Unit type = null;
+
+        switch(unit) {
+            case "CUP":
+                type = Unit.CUP;
+            case "ML":
+                type = Unit.ML;
+            case "GRAM":
+                type = Unit.GRAM;
+            case "OUNCE":
+                type = Unit.OUNCE;
+            case "TSP":
+                type = Unit.TSP;
+            case "TBSP":
+                type = Unit.TBSP;
+        }
+        return new ConvertibleUnit(type, quantity);
+    }
+
+    /**
+     * If no data is present, populate the database with initial data
+     */
     private void initData() {
         Statement statement;
 
