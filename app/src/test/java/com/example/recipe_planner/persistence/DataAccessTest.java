@@ -78,37 +78,7 @@ public class DataAccessTest {
         Recipe recipe = recipes.get(0);
         assertNotNull(recipe);
 
-        // check name
-        assertEquals("Grilled Basil Chicken", recipe.getName());
-
-        // check ingredients
-        ArrayList<Ingredient> ingredients = recipe.getIngredients();
-        assertEquals(5, ingredients.size());
-        assertEquals(new Ingredient("Balsamic Vinegar", new Cup(3 * QUARTER)), ingredients.get(0));
-        assertEquals(new Ingredient("Basil Leaves", new Cup(QUARTER)), ingredients.get(1));
-        assertEquals(new Ingredient("Olive Oil", new Tablespoon(2)), ingredients.get(2));
-        assertEquals(new Ingredient("Plum Tomatoes", new Count(4)), ingredients.get(3));
-        assertEquals(
-                new Ingredient("Boneless Skinless Chicken Breast", new Count(4)),
-                ingredients.get(4));
-
-        // check instructions
-        String instructions =
-                "After washing basil and tomatoes, blot them dry with clean paper towel.\n"
-                        + "\n"
-                        + "Using a clean cutting board, cut tomatoes into quarters.\n"
-                        + "\n"
-                        + "For marinade, place first six ingredients in a blender. Cover and process until well blended.\n"
-                        + "\n"
-                        + "Place chicken breasts in a shallow dish; orange do not rinse raw poultry. Cover with marinade. Cover dish. Refrigerate about 1 hour, turning occasionally. Wash dish after touching raw poultry.\n"
-                        + "\n"
-                        + "orange quote icon Wash hands with soap and water after handling uncooked chicken.\n"
-                        + "\n"
-                        + "Place chicken on an oiled grill rack over medium heat. Do not reuse marinades used on raw foods. Grill chicken 4-6 minutes per side. Cook until internal temperature reaches 165 °F as measured with a food thermometer. ";
-        assertEquals(instructions, recipe.getInstructions());
-
-        // check if default
-        assertTrue(recipe.isDefault());
+        equalToGrilledChicken(recipe);
     }
 
     @Test
@@ -130,37 +100,7 @@ public class DataAccessTest {
         Recipe recipe = recipes.get(0);
         assertNotNull(recipe);
 
-        // check name
-        assertEquals("Grilled Basil Chicken", recipe.getName());
-
-        // check ingredients
-        ArrayList<Ingredient> ingredients = recipe.getIngredients();
-        assertEquals(5, ingredients.size());
-        assertEquals(new Ingredient("Balsamic Vinegar", new Cup(3 * QUARTER)), ingredients.get(0));
-        assertEquals(new Ingredient("Basil Leaves", new Cup(QUARTER)), ingredients.get(1));
-        assertEquals(new Ingredient("Olive Oil", new Tablespoon(2)), ingredients.get(2));
-        assertEquals(new Ingredient("Plum Tomatoes", new Count(4)), ingredients.get(3));
-        assertEquals(
-                new Ingredient("Boneless Skinless Chicken Breast", new Count(4)),
-                ingredients.get(4));
-
-        // check instructions
-        String instructions =
-                "After washing basil and tomatoes, blot them dry with clean paper towel.\n"
-                        + "\n"
-                        + "Using a clean cutting board, cut tomatoes into quarters.\n"
-                        + "\n"
-                        + "For marinade, place first six ingredients in a blender. Cover and process until well blended.\n"
-                        + "\n"
-                        + "Place chicken breasts in a shallow dish; orange do not rinse raw poultry. Cover with marinade. Cover dish. Refrigerate about 1 hour, turning occasionally. Wash dish after touching raw poultry.\n"
-                        + "\n"
-                        + "orange quote icon Wash hands with soap and water after handling uncooked chicken.\n"
-                        + "\n"
-                        + "Place chicken on an oiled grill rack over medium heat. Do not reuse marinades used on raw foods. Grill chicken 4-6 minutes per side. Cook until internal temperature reaches 165 °F as measured with a food thermometer. ";
-        assertEquals(instructions, recipe.getInstructions());
-
-        // check if default
-        assertTrue(recipe.isDefault());
+        equalToGrilledChicken(recipe);
     }
 
     @Test
@@ -236,5 +176,39 @@ public class DataAccessTest {
         assertNotNull(ingredient);
         assertEquals("Boneless Skinless Chicken Breast", ingredient.getName());
         assertEquals(4.0, ingredient.getAmount(), DELTA);
+    }
+
+    private void equalToGrilledChicken(Recipe recipe) {
+        // check name
+        assertEquals("Grilled Basil Chicken", recipe.getName());
+
+        // check ingredients
+        ArrayList<Ingredient> ingredients = recipe.getIngredients();
+        assertEquals(5, ingredients.size());
+        assertEquals(new Ingredient("Balsamic Vinegar", new Cup(3 * QUARTER)), ingredients.get(0));
+        assertEquals(new Ingredient("Basil Leaves", new Cup(QUARTER)), ingredients.get(1));
+        assertEquals(new Ingredient("Olive Oil", new Tablespoon(2)), ingredients.get(2));
+        assertEquals(new Ingredient("Plum Tomatoes", new Count(4)), ingredients.get(3));
+        assertEquals(
+                new Ingredient("Boneless Skinless Chicken Breast", new Count(4)),
+                ingredients.get(4));
+
+        // check instructions
+        String instructions =
+                "After washing basil and tomatoes, blot them dry with clean paper towel.\n"
+                        + "\n"
+                        + "Using a clean cutting board, cut tomatoes into quarters.\n"
+                        + "\n"
+                        + "For marinade, place first six ingredients in a blender. Cover and process until well blended.\n"
+                        + "\n"
+                        + "Place chicken breasts in a shallow dish; orange do not rinse raw poultry. Cover with marinade. Cover dish. Refrigerate about 1 hour, turning occasionally. Wash dish after touching raw poultry.\n"
+                        + "\n"
+                        + "orange quote icon Wash hands with soap and water after handling uncooked chicken.\n"
+                        + "\n"
+                        + "Place chicken on an oiled grill rack over medium heat. Do not reuse marinades used on raw foods. Grill chicken 4-6 minutes per side. Cook until internal temperature reaches 165 °F as measured with a food thermometer. ";
+        assertEquals(instructions, recipe.getInstructions());
+
+        // check if default
+        assertTrue(recipe.isDefault());
     }
 }
