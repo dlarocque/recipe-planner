@@ -68,6 +68,18 @@ public class DataAccessStub implements DataAccess {
         return recipeIngredients;
     }
 
+    public List<Recipe> getRecipesWithPartialName(String recipePartialName) {
+        ArrayList<Recipe> recipesWithPartialName = new ArrayList<>();
+        for (Recipe recipe : recipes) {
+            if (recipe.getName()
+                    .toLowerCase(Locale.ROOT)
+                    .contains(recipePartialName.toLowerCase(Locale.ROOT)))
+                recipesWithPartialName.add(recipe);
+        }
+
+        return recipesWithPartialName;
+    }
+
     // Returns true if the recipe exists in recipes.
     public boolean deleteRecipe(int recipeId) {
         for (int i = 0; i < recipes.size(); i++) {

@@ -241,6 +241,44 @@ public class DataAccessDB implements DataAccess {
     }
 
     @Override
+    public List<Recipe> getRecipesWithPartialName(String recipePartialName) {
+        ArrayList<Recipe> recipes = new ArrayList<>();
+        ArrayList<Ingredient> ingredients;
+        int recipeId;
+        String recipeName, instructions;
+        boolean isDefault;
+        Statement statement;
+        ResultSet allRecipes;
+
+        // Build list of recipes
+        try {
+            // Get all recipes
+            statement = connection.createStatement();
+            allRecipes = statement.executeQuery("SELECT * FROM RECIPES WHERE LCASE(NAME) LIKE '%" + recipePartialName.toLowerCase() + "%'");
+
+            while (allRecipes.next()) {
+                // Get all the components of a recipe, create a recipe, and add it to our list of recipes
+                recipeId = allRecipes.getInt("ID");
+                recipeName = allRecipes.getString("NAME");
+                instructions = allRecipes.getString("INSTRUCTIONS");
+                isDefault = allRecipes.getBoolean("IS_DEFAULT");
+                ingredients = new ArrayList<>(getRecipeIngredients(recipeId));
+
+                Recipe recipe = new Recipe(recipeId, recipeName, ingredients, instructions, isDefault);
+                recipes.add(recipe);
+            }
+
+            allRecipes.close();
+            statement.close();
+        } catch (SQLException sqlException) {
+            Log.e(TAG, "Failed to get recipes searched by partial name from HSQLDB");
+            sqlException.printStackTrace();
+        }
+
+        return recipes;
+    }
+
+    @Override
     public List<Ingredient> getRecipeIngredients(int recipeId) {
         ArrayList<Ingredient> ingredients = null;
         Ingredient ingredient;

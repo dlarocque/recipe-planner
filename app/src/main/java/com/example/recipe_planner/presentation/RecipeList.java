@@ -88,15 +88,14 @@ public class RecipeList extends Fragment
                         if (results.isEmpty()) {
                             recyclerView.setVisibility(View.INVISIBLE);
                             emptyRecipeListView.setVisibility(View.VISIBLE);
-                            return true;
                         } else {
                             recyclerView.setVisibility(View.VISIBLE);
                             emptyRecipeListView.setVisibility(View.INVISIBLE);
                             recyclerView.setAdapter(
                                     new RecipeRecyclerViewAdapter(
                                             results, RecipeList.this, RecipeList.this));
-                            return true;
                         }
+                        return true;
                     }
 
                     @Override
