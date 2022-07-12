@@ -1,7 +1,5 @@
 package com.example.recipe_planner.persistence;
 
-import android.util.Log;
-
 import com.example.recipe_planner.objects.DaySchedule;
 import com.example.recipe_planner.objects.Ingredient;
 import com.example.recipe_planner.objects.Recipe;
@@ -43,13 +41,11 @@ public class DataAccessStub implements DataAccess {
         recipes = new ArrayList<>();
         fillRecipes(recipes);
         hiddenRecipes = new ArrayList<>();
-        Log.d("OpenDatabase", "Opened " + dbType + " database " + dbName);
         schedule = new Schedule();
         fillSchedule(schedule);
     }
 
     public void close() {
-        Log.d("ClosedDatabase", "Closed " + dbType + " database " + dbName);
     }
 
     public Recipe getRecipe(int recipeId) {

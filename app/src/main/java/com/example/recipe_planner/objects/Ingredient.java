@@ -28,4 +28,10 @@ public class Ingredient {
     public IUnit getUnit() {
         return this.quantity;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        Ingredient i = (Ingredient) other;
+        return this.name.equals(i.getName()) && Double.compare(this.getAmount(), i.getAmount()) == 0;
+    }
 }
