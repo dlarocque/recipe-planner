@@ -127,6 +127,11 @@ public class DataAccessStub implements DataAccess {
         // TODO
     }
 
+    @Override
+    public void saveDaySchedule(int breakfastRecipeId, int lunchRecipeId, int dinnerRecipeId) {
+        // TODO
+    }
+
     public List<Recipe> getHiddenRecipes() {
         return hiddenRecipes;
     }

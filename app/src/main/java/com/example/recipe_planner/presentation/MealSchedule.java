@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.recipe_planner.R;
 import com.example.recipe_planner.business.AccessRecipes;
+import com.example.recipe_planner.business.AccessSavedDaySchedules;
 import com.example.recipe_planner.business.AccessSchedule;
 import com.example.recipe_planner.objects.DaySchedule;
 import com.example.recipe_planner.objects.Recipe;
@@ -162,6 +163,7 @@ public class MealSchedule extends Fragment {
 
     private View.OnClickListener saveSchedule() {
         DaySchedule daySchedule = accessSchedule.getDayScheduleOrDefault(selectedDate);
+        int breakfastRecipeId, lunchRecipeId, dinnerRecipeId;
         return clickListener -> {
             if (daySchedule.mealIsScheduled(DaySchedule.Meal.BREAKFAST)
                     || daySchedule.mealIsScheduled(DaySchedule.Meal.LUNCH)

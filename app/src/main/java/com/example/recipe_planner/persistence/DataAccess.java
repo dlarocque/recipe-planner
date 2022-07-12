@@ -28,4 +28,9 @@ public interface DataAccess {
     void setDayScheduleMeal(Date date, DaySchedule.Meal meal, Recipe recipe);
 
     void setDayScheduleMealNull(Date date, DaySchedule.Meal meal);
+
+    void saveDaySchedule(int breakfastRecipeId, int lunchRecipeId, int dinnerRecipeId);
+
+    List<DaySchedule> getSavedDaySchedules();
+
 }

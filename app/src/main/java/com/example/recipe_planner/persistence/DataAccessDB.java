@@ -419,6 +419,54 @@ public class DataAccessDB implements DataAccess {
         }
     }
 
+    @Override
+    public void saveDaySchedule(int breakfastRecipeId, int lunchRecipeId, int dinnerRecipeId) {
+        Statement statement;
+
+        try {
+            statement = connection.createStatement();
+            statement.executeUpdate("INSERT INTO " +
+                    "SAVED_DAY_SCHEDULES(ID, BREAKFAST_RECIPE_ID, LUNCH_RECIPE_ID, DINNER_RECIPE_ID) " +
+                    "VALUES (NULL, " + breakfastRecipeId + ", " + lunchRecipeId + ", " + dinnerRecipeId + " )");
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+        }
+    }
+
+    @Override
+    public List<DaySchedule> getSavedDaySchedules() {
+        Statement statement;
+        ResultSet daySchedulesQuery;
+        ArrayList<DaySchedule> daySchedules = new ArrayList<>();
+        int id, breakfastRecipeId, lunchRecipeId, dinnerRecipeId;
+        Recipe breakfast = null, lunch = null, dinner = null;
+
+        try {
+            statement = connection.createStatement();
+            daySchedulesQuery = statement.executeQuery("SELECT * FROM SAVED_DAY_SCHEDULES");
+
+            while (daySchedulesQuery.next()) {
+                breakfastRecipeId = daySchedulesQuery.getInt("BREAKFAST_RECIPE_ID");
+                if (!daySchedulesQuery.wasNull())
+                    breakfast = getRecipe(breakfastRecipeId);
+
+                lunchRecipeId = daySchedulesQuery.getInt("LUNCH_RECIPE_ID");
+                if (!daySchedulesQuery.wasNull())
+                    lunch = getRecipe(lunchRecipeId);
+
+                dinnerRecipeId = daySchedulesQuery.getInt("DINNER_RECIPE_ID");
+                if (!daySchedulesQuery.wasNull())
+                    dinner = getRecipe(dinnerRecipeId);
+
+                daySchedules.add(new DaySchedule(breakfast, lunch, dinner));
+            }
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+        }
+
+        return daySchedules;
+    }
+
     /**
      * If no data is present, populate the database with initial data
      */
