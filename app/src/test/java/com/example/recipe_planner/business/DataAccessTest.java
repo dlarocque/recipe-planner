@@ -7,9 +7,9 @@ import static org.junit.Assert.assertTrue;
 import com.example.recipe_planner.application.Main;
 import com.example.recipe_planner.objects.Ingredient;
 import com.example.recipe_planner.objects.Recipe;
+import com.example.recipe_planner.objects.measurements.ConvertibleUnit;
 import com.example.recipe_planner.objects.measurements.Count;
-import com.example.recipe_planner.objects.measurements.Cup;
-import com.example.recipe_planner.objects.measurements.Tablespoon;
+import com.example.recipe_planner.objects.measurements.Unit;
 import com.example.recipe_planner.persistence.DataAccess;
 import com.example.recipe_planner.persistence.DataAccessStub;
 
@@ -56,9 +56,9 @@ public class DataAccessTest {
         // check ingredients
         ArrayList<Ingredient> ingredients = recipe.getIngredients();
         assertEquals(5, ingredients.size());
-        assertEquals(new Ingredient("Balsamic Vinegar", new Cup(3 * QUARTER)), ingredients.get(0));
-        assertEquals(new Ingredient("Basil Leaves", new Cup(QUARTER)), ingredients.get(1));
-        assertEquals(new Ingredient("Olive Oil", new Tablespoon(2)), ingredients.get(2));
+        assertEquals(new Ingredient("Balsamic Vinegar", new ConvertibleUnit(Unit.CUP, 3 * QUARTER)), ingredients.get(0));
+        assertEquals(new Ingredient("Basil Leaves", new ConvertibleUnit(Unit.CUP, QUARTER)), ingredients.get(1));
+        assertEquals(new Ingredient("Olive Oil", new ConvertibleUnit(Unit.TBSP, 2)), ingredients.get(2));
         assertEquals(new Ingredient(
                 "Plum Tomatoes", new Count(4)), ingredients.get(3));
         assertEquals(new Ingredient(
