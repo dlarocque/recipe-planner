@@ -30,4 +30,10 @@ public class Services {
         }
         dataAccessService = null;
     }
+
+    public static void resetDataAccess() {
+        if (dataAccessService != null) {
+            dataAccessService.reset();
+        }
+    }
 }

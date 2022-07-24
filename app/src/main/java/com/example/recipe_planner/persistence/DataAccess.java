@@ -13,6 +13,8 @@ public interface DataAccess {
 
     void close();
 
+    void reset();
+
     Recipe getRecipe(int recipeId);
 
     List<Recipe> getRecipes();
