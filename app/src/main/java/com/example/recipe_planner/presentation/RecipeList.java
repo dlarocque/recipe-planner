@@ -41,6 +41,7 @@ public class RecipeList extends Fragment
     private final String TAG = this.getClass().getSimpleName();
     private AccessRecipes accessRecipes;
     private AccessSchedule accessSchedule;
+    private List<Recipe> recipes;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the fragment (e.g. upon
@@ -72,13 +73,14 @@ public class RecipeList extends Fragment
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_recipe_list, container, false);
+        recipes = accessRecipes.getRecipes();
 
         // Set the adapter
         Context context = view.getContext();
         RecyclerView recyclerView = view.findViewById(R.id.recipeList);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(
-                new RecipeRecyclerViewAdapter(accessRecipes.getRecipes(), this, this));
+                new RecipeRecyclerViewAdapter(recipes, this, this));
 
         SearchView simpleSearchView = (SearchView) view.findViewById(R.id.SearchRecipes);
         simpleSearchView.setOnQueryTextListener(
@@ -96,6 +98,7 @@ public class RecipeList extends Fragment
                             recyclerView.setAdapter(
                                     new RecipeRecyclerViewAdapter(
                                             results, RecipeList.this, RecipeList.this));
+                            recipes = results;
                         }
                         return true;
                     }
@@ -114,7 +117,7 @@ public class RecipeList extends Fragment
         Log.d("RecipeList", "Recipe " + positionInList + " clicked");
         // Navigate to the recipe view for the recipe that was clicked
         Bundle bundle = new Bundle();
-        Recipe clickedRecipe = accessRecipes.getRecipes().get(positionInList);
+        Recipe clickedRecipe = recipes.get(positionInList);
         bundle.putInt(ARG_RECIPE_ID, clickedRecipe.getId());
         Navigation.findNavController(view).navigate(R.id.action_recipeList_to_recipeView, bundle);
     }
@@ -123,7 +126,7 @@ public class RecipeList extends Fragment
     public void onScheduleRecipeClick(int positionInList, View view) {
         Log.d(TAG, "Scheduling Button for recipe " + positionInList + " clicked");
         Bundle bundle = new Bundle();
-        Recipe clickedRecipe = accessRecipes.getRecipes().get(positionInList);
+        Recipe clickedRecipe = recipes.get(positionInList);
         bundle.putInt(ARG_RECIPE_ID, clickedRecipe.getId());
         DialogFragment df = new DatePickerFragment(bundle);
         df.show(this.getChildFragmentManager(), TAG);
