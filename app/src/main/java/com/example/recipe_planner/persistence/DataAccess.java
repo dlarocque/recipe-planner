@@ -4,6 +4,7 @@ import com.example.recipe_planner.objects.DaySchedule;
 import com.example.recipe_planner.objects.Ingredient;
 import com.example.recipe_planner.objects.Recipe;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -30,6 +31,8 @@ public interface DataAccess {
     void updateIngredientQuantity(int recipeID, double quantity, String ingredientName);
 
     DaySchedule getDaySchedule(Date date);
+
+    ArrayList<Recipe> getScheduledRecipes();
 
     void initializeDaySchedule(Date date);
 
