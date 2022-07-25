@@ -16,6 +16,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -475,6 +476,42 @@ public class DataAccessDB implements DataAccess {
         }
 
         return daySchedule;
+    }
+
+    @Override
+    public ArrayList<Recipe> getScheduledRecipes() {
+        ArrayList<Recipe> dayRecipes = new ArrayList<Recipe>();
+        Date currDate = Calendar.getInstance().getTime();
+        String dateKey = CalendarUtils.formattedDate(currDate);
+        Statement statement;
+        ResultSet meals;
+        int breakfastRecipeId, lunchRecipeId, dinnerRecipeId;
+
+        try {
+            statement = connection.createStatement();
+            meals =
+                    statement.executeQuery(
+                            "SELECT BREAKFAST_RECIPE_ID, LUNCH_RECIPE_ID, DINNER_RECIPE_ID FROM DAY_SCHEDULES WHERE DAY >='"
+                                    + dateKey
+                                    + "';");
+
+            while (meals.next()) {
+                breakfastRecipeId = meals.getInt("BREAKFAST_RECIPE_ID");
+                if (!meals.wasNull()) dayRecipes.add(getRecipe(breakfastRecipeId));
+
+                lunchRecipeId = meals.getInt("LUNCH_RECIPE_ID");
+                if (!meals.wasNull()) dayRecipes.add(getRecipe(lunchRecipeId));
+
+                dinnerRecipeId = meals.getInt("DINNER_RECIPE_ID");
+                if (!meals.wasNull()) dayRecipes.add(getRecipe(dinnerRecipeId));
+
+            }
+
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+        }
+
+        return dayRecipes;
     }
 
     @Override
