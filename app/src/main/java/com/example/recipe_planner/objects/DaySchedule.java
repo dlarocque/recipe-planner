@@ -2,14 +2,11 @@ package com.example.recipe_planner.objects;
 
 import java.util.HashMap;
 
-/**
- * A daily schedule that contains a {@link Recipe} for each of breakfast, lunch and dinner.
- */
+/** A daily schedule that contains a {@link Recipe} for each of breakfast, lunch and dinner. */
 public class DaySchedule {
     private final HashMap<Meal, Recipe> meals = new HashMap<>();
 
-    public DaySchedule() {
-    }
+    public DaySchedule() {}
 
     public DaySchedule(Recipe breakfast, Recipe lunch, Recipe dinner) {
         setMeal(Meal.BREAKFAST, breakfast);

@@ -30,12 +30,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-/**
- * A {@link Fragment} representing a list of Recipes.
- */
+/** A {@link Fragment} representing a list of Recipes. */
 public class RecipeList extends Fragment
         implements RecipeRecyclerViewAdapter.OnRecipeClickListener,
-        RecipeRecyclerViewAdapter.OnScheduleRecipeClickListener {
+                RecipeRecyclerViewAdapter.OnScheduleRecipeClickListener {
 
     public static final String ARG_RECIPE_ID = "recipeId";
     private final String TAG = this.getClass().getSimpleName();

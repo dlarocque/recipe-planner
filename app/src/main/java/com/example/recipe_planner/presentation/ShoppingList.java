@@ -17,9 +17,7 @@ import com.example.recipe_planner.persistence.DataAccess;
 
 import java.util.ArrayList;
 
-/**
- * A {@link Fragment} representing a shopping list (stub).
- */
+/** A {@link Fragment} representing a shopping list (stub). */
 public class ShoppingList extends Fragment {
 
     private AccessRecipes accessRecipes;
@@ -28,6 +26,7 @@ public class ShoppingList extends Fragment {
     public ShoppingList() {
         // Required empty public constructor
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +38,8 @@ public class ShoppingList extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(
+            LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_shopping_list, container, false);
 
         ArrayList<Recipe> recipe = accessRecipes.getScheduledRecipes();

@@ -5,9 +5,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 
-/**
- * A Schedule that contains a mapping from days to {@link DaySchedule}.
- */
+/** A Schedule that contains a mapping from days to {@link DaySchedule}. */
 public class Schedule {
     private static final String dateHashPattern = "yyyy-MM-dd";
     private static final SimpleDateFormat dateFormat =

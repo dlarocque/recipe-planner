@@ -31,7 +31,7 @@ public class AccessRecipes {
         return dataAccess.getRecipeIngredients(recipeId);
     }
 
-    public ArrayList<Recipe> getScheduledRecipes(){
+    public ArrayList<Recipe> getScheduledRecipes() {
         return dataAccess.getScheduledRecipes();
     }
 
