@@ -124,6 +124,7 @@ public class DataAccessDB implements DataAccess {
                     + "INSERT INTO RECIPEINGREDIENTS VALUES(3, 21, 1, 'TSP')\n"
                     + "INSERT INTO RECIPEINGREDIENTS VALUES(3, 22, 1, 'TBSP')"
     };
+    private final String[] TABLES = {"DAY_SCHEDULES", "RECIPEINGREDIENTS", "INGREDIENTS", "RECIPES"};
 
     private final String TAG = this.getClass().getSimpleName();
     private Connection connection;
@@ -139,11 +140,7 @@ public class DataAccessDB implements DataAccess {
             url = "jdbc:hsqldb:file:" + dbPath; // stored on disk mode
             connection = DriverManager.getConnection(url, "SA", "");
 
-            ResultSet resultSet =
-                    connection.createStatement().executeQuery("SELECT * from recipes");
-            if (!resultSet.next()) {
-                initData();
-            }
+            reset(); // TODO: Conditionally reset?
         } catch (SQLException
                 | ClassNotFoundException
                 | IllegalAccessException
@@ -165,6 +162,36 @@ public class DataAccessDB implements DataAccess {
             sqlException.printStackTrace();
         }
         Log.i(TAG, "Closed HSQLDB database");
+    }
+
+    public void reset() {
+        Statement statement;
+
+        try {
+            statement = connection.createStatement();
+            for (String table : TABLES) {
+                statement.executeQuery("DELETE FROM " + table + " WHERE true;");
+            }
+            statement.close();
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+        }
+
+        // Reinitialize all data
+        initData();
+    }
+
+    private void initData() {
+        Statement statement;
+
+        try {
+            statement = connection.createStatement();
+            for (String script : populateScript) {
+                statement.executeUpdate(script);
+            }
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+        }
     }
 
     @Override
@@ -543,21 +570,5 @@ public class DataAccessDB implements DataAccess {
                 type = Unit.TBSP;
         }
         return new ConvertibleUnit(type, quantity);
-    }
-
-    /**
-     * If no data is present, populate the database with initial data
-     */
-    private void initData() {
-        Statement statement;
-
-        try {
-            statement = connection.createStatement();
-            for (String script : populateScript) {
-                statement.executeUpdate(script);
-            }
-        } catch (SQLException sqlException) {
-            sqlException.printStackTrace();
-        }
     }
 }

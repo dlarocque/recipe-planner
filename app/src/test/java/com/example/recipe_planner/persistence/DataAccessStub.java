@@ -29,13 +29,21 @@ public class DataAccessStub implements DataAccess {
     }
 
     public void open(String dbPath) {
+        initData();
+    }
+
+    public void close() {
+    }
+
+    public void reset() {
+        initData();
+    }
+
+    public void initData() {
         recipes = new ArrayList<>();
         fillRecipes(recipes);
         hiddenRecipes = new ArrayList<>();
         schedule = new Schedule();
-    }
-
-    public void close() {
     }
 
     public Recipe getRecipe(int recipeId) {
