@@ -72,7 +72,7 @@ public class DataAccessDB implements DataAccess {
                 + "    + '7. Savor every bite.',\n"
                 + "    1\n"
                 + ")",
-        "INSERT INTO INGREDIENTS VALUES (NULL, 'Balsamic Vinegar')\n"
+        "INSERT INTO INGREDIENTS VALUES (NULL, 'Balsamic  Vinegar')\n"
                 + "INSERT INTO INGREDIENTS VALUES (NULL, 'Basil Leaves')\n"
                 + "INSERT INTO INGREDIENTS VALUES (NULL, 'Olive Oil')\n"
                 + "INSERT INTO INGREDIENTS VALUES (NULL, 'Plum Tomatoes')\n"
@@ -529,7 +529,6 @@ public class DataAccessDB implements DataAccess {
 
                 dinnerRecipeId = meals.getInt("DINNER_RECIPE_ID");
                 if (!meals.wasNull()) dayRecipes.add(getRecipe(dinnerRecipeId));
-
             }
 
         } catch (SQLException sqlException) {

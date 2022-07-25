@@ -18,7 +18,8 @@ import com.example.recipe_planner.objects.Recipe;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShoppingListRecyclerViewAdapter extends RecyclerView.Adapter<ShoppingListRecyclerViewAdapter.ViewHolder>{
+public class ShoppingListRecyclerViewAdapter
+        extends RecyclerView.Adapter<ShoppingListRecyclerViewAdapter.ViewHolder> {
 
     private AccessRecipes accessRecipes;
     private AccessIngredients accessIngredients;
@@ -31,10 +32,10 @@ public class ShoppingListRecyclerViewAdapter extends RecyclerView.Adapter<Shoppi
         ArrayList<Ingredient> gatherIngredients = new ArrayList<Ingredient>();
         accessRecipes = new AccessRecipes();
         accessIngredients = new AccessIngredients();
-        for(int i = 0; i < recipe.size(); i++){
+        for (int i = 0; i < recipe.size(); i++) {
             gatherIngredients.addAll(accessRecipes.getRecipeIngredients(recipe.get(i).getId()));
         }
-        ingredients = (List<Ingredient>)gatherIngredients;
+        ingredients = (List<Ingredient>) gatherIngredients;
     }
 
     @NonNull
@@ -46,7 +47,8 @@ public class ShoppingListRecyclerViewAdapter extends RecyclerView.Adapter<Shoppi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ShoppingListRecyclerViewAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(
+            @NonNull ShoppingListRecyclerViewAdapter.ViewHolder holder, int position) {
         Ingredient ingredientToDisplay = ingredients.get(position);
         holder.shoppingIngredientName.setText(ingredientToDisplay.getName());
     }
