@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/mealScheduleFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -43,6 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_margin="15dp"
+            android:theme="@style/Theme.MaterialComponents.Light"
             android:elevation="8dp">
 
             <TextView
@@ -89,6 +91,7 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="200dp"
+            android:theme="@style/Theme.MaterialComponents.Light"
             android:layout_margin="15dp">
 
             <TextView
@@ -135,6 +138,7 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="200dp"
+            android:theme="@style/Theme.MaterialComponents.Light"
             android:layout_margin="15dp">
 
             <TextView
