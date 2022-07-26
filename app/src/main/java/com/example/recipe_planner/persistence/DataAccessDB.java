@@ -73,56 +73,54 @@ public class DataAccessDB implements DataAccess {
                     + "    1\n"
                     + ")",
 
-            "INSERT INTO INGREDIENTS VALUES (NULL, 'Balsamic Vinegar')",
             "INSERT INTO INGREDIENTS VALUES (NULL, 'Balsamic Vinegar')\n"
                     + "INSERT INTO INGREDIENTS VALUES (NULL, 'Basil Leaves')\n"
                     + "INSERT INTO INGREDIENTS VALUES (NULL, 'Olive Oil')\n"
                     + "INSERT INTO INGREDIENTS VALUES (NULL, 'Plum Tomatoes')\n"
                     + "INSERT INTO INGREDIENTS VALUES (NULL, 'Boneless Skinless Chicken Breast')",
-            "INSERT INTO RECIPEINGREDIENTS VALUES (0, 0, 0.75, 'CUP')\n"
-                    + "INSERT INTO RECIPEINGREDIENTS VALUES (0, 1, 0.25,'CUP')\n"
-                    + "INSERT INTO RECIPEINGREDIENTS VALUES (0, 2, 2, 'TBSP')\n"
-                    + "INSERT INTO RECIPEINGREDIENTS VALUES (0, 3, 4, 'COUNT')\n"
-                    + "INSERT INTO RECIPEINGREDIENTS VALUES (0, 4, 4, 'COUNT')",
+            "INSERT INTO RECIPEINGREDIENTS VALUES ((SELECT ID FROM RECIPES WHERE NAME='Grilled Basil Chicken'), (SELECT ID FROM INGREDIENTS WHERE NAME='Balsamic Vinegar'), 0.75, 'CUP')\n"
+                    + "INSERT INTO RECIPEINGREDIENTS VALUES ((SELECT ID FROM RECIPES WHERE NAME='Grilled Basil Chicken'), (SELECT ID FROM INGREDIENTS WHERE NAME='Basil Leaves'), 0.25,'CUP')\n"
+                    + "INSERT INTO RECIPEINGREDIENTS VALUES ((SELECT ID FROM RECIPES WHERE NAME='Grilled Basil Chicken'), (SELECT ID FROM INGREDIENTS WHERE NAME='Olive Oil'), 2, 'TBSP')\n"
+                    + "INSERT INTO RECIPEINGREDIENTS VALUES ((SELECT ID FROM RECIPES WHERE NAME='Grilled Basil Chicken'), (SELECT ID FROM INGREDIENTS WHERE NAME='Plum Tomatoes'), 4, 'COUNT')\n"
+                    + "INSERT INTO RECIPEINGREDIENTS VALUES ((SELECT ID FROM RECIPES WHERE NAME='Grilled Basil Chicken'), (SELECT ID FROM INGREDIENTS WHERE NAME='Boneless Skinless Chicken Breast'), 4, 'COUNT')",
             "INSERT INTO INGREDIENTS VALUES (NULL, 'Water')\n"
                     + "INSERT INTO INGREDIENTS VALUES (NULL, 'Honey')\n"
                     + "INSERT INTO INGREDIENTS VALUES (NULL, 'Salt')\n"
                     + "INSERT INTO INGREDIENTS VALUES (NULL, 'White Sugar')\n"
                     + "INSERT INTO INGREDIENTS VALUES (NULL, 'Bread Flour')\n"
                     + "INSERT INTO INGREDIENTS VALUES (NULL, 'Active Yeast')",
-            "INSERT INTO RECIPEINGREDIENTS VALUES(1, 5, 0.75, 'CUP')\n"
-                    + "INSERT INTO RECIPEINGREDIENTS VALUES(1, 6, 2, 'TSP')\n"
-                    + "INSERT INTO RECIPEINGREDIENTS VALUES(1, 2, 2, 'TSP')\n"
-                    + "INSERT INTO RECIPEINGREDIENTS VALUES(1, 7, 2/3, 'TSP')\n"
-                    + "INSERT INTO RECIPEINGREDIENTS VALUES(1, 8, 2/3, 'TSP')\n"
-                    + "INSERT INTO RECIPEINGREDIENTS VALUES(1, 9, 2, 'CUP')\n"
-                    + "INSERT INTO RECIPEINGREDIENTS VALUES(1, 10, 1.5, 'TSP')\n"
-                    + "INSERT INTO RECIPEINGREDIENTS VALUES(1, 11, 1, 'CUP')",
+            "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Sweet Honey French Bread'), (SELECT ID FROM INGREDIENTS WHERE NAME='Water'), 0.75, 'CUP')\n"
+                    + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Sweet Honey French Bread'), (SELECT ID FROM INGREDIENTS WHERE NAME='Honey'), 2, 'TSP')\n"
+                    + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Sweet Honey French Bread'), (SELECT ID FROM INGREDIENTS WHERE NAME='Olive Oil'), 2, 'TSP')\n"
+                    + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Sweet Honey French Bread'), (SELECT ID FROM INGREDIENTS WHERE NAME='Salt'), 2/3, 'TSP')\n"
+                    + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Sweet Honey French Bread'), (SELECT ID FROM INGREDIENTS WHERE NAME='White Sugar'), 2/3, 'TSP')\n"
+                    + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Sweet Honey French Bread'), (SELECT ID FROM INGREDIENTS WHERE NAME='Bread Flour'), 2, 'CUP')\n"
+                    + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Sweet Honey French Bread'), (SELECT ID FROM INGREDIENTS WHERE NAME='Active Yeast'), 1.5, 'TSP')",
             "INSERT INTO INGREDIENTS VALUES (NULL, 'Unpeeled Potato')\n"
                     + "INSERT INTO INGREDIENTS VALUES (NULL, 'Gorgonzola')\n"
                     + "INSERT INTO INGREDIENTS VALUES (NULL, 'Pecan')\n"
                     + "INSERT INTO INGREDIENTS VALUES (NULL, 'Extra Virgin Olive Oil')\n"
                     + "INSERT INTO INGREDIENTS VALUES (NULL, 'Baby Arugula')",
-            "INSERT INTO RECIPEINGREDIENTS VALUES(2, 5, 0.75, 'CUP')\n"
-                    + "INSERT INTO RECIPEINGREDIENTS VALUES(2, 12, 907, 'GRAM')\n"
-                    + "INSERT INTO RECIPEINGREDIENTS VALUES(2, 13, 2, 'OUNCE')\n"
-                    + "INSERT INTO RECIPEINGREDIENTS VALUES(2, 14, 0.5, 'CUP')\n"
-                    + "INSERT INTO RECIPEINGREDIENTS VALUES(2, 15, 0.25, 'CUP')\n"
-                    + "INSERT INTO RECIPEINGREDIENTS VALUES(2, 16, 2, 'CUP')\n"
-                    + "INSERT INTO RECIPEINGREDIENTS VALUES(2, 7, 0.5, 'TSP')",
+            "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Crushed Heirloom Potatoes'), (SELECT ID FROM INGREDIENTS WHERE NAME='Water'), 0.75, 'CUP')\n"
+                    + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Crushed Heirloom Potatoes'), (SELECT ID FROM INGREDIENTS WHERE NAME='Unpeeled Potato'), 907, 'GRAM')\n"
+                    + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Crushed Heirloom Potatoes'), (SELECT ID FROM INGREDIENTS WHERE NAME='Gorgonzola'), 2, 'OUNCE')\n"
+                    + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Crushed Heirloom Potatoes'), (SELECT ID FROM INGREDIENTS WHERE NAME='Pecan'), 0.5, 'CUP')\n"
+                    + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Crushed Heirloom Potatoes'), (SELECT ID FROM INGREDIENTS WHERE NAME='Extra Virgin Olive Oil'), 0.25, 'CUP')\n"
+                    + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Crushed Heirloom Potatoes'), (SELECT ID FROM INGREDIENTS WHERE NAME='Baby Arugula'), 2, 'CUP')\n"
+                    + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Crushed Heirloom Potatoes'), (SELECT ID FROM INGREDIENTS WHERE NAME='White Sugar'), 0.5, 'TSP')",
             "INSERT INTO INGREDIENTS VALUES (NULL, 'Pastry Double Crust Pie')\n"
                     + "INSERT INTO INGREDIENTS VALUES (NULL, 'Apple')\n"
                     + "INSERT INTO INGREDIENTS VALUES (NULL, 'Brown Sugar')\n"
                     + "INSERT INTO INGREDIENTS VALUES (NULL, 'Flour')\n"
                     + "INSERT INTO INGREDIENTS VALUES (NULL, 'Cinnamon')\n"
                     + "INSERT INTO INGREDIENTS VALUES (NULL, 'Butter')",
-            "INSERT INTO RECIPEINGREDIENTS VALUES(3, 17, 1, 'COUNT')\n"
-                    + "INSERT INTO RECIPEINGREDIENTS VALUES(3, 18, 6, 'COUNT')\n"
-                    + "INSERT INTO RECIPEINGREDIENTS VALUES(3, 8, 1/3, 'CUP')\n"
-                    + "INSERT INTO RECIPEINGREDIENTS VALUES(3, 19, 1/3, 'CUP')\n"
-                    + "INSERT INTO RECIPEINGREDIENTS VALUES(3, 20, 2, 'TSP')\n"
-                    + "INSERT INTO RECIPEINGREDIENTS VALUES(3, 21, 1, 'TSP')\n"
-                    + "INSERT INTO RECIPEINGREDIENTS VALUES(3, 22, 1, 'TBSP')"
+            "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Heirloom Apple Pie'), (SELECT ID FROM INGREDIENTS WHERE NAME='Pastry Double Crust Pie'), 1, 'COUNT')\n"
+                    + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Heirloom Apple Pie'), (SELECT ID FROM INGREDIENTS WHERE NAME='Apple'), 6, 'COUNT')\n"
+                    + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Heirloom Apple Pie'), (SELECT ID FROM INGREDIENTS WHERE NAME='White Sugar'), 1/3, 'CUP')\n"
+                    + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Heirloom Apple Pie'), (SELECT ID FROM INGREDIENTS WHERE NAME='Brown Sugar'), 1/3, 'CUP')\n"
+                    + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Heirloom Apple Pie'), (SELECT ID FROM INGREDIENTS WHERE NAME='Flour'), 2, 'TSP')\n"
+                    + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Heirloom Apple Pie'), (SELECT ID FROM INGREDIENTS WHERE NAME='Cinnamon'), 1, 'TSP')\n"
+                    + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Heirloom Apple Pie'), (SELECT ID FROM INGREDIENTS WHERE NAME='Butter'), 1, 'TBSP')"
     };
     private final String[] TABLES = {"DAY_SCHEDULES", "RECIPEINGREDIENTS", "INGREDIENTS", "RECIPES"};
 
@@ -170,7 +168,7 @@ public class DataAccessDB implements DataAccess {
         try {
             statement = connection.createStatement();
             for (String table : TABLES) {
-                statement.executeQuery("DELETE FROM " + table + " WHERE true;");
+                statement.executeQuery("DELETE FROM " + table + " WHERE 1=1;");
             }
             statement.close();
         } catch (SQLException sqlException) {
