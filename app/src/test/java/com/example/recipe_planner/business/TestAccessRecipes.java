@@ -55,7 +55,8 @@ public class TestAccessRecipes {
         // Ingredients queried with recipe ID should be the same as those in the recipe
         Recipe recipe = accessRecipes.getRecipe(0);
         ArrayList<Ingredient> recipeIngredients = recipe.getIngredients();
-        ArrayList<Ingredient> queriedRecipeIngredients = (ArrayList<Ingredient>) accessRecipes.getRecipeIngredients(0);
+        ArrayList<Ingredient> queriedRecipeIngredients =
+                (ArrayList<Ingredient>) accessRecipes.getRecipeIngredients(0);
         assertEquals(recipeIngredients, queriedRecipeIngredients);
     }
 
@@ -97,6 +98,4 @@ public class TestAccessRecipes {
         accessRecipes.deleteRecipe(0);
         assertNull(accessRecipes.getRecipe(9999));
     }
-
-
 }
