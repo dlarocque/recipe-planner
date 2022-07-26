@@ -12,6 +12,11 @@ public class Services {
         dataAccessService.open(Main.getDBPathName());
     }
 
+    public static void createDataAccess(String dbName) {
+        dataAccessService = new DataAccessDB();
+        dataAccessService.open(dbName);
+    }
+
     public static void createDataAccess(DataAccess dataAccess) {
         dataAccessService = dataAccess;
         dataAccessService.open(Main.getDBPathName());
