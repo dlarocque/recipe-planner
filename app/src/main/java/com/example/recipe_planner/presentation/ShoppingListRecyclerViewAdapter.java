@@ -60,14 +60,14 @@ public class ShoppingListRecyclerViewAdapter
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public final TextView shoppingIngredientName;
-        public final TextView shoppingIngredientamount;
+        public final TextView shoppingIngredientAmount;
         public final TextView shoppingIngredientUnit;
 
         public ViewHolder(FragmentShoppingListItemBinding binding) {
             super(binding.getRoot());
 
             shoppingIngredientName = binding.shoppingIngredientName;
-            shoppingIngredientamount = binding.shoppingIngredientAmount;
+            shoppingIngredientAmount = binding.shoppingIngredientAmount;
             shoppingIngredientUnit = binding.shoppingIngredientUnit;
         }
     }
