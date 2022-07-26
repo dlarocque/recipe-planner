@@ -1,7 +1,9 @@
 package com.example.recipe_planner.objects.measurements;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import org.junit.Test;
@@ -21,6 +23,8 @@ public class TestConvertibleUnit {
 
         typical = new ConvertibleUnit(Unit.CUP, 2);
         assertEquals(96, typical.convertTo(Unit.TSP), 0);
+
+        assertFalse(typical.isWeight());
     }
 
     @Test
@@ -37,6 +41,8 @@ public class TestConvertibleUnit {
 
         typical = new ConvertibleUnit(Unit.TSP, 120);
         assertEquals(2.496, typical.convertTo(Unit.CUP), 0);
+
+        assertFalse(typical.isWeight());
     }
 
     @Test
@@ -53,6 +59,8 @@ public class TestConvertibleUnit {
 
         typical = new ConvertibleUnit(Unit.TBSP, 4);
         assertEquals(12, typical.convertTo(Unit.TSP), 0);
+
+        assertFalse(typical.isWeight());
     }
 
     @Test
@@ -69,6 +77,8 @@ public class TestConvertibleUnit {
 
         typical = new ConvertibleUnit(Unit.ML, 200);
         assertEquals(0.84, typical.convertTo(Unit.CUP), 0);
+
+        assertFalse(typical.isWeight());
     }
 
     @Test
@@ -79,6 +89,8 @@ public class TestConvertibleUnit {
         assertEquals("350.0 GRAM", typical.toString());
         assertEquals(Unit.GRAM, typical.getUnit());
         assertEquals(12.495, typical.convertTo(Unit.OUNCE), 0.01);
+
+        assertTrue(typical.isWeight());
     }
 
     @Test
@@ -89,6 +101,8 @@ public class TestConvertibleUnit {
         assertEquals("12.0 OUNCE", typical.toString());
         assertEquals(Unit.OUNCE, typical.getUnit());
         assertEquals(336, typical.convertTo(Unit.GRAM), 0);
+
+        assertTrue(typical.isWeight());
     }
 
     @Test
