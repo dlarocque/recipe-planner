@@ -13,6 +13,7 @@ import com.example.recipe_planner.databinding.FragmentShoppingListItemBinding;
 import com.example.recipe_planner.objects.Ingredient;
 import com.example.recipe_planner.objects.Recipe;
 import com.example.recipe_planner.objects.measurements.ConvertibleUnit;
+import com.example.recipe_planner.objects.measurements.Unit;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,7 +66,15 @@ public class ShoppingListRecyclerViewAdapter
             @NonNull ShoppingListRecyclerViewAdapter.ViewHolder holder, int position) {
         Ingredient ingredientToDisplay = ingredients.get(position);
         holder.shoppingIngredientName.setText(ingredientToDisplay.getName());
-        holder.shoppingIngredientUnit.setText(ingredientToDisplay.getUnit().toString());
+        String unitToDisplay;
+        if (((ConvertibleUnit) ingredientToDisplay.getUnit()).isWeight()) {
+            unitToDisplay =
+                    ((ConvertibleUnit) ingredientToDisplay.getUnit()).convertTo(Unit.GRAM) + " GRAM";
+        } else {
+            unitToDisplay =
+                    ((ConvertibleUnit) ingredientToDisplay.getUnit()).convertTo(Unit.ML) + " ML";
+        }
+        holder.shoppingIngredientUnit.setText(unitToDisplay);
     }
 
     @Override
