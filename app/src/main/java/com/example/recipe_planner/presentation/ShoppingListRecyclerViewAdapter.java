@@ -37,14 +37,19 @@ public class ShoppingListRecyclerViewAdapter
                     new ArrayList<>(accessRecipes.getRecipeIngredients(recipe.get(i).getId()));
             for (int j = 0; j < recipeIngredients.size(); j++) {
                 Ingredient recipeIngredient = recipeIngredients.get(j);
-                if (gatherIngredients.contains(recipeIngredient)) {
-                    Ingredient shoppingIngredient =
-                            gatherIngredients.get(gatherIngredients.indexOf(recipeIngredient));
-                    shoppingIngredient.setAmount(
-                            new ConvertibleUnit(
-                                    ((ConvertibleUnit) recipeIngredient.getUnit()).getUnit(),
-                                    shoppingIngredient.getAmount() + recipeIngredient.getAmount()));
-                } else if (recipeIngredient.getAmount() > 0.0) {
+                boolean found = false;
+                for (int k = 0; k < gatherIngredients.size() && !found; k++) {
+                    if (recipeIngredient.getName().equals(gatherIngredients.get(k).getName())) {
+                        Ingredient shoppingIngredient = gatherIngredients.get(k);
+                        shoppingIngredient.setAmount(
+                                new ConvertibleUnit(
+                                        ((ConvertibleUnit) recipeIngredient.getUnit()).getUnit(),
+                                        shoppingIngredient.getAmount()
+                                                + recipeIngredient.getAmount()));
+                        found = true;
+                    }
+                }
+                if (!found && recipeIngredient.getAmount() > 0.0) {
                     gatherIngredients.add(
                             new Ingredient(recipeIngredient.getName(), recipeIngredient.getUnit()));
                 }
@@ -69,7 +74,8 @@ public class ShoppingListRecyclerViewAdapter
         String unitToDisplay;
         if (((ConvertibleUnit) ingredientToDisplay.getUnit()).isWeight()) {
             unitToDisplay =
-                    ((ConvertibleUnit) ingredientToDisplay.getUnit()).convertTo(Unit.GRAM) + " GRAM";
+                    ((ConvertibleUnit) ingredientToDisplay.getUnit()).convertTo(Unit.GRAM)
+                            + " GRAM";
         } else {
             unitToDisplay =
                     ((ConvertibleUnit) ingredientToDisplay.getUnit()).convertTo(Unit.ML) + " ML";
