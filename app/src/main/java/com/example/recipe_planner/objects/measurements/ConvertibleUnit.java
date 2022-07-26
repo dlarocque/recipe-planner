@@ -82,6 +82,11 @@ public class ConvertibleUnit implements IConvertibleUnit {
     }
 
     @Override
+    public boolean isWeight() {
+        return this.unit == Unit.GRAM || this.unit == Unit.OUNCE;
+    }
+
+    @Override
     public String toString() {
         try {
             return this.amount + " " + this.unit.toString();
