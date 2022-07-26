@@ -39,7 +39,7 @@ public class ShoppingListRecyclerViewAdapter
                 Ingredient recipeIngredient = recipeIngredients.get(j);
                 boolean found = false;
                 for (int k = 0; k < gatherIngredients.size() && !found; k++) {
-                    if (recipeIngredient.getName().equals(gatherIngredients.get(k).getName())) {
+                    if (recipeIngredient.getName().equalsIgnoreCase(gatherIngredients.get(k).getName())) {
                         Ingredient shoppingIngredient = gatherIngredients.get(k);
                         shoppingIngredient.setAmount(
                                 new ConvertibleUnit(
