@@ -28,13 +28,12 @@ public class ShoppingListRecyclerViewAdapter
 
     public ShoppingListRecyclerViewAdapter(ArrayList<Recipe> recipe) {
         this.recipe = recipe;
-        ArrayList<Ingredient> gatherIngredients = new ArrayList<Ingredient>();
+        ArrayList<Ingredient> gatherIngredients = new ArrayList<>();
         accessRecipes = new AccessRecipes();
         accessIngredients = new AccessIngredients();
         for (int i = 0; i < recipe.size(); i++) {
             ArrayList<Ingredient> recipeIngredients =
-                    new ArrayList<Ingredient>(
-                            accessRecipes.getRecipeIngredients(recipe.get(i).getId()));
+                    new ArrayList<>(accessRecipes.getRecipeIngredients(recipe.get(i).getId()));
             for (int j = 0; j < recipeIngredients.size(); j++) {
                 Ingredient recipeIngredient = recipeIngredients.get(j);
                 if (gatherIngredients.contains(recipeIngredient)) {
@@ -44,12 +43,13 @@ public class ShoppingListRecyclerViewAdapter
                             new ConvertibleUnit(
                                     ((ConvertibleUnit) recipeIngredient.getUnit()).getUnit(),
                                     shoppingIngredient.getAmount() + recipeIngredient.getAmount()));
-                } else {
-                    gatherIngredients.add(recipeIngredient.clone());
+                } else if (recipeIngredient.getAmount() > 0.0) {
+                    gatherIngredients.add(
+                            new Ingredient(recipeIngredient.getName(), recipeIngredient.getUnit()));
                 }
             }
         }
-        ingredients = (List<Ingredient>) gatherIngredients;
+        ingredients = gatherIngredients;
     }
 
     @NonNull
