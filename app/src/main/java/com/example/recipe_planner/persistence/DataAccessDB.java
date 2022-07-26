@@ -1,7 +1,5 @@
 package com.example.recipe_planner.persistence;
 
-import android.util.Log;
-
 import com.example.recipe_planner.objects.DaySchedule;
 import com.example.recipe_planner.objects.Ingredient;
 import com.example.recipe_planner.objects.Recipe;
@@ -124,7 +122,6 @@ public class DataAccessDB implements DataAccess {
     };
     private final String[] TABLES = {"DAY_SCHEDULES", "RECIPEINGREDIENTS", "INGREDIENTS", "RECIPES"};
 
-    private final String TAG = this.getClass().getSimpleName();
     private Connection connection;
 
     public DataAccessDB() {
@@ -138,15 +135,14 @@ public class DataAccessDB implements DataAccess {
             url = "jdbc:hsqldb:file:" + dbPath; // stored on disk mode
             connection = DriverManager.getConnection(url, "SA", "");
 
-            reset(); // TODO: Conditionally reset?
+            initData();
+            //reset(); // TODO: Conditionally reset?
         } catch (SQLException
                 | ClassNotFoundException
                 | IllegalAccessException
                 | InstantiationException exception) {
-            Log.e(TAG, "Failed to open HSQLDB");
             exception.printStackTrace();
         }
-        Log.i(TAG, "Successfully opened HSQLDB database at " + dbPath);
     }
 
     public void close() {
@@ -156,10 +152,10 @@ public class DataAccessDB implements DataAccess {
             statement.executeQuery("SHUTDOWN COMPACT");
             connection.close();
         } catch (SQLException sqlException) {
-            Log.e(TAG, "Failed to close HSQLDB");
+            System.out.println("Failed to close HSQLDB");
             sqlException.printStackTrace();
         }
-        Log.i(TAG, "Closed HSQLDB database");
+        System.out.println("Closed HSQLDB database");
     }
 
     public void reset() {
@@ -218,12 +214,12 @@ public class DataAccessDB implements DataAccess {
 
                 recipe = new Recipe(recipeId, recipeName, ingredients, instructions, isDefault);
             } else {
-                Log.w(TAG, "Recipe with id " + recipeId + " does not work");
+                System.out.println("Recipe with id " + recipeId + " does not work");
             }
             recipeResult.close();
             statement.close();
         } catch (SQLException sqlException) {
-            Log.e(TAG, "Failed to get recipe with id " + recipeId);
+            System.out.println("Failed to get recipe with id " + recipeId);
             sqlException.printStackTrace();
         }
 
@@ -263,7 +259,7 @@ public class DataAccessDB implements DataAccess {
             allRecipes.close();
             statement.close();
         } catch (SQLException sqlException) {
-            Log.e(TAG, "Failed to get all recipes from HSQLDB");
+            System.out.println("Failed to get all recipes from HSQLDB");
             sqlException.printStackTrace();
         }
 
@@ -310,7 +306,7 @@ public class DataAccessDB implements DataAccess {
             allRecipes.close();
             statement.close();
         } catch (SQLException sqlException) {
-            Log.e(TAG, "Failed to get recipes searched by partial name from HSQLDB");
+            System.out.println("Failed to get recipes searched by partial name from HSQLDB");
             sqlException.printStackTrace();
         }
 
@@ -349,8 +345,7 @@ public class DataAccessDB implements DataAccess {
                 if (ingredientName.next()) {
                     name = ingredientName.getString("NAME");
                 } else {
-                    Log.w(
-                            TAG,
+                    System.out.println(
                             "Ingredient name for id "
                                     + ingredientId
                                     + " was not found in database");
@@ -362,7 +357,7 @@ public class DataAccessDB implements DataAccess {
 
             recipeIngredients.close();
         } catch (SQLException sqlException) {
-            Log.e(TAG, "Failed to retrieve ingredients for recipe with id " + recipeId);
+            System.out.println("Failed to retrieve ingredients for recipe with id " + recipeId);
             sqlException.printStackTrace();
         }
 
@@ -489,7 +484,7 @@ public class DataAccessDB implements DataAccess {
                             + dateKey
                             + "', NULL, NULL, NULL)");
         } catch (SQLException sqlException) {
-            Log.e(TAG, "Failed to insert day schedule");
+            System.out.println("Failed to insert day schedule");
             sqlException.printStackTrace();
         }
     }
@@ -523,7 +518,7 @@ public class DataAccessDB implements DataAccess {
                             + dateKey
                             + "';");
         } catch (SQLException sqlException) {
-            Log.e(TAG, "Failed to set day schedule meal for day " + dateKey);
+            System.out.println("Failed to set day schedule meal for day " + dateKey);
             sqlException.printStackTrace();
         }
     }
@@ -544,7 +539,7 @@ public class DataAccessDB implements DataAccess {
                             + dateKey
                             + "';");
         } catch (SQLException sqlException) {
-            Log.e(TAG, "Failed to set day schedule meal for day " + dateKey);
+            System.out.println("Failed to set day schedule meal for day " + dateKey);
             sqlException.printStackTrace();
         }
     }
