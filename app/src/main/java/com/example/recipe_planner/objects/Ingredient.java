@@ -35,4 +35,9 @@ public class Ingredient {
         return this.name.equals(i.getName())
                 && Double.compare(this.getAmount(), i.getAmount()) == 0;
     }
+
+    @Override
+    public Ingredient clone() {
+        return new Ingredient(this.getName(), this.getUnit());
+    }
 }
