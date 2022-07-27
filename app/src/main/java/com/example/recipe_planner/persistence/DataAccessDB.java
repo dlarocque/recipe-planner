@@ -205,7 +205,7 @@ public class DataAccessDB implements DataAccess {
 
         try {
             checkEmpty = connection.createStatement();
-            result = checkEmpty.executeQuery("SELECT * FROM RECIPES WHERE true;");
+            result = checkEmpty.executeQuery("SELECT * FROM RECIPES;");
 
             if (!result.next()) {
                 isEmpty = true;
