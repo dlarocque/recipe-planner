@@ -5,7 +5,7 @@ package com.example.recipe_planner.application;
  * component In the future, this facilitates adding a CLI version of the app
  */
 public class Main {
-    public static final String dbName = "Recipes";
+    public static String dbName = "Recipes";
     private static String dbPathName = "database/Recipes";
 
     public static void startUp() {
@@ -19,6 +19,10 @@ public class Main {
     public static String getDBPathName() {
         if (dbPathName == null) return dbName;
         else return dbPathName;
+    }
+
+    public static void setDbName(String newDbName) {
+        dbName = newDbName;
     }
 
     public static void setDBPathName(String pathName) {

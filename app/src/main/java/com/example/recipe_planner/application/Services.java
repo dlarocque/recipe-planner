@@ -8,8 +8,10 @@ public class Services {
     private static DataAccess dataAccessService = null;
 
     public static void createDataAccess() {
-        dataAccessService = new DataAccessDB();
-        dataAccessService.open(Main.getDBPathName());
+        if (dataAccessService == null) {
+            dataAccessService = new DataAccessDB();
+            dataAccessService.open(Main.getDBPathName());
+        }
     }
 
     public static void createDataAccess(String dbName) {
@@ -24,6 +26,7 @@ public class Services {
 
     public static DataAccess getDataAccess() {
         if (dataAccessService == null) {
+            System.out.println("Data Access does not exist, exiting");
             System.exit(1);
         }
         return dataAccessService;

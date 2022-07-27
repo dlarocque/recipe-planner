@@ -77,7 +77,7 @@ public class RecipeList extends Fragment
 
         // Set the adapter
         Context context = view.getContext();
-        RecyclerView recyclerView = view.findViewById(R.id.recipeList);
+        RecyclerView recyclerView = view.findViewById(R.id.recipeListRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(
                 new RecipeRecyclerViewAdapter(recipes, this, this));
