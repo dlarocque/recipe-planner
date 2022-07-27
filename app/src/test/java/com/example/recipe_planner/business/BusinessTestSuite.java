@@ -9,7 +9,8 @@ import org.junit.runners.Suite.SuiteClasses;
 @RunWith(Suite.class)
 @SuiteClasses({
         TestAccessSchedule.class,
-        TestAccessRecipes.class
+        TestAccessRecipes.class,
+        TestAccessIngredients.class
 })
 public class BusinessTestSuite {
     @Before
