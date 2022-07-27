@@ -6,6 +6,7 @@ import com.example.recipe_planner.objects.DaySchedule;
 import com.example.recipe_planner.objects.Ingredient;
 import com.example.recipe_planner.objects.Recipe;
 import com.example.recipe_planner.objects.measurements.ConvertibleUnit;
+import com.example.recipe_planner.objects.measurements.Count;
 import com.example.recipe_planner.objects.measurements.IUnit;
 import com.example.recipe_planner.objects.measurements.Unit;
 import com.example.recipe_planner.utils.CalendarUtils;
@@ -129,8 +130,7 @@ public class DataAccessDB implements DataAccess {
     private final String TAG = this.getClass().getSimpleName();
     private Connection connection;
 
-    public DataAccessDB() {
-    }
+    public DataAccessDB() {}
 
     public void open(String dbPath) {
         String url;
@@ -551,24 +551,32 @@ public class DataAccessDB implements DataAccess {
         }
     }
 
+    private IUnit unitFactory(String unitName, double quantity) {
+        IUnit unit;
 
-    private IUnit unitFactory(String unit, double quantity) {
-        Unit type = null;
-
-        switch (unit) {
+        switch (unitName) {
             case "CUP":
-                type = Unit.CUP;
+                unit = new ConvertibleUnit(Unit.CUP, quantity);
+                break;
             case "ML":
-                type = Unit.ML;
+                unit = new ConvertibleUnit(Unit.ML, quantity);
+                break;
             case "GRAM":
-                type = Unit.GRAM;
+                unit = new ConvertibleUnit(Unit.GRAM, quantity);
+                break;
             case "OUNCE":
-                type = Unit.OUNCE;
+                unit = new ConvertibleUnit(Unit.OUNCE, quantity);
+                break;
             case "TSP":
-                type = Unit.TSP;
+                unit = new ConvertibleUnit(Unit.TSP, quantity);
+                break;
             case "TBSP":
-                type = Unit.TBSP;
+                unit = new ConvertibleUnit(Unit.TBSP, quantity);
+                break;
+            default:
+                unit = new Count(quantity);
+                break;
         }
-        return new ConvertibleUnit(type, quantity);
+        return unit;
     }
 }

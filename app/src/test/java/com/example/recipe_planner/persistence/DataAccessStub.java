@@ -7,6 +7,7 @@ import com.example.recipe_planner.objects.Recipe;
 import com.example.recipe_planner.objects.Schedule;
 import com.example.recipe_planner.objects.measurements.ConvertibleUnit;
 import com.example.recipe_planner.objects.measurements.Count;
+import com.example.recipe_planner.objects.measurements.IUnit;
 import com.example.recipe_planner.objects.measurements.Unit;
 import com.example.recipe_planner.presentation.MealSchedule;
 import com.example.recipe_planner.utils.CalendarUtils;
@@ -125,7 +126,7 @@ public class DataAccessStub implements DataAccess {
                     String compName = ingredients.get(k).getName();
 
                     if (compName.equals(ingredientName)) {
-                        ConvertibleUnit newUnit;
+                        IUnit newUnit;
 
                         // take only the unit part of the string
                         String unit = ingredients.get(k).getUnit().toString();
@@ -135,18 +136,24 @@ public class DataAccessStub implements DataAccess {
                         switch (unit) {
                             case "CUP":
                                 newUnit = new ConvertibleUnit(Unit.CUP, quantity);
+                                break;
                             case "ML":
                                 newUnit = new ConvertibleUnit(Unit.ML, quantity);
+                                break;
                             case "GRAM":
                                 newUnit = new ConvertibleUnit(Unit.GRAM, quantity);
+                                break;
                             case "OUNCE":
                                 newUnit = new ConvertibleUnit(Unit.OUNCE, quantity);
+                                break;
                             case "TSP":
                                 newUnit = new ConvertibleUnit(Unit.TSP, quantity);
+                                break;
                             case "TBSP":
                                 newUnit = new ConvertibleUnit(Unit.TBSP, quantity);
+                                break;
                             default:
-                                newUnit = new ConvertibleUnit(null, quantity);
+                                newUnit = new Count(quantity);
                         }
                         ingredients.get(k).setAmount(newUnit);
                     }
