@@ -73,21 +73,14 @@ public class TestAccessIngredients {
 
     @Test
     public void TestModifyingExistingIngredient() {
-
-        // getting existing ingredients from recipe 0
         List<Ingredient> ingredients = dataAccess.getRecipeIngredients(0);
-        assertNotNull(ingredients);
-        assertEquals(5, ingredients.size());
-        Ingredient ingredient = ingredients.get(0);
 
-        // Ingredients queried with recipe ID should be the same as those in the recipe
-        String unit = ingredients.get(0).getUnit().getClass().getSimpleName();
+        assertEquals(0.25, ingredients.get(1).getAmount(), DELTA);
 
-        accessIngredients.updateIngredientQuantity(0, 500.0, "Basil Leaves");
+        accessIngredients.updateIngredientQuantity(0, 50.0, "Basil Leaves");
         ingredients = dataAccess.getRecipeIngredients(0);
-        assertEquals("Basil Leaves", ingredients.get(1).getName());
-        assertEquals(500.0, ingredients.get(1).getAmount(), DELTA);
-        assertEquals(5, ingredients.size());
+
+        assertEquals(50.0, ingredients.get(1).getAmount(), DELTA);
     }
 
     @Test

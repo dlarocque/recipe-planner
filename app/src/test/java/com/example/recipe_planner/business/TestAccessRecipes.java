@@ -18,6 +18,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class TestAccessRecipes {
     private DataAccess dataAccess;
@@ -31,6 +32,7 @@ public class TestAccessRecipes {
         dataAccess.open(Main.dbName);
         Services.createDataAccess(dataAccess);
         accessRecipes = new AccessRecipes();
+        today = Calendar.getInstance().getTime();
     }
 
     @After
@@ -39,30 +41,21 @@ public class TestAccessRecipes {
         dataAccess.close();
     }
 
-    public void init() {
-        dataAccess.open(Main.dbName);
-        accessRecipes = new AccessRecipes();
-        today = Calendar.getInstance().getTime();
-    }
-
     @Test
-    public void TestGetExistingRecipes() {
-        init();
-
+    public void testGetExistingRecipes() {
         assertNotNull(accessRecipes.getRecipes());
         assertNotNull(accessRecipes.getRecipe(0));
 
         // Ingredients queried with recipe ID should be the same as those in the recipe
         Recipe recipe = accessRecipes.getRecipe(0);
         ArrayList<Ingredient> recipeIngredients = recipe.getIngredients();
-        ArrayList<Ingredient> queriedRecipeIngredients = (ArrayList<Ingredient>) accessRecipes.getRecipeIngredients(0);
+        ArrayList<Ingredient> queriedRecipeIngredients =
+                (ArrayList<Ingredient>) accessRecipes.getRecipeIngredients(0);
         assertEquals(recipeIngredients, queriedRecipeIngredients);
     }
 
     @Test
-    public void TestGetNonExistingRecipes() {
-        init();
-
+    public void testGetNonExistingRecipes() {
         // Getting an recipe id that does not exist should return null
         assertNull(accessRecipes.getRecipe(-1));
         assertNull(accessRecipes.getRecipe(9999));
@@ -75,9 +68,23 @@ public class TestAccessRecipes {
     }
 
     @Test
-    public void TestDeleteExistingRecipe() {
-        init();
+    public void testFindRecipeByIncompleteName() {
+        Recipe recipe = accessRecipes.getRecipe(0);
+        List<Recipe> results = accessRecipes.getRecipesWithPartialName("Chicken");
 
+        assertEquals(recipe, results.get(0));
+    }
+
+    @Test
+    public void testFindRecipesWithCommonNames() {
+        // all recipe names in default list have multiple words, meaning we should get them all by searching for " "
+        List<Recipe> results = accessRecipes.getRecipesWithPartialName(" ");
+
+        assertEquals(4, results.size(), 0);
+    }
+
+    @Test
+    public void testDeleteExistingRecipe() {
         // Deleting a recipe that exists should remove it from the stored recipes
         assertNotNull(accessRecipes.getRecipe(0));
         accessRecipes.deleteRecipe(0);
@@ -85,9 +92,24 @@ public class TestAccessRecipes {
     }
 
     @Test
-    public void TestDeleteNonExistingRecipe() {
-        init();
+    public void testGetDeletedRecipe() {
+        // get a recipe that was previously deleted
+        Recipe deleted = accessRecipes.getRecipe(0);
+        accessRecipes.deleteRecipe(0);
+        assertNull(accessRecipes.getRecipe(0));
+    }
 
+    @Test
+    public void getIngredientsOfDeletedRecipe() {
+        Recipe deleted = accessRecipes.getRecipe(1);
+        accessRecipes.deleteRecipe(1);
+        assertNull(accessRecipes.getRecipe(1));
+
+        assertEquals(0, accessRecipes.getRecipeIngredients(1).size(), 0);
+    }
+
+    @Test
+    public void testDeleteNonExistingRecipe() {
         // Deleting a recipe that does not exist should not raise errors
         assertNull(accessRecipes.getRecipe(-1));
         accessRecipes.deleteRecipe(0);
@@ -97,6 +119,4 @@ public class TestAccessRecipes {
         accessRecipes.deleteRecipe(0);
         assertNull(accessRecipes.getRecipe(9999));
     }
-
-
 }
