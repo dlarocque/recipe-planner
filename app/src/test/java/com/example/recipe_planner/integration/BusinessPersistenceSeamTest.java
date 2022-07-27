@@ -5,6 +5,7 @@ import com.example.recipe_planner.persistence.DataAccess;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Test;
 
 public class BusinessPersistenceSeamTest {
     private static final String testDbName = "database/RecipesTest";
@@ -20,5 +21,10 @@ public class BusinessPersistenceSeamTest {
     @After
     public void tearDown() {
         dataAccess.close();
+    }
+
+    @Test
+    public void placeholder() {
+        assert(true);
     }
 }
