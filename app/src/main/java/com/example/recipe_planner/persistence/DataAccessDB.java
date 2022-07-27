@@ -138,13 +138,16 @@ public class DataAccessDB implements DataAccess {
             url = "jdbc:hsqldb:file:" + dbPath; // stored on disk mode
             connection = DriverManager.getConnection(url, "SA", "");
 
-            reset(); // TODO: Conditionally reset?
+            // if the database is empty, reset to its initial contents.
+            if (isRecipesEmpty()) {
+                reset();
+            }
         } catch (SQLException
                 | ClassNotFoundException
                 | IllegalAccessException
                 | InstantiationException exception) {
-            Log.e(TAG, "Failed to open HSQLDB");
             exception.printStackTrace();
+            Log.e(TAG, "Failed to open HSQLDB");
         }
         Log.i(TAG, "Successfully opened HSQLDB database at " + dbPath);
     }
@@ -187,9 +190,31 @@ public class DataAccessDB implements DataAccess {
             for (String script : populateScript) {
                 statement.executeUpdate(script);
             }
+            statement.close();
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
         }
+    }
+
+    // returns true if
+    private boolean isRecipesEmpty() {
+        Statement checkEmpty;
+        ResultSet result;
+        boolean isEmpty = false;
+
+        try {
+            checkEmpty = connection.createStatement();
+            result = checkEmpty.executeQuery("SELECT * FROM RECIPES WHERE true;");
+
+            if (!result.next()) {
+                isEmpty = true;
+            }
+            checkEmpty.close();
+        } catch (SQLException sqlException) {
+            Log.e(TAG, "Failed to check tables for emptiness.");
+            sqlException.printStackTrace();
+        }
+        return isEmpty;
     }
 
     @Override
@@ -361,6 +386,7 @@ public class DataAccessDB implements DataAccess {
             }
 
             recipeIngredients.close();
+            statement.close();
         } catch (SQLException sqlException) {
             Log.e(TAG, "Failed to retrieve ingredients for recipe with id " + recipeId);
             sqlException.printStackTrace();
@@ -469,7 +495,7 @@ public class DataAccessDB implements DataAccess {
 
                 daySchedule = new DaySchedule(breakfast, lunch, dinner);
             }
-
+            statement.close();
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
         }
@@ -488,6 +514,7 @@ public class DataAccessDB implements DataAccess {
                     "INSERT INTO DAY_SCHEDULES (DAY, BREAKFAST_RECIPE_ID, LUNCH_RECIPE_ID, DINNER_RECIPE_ID) VALUES('"
                             + dateKey
                             + "', NULL, NULL, NULL)");
+            statement.close();
         } catch (SQLException sqlException) {
             Log.e(TAG, "Failed to insert day schedule");
             sqlException.printStackTrace();
@@ -522,6 +549,7 @@ public class DataAccessDB implements DataAccess {
                             + "WHERE DAY='"
                             + dateKey
                             + "';");
+            statement.close();
         } catch (SQLException sqlException) {
             Log.e(TAG, "Failed to set day schedule meal for day " + dateKey);
             sqlException.printStackTrace();
@@ -543,6 +571,7 @@ public class DataAccessDB implements DataAccess {
                             + "WHERE DAY='"
                             + dateKey
                             + "';");
+            statement.close();
         } catch (SQLException sqlException) {
             Log.e(TAG, "Failed to set day schedule meal for day " + dateKey);
             sqlException.printStackTrace();
