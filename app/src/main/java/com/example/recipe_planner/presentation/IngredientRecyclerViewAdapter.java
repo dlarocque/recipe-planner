@@ -12,6 +12,7 @@ import com.example.recipe_planner.objects.Ingredient;
 import com.example.recipe_planner.objects.Recipe;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /** {@link RecyclerView.Adapter} that can display a {@link Ingredient}. */
 public class IngredientRecyclerViewAdapter
