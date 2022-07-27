@@ -44,11 +44,17 @@ public class ShoppingListRecyclerViewAdapter
                             .getName()
                             .equalsIgnoreCase(gatherIngredients.get(k).getName())) {
                         Ingredient shoppingIngredient = gatherIngredients.get(k);
-                        shoppingIngredient.setAmount(
-                                new ConvertibleUnit(
-                                        ((ConvertibleUnit) recipeIngredient.getUnit()).getUnit(),
-                                        shoppingIngredient.getAmount()
-                                                + recipeIngredient.getAmount()));
+                        double amountsSum =
+                                shoppingIngredient.getAmount() + recipeIngredient.getAmount();
+                        if (shoppingIngredient.getUnit() instanceof Count) {
+                            shoppingIngredient.setAmount(new Count(amountsSum));
+                        } else if (shoppingIngredient.getUnit() instanceof ConvertibleUnit) {
+                            shoppingIngredient.setAmount(
+                                    new ConvertibleUnit(
+                                            ((ConvertibleUnit) recipeIngredient.getUnit())
+                                                    .getUnit(),
+                                            amountsSum));
+                        }
                         found = true;
                     }
                 }
