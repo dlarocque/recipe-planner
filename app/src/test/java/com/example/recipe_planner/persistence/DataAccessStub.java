@@ -30,9 +30,12 @@ public class DataAccessStub implements DataAccess {
 
     public void open(String dbPath) {
         initData();
+        System.out.println("Opened Stub database");
     }
 
-    public void close() {}
+    public void close() {
+        System.out.println("Closed Stub database");
+    }
 
     public void reset() {
         initData();
