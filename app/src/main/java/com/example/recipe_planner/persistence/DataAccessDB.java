@@ -134,9 +134,6 @@ public class DataAccessDB implements DataAccess {
             Class.forName("org.hsqldb.jdbcDriver").newInstance();
             url = "jdbc:hsqldb:file:" + dbPath; // stored on disk mode
             connection = DriverManager.getConnection(url, "SA", "");
-
-            initData();
-            //reset(); // TODO: Conditionally reset?
         } catch (SQLException
                 | ClassNotFoundException
                 | IllegalAccessException
@@ -228,7 +225,7 @@ public class DataAccessDB implements DataAccess {
 
     @Override
     public List<Recipe> getRecipes() {
-        ArrayList<Recipe> recipes = new ArrayList<>();
+        ArrayList<Recipe> recipes = null;
         ArrayList<Ingredient> ingredients;
         int recipeId;
         String recipeName, instructions;
@@ -242,6 +239,7 @@ public class DataAccessDB implements DataAccess {
             statement = connection.createStatement();
             allRecipes = statement.executeQuery("SELECT * FROM RECIPES");
 
+            recipes = new ArrayList<>();
             while (allRecipes.next()) {
                 // Get all the components of a recipe, create a recipe, and add it to our list of
                 // recipes
