@@ -13,6 +13,7 @@ import com.example.recipe_planner.databinding.FragmentShoppingListItemBinding;
 import com.example.recipe_planner.objects.Ingredient;
 import com.example.recipe_planner.objects.Recipe;
 import com.example.recipe_planner.objects.measurements.ConvertibleUnit;
+import com.example.recipe_planner.objects.measurements.Count;
 import com.example.recipe_planner.objects.measurements.Unit;
 
 import java.util.ArrayList;
@@ -39,7 +40,9 @@ public class ShoppingListRecyclerViewAdapter
                 Ingredient recipeIngredient = recipeIngredients.get(j);
                 boolean found = false;
                 for (int k = 0; k < gatherIngredients.size() && !found; k++) {
-                    if (recipeIngredient.getName().equalsIgnoreCase(gatherIngredients.get(k).getName())) {
+                    if (recipeIngredient
+                            .getName()
+                            .equalsIgnoreCase(gatherIngredients.get(k).getName())) {
                         Ingredient shoppingIngredient = gatherIngredients.get(k);
                         shoppingIngredient.setAmount(
                                 new ConvertibleUnit(
@@ -72,7 +75,9 @@ public class ShoppingListRecyclerViewAdapter
         Ingredient ingredientToDisplay = ingredients.get(position);
         holder.shoppingIngredientName.setText(ingredientToDisplay.getName());
         String unitToDisplay;
-        if (((ConvertibleUnit) ingredientToDisplay.getUnit()).isWeight()) {
+        if (ingredientToDisplay.getUnit() instanceof Count) {
+            unitToDisplay = ingredientToDisplay.getUnit().getAmount() + " UNITS";
+        } else if (((ConvertibleUnit) ingredientToDisplay.getUnit()).isWeight()) {
             unitToDisplay =
                     ((ConvertibleUnit) ingredientToDisplay.getUnit()).convertTo(Unit.GRAM)
                             + " GRAM";
