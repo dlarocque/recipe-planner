@@ -80,6 +80,13 @@ public class ShoppingListRecyclerViewAdapter
             unitToDisplay =
                     ((ConvertibleUnit) ingredientToDisplay.getUnit()).convertTo(Unit.ML) + " ML";
         }
+        String[] parts = unitToDisplay.split(" ");
+        if(parts.length > 1){
+            unitToDisplay = parts[1];
+        }
+        else{
+            unitToDisplay = parts[0];
+        }
         holder.shoppingIngredientUnit.setText(unitToDisplay);
     }
 

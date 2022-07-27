@@ -26,7 +26,7 @@ public interface DataAccess {
 
     boolean deleteRecipe(int recipeId);
 
-    boolean deleteIngredient(int recipeID, String name, double quantity, String unit);
+    boolean deleteIngredient(int recipeID, String name);
 
     void updateIngredientQuantity(int recipeID, double quantity, String ingredientName);
 

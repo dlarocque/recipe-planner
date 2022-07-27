@@ -47,7 +47,7 @@ public class TestAccessIngredients {
         // Ingredients queried with recipe ID should be the same as those in the recipe
         String unit = ingredients.get(0).getUnit().getClass().getSimpleName();
 
-        accessIngredients.deleteIngredient(0, ingredient.getName(), ingredient.getAmount(), unit);
+        accessIngredients.deleteIngredient(0, ingredient.getName());
         ingredients = dataAccess.getRecipeIngredients(0);
         assertEquals("Basil Leaves", ingredients.get(0).getName());
         assertEquals(4, ingredients.size());
@@ -65,7 +65,7 @@ public class TestAccessIngredients {
         // Ingredients queried with recipe ID should be the same as those in the recipe
         String unit = ingredients.get(0).getUnit().getClass().getSimpleName();
 
-        accessIngredients.deleteIngredient(0, "Cinnamon", ingredient.getAmount(), unit);
+        accessIngredients.deleteIngredient(0, "Cinnamon");
         ingredients = dataAccess.getRecipeIngredients(0);
         assertEquals("Balsamic Vinegar", ingredients.get(0).getName());
         assertEquals(5, ingredients.size());

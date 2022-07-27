@@ -60,7 +60,7 @@ public class EditIngredientListRecyclerViewAdapter
 
         holder.quantity.addTextChangedListener(holder.quantityListener);
 
-        holder.quantityListener.updatePosition(holder.getBindingAdapterPosition());
+        holder.quantityListener.updatePosition(holder.getAbsoluteAdapterPosition());
 
         holder.delete.setOnClickListener(
                 editView -> {
@@ -73,7 +73,9 @@ public class EditIngredientListRecyclerViewAdapter
                             (dialog, id) -> {
                                 dialog.dismiss();
                                 Log.d("EditIngredientView", "Delete ingredient button clicked");
-                                deleteIngredientAction(position);
+                                deleteIngredientAction(holder.getAbsoluteAdapterPosition());
+                                ingredients.remove(holder.getAbsoluteAdapterPosition());
+                                notifyItemRemoved(holder.getAbsoluteAdapterPosition());
                             });
                     alertDialogBuilder.setNegativeButton("No", (dialog, id) -> dialog.dismiss());
                     AlertDialog alertDialog = alertDialogBuilder.create();
@@ -83,19 +85,26 @@ public class EditIngredientListRecyclerViewAdapter
 
     @Override
     public int getItemCount() {
+        ingredients = recipe.getIngredients();
         return ingredients.size();
     }
 
     public void deleteIngredientAction(int position) {
         Ingredient deleteIngredient = ingredients.get(position);
         String name = deleteIngredient.getName();
-        double quantity = deleteIngredient.getAmount();
-        String unit = deleteIngredient.getUnit().getClass().getSimpleName().toUpperCase();
-        accessIngredients.deleteIngredient(recipe.getId(), name, quantity, unit);
+        accessIngredients.deleteIngredient(recipe.getId(), name);
     }
 
     public String getUnitString(Ingredient ingredient) {
-        return ingredient.getUnit().getClass().getSimpleName();
+        String result;
+        String[] parts = ingredient.getUnit().toString().split(" ");
+        if(parts.length > 1){
+            result = parts[1];
+        }
+        else{
+            result = "Units";
+        }
+        return result;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -139,7 +148,13 @@ public class EditIngredientListRecyclerViewAdapter
 
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            double quantity = Double.parseDouble(charSequence.toString());
+            double quantity;
+            try{
+            quantity = Math.abs(Double.parseDouble(charSequence.toString()));
+            }
+            catch(NumberFormatException e){
+                quantity = 0;
+            }
             Ingredient ingredientToModify = ingredients.get(position);
             String ingredientName = ingredientToModify.getName();
             accessIngredients.updateIngredientQuantity(recipe.getId(), quantity, ingredientName);

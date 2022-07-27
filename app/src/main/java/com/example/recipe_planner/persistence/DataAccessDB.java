@@ -6,6 +6,7 @@ import com.example.recipe_planner.objects.DaySchedule;
 import com.example.recipe_planner.objects.Ingredient;
 import com.example.recipe_planner.objects.Recipe;
 import com.example.recipe_planner.objects.measurements.ConvertibleUnit;
+import com.example.recipe_planner.objects.measurements.Count;
 import com.example.recipe_planner.objects.measurements.IUnit;
 import com.example.recipe_planner.objects.measurements.Unit;
 import com.example.recipe_planner.utils.CalendarUtils;
@@ -340,7 +341,7 @@ public class DataAccessDB implements DataAccess {
             ingredients = new ArrayList<>();
             while (recipeIngredients.next()) {
                 ingredientId = recipeIngredients.getInt("INGREDIENTID");
-                quantity = recipeIngredients.getDouble("QUANTITY");
+                quantity = recipeIngredients.getFloat("QUANTITY");
                 unit = recipeIngredients.getString("UNIT");
                 name = null;
 
@@ -385,7 +386,7 @@ public class DataAccessDB implements DataAccess {
     }
 
     @Override
-    public boolean deleteIngredient(int recipeID, String name, double quantity, String unit) {
+    public boolean deleteIngredient(int recipeID, String name) {
         Statement statement;
         ResultSet ingredientIDSet;
         int ingredientID = 0;
@@ -401,11 +402,7 @@ public class DataAccessDB implements DataAccess {
                             + recipeID
                             + " AND INGREDIENTID="
                             + ingredientID
-                            + " AND QUANTITY="
-                            + quantity
-                            + " AND UNIT='"
-                            + unit
-                            + "';");
+                            + ";");
             statement.close();
             return true;
         } catch (SQLException sqlException) {
@@ -591,16 +588,24 @@ public class DataAccessDB implements DataAccess {
         switch (unit) {
             case "CUP":
                 type = Unit.CUP;
+                break;
             case "ML":
                 type = Unit.ML;
+                break;
             case "GRAM":
                 type = Unit.GRAM;
+                break;
             case "OUNCE":
                 type = Unit.OUNCE;
+                break;
             case "TSP":
                 type = Unit.TSP;
+                break;
             case "TBSP":
                 type = Unit.TBSP;
+                break;
+            default:
+                return new Count(quantity);
         }
         return new ConvertibleUnit(type, quantity);
     }

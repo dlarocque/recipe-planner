@@ -49,7 +49,15 @@ public class IngredientRecyclerViewAdapter
     }
 
     public String getUnitString(Ingredient ingredient) {
-        return ingredient.getUnit().getClass().getSimpleName();
+        String result;
+        String[] parts = ingredient.getUnit().toString().split(" ");
+        if(parts.length > 1){
+            result = parts[1];
+        }
+        else{
+            result = "Units";
+        }
+        return result;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

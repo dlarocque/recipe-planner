@@ -98,17 +98,13 @@ public class DataAccessStub implements DataAccess {
     }
 
     @Override
-    public boolean deleteIngredient(int recipeID, String name, double quantity, String unit) {
+    public boolean deleteIngredient(int recipeID, String name) {
         for (int i = 0; i < recipes.size(); i++) {
             if (recipes.get(i).getId() == recipeID) {
                 ArrayList<Ingredient> ingredients = recipes.get(i).getIngredients();
                 for (int k = 0; k < ingredients.size(); k++) {
                     String compName = ingredients.get(k).getName();
-                    String compUnit = ingredients.get(k).getUnit().getClass().getSimpleName();
-                    double compQuantity = ingredients.get(k).getAmount();
-                    if (compName.equals(name)
-                            && compQuantity == quantity
-                            && compUnit.equals(unit)) {
+                    if (compName.equals(name)) {
                         recipes.get(i).getIngredients().remove(k);
                     }
                 }

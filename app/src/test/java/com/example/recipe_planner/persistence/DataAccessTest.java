@@ -227,7 +227,7 @@ public class DataAccessTest {
 
         // delete the first ingredient from the recipe
         System.out.println(
-                dataAccess.deleteIngredient(0, ingredient.getName(), ingredient.getAmount(), unit));
+                dataAccess.deleteIngredient(0, ingredient.getName()));
         ingredients = dataAccess.getRecipeIngredients(0);
         assertEquals(4, ingredients.size());
     }
@@ -249,7 +249,7 @@ public class DataAccessTest {
             // delete the an invalid ingredient from the recipe
             System.out.println(
                     dataAccess.deleteIngredient(
-                            0, ingredient.getName(), ingredient.getAmount(), unit));
+                            0, ingredient.getName()));
             ingredients = dataAccess.getRecipeIngredients(0);
             assertEquals(4, ingredients.size());
         } catch (Exception e) {
@@ -260,7 +260,7 @@ public class DataAccessTest {
         String unit = ingredient.getUnit().getClass().getSimpleName();
 
         // delete the an valid ingredient with invalid quantity from the recipe
-        System.out.println(dataAccess.deleteIngredient(0, ingredient.getName(), 1000.0, unit));
+        System.out.println(dataAccess.deleteIngredient(0, ingredient.getName()));
         ingredients = dataAccess.getRecipeIngredients(0);
         assertEquals(5, ingredients.size());
     }
