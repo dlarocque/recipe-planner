@@ -27,108 +27,109 @@ public class DataAccessDB implements DataAccess {
      * here.
      */
     private static final String[] populateScript = {
-            "INSERT INTO RECIPES (ID, NAME, INSTRUCTIONS, IS_DEFAULT) VALUES(NULL, 'Grilled Basil Chicken',\n"
-                    + "    'After washing basil and tomatoes, blot them dry with clean paper towel.\n'\n"
-                    + "    + '\\n'\n"
-                    + "    + 'Using a clean cutting board, cut tomatoes into quarters.\\n'\n"
-                    + "    + '\\n'\n"
-                    + "    + 'For marinade, place first six ingredients in a blender. Cover and process until well blended.\\n'\n"
-                    + "    + '\\n'\n"
-                    + "    + 'Place chicken breasts in a shallow dish; orange do not rinse raw poultry. Cover with marinade. Cover dish. Refrigerate about 1 hour, turning occasionally. Wash dish after touching raw poultry.\\n'\n"
-                    + "    + '\\n'\n"
-                    + "    + 'orange quote icon Wash hands with soap and water after handling uncooked chicken.\\n'\n"
-                    + "    + '\\n'\n"
-                    + "    + 'Place chicken on an oiled grill rack over medium heat. Do not reuse marinades used on raw foods. Grill chicken 4-6 minutes per side. Cook until internal temperature reaches 165 °F as measured with a food thermometer. ',\n"
-                    + "    1\n"
-                    + ")",
-            "INSERT INTO RECIPES VALUES(NULL, 'Sweet Honey French Bread',\n"
-                    + "    'Add to your bread machine per manufacturer instructions.\\n'\n"
-                    + "    + 'While bread is baking drizzle with honey if desired.',\n"
-                    + "    1\n"
-                    + ")",
-            "INSERT INTO RECIPES VALUES (NULL, 'Crushed Heirloom Potatoes',\n"
-                    + "    'Boil potatoes until they are just tender 2040 minutes depending on variety drain and then return them to pot.\\n'\n"
-                    + "    + '\\n'\n"
-                    + "    + 'Using a large wooden spoon coarsely crush potatoes in pot.\\n'\n"
-                    + "    + '\\n'\n"
-                    + "    + 'Stir in cheese nuts oil and arugula and toss to blend.\\n'\n"
-                    + "    + '\\n'\n"
-                    + "    + 'Salt and pepper to taste.',\n"
-                    + "    1\n"
-                    + ")",
-            "INSERT INTO RECIPES (NAME, INSTRUCTIONS, IS_DEFAULT) VALUES('Heirloom Apple Pie',\n"
-                    + "    '1. Mix apples white and brown sugar flour and cinnamon all together in a large bowl and pour into pie crust in pan.\\n'\n"
-                    + "    + '\\n'\n"
-                    + "    + '2. Dot with butter and cover with top crust sealing and fluting edges.\\n'\n"
-                    + "    + '\\n'\n"
-                    + "    + '3. Slit a few holes in top crust.\\n'\n"
-                    + "    + '\\n'\n"
-                    + "    + '4. Brush cream lightly on top crust all over and sprinkle with sugar.\\n'\n"
-                    + "    + '\\n'\n"
-                    + "    + '5. Bake at 450 for 15 minutes.\\n'\n"
-                    + "    + '\\n'\n"
-                    + "    + '6. Reduce heat to 350 and bake another 5055 minutes until bubbly and apples are soft.\\n'\n"
-                    + "    + '\\n'\n"
-                    + "    + '7. Savor every bite.',\n"
-                    + "    1\n"
-                    + ")",
-
-            "INSERT INTO INGREDIENTS VALUES (NULL, 'Balsamic Vinegar')\n"
-                    + "INSERT INTO INGREDIENTS VALUES (NULL, 'Basil Leaves')\n"
-                    + "INSERT INTO INGREDIENTS VALUES (NULL, 'Olive Oil')\n"
-                    + "INSERT INTO INGREDIENTS VALUES (NULL, 'Plum Tomatoes')\n"
-                    + "INSERT INTO INGREDIENTS VALUES (NULL, 'Boneless Skinless Chicken Breast')",
-            "INSERT INTO RECIPEINGREDIENTS VALUES ((SELECT ID FROM RECIPES WHERE NAME='Grilled Basil Chicken'), (SELECT ID FROM INGREDIENTS WHERE NAME='Balsamic Vinegar'), 0.75, 'CUP')\n"
-                    + "INSERT INTO RECIPEINGREDIENTS VALUES ((SELECT ID FROM RECIPES WHERE NAME='Grilled Basil Chicken'), (SELECT ID FROM INGREDIENTS WHERE NAME='Basil Leaves'), 0.25,'CUP')\n"
-                    + "INSERT INTO RECIPEINGREDIENTS VALUES ((SELECT ID FROM RECIPES WHERE NAME='Grilled Basil Chicken'), (SELECT ID FROM INGREDIENTS WHERE NAME='Olive Oil'), 2, 'TBSP')\n"
-                    + "INSERT INTO RECIPEINGREDIENTS VALUES ((SELECT ID FROM RECIPES WHERE NAME='Grilled Basil Chicken'), (SELECT ID FROM INGREDIENTS WHERE NAME='Plum Tomatoes'), 4, 'COUNT')\n"
-                    + "INSERT INTO RECIPEINGREDIENTS VALUES ((SELECT ID FROM RECIPES WHERE NAME='Grilled Basil Chicken'), (SELECT ID FROM INGREDIENTS WHERE NAME='Boneless Skinless Chicken Breast'), 4, 'COUNT')",
-            "INSERT INTO INGREDIENTS VALUES (NULL, 'Water')\n"
-                    + "INSERT INTO INGREDIENTS VALUES (NULL, 'Honey')\n"
-                    + "INSERT INTO INGREDIENTS VALUES (NULL, 'Salt')\n"
-                    + "INSERT INTO INGREDIENTS VALUES (NULL, 'White Sugar')\n"
-                    + "INSERT INTO INGREDIENTS VALUES (NULL, 'Bread Flour')\n"
-                    + "INSERT INTO INGREDIENTS VALUES (NULL, 'Active Yeast')",
-            "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Sweet Honey French Bread'), (SELECT ID FROM INGREDIENTS WHERE NAME='Water'), 0.75, 'CUP')\n"
-                    + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Sweet Honey French Bread'), (SELECT ID FROM INGREDIENTS WHERE NAME='Honey'), 2, 'TSP')\n"
-                    + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Sweet Honey French Bread'), (SELECT ID FROM INGREDIENTS WHERE NAME='Olive Oil'), 2, 'TSP')\n"
-                    + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Sweet Honey French Bread'), (SELECT ID FROM INGREDIENTS WHERE NAME='Salt'), 2/3, 'TSP')\n"
-                    + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Sweet Honey French Bread'), (SELECT ID FROM INGREDIENTS WHERE NAME='White Sugar'), 2/3, 'TSP')\n"
-                    + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Sweet Honey French Bread'), (SELECT ID FROM INGREDIENTS WHERE NAME='Bread Flour'), 2, 'CUP')\n"
-                    + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Sweet Honey French Bread'), (SELECT ID FROM INGREDIENTS WHERE NAME='Active Yeast'), 1.5, 'TSP')",
-            "INSERT INTO INGREDIENTS VALUES (NULL, 'Unpeeled Potato')\n"
-                    + "INSERT INTO INGREDIENTS VALUES (NULL, 'Gorgonzola')\n"
-                    + "INSERT INTO INGREDIENTS VALUES (NULL, 'Pecan')\n"
-                    + "INSERT INTO INGREDIENTS VALUES (NULL, 'Extra Virgin Olive Oil')\n"
-                    + "INSERT INTO INGREDIENTS VALUES (NULL, 'Baby Arugula')",
-            "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Crushed Heirloom Potatoes'), (SELECT ID FROM INGREDIENTS WHERE NAME='Water'), 0.75, 'CUP')\n"
-                    + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Crushed Heirloom Potatoes'), (SELECT ID FROM INGREDIENTS WHERE NAME='Unpeeled Potato'), 907, 'GRAM')\n"
-                    + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Crushed Heirloom Potatoes'), (SELECT ID FROM INGREDIENTS WHERE NAME='Gorgonzola'), 2, 'OUNCE')\n"
-                    + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Crushed Heirloom Potatoes'), (SELECT ID FROM INGREDIENTS WHERE NAME='Pecan'), 0.5, 'CUP')\n"
-                    + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Crushed Heirloom Potatoes'), (SELECT ID FROM INGREDIENTS WHERE NAME='Extra Virgin Olive Oil'), 0.25, 'CUP')\n"
-                    + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Crushed Heirloom Potatoes'), (SELECT ID FROM INGREDIENTS WHERE NAME='Baby Arugula'), 2, 'CUP')\n"
-                    + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Crushed Heirloom Potatoes'), (SELECT ID FROM INGREDIENTS WHERE NAME='White Sugar'), 0.5, 'TSP')",
-            "INSERT INTO INGREDIENTS VALUES (NULL, 'Pastry Double Crust Pie')\n"
-                    + "INSERT INTO INGREDIENTS VALUES (NULL, 'Apple')\n"
-                    + "INSERT INTO INGREDIENTS VALUES (NULL, 'Brown Sugar')\n"
-                    + "INSERT INTO INGREDIENTS VALUES (NULL, 'Flour')\n"
-                    + "INSERT INTO INGREDIENTS VALUES (NULL, 'Cinnamon')\n"
-                    + "INSERT INTO INGREDIENTS VALUES (NULL, 'Butter')",
-            "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Heirloom Apple Pie'), (SELECT ID FROM INGREDIENTS WHERE NAME='Pastry Double Crust Pie'), 1, 'COUNT')\n"
-                    + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Heirloom Apple Pie'), (SELECT ID FROM INGREDIENTS WHERE NAME='Apple'), 6, 'COUNT')\n"
-                    + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Heirloom Apple Pie'), (SELECT ID FROM INGREDIENTS WHERE NAME='White Sugar'), 1/3, 'CUP')\n"
-                    + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Heirloom Apple Pie'), (SELECT ID FROM INGREDIENTS WHERE NAME='Brown Sugar'), 1/3, 'CUP')\n"
-                    + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Heirloom Apple Pie'), (SELECT ID FROM INGREDIENTS WHERE NAME='Flour'), 2, 'TSP')\n"
-                    + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Heirloom Apple Pie'), (SELECT ID FROM INGREDIENTS WHERE NAME='Cinnamon'), 1, 'TSP')\n"
-                    + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Heirloom Apple Pie'), (SELECT ID FROM INGREDIENTS WHERE NAME='Butter'), 1, 'TBSP')"
+        "INSERT INTO RECIPES (ID, NAME, INSTRUCTIONS, IS_DEFAULT) VALUES(NULL, 'Grilled Basil Chicken',\n"
+                + "    'After washing basil and tomatoes, blot them dry with clean paper towel.\n'\n"
+                + "    + '\\n'\n"
+                + "    + 'Using a clean cutting board, cut tomatoes into quarters.\\n'\n"
+                + "    + '\\n'\n"
+                + "    + 'For marinade, place first six ingredients in a blender. Cover and process until well blended.\\n'\n"
+                + "    + '\\n'\n"
+                + "    + 'Place chicken breasts in a shallow dish; orange do not rinse raw poultry. Cover with marinade. Cover dish. Refrigerate about 1 hour, turning occasionally. Wash dish after touching raw poultry.\\n'\n"
+                + "    + '\\n'\n"
+                + "    + 'orange quote icon Wash hands with soap and water after handling uncooked chicken.\\n'\n"
+                + "    + '\\n'\n"
+                + "    + 'Place chicken on an oiled grill rack over medium heat. Do not reuse marinades used on raw foods. Grill chicken 4-6 minutes per side. Cook until internal temperature reaches 165 °F as measured with a food thermometer. ',\n"
+                + "    1\n"
+                + ")",
+        "INSERT INTO RECIPES VALUES(NULL, 'Sweet Honey French Bread',\n"
+                + "    'Add to your bread machine per manufacturer instructions.\\n'\n"
+                + "    + 'While bread is baking drizzle with honey if desired.',\n"
+                + "    1\n"
+                + ")",
+        "INSERT INTO RECIPES VALUES (NULL, 'Crushed Heirloom Potatoes',\n"
+                + "    'Boil potatoes until they are just tender 2040 minutes depending on variety drain and then return them to pot.\\n'\n"
+                + "    + '\\n'\n"
+                + "    + 'Using a large wooden spoon coarsely crush potatoes in pot.\\n'\n"
+                + "    + '\\n'\n"
+                + "    + 'Stir in cheese nuts oil and arugula and toss to blend.\\n'\n"
+                + "    + '\\n'\n"
+                + "    + 'Salt and pepper to taste.',\n"
+                + "    1\n"
+                + ")",
+        "INSERT INTO RECIPES (NAME, INSTRUCTIONS, IS_DEFAULT) VALUES('Heirloom Apple Pie',\n"
+                + "    '1. Mix apples white and brown sugar flour and cinnamon all together in a large bowl and pour into pie crust in pan.\\n'\n"
+                + "    + '\\n'\n"
+                + "    + '2. Dot with butter and cover with top crust sealing and fluting edges.\\n'\n"
+                + "    + '\\n'\n"
+                + "    + '3. Slit a few holes in top crust.\\n'\n"
+                + "    + '\\n'\n"
+                + "    + '4. Brush cream lightly on top crust all over and sprinkle with sugar.\\n'\n"
+                + "    + '\\n'\n"
+                + "    + '5. Bake at 450 for 15 minutes.\\n'\n"
+                + "    + '\\n'\n"
+                + "    + '6. Reduce heat to 350 and bake another 5055 minutes until bubbly and apples are soft.\\n'\n"
+                + "    + '\\n'\n"
+                + "    + '7. Savor every bite.',\n"
+                + "    1\n"
+                + ")",
+        "INSERT INTO INGREDIENTS VALUES (NULL, 'Balsamic Vinegar')\n"
+                + "INSERT INTO INGREDIENTS VALUES (NULL, 'Basil Leaves')\n"
+                + "INSERT INTO INGREDIENTS VALUES (NULL, 'Olive Oil')\n"
+                + "INSERT INTO INGREDIENTS VALUES (NULL, 'Plum Tomatoes')\n"
+                + "INSERT INTO INGREDIENTS VALUES (NULL, 'Boneless Skinless Chicken Breast')",
+        "INSERT INTO RECIPEINGREDIENTS VALUES ((SELECT ID FROM RECIPES WHERE NAME='Grilled Basil Chicken'), (SELECT ID FROM INGREDIENTS WHERE NAME='Balsamic Vinegar'), 0.75, 'CUP')\n"
+                + "INSERT INTO RECIPEINGREDIENTS VALUES ((SELECT ID FROM RECIPES WHERE NAME='Grilled Basil Chicken'), (SELECT ID FROM INGREDIENTS WHERE NAME='Basil Leaves'), 0.25,'CUP')\n"
+                + "INSERT INTO RECIPEINGREDIENTS VALUES ((SELECT ID FROM RECIPES WHERE NAME='Grilled Basil Chicken'), (SELECT ID FROM INGREDIENTS WHERE NAME='Olive Oil'), 2, 'TBSP')\n"
+                + "INSERT INTO RECIPEINGREDIENTS VALUES ((SELECT ID FROM RECIPES WHERE NAME='Grilled Basil Chicken'), (SELECT ID FROM INGREDIENTS WHERE NAME='Plum Tomatoes'), 4, 'COUNT')\n"
+                + "INSERT INTO RECIPEINGREDIENTS VALUES ((SELECT ID FROM RECIPES WHERE NAME='Grilled Basil Chicken'), (SELECT ID FROM INGREDIENTS WHERE NAME='Boneless Skinless Chicken Breast'), 4, 'COUNT')",
+        "INSERT INTO INGREDIENTS VALUES (NULL, 'Water')\n"
+                + "INSERT INTO INGREDIENTS VALUES (NULL, 'Honey')\n"
+                + "INSERT INTO INGREDIENTS VALUES (NULL, 'Salt')\n"
+                + "INSERT INTO INGREDIENTS VALUES (NULL, 'White Sugar')\n"
+                + "INSERT INTO INGREDIENTS VALUES (NULL, 'Bread Flour')\n"
+                + "INSERT INTO INGREDIENTS VALUES (NULL, 'Active Yeast')",
+        "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Sweet Honey French Bread'), (SELECT ID FROM INGREDIENTS WHERE NAME='Water'), 0.75, 'CUP')\n"
+                + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Sweet Honey French Bread'), (SELECT ID FROM INGREDIENTS WHERE NAME='Honey'), 2, 'TSP')\n"
+                + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Sweet Honey French Bread'), (SELECT ID FROM INGREDIENTS WHERE NAME='Olive Oil'), 2, 'TSP')\n"
+                + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Sweet Honey French Bread'), (SELECT ID FROM INGREDIENTS WHERE NAME='Salt'), 2/3, 'TSP')\n"
+                + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Sweet Honey French Bread'), (SELECT ID FROM INGREDIENTS WHERE NAME='White Sugar'), 2/3, 'TSP')\n"
+                + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Sweet Honey French Bread'), (SELECT ID FROM INGREDIENTS WHERE NAME='Bread Flour'), 2, 'CUP')\n"
+                + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Sweet Honey French Bread'), (SELECT ID FROM INGREDIENTS WHERE NAME='Active Yeast'), 1.5, 'TSP')",
+        "INSERT INTO INGREDIENTS VALUES (NULL, 'Unpeeled Potato')\n"
+                + "INSERT INTO INGREDIENTS VALUES (NULL, 'Gorgonzola')\n"
+                + "INSERT INTO INGREDIENTS VALUES (NULL, 'Pecan')\n"
+                + "INSERT INTO INGREDIENTS VALUES (NULL, 'Extra Virgin Olive Oil')\n"
+                + "INSERT INTO INGREDIENTS VALUES (NULL, 'Baby Arugula')",
+        "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Crushed Heirloom Potatoes'), (SELECT ID FROM INGREDIENTS WHERE NAME='Water'), 0.75, 'CUP')\n"
+                + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Crushed Heirloom Potatoes'), (SELECT ID FROM INGREDIENTS WHERE NAME='Unpeeled Potato'), 907, 'GRAM')\n"
+                + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Crushed Heirloom Potatoes'), (SELECT ID FROM INGREDIENTS WHERE NAME='Gorgonzola'), 2, 'OUNCE')\n"
+                + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Crushed Heirloom Potatoes'), (SELECT ID FROM INGREDIENTS WHERE NAME='Pecan'), 0.5, 'CUP')\n"
+                + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Crushed Heirloom Potatoes'), (SELECT ID FROM INGREDIENTS WHERE NAME='Extra Virgin Olive Oil'), 0.25, 'CUP')\n"
+                + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Crushed Heirloom Potatoes'), (SELECT ID FROM INGREDIENTS WHERE NAME='Baby Arugula'), 2, 'CUP')\n"
+                + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Crushed Heirloom Potatoes'), (SELECT ID FROM INGREDIENTS WHERE NAME='White Sugar'), 0.5, 'TSP')",
+        "INSERT INTO INGREDIENTS VALUES (NULL, 'Pastry Double Crust Pie')\n"
+                + "INSERT INTO INGREDIENTS VALUES (NULL, 'Apple')\n"
+                + "INSERT INTO INGREDIENTS VALUES (NULL, 'Brown Sugar')\n"
+                + "INSERT INTO INGREDIENTS VALUES (NULL, 'Flour')\n"
+                + "INSERT INTO INGREDIENTS VALUES (NULL, 'Cinnamon')\n"
+                + "INSERT INTO INGREDIENTS VALUES (NULL, 'Butter')",
+        "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Heirloom Apple Pie'), (SELECT ID FROM INGREDIENTS WHERE NAME='Pastry Double Crust Pie'), 1, 'COUNT')\n"
+                + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Heirloom Apple Pie'), (SELECT ID FROM INGREDIENTS WHERE NAME='Apple'), 6, 'COUNT')\n"
+                + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Heirloom Apple Pie'), (SELECT ID FROM INGREDIENTS WHERE NAME='White Sugar'), 1/3, 'CUP')\n"
+                + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Heirloom Apple Pie'), (SELECT ID FROM INGREDIENTS WHERE NAME='Brown Sugar'), 1/3, 'CUP')\n"
+                + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Heirloom Apple Pie'), (SELECT ID FROM INGREDIENTS WHERE NAME='Flour'), 2, 'TSP')\n"
+                + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Heirloom Apple Pie'), (SELECT ID FROM INGREDIENTS WHERE NAME='Cinnamon'), 1, 'TSP')\n"
+                + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Heirloom Apple Pie'), (SELECT ID FROM INGREDIENTS WHERE NAME='Butter'), 1, 'TBSP')"
     };
-    private final String[] TABLES = {"DAY_SCHEDULES", "RECIPEINGREDIENTS", "INGREDIENTS", "RECIPES"};
+
+    private final String[] TABLES = {
+        "DAY_SCHEDULES", "RECIPEINGREDIENTS", "INGREDIENTS", "RECIPES"
+    };
 
     private final String TAG = this.getClass().getSimpleName();
     private Connection connection;
 
-    public DataAccessDB() {
-    }
+    public DataAccessDB() {}
 
     public void open(String dbPath) {
         String url;
@@ -138,13 +139,16 @@ public class DataAccessDB implements DataAccess {
             url = "jdbc:hsqldb:file:" + dbPath; // stored on disk mode
             connection = DriverManager.getConnection(url, "SA", "");
 
-            reset(); // TODO: Conditionally reset?
+            // if the database is empty, reset to its initial contents.
+            if (isRecipesEmpty()) {
+                reset();
+            }
         } catch (SQLException
                 | ClassNotFoundException
                 | IllegalAccessException
                 | InstantiationException exception) {
-            Log.e(TAG, "Failed to open HSQLDB");
             exception.printStackTrace();
+            Log.e(TAG, "Failed to open HSQLDB");
         }
         Log.i(TAG, "Successfully opened HSQLDB database at " + dbPath);
     }
@@ -187,9 +191,31 @@ public class DataAccessDB implements DataAccess {
             for (String script : populateScript) {
                 statement.executeUpdate(script);
             }
+            statement.close();
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
         }
+    }
+
+    // returns true if
+    private boolean isRecipesEmpty() {
+        Statement checkEmpty;
+        ResultSet result;
+        boolean isEmpty = false;
+
+        try {
+            checkEmpty = connection.createStatement();
+            result = checkEmpty.executeQuery("SELECT * FROM RECIPES;");
+
+            if (!result.next()) {
+                isEmpty = true;
+            }
+            checkEmpty.close();
+        } catch (SQLException sqlException) {
+            Log.e(TAG, "Failed to check tables for emptiness.");
+            sqlException.printStackTrace();
+        }
+        return isEmpty;
     }
 
     @Override
@@ -295,7 +321,8 @@ public class DataAccessDB implements DataAccess {
                                     + "%'");
 
             while (allRecipes.next()) {
-                // Get all the components of a recipe, create a recipe, and add it to our list of recipes
+                // Get all the components of a recipe, create a recipe, and add it to our list of
+                // recipes
                 recipeId = allRecipes.getInt("ID");
                 recipeName = allRecipes.getString("NAME");
                 instructions = allRecipes.getString("INSTRUCTIONS");
@@ -361,6 +388,7 @@ public class DataAccessDB implements DataAccess {
             }
 
             recipeIngredients.close();
+            statement.close();
         } catch (SQLException sqlException) {
             Log.e(TAG, "Failed to retrieve ingredients for recipe with id " + recipeId);
             sqlException.printStackTrace();
@@ -469,7 +497,7 @@ public class DataAccessDB implements DataAccess {
 
                 daySchedule = new DaySchedule(breakfast, lunch, dinner);
             }
-
+            statement.close();
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
         }
@@ -488,6 +516,7 @@ public class DataAccessDB implements DataAccess {
                     "INSERT INTO DAY_SCHEDULES (DAY, BREAKFAST_RECIPE_ID, LUNCH_RECIPE_ID, DINNER_RECIPE_ID) VALUES('"
                             + dateKey
                             + "', NULL, NULL, NULL)");
+            statement.close();
         } catch (SQLException sqlException) {
             Log.e(TAG, "Failed to insert day schedule");
             sqlException.printStackTrace();
@@ -522,6 +551,7 @@ public class DataAccessDB implements DataAccess {
                             + "WHERE DAY='"
                             + dateKey
                             + "';");
+            statement.close();
         } catch (SQLException sqlException) {
             Log.e(TAG, "Failed to set day schedule meal for day " + dateKey);
             sqlException.printStackTrace();
@@ -543,12 +573,12 @@ public class DataAccessDB implements DataAccess {
                             + "WHERE DAY='"
                             + dateKey
                             + "';");
+            statement.close();
         } catch (SQLException sqlException) {
             Log.e(TAG, "Failed to set day schedule meal for day " + dateKey);
             sqlException.printStackTrace();
         }
     }
-
 
     private IUnit unitFactory(String unit, double quantity) {
         Unit type = null;
