@@ -115,11 +115,11 @@ public class EditIngredientListRecyclerViewAdapter
                                                 .convertTo(newUnit);
                                 holder.quantity.setText(
                                         String.format(Locale.getDefault(), "%.2f", newAmount));
-                                accessIngredients.updateIngredientQuantity(
+                                accessIngredients.updateIngredientUnit(
                                         recipe.getId(),
-                                        newAmount,
-                                        ingredientToDisplay.getName());
-                                accessIngredients.updateIngredientUnit(recipe.getId(), ingredientToDisplay.getName(), newUnit);
+                                        ingredientToDisplay.getName(),
+                                        newUnit,
+                                        newAmount);
                             } catch (Exception e) {
                                 holder.unit.setSelection(adapter.getPosition(unitName), true);
                                 Toast.makeText(
@@ -128,8 +128,13 @@ public class EditIngredientListRecyclerViewAdapter
                                                 Toast.LENGTH_SHORT)
                                         .show();
                             }
-                        } else if (unitName.equalsIgnoreCase("Units")) {
+                        } else if (unitName.equalsIgnoreCase("Units") && !unitName.equalsIgnoreCase(adapter.getItem(position).toString())) {
                             holder.unit.setSelection(0, true);
+                            Toast.makeText(
+                                            view.getContext(),
+                                            "Units cannot be converted",
+                                            Toast.LENGTH_SHORT)
+                                    .show();
                         }
                     }
 

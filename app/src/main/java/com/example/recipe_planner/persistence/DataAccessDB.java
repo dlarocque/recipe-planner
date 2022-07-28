@@ -439,7 +439,7 @@ public class DataAccessDB implements DataAccess {
     }
 
     @Override
-    public void updateIngredientUnit(int recipeID, String ingredientName, Unit newUnit) {
+    public void updateIngredientUnit(int recipeID, String ingredientName, Unit newUnit, double newQuantity) {
         Statement statement;
         ResultSet ingredientIDSet = null;
         int ingredientID = -1;
@@ -452,8 +452,16 @@ public class DataAccessDB implements DataAccess {
                 ingredientID = ingredientIDSet.getInt("ID");
             }
             statement.executeUpdate(
-                    "UPDATE RECIPEINGREDIENTS SET UNIT="
-                            + newUnit
+                    "UPDATE RECIPEINGREDIENTS SET UNIT='"
+                            + newUnit.name()
+                            + "' WHERE INGREDIENTID="
+                            + ingredientID
+                            + " AND RECIPEID="
+                            + recipeID
+                            + ";");
+            statement.executeUpdate(
+                    "UPDATE RECIPEINGREDIENTS SET QUANTITY="
+                            + newQuantity
                             + " WHERE INGREDIENTID="
                             + ingredientID
                             + " AND RECIPEID="

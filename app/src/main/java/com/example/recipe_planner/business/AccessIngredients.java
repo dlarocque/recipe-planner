@@ -19,7 +19,7 @@ public class AccessIngredients {
         dataAccess.updateIngredientQuantity(recipeID, quantity, ingredientName);
     }
 
-    public void updateIngredientUnit(int recipeID, String ingredientName, Unit newUnit) {
-        dataAccess.updateIngredientUnit(recipeID, ingredientName, newUnit);
+    public void updateIngredientUnit(int recipeID, String ingredientName, Unit newUnit, double newQuantity) {
+        dataAccess.updateIngredientUnit(recipeID, ingredientName, newUnit, newQuantity);
     }
 }
