@@ -8,6 +8,7 @@ import com.example.recipe_planner.utils.CalendarUtils;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -84,5 +85,23 @@ public class TestSchedule {
         schedule.setDaySchedule(today, null);
         assertNotNull(schedule.getDayScheduleOrDefault(today));
         assertNotEquals(daySchedule, schedule.getDayScheduleOrDefault(today));
+    }
+
+    @Test
+    public void TestFindAllScheduledRecipes() {
+        init();
+
+        Recipe one = new Recipe(0, "dejeuner", null, "");
+        Recipe two = new Recipe(1, "diner", null, "");
+        Recipe three = new Recipe(2, "souper", null, "");
+
+        DaySchedule daySchedule = new DaySchedule(one, two, three);
+        schedule.setDaySchedule(today, daySchedule);
+        ArrayList<Recipe> results = new ArrayList<>(schedule.getAllScheduledRecipes());
+
+        assertEquals(3, results.size());
+        assert (results.contains(one));
+        assert (results.contains(two));
+        assert (results.contains(three));
     }
 }

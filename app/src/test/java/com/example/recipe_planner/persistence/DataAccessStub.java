@@ -183,6 +183,11 @@ public class DataAccessStub implements DataAccess {
         daySchedule.setMeal(meal, null);
     }
 
+    @Override
+    public ArrayList<Recipe> getScheduledRecipes() {
+        return new ArrayList<>(schedule.getAllScheduledRecipes());
+    }
+
     private void fillRecipes(ArrayList<Recipe> recipes) {
         ArrayList<Ingredient> ingredients;
         ingredients =
