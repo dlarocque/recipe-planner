@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
 
-        Main.shutDown(); // TODO: Shutdown service through UI?
+        Main.shutDown();
     }
 
     @Override
