@@ -162,6 +162,56 @@ public class DataAccessStub implements DataAccess {
     }
 
     @Override
+    public void updateIngredientName(int recipeID, String newName, String ingredientName) {
+        Recipe recipe;
+        for(int i = 0; i < recipes.size(); i++){
+            if(recipes.get(i).getId() == recipeID){
+                recipe = recipes.get(i);
+                ArrayList<Ingredient> ingredients = recipe.getIngredients();
+                for(int k = 0; k < ingredients.size(); k++){
+                    String compName = ingredients.get(k).getName();
+                    if(compName.equals(ingredientName)){
+                        String oldUnit = ingredients.get(k).getUnit().toString();
+                        Double oldAmount = ingredients.get(k).getAmount();
+                        recipes.get(i).getIngredients().remove(k);
+                        IUnit newUnit;
+
+                        switch (oldUnit) {
+                            case "CUP":
+                                newUnit = new ConvertibleUnit(Unit.CUP, oldAmount);
+                                break;
+                            case "ML":
+                                newUnit = new ConvertibleUnit(Unit.ML, oldAmount);
+                                break;
+                            case "GRAM":
+                                newUnit = new ConvertibleUnit(Unit.GRAM, oldAmount);
+                                break;
+                            case "OUNCE":
+                                newUnit = new ConvertibleUnit(Unit.OUNCE, oldAmount);
+                                break;
+                            case "TSP":
+                                newUnit = new ConvertibleUnit(Unit.TSP, oldAmount);
+                                break;
+                            case "TBSP":
+                                newUnit = new ConvertibleUnit(Unit.TBSP, oldAmount);
+                                break;
+                            default:
+                                newUnit = new Count(oldAmount);
+                        }
+                        recipes.get(i).getIngredients().add(new Ingredient(newName, newUnit));
+                    }
+                }
+            }
+        }
+
+    }
+
+    @Override
+    public void updateIngredientUnit(int recipeID, String unitName, String ingredientName) {
+
+    }
+
+    @Override
     public DaySchedule getDaySchedule(Date date) {
         return schedule.getDayScheduleOrDefault(date);
     }
