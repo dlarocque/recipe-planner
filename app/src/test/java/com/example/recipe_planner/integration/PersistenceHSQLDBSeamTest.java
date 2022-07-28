@@ -11,7 +11,9 @@ import com.example.recipe_planner.objects.Recipe;
 import com.example.recipe_planner.objects.measurements.Unit;
 import com.example.recipe_planner.persistence.DataAccess;
 
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class PersistenceHSQLDBSeamTest {
@@ -24,6 +26,16 @@ public class PersistenceHSQLDBSeamTest {
         Services.createDataAccess(testDbName); // HSQLDB
         dataAccess = Services.getDataAccess();
         dataAccess.reset();
+    }
+
+    @BeforeClass
+    public static void printStart() {
+        System.out.println("Running integration tests: persistence/HSQLDB seam  [using HSQLDB]");
+    }
+
+    @AfterClass
+    public static void printEnd() {
+        System.out.println("Finished persistence/HSQLDB seam tests  [using HSQLDB]");
     }
 
     @Test
