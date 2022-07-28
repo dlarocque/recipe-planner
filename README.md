@@ -64,12 +64,25 @@ Users can now view the ingredients of any recipe from within the Recipe View. Cl
 
 With a real database powered by HSQLDB, changes now persist after closing/relaunching the app. Users benefit from the safety of knowing their changes have been saved to the database.
 
+# Features IT-3
+
+**Shopping List**
+
+The Shopping List page is now fully functional! The Shopping List adds ingredients from all recipes scheduled in the future (including current day) so users can see exactly what they need for upcoming meals. When a meal is removed from the Schedule, the Shopping List is adjusted accordingly. Furthermore, all ingredients are converted to Grams or Millilitres to match common product labels in grocery stores.
+
+**Editing and Deleting Ingredients**
+
+Upon entering the Edit Ingredients page on a Recipe (Pencil button), a user can properly edit and remove ingredients from a recipe! These changes are persistent and enable greater flexibility for user customization of meals.
+
+# FIXED
+
+- Deleting ingredients from a recipe is now fully functional and persistent.
+- Modifying ingredients of a recipe is fully functional, persistent, and no longer crashes the application.
+- Fixed issue with incorrect list indices while Searching recipes (filtered list problem)
+- Fixed date formatting of Scheduled meals to allow sorting in database.
+- Unit tests are now more thorough and execute properly.
+
 # KNOWN ISSUES
-
-## Back button
-
-The back button only brings the user back to the root view in the application, instead of the most previous view.
-For example, if the user visits the shopping fragment, then the schedule fragment, the back button brings the user back to the recipe list page since that is the root view.
 
 ## Search Button
 
@@ -82,22 +95,12 @@ For example, if the user visits the shopping fragment, then the schedule fragmen
 The settings page was not implemented in this iteration, so when a user attempts to visit the settings page by clicking
 the three dots at the top-right corner of the application then 'settings', nothing will happen.
 
-## Deleting Ingredients
-
-A user cannot delete ingredients in recipes.
-
-## Modifying Ingredients
-
-When changing the quantity of an ingredient, the app will crash when the user presses backspace until there is no value in the quantity.
-
-## Recipe Ingredient Names In Edit Page
-
-When a user is editing the ingredients of a recipe, the name of the ingredient is vertically truncated when it is too long.
-
 ## Recipe Instructions
 
 Some recipe instructions contain text with '\n'.
 Also, recipe instructions with long instructions, the user cannot scroll through the long instructions since the edit page will open.
+
+#
 
 ## Architecture
 
@@ -128,7 +131,9 @@ Contains domain-specific objects.
 
 - `Ingredient.java` is the class that defines an ingredient with a name, and a quantity of a unit (e.g. grams).
 - `Recipe.java` is the class that defines a recipe with a name, a list of ingredients, and instructions
-- `measurements` is a package that contains a hierarchy of objects that define all of the possible units that ingredients can be, as well as the conversions between these units
+- `measurements` is a package that contains a hierarchy of objects that define the possible units that ingredients can be, as well as the conversions between these units
+- `Schedule.java` defines the schedule, which models the Schedule page: it holds DaySchedules for each day.
+- `DaySchedule.java` defines the schedule for a day, and represents a set of meals (breakfast, lunch, dinner).
 
 ### `persistence`
 
@@ -149,6 +154,8 @@ Contains the major UI elements for the application.
 - `EditIngredientList.java` is a list of ingredients that are editable
 - `EditIngredientListRecyclerViewAdapter.java` is the adapter for editable ingredients that is used in the list of ingredients to edit
 - `IngredientRecyclerViewAdapter.java` is the adapter for the list of ingredients in the recipe view
+- `ShoppingList.java` is a fragment that defines the Shopping List page, where all ingredients for recipes the user has scheduled are displayed.
+- `ShoppingListRecyclerViewAdapter.java` is the adapter for the list of ingredients found in the ShoppingList fragment.
 
 ## Testing
 
@@ -156,7 +163,13 @@ Contains the major UI elements for the application.
 
 The application was tested on the Android Studio emulator for the Nexus 7 tablet, running Android 6.0 Marshmallow (API level 23).
 
-### Unit Tests
+### ACCEPTANCE TESTING NOTE
+
+Our acceptance tests do not cover the case where the user schedules recipes through the UI. This is due to an external library we use for the Calendar/date picker dialog that would require mocks to run the Espresso tests. We are unable to implement this mock.
+
+We attempt to overcome this by manually scheduling meals through AccessSchedule within the acceptance tests, so we can still verify through the UI that meals have been scheduled and can be deleted.
+
+### Run all tests
 
 - Ubuntu latest
 - Script: `./gradlew test`
