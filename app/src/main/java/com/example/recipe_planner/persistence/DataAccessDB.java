@@ -14,6 +14,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -470,7 +471,7 @@ public class DataAccessDB implements DataAccess {
     @Override
     public DaySchedule getDaySchedule(Date date) {
         DaySchedule daySchedule = null;
-        String dateKey = CalendarUtils.formattedDate(date);
+        String dateKey = getDateFormatted(date);
         Statement statement;
         ResultSet meals;
         int breakfastRecipeId, lunchRecipeId, dinnerRecipeId;
@@ -508,7 +509,7 @@ public class DataAccessDB implements DataAccess {
     public ArrayList<Recipe> getScheduledRecipes() {
         ArrayList<Recipe> dayRecipes = new ArrayList<Recipe>();
         Date currDate = Calendar.getInstance().getTime();
-        String dateKey = CalendarUtils.formattedDate(currDate);
+        String dateKey = getDateFormatted(currDate);
         Statement statement;
         ResultSet meals;
         int breakfastRecipeId, lunchRecipeId, dinnerRecipeId;
@@ -542,7 +543,7 @@ public class DataAccessDB implements DataAccess {
     @Override
     public void initializeDaySchedule(Date date) {
         Statement statement;
-        String dateKey = CalendarUtils.formattedDate(date);
+        String dateKey = getDateFormatted(date);
 
         try {
             statement = connection.createStatement();
@@ -561,7 +562,7 @@ public class DataAccessDB implements DataAccess {
     public void setDayScheduleMeal(Date date, DaySchedule.Meal meal, Recipe recipe) {
         Statement statement;
         ResultSet recipeExists;
-        String dateKey = CalendarUtils.formattedDate(date);
+        String dateKey = getDateFormatted(date);
         String mealToUpdate;
 
         try {
@@ -595,7 +596,7 @@ public class DataAccessDB implements DataAccess {
     @Override
     public void setDayScheduleMealNull(Date date, DaySchedule.Meal meal) {
         Statement statement;
-        String dateKey = CalendarUtils.formattedDate(date);
+        String dateKey = getDateFormatted(date);
 
         try {
             statement = connection.createStatement();
@@ -641,5 +642,9 @@ public class DataAccessDB implements DataAccess {
                 break;
         }
         return unit;
+    }
+
+    private String getDateFormatted(Date date) {
+        return new SimpleDateFormat("yyy-MM-dd").format(date);
     }
 }
