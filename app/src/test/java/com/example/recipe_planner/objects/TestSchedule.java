@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNotNull;
 
 import com.example.recipe_planner.utils.CalendarUtils;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -16,7 +17,8 @@ public class TestSchedule {
     private Schedule schedule;
     private Date today;
 
-    protected void init() {
+    @Before
+    public void init() {
         schedule = new Schedule();
         today = Calendar.getInstance().getTime();
     }

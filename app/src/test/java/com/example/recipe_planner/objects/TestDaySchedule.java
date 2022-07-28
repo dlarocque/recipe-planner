@@ -9,6 +9,7 @@ import com.example.recipe_planner.objects.measurements.ConvertibleUnit;
 import com.example.recipe_planner.objects.measurements.Count;
 import com.example.recipe_planner.objects.measurements.Unit;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -20,7 +21,8 @@ public class TestDaySchedule {
     private Recipe thirdValidRecipe;
     private DaySchedule daySchedule;
 
-    protected void init() {
+    @Before
+    public void init() {
         String firstValidRecipeName = "secret cocktail";
         String firstValidRecipeInstructions = "mix well, bring to a boil and enjoy! Serves 3.";
         ArrayList<Ingredient> firstValidRecipeIngredients =
