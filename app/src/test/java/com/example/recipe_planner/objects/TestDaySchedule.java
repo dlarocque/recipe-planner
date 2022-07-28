@@ -75,7 +75,6 @@ public class TestDaySchedule {
 
     @Test
     public void TestTypicalDaySchedule() {
-        init();
 
         Recipe breakfast = firstValidRecipe;
         daySchedule.setMeal(DaySchedule.Meal.BREAKFAST, breakfast);
@@ -101,7 +100,6 @@ public class TestDaySchedule {
 
     @Test
     public void TestRescheduledMeal() {
-        init();
 
         Recipe meal = firstValidRecipe;
         Recipe replacement = secondValidRecipe;
@@ -114,7 +112,6 @@ public class TestDaySchedule {
 
     @Test
     public void TestScheduledRecipeEdit() {
-        init();
 
         Recipe meal = firstValidRecipe;
         String updatedName = "New Name";
@@ -126,7 +123,6 @@ public class TestDaySchedule {
 
     @Test
     public void TestSameRecipeDifferentDay() {
-        init();
 
         Recipe meal = firstValidRecipe;
         daySchedule.setMeal(DaySchedule.Meal.BREAKFAST, meal);
@@ -140,7 +136,6 @@ public class TestDaySchedule {
 
     @Test
     public void TestSameRecipeDifferentDayEdited() {
-        init();
 
         Recipe meal = firstValidRecipe;
         daySchedule.setMeal(DaySchedule.Meal.BREAKFAST, meal);
@@ -158,7 +153,6 @@ public class TestDaySchedule {
 
     @Test
     public void TestSameRecipeOneDay() {
-        init();
 
         Recipe meal = firstValidRecipe;
         daySchedule.setMeal(DaySchedule.Meal.BREAKFAST, meal);
@@ -171,7 +165,6 @@ public class TestDaySchedule {
 
     @Test
     public void TestSameRecipeOneDayEdited() {
-        init();
 
         Recipe meal = firstValidRecipe;
         daySchedule.setMeal(DaySchedule.Meal.BREAKFAST, meal);
@@ -188,7 +181,6 @@ public class TestDaySchedule {
 
     @Test
     public void TestNullRecipeScheduled() {
-        init();
 
         Recipe meal = null;
         daySchedule.setMeal(DaySchedule.Meal.BREAKFAST, meal);
@@ -198,7 +190,6 @@ public class TestDaySchedule {
 
     @Test
     public void TestRescheduleMealNull() {
-        init();
 
         Recipe meal = firstValidRecipe;
         daySchedule.setMeal(DaySchedule.Meal.BREAKFAST, meal);

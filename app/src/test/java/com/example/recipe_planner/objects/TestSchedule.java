@@ -34,8 +34,6 @@ public class TestSchedule {
 
     @Test
     public void TestDuplicateSchedulesDifferentDays() {
-        init();
-
         int dayIncrement = 1;
         Date tomorrow = CalendarUtils.incrementDay(today, dayIncrement);
 
@@ -50,7 +48,6 @@ public class TestSchedule {
 
     @Test
     public void TestUpdatedSchedule() {
-        init();
 
         DaySchedule daySchedule = schedule.getDayScheduleOrDefault(today);
         DaySchedule updatedSchedule = new DaySchedule();
@@ -65,7 +62,6 @@ public class TestSchedule {
 
     @Test
     public void TestGetScheduleFromNewDay() {
-        init();
 
         int dayIncrement = 1;
         Date tomorrow = CalendarUtils.incrementDay(today, dayIncrement);
@@ -77,7 +73,6 @@ public class TestSchedule {
 
     @Test
     public void TestDeleteSchedule() {
-        init();
 
         DaySchedule daySchedule = schedule.getDayScheduleOrDefault(today);
         schedule.setDaySchedule(today, daySchedule);
@@ -91,7 +86,6 @@ public class TestSchedule {
 
     @Test
     public void TestFindAllScheduledRecipes() {
-        init();
 
         Recipe one = new Recipe(0, "dejeuner", null, "");
         Recipe two = new Recipe(1, "diner", null, "");
