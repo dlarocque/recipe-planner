@@ -25,7 +25,6 @@ public class TestSchedule {
 
     @Test
     public void TestTypicalSchedule() {
-        init();
 
         DaySchedule daySchedule = schedule.getDayScheduleOrDefault(today);
         schedule.setDaySchedule(today, daySchedule);
