@@ -206,6 +206,23 @@ public class DataAccessStub implements DataAccess {
     }
 
     @Override
+    public void updateIngredientUnit(int recipeID, String ingredientName, Unit newUnit, double newQuantity) {
+        for (int i = 0; i < recipes.size(); i++) {
+            if (recipes.get(i).getId() == recipeID) {
+                ArrayList<Ingredient> ingredients = recipes.get(i).getIngredients();
+                for (int k = 0; k < ingredients.size(); k++) {
+                    String compName = ingredients.get(k).getName();
+
+                    if (compName.equals(ingredientName)) {
+                        IUnit newAmount = new ConvertibleUnit(newUnit, newQuantity);
+                        ingredients.get(k).setAmount(newAmount);
+                    }
+                }
+            }
+        }
+    }
+
+    @Override
     public DaySchedule getDaySchedule(Date date) {
         return schedule.getDayScheduleOrDefault(date);
     }
