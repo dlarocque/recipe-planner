@@ -37,9 +37,12 @@ import java.util.Date;
 public class ShoppingListTest {
     private static final String testDbName = "database/RecipesTest";
     private static DataAccess dataAccess;
+
     @Rule
     public ActivityScenarioRule<MainActivity> activityRule =
             new ActivityScenarioRule<>(MainActivity.class);
+
+    Date date;
     private AccessRecipes accessRecipes;
     private AccessIngredients accessIngredients;
     private AccessSchedule accessSchedule;
@@ -51,15 +54,14 @@ public class ShoppingListTest {
         accessIngredients = new AccessIngredients();
         accessSchedule = new AccessSchedule();
         dataAccess.reset();
+        date = Calendar.getInstance().getTime();
     }
 
     @After
     public void tearDown() {}
 
-    public void scheduleMeal() {
-        Recipe recipe = accessRecipes.getRecipes().get(0);
-        Date date = Calendar.getInstance().getTime();
-        accessSchedule.setMeal(date, DaySchedule.Meal.BREAKFAST, recipe);
+    public void scheduleMeal(Recipe recipe, DaySchedule.Meal meal) {
+        accessSchedule.setMeal(date, meal, recipe);
     }
 
     public void navigateToShoppingListView() {
@@ -67,21 +69,36 @@ public class ShoppingListTest {
     }
 
     @Test
-    public void viewingShoppingListTest() {
-        ArrayList<Recipe> recipes = dataAccess.getScheduledRecipes();
-        ArrayList<Ingredient> ingredientList = new ArrayList<>();
+    public void viewScheduledMealTest() {
+        ArrayList<Recipe> recipes = (ArrayList<Recipe>) accessRecipes.getRecipes();
+        Recipe recipe = recipes.get(0);
 
-        for (Recipe recipe : recipes) {
-            ingredientList.addAll(recipe.getIngredients());
-        }
-
-        scheduleMeal();
+        scheduleMeal(recipe, DaySchedule.Meal.BREAKFAST);
         navigateToShoppingListView();
 
         onView(withId(R.id.ingredientShoppingList)).check(matches(isDisplayed()));
 
-        for (Ingredient ingredientInList : ingredientList) {
-            onView(withText(ingredientInList.getName())).check(matches(isDisplayed()));
+        for (Ingredient ingredient : recipe.getIngredients()) {
+            onView(withText(ingredient.getName())).check(matches(isDisplayed()));
+        }
+    }
+
+    @Test
+    public void viewNonOverlappingScheduledMealTest() {
+        ArrayList<Recipe> recipes = (ArrayList<Recipe>) accessRecipes.getRecipes();
+        // The first two meals in the list have non-overlapping ingredients
+        Recipe firstRecipe = recipes.get(0);
+        Recipe secondRecipe = recipes.get(1);
+
+        scheduleMeal(firstRecipe, DaySchedule.Meal.BREAKFAST);
+        scheduleMeal(secondRecipe, DaySchedule.Meal.LUNCH);
+        navigateToShoppingListView();
+
+        ArrayList<Ingredient> ingredients = firstRecipe.getIngredients();
+        ingredients.addAll(secondRecipe.getIngredients());
+
+        for (Ingredient ingredient : ingredients) {
+            onView(withText(ingredient.getName())).check(matches(isDisplayed()));
         }
     }
 }
