@@ -14,7 +14,9 @@ import com.example.recipe_planner.objects.measurements.Count;
 import com.example.recipe_planner.objects.measurements.Unit;
 
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -26,16 +28,24 @@ public class DataAccessTest {
     private static final double DELTA = 0.001;
     private DataAccess dataAccess;
 
+    @BeforeClass
+    public static void beginTests() {
+        System.out.println("Starting Persistence Tests");
+    }
+
+    @AfterClass
+    public static void completeTests() {
+        System.out.println("Finished Persistence Tests");
+    }
+
     @Before
     public void setUp() {
-        System.out.println("\nStarting Persistence test DataAccess");
         dataAccess = new DataAccessStub();
         dataAccess.open(Main.dbName);
     }
 
     @After
     public void tearDown() {
-        System.out.println("Finished Persistence test DataAccess (using stub)");
         Services.closeDataAccess();
     }
 

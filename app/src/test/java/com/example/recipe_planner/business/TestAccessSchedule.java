@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import com.example.recipe_planner.application.Main;
 import com.example.recipe_planner.application.Services;
@@ -27,29 +28,20 @@ public class TestAccessSchedule {
 
     @Before
     public void setUp() {
-        System.out.println("\nStarting Persistence test DataAccess");
         dataAccess = new DataAccessStub();
         dataAccess.open(Main.dbName);
         Services.createDataAccess(dataAccess);
         accessSchedule = new AccessSchedule();
+        today = Calendar.getInstance().getTime();
     }
 
     @After
     public void tearDown() {
-        System.out.println("Finished Persistence test DataAccess (using stub)");
         dataAccess.close();
     }
 
-    public void init() {
-        dataAccess.open(Main.dbName);
-        accessSchedule = new AccessSchedule();
-        today = Calendar.getInstance().getTime();
-    }
-
     @Test
-    public void TestValidSchedules() {
-        init();
-
+    public void testValidSchedules() {
         // New schedules do not have any meals scheduled
         DaySchedule daySchedule = accessSchedule.getDayScheduleOrDefault(today);
         assertNotNull(daySchedule);
@@ -73,10 +65,53 @@ public class TestAccessSchedule {
     }
 
     @Test
-    public void TestUpdateNonExistingSchedule() {
-        init();
+    public void testOverwriteMeal() {
+        Recipe oldMeal = dataAccess.getRecipe(1);
+        Recipe newMeal = dataAccess.getRecipe(2);
 
+        // set today's lunch to a meal
+        accessSchedule.setMeal(today, DaySchedule.Meal.LUNCH, oldMeal);
         DaySchedule daySchedule = accessSchedule.getDayScheduleOrDefault(today);
+
+        assertEquals(oldMeal, daySchedule.getMeal(DaySchedule.Meal.LUNCH));
+
+        // overwrite today's lunch with a new meal
+        accessSchedule.setMeal(today, DaySchedule.Meal.LUNCH, newMeal);
+        daySchedule = accessSchedule.getDayScheduleOrDefault(today);
+
+        assertEquals(newMeal, daySchedule.getMeal(DaySchedule.Meal.LUNCH));
+    }
+
+    @Test
+    public void testOverwriteWithNullMeal() {
+        Recipe oldMeal = dataAccess.getRecipe(1);
+
+        // set today's lunch to a meal
+        accessSchedule.setMeal(today, DaySchedule.Meal.LUNCH, oldMeal);
+        DaySchedule daySchedule = accessSchedule.getDayScheduleOrDefault(today);
+
+        assertEquals(oldMeal, daySchedule.getMeal(DaySchedule.Meal.LUNCH));
+
+        // overwrite today's lunch with a new meal
+        accessSchedule.setMeal(today, DaySchedule.Meal.LUNCH, null);
+        daySchedule = accessSchedule.getDayScheduleOrDefault(today);
+
+        assertNull(daySchedule.getMeal(DaySchedule.Meal.LUNCH));
+    }
+
+    @Test
+    public void testRemoveNonExistingMeal() {
+        DaySchedule daySchedule = accessSchedule.getDayScheduleOrDefault(today);
+        assertNull(daySchedule.getMeal(DaySchedule.Meal.BREAKFAST));
+
+        accessSchedule.descheduleMeal(today, DaySchedule.Meal.BREAKFAST);
+        daySchedule = accessSchedule.getDayScheduleOrDefault(today);
+        assertNull(daySchedule.getMeal(DaySchedule.Meal.BREAKFAST));
+    }
+
+    @Test
+    public void testUpdateNonExistingSchedule() {
+        DaySchedule daySchedule;
         Recipe recipe = dataAccess.getRecipe(0);
 
         // Schedules are still updated even if they don't exist yet

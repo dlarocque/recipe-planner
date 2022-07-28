@@ -7,6 +7,7 @@ import com.example.recipe_planner.objects.Recipe;
 import com.example.recipe_planner.objects.Schedule;
 import com.example.recipe_planner.objects.measurements.ConvertibleUnit;
 import com.example.recipe_planner.objects.measurements.Count;
+import com.example.recipe_planner.objects.measurements.IUnit;
 import com.example.recipe_planner.objects.measurements.Unit;
 import com.example.recipe_planner.presentation.MealSchedule;
 import com.example.recipe_planner.utils.CalendarUtils;
@@ -29,9 +30,11 @@ public class DataAccessStub implements DataAccess {
 
     public void open(String dbPath) {
         initData();
+        System.out.println("Opened Stub database");
     }
 
     public void close() {
+        System.out.println("Closed Stub database");
     }
 
     public void reset() {
@@ -120,26 +123,36 @@ public class DataAccessStub implements DataAccess {
                 ArrayList<Ingredient> ingredients = recipes.get(i).getIngredients();
                 for (int k = 0; k < ingredients.size(); k++) {
                     String compName = ingredients.get(k).getName();
-                    double compQuantity = ingredients.get(k).getAmount();
-                    String unit = ingredients.get(k).getUnit().getClass().getSimpleName();
 
                     if (compName.equals(ingredientName)) {
-                        ConvertibleUnit newUnit;
+                        IUnit newUnit;
+
+                        // take only the unit part of the string
+                        String unit = ingredients.get(k).getUnit().toString();
+                        String[] split = unit.split(" ");
+                        unit = split[split.length - 1];
+
                         switch (unit) {
                             case "CUP":
-                                newUnit = new ConvertibleUnit(Unit.CUP, compQuantity);
+                                newUnit = new ConvertibleUnit(Unit.CUP, quantity);
+                                break;
                             case "ML":
-                                newUnit = new ConvertibleUnit(Unit.ML, compQuantity);
+                                newUnit = new ConvertibleUnit(Unit.ML, quantity);
+                                break;
                             case "GRAM":
-                                newUnit = new ConvertibleUnit(Unit.GRAM, compQuantity);
+                                newUnit = new ConvertibleUnit(Unit.GRAM, quantity);
+                                break;
                             case "OUNCE":
-                                newUnit = new ConvertibleUnit(Unit.OUNCE, compQuantity);
+                                newUnit = new ConvertibleUnit(Unit.OUNCE, quantity);
+                                break;
                             case "TSP":
-                                newUnit = new ConvertibleUnit(Unit.TSP, compQuantity);
+                                newUnit = new ConvertibleUnit(Unit.TSP, quantity);
+                                break;
                             case "TBSP":
-                                newUnit = new ConvertibleUnit(Unit.TBSP, compQuantity);
+                                newUnit = new ConvertibleUnit(Unit.TBSP, quantity);
+                                break;
                             default:
-                                newUnit = new ConvertibleUnit(null, compQuantity);
+                                newUnit = new Count(quantity);
                         }
                         ingredients.get(k).setAmount(newUnit);
                     }

@@ -20,6 +20,6 @@ public class EditRecipeTest {
     // TODO: Add tests
     @Test
     public void SampleScenarioTest() {
-        assert(true);
+        assert (true);
     }
 }

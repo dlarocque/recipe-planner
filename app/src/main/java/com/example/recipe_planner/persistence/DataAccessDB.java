@@ -1,7 +1,5 @@
 package com.example.recipe_planner.persistence;
 
-import android.util.Log;
-
 import com.example.recipe_planner.objects.DaySchedule;
 import com.example.recipe_planner.objects.Ingredient;
 import com.example.recipe_planner.objects.Recipe;
@@ -93,8 +91,8 @@ public class DataAccessDB implements DataAccess {
         "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Sweet Honey French Bread'), (SELECT ID FROM INGREDIENTS WHERE NAME='Water'), 0.75, 'CUP')\n"
                 + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Sweet Honey French Bread'), (SELECT ID FROM INGREDIENTS WHERE NAME='Honey'), 2, 'TSP')\n"
                 + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Sweet Honey French Bread'), (SELECT ID FROM INGREDIENTS WHERE NAME='Olive Oil'), 2, 'TSP')\n"
-                + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Sweet Honey French Bread'), (SELECT ID FROM INGREDIENTS WHERE NAME='Salt'), 2/3, 'TSP')\n"
-                + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Sweet Honey French Bread'), (SELECT ID FROM INGREDIENTS WHERE NAME='White Sugar'), 2/3, 'TSP')\n"
+                + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Sweet Honey French Bread'), (SELECT ID FROM INGREDIENTS WHERE NAME='Salt'), 0.66, 'TSP')\n"
+                + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Sweet Honey French Bread'), (SELECT ID FROM INGREDIENTS WHERE NAME='White Sugar'), 0.66, 'TSP')\n"
                 + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Sweet Honey French Bread'), (SELECT ID FROM INGREDIENTS WHERE NAME='Bread Flour'), 2, 'CUP')\n"
                 + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Sweet Honey French Bread'), (SELECT ID FROM INGREDIENTS WHERE NAME='Active Yeast'), 1.5, 'TSP')",
         "INSERT INTO INGREDIENTS VALUES (NULL, 'Unpeeled Potato')\n"
@@ -117,8 +115,8 @@ public class DataAccessDB implements DataAccess {
                 + "INSERT INTO INGREDIENTS VALUES (NULL, 'Butter')",
         "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Heirloom Apple Pie'), (SELECT ID FROM INGREDIENTS WHERE NAME='Pastry Double Crust Pie'), 1, 'COUNT')\n"
                 + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Heirloom Apple Pie'), (SELECT ID FROM INGREDIENTS WHERE NAME='Apple'), 6, 'COUNT')\n"
-                + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Heirloom Apple Pie'), (SELECT ID FROM INGREDIENTS WHERE NAME='White Sugar'), 1/3, 'CUP')\n"
-                + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Heirloom Apple Pie'), (SELECT ID FROM INGREDIENTS WHERE NAME='Brown Sugar'), 1/3, 'CUP')\n"
+                + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Heirloom Apple Pie'), (SELECT ID FROM INGREDIENTS WHERE NAME='White Sugar'), 0.33, 'CUP')\n"
+                + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Heirloom Apple Pie'), (SELECT ID FROM INGREDIENTS WHERE NAME='Brown Sugar'), 0.33, 'CUP')\n"
                 + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Heirloom Apple Pie'), (SELECT ID FROM INGREDIENTS WHERE NAME='Flour'), 2, 'TSP')\n"
                 + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Heirloom Apple Pie'), (SELECT ID FROM INGREDIENTS WHERE NAME='Cinnamon'), 1, 'TSP')\n"
                 + "INSERT INTO RECIPEINGREDIENTS VALUES((SELECT ID FROM RECIPES WHERE NAME='Heirloom Apple Pie'), (SELECT ID FROM INGREDIENTS WHERE NAME='Butter'), 1, 'TBSP')"
@@ -128,7 +126,6 @@ public class DataAccessDB implements DataAccess {
         "DAY_SCHEDULES", "RECIPEINGREDIENTS", "INGREDIENTS", "RECIPES"
     };
 
-    private final String TAG = this.getClass().getSimpleName();
     private Connection connection;
 
     public DataAccessDB() {}
@@ -141,15 +138,18 @@ public class DataAccessDB implements DataAccess {
             url = "jdbc:hsqldb:file:" + dbPath; // stored on disk mode
             connection = DriverManager.getConnection(url, "SA", "");
 
-            reset(); // TODO: Conditionally reset?
+            // if the database is empty, reset to its initial contents.
+            if (isRecipesEmpty()) {
+                reset();
+            }
         } catch (SQLException
                 | ClassNotFoundException
                 | IllegalAccessException
                 | InstantiationException exception) {
-            Log.e(TAG, "Failed to open HSQLDB");
             exception.printStackTrace();
+            System.out.println("Failed to open HSQLDB");
         }
-        Log.i(TAG, "Successfully opened HSQLDB database at " + dbPath);
+        System.out.println("Opened HSQLDB database at " + dbPath);
     }
 
     public void close() {
@@ -159,10 +159,10 @@ public class DataAccessDB implements DataAccess {
             statement.executeQuery("SHUTDOWN COMPACT");
             connection.close();
         } catch (SQLException sqlException) {
-            Log.e(TAG, "Failed to close HSQLDB");
+            System.out.println("Failed to close HSQLDB");
             sqlException.printStackTrace();
         }
-        Log.i(TAG, "Closed HSQLDB database");
+        System.out.println("Closed HSQLDB database");
     }
 
     public void reset() {
@@ -190,9 +190,30 @@ public class DataAccessDB implements DataAccess {
             for (String script : populateScript) {
                 statement.executeUpdate(script);
             }
+            statement.close();
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
         }
+    }
+
+    // returns true if
+    private boolean isRecipesEmpty() {
+        Statement checkEmpty;
+        ResultSet result;
+        boolean isEmpty = false;
+
+        try {
+            checkEmpty = connection.createStatement();
+            result = checkEmpty.executeQuery("SELECT * FROM RECIPES;");
+
+            if (!result.next()) {
+                isEmpty = true;
+            }
+            checkEmpty.close();
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+        }
+        return isEmpty;
     }
 
     @Override
@@ -221,12 +242,12 @@ public class DataAccessDB implements DataAccess {
 
                 recipe = new Recipe(recipeId, recipeName, ingredients, instructions, isDefault);
             } else {
-                Log.w(TAG, "Recipe with id " + recipeId + " does not work");
+                System.out.println("Recipe with id " + recipeId + " does not work");
             }
             recipeResult.close();
             statement.close();
         } catch (SQLException sqlException) {
-            Log.e(TAG, "Failed to get recipe with id " + recipeId);
+            System.out.println("Failed to get recipe with id " + recipeId);
             sqlException.printStackTrace();
         }
 
@@ -235,7 +256,7 @@ public class DataAccessDB implements DataAccess {
 
     @Override
     public List<Recipe> getRecipes() {
-        ArrayList<Recipe> recipes = new ArrayList<>();
+        ArrayList<Recipe> recipes = null;
         ArrayList<Ingredient> ingredients;
         int recipeId;
         String recipeName, instructions;
@@ -249,6 +270,7 @@ public class DataAccessDB implements DataAccess {
             statement = connection.createStatement();
             allRecipes = statement.executeQuery("SELECT * FROM RECIPES");
 
+            recipes = new ArrayList<>();
             while (allRecipes.next()) {
                 // Get all the components of a recipe, create a recipe, and add it to our list of
                 // recipes
@@ -266,7 +288,7 @@ public class DataAccessDB implements DataAccess {
             allRecipes.close();
             statement.close();
         } catch (SQLException sqlException) {
-            Log.e(TAG, "Failed to get all recipes from HSQLDB");
+            System.out.println("Failed to get all recipes from HSQLDB");
             sqlException.printStackTrace();
         }
 
@@ -314,7 +336,7 @@ public class DataAccessDB implements DataAccess {
             allRecipes.close();
             statement.close();
         } catch (SQLException sqlException) {
-            Log.e(TAG, "Failed to get recipes searched by partial name from HSQLDB");
+            System.out.println("Failed to get recipes searched by partial name from HSQLDB");
             sqlException.printStackTrace();
         }
 
@@ -343,7 +365,7 @@ public class DataAccessDB implements DataAccess {
             ingredients = new ArrayList<>();
             while (recipeIngredients.next()) {
                 ingredientId = recipeIngredients.getInt("INGREDIENTID");
-                quantity = recipeIngredients.getFloat("QUANTITY");
+                quantity = recipeIngredients.getDouble("QUANTITY");
                 unit = recipeIngredients.getString("UNIT");
                 name = null;
 
@@ -353,8 +375,7 @@ public class DataAccessDB implements DataAccess {
                 if (ingredientName.next()) {
                     name = ingredientName.getString("NAME");
                 } else {
-                    Log.w(
-                            TAG,
+                    System.out.println(
                             "Ingredient name for id "
                                     + ingredientId
                                     + " was not found in database");
@@ -364,9 +385,10 @@ public class DataAccessDB implements DataAccess {
                 ingredients.add(ingredient);
             }
 
+            recipeIngredients.close();
             statement.close();
         } catch (SQLException sqlException) {
-            Log.e(TAG, "Failed to retrieve ingredients for recipe with id " + recipeId);
+            System.out.println("Failed to retrieve ingredients for recipe with id " + recipeId);
             sqlException.printStackTrace();
         }
 
@@ -530,7 +552,7 @@ public class DataAccessDB implements DataAccess {
 
                 daySchedule = new DaySchedule(breakfast, lunch, dinner);
             }
-
+            statement.close();
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
         }
@@ -584,8 +606,9 @@ public class DataAccessDB implements DataAccess {
                     "INSERT INTO DAY_SCHEDULES (DAY, BREAKFAST_RECIPE_ID, LUNCH_RECIPE_ID, DINNER_RECIPE_ID) VALUES('"
                             + dateKey
                             + "', NULL, NULL, NULL)");
+            statement.close();
         } catch (SQLException sqlException) {
-            Log.e(TAG, "Failed to insert day schedule");
+            System.out.println("Failed to insert day schedule");
             sqlException.printStackTrace();
         }
     }
@@ -618,8 +641,9 @@ public class DataAccessDB implements DataAccess {
                             + "WHERE DAY='"
                             + dateKey
                             + "';");
+            statement.close();
         } catch (SQLException sqlException) {
-            Log.e(TAG, "Failed to set day schedule meal for day " + dateKey);
+            System.out.println("Failed to set day schedule meal for day " + dateKey);
             sqlException.printStackTrace();
         }
     }
@@ -639,37 +663,39 @@ public class DataAccessDB implements DataAccess {
                             + "WHERE DAY='"
                             + dateKey
                             + "';");
+            statement.close();
         } catch (SQLException sqlException) {
-            Log.e(TAG, "Failed to set day schedule meal for day " + dateKey);
+            System.out.println("Failed to set day schedule meal for day " + dateKey);
             sqlException.printStackTrace();
         }
     }
 
-    private IUnit unitFactory(String unit, double quantity) {
-        Unit type = null;
+    private IUnit unitFactory(String unitName, double quantity) {
+        IUnit unit = null;
 
-        switch (unit) {
+        switch (unitName) {
             case "CUP":
-                type = Unit.CUP;
+                unit = new ConvertibleUnit(Unit.CUP, quantity);
                 break;
             case "ML":
-                type = Unit.ML;
+                unit = new ConvertibleUnit(Unit.ML, quantity);
                 break;
             case "GRAM":
-                type = Unit.GRAM;
+                unit = new ConvertibleUnit(Unit.GRAM, quantity);
                 break;
             case "OUNCE":
-                type = Unit.OUNCE;
+                unit = new ConvertibleUnit(Unit.OUNCE, quantity);
                 break;
             case "TSP":
-                type = Unit.TSP;
+                unit = new ConvertibleUnit(Unit.TSP, quantity);
                 break;
             case "TBSP":
-                type = Unit.TBSP;
+                unit = new ConvertibleUnit(Unit.TBSP, quantity);
                 break;
             default:
-                return new Count(quantity);
+                unit = new Count(quantity);
+                break;
         }
-        return new ConvertibleUnit(type, quantity);
+        return unit;
     }
 }
