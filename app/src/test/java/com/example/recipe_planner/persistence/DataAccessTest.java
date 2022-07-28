@@ -221,6 +221,9 @@ public class DataAccessTest {
             ingredient = ingredients.get(0);
             dataAccess.updateIngredientQuantity(10, 45.0, ingredient.getName());
             assertEquals(45.0, ingredient.getAmount(), DELTA);
+
+            dataAccess.updateIngredientUnit(10, ingredient.getName(), Unit.TSP, 40.5);
+            assertTrue(ingredient.getUnit().toString().equalsIgnoreCase("40.5 TSP"));
         } catch (Exception e) {
             System.out.println("Null/invalid recipe's ingredients cannot be modified.");
         }
@@ -235,6 +238,9 @@ public class DataAccessTest {
             // modify the ingredients in a valid recipe with invalid inputs, this won't change the
             // data
             dataAccess.updateIngredientQuantity(1, testDouble, ingredient.getName());
+            assertEquals(2.0, ingredient.getAmount(), DELTA);
+
+            dataAccess.updateIngredientUnit(1, ingredient.getName(), Unit.TBSP, testDouble);
             assertEquals(2.0, ingredient.getAmount(), DELTA);
         } catch (NumberFormatException n) {
             System.out.println(
@@ -256,6 +262,8 @@ public class DataAccessTest {
         ingredient = ingredients.get(0);
         dataAccess.updateIngredientQuantity(0, 45.0, ingredient.getName());
         assertEquals(45.0, ingredient.getAmount(), DELTA);
+        dataAccess.updateIngredientUnit(0, ingredient.getName(), Unit.TSP, 40.5);
+        assertTrue(ingredient.getUnit().toString().equalsIgnoreCase("40.5 TSP"));
 
         // get second default recipe
         ingredients = dataAccess.getRecipeIngredients(1);
@@ -266,6 +274,8 @@ public class DataAccessTest {
         // modify the ingredients in a valid recipe with valid quantities
         dataAccess.updateIngredientQuantity(1, testDouble, ingredient.getName());
         assertEquals(2.0, ingredient.getAmount(), DELTA);
+        dataAccess.updateIngredientUnit(10, ingredient.getName(), Unit.TSP, testDouble);
+        assertTrue(ingredient.getUnit().toString().equalsIgnoreCase(testDouble + " TSP"));
     }
 
     @Test

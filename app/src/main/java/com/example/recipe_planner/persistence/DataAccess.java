@@ -3,6 +3,7 @@ package com.example.recipe_planner.persistence;
 import com.example.recipe_planner.objects.DaySchedule;
 import com.example.recipe_planner.objects.Ingredient;
 import com.example.recipe_planner.objects.Recipe;
+import com.example.recipe_planner.objects.measurements.Unit;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -31,6 +32,8 @@ public interface DataAccess {
     void updateIngredientQuantity(int recipeID, double quantity, String ingredientName);
 
     void updateIngredientName(int recipeID, String newName, String ingredientName);
+
+    void updateIngredientUnit(int recipeID, String ingredientName, Unit newUnit, double newQuantity);
 
     DaySchedule getDaySchedule(Date date);
 

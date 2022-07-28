@@ -27,4 +27,13 @@
     <string name="no_meal_scheduled">No Meal Scheduled</string>
     <string name="search_label">Search</string>
     <string name="search_hint">Search for Recipes</string>
+    <string-array name="units_dropdown">
+        <item>UNITS</item>
+        <item>CUP</item>
+        <item>GRAM</item>
+        <item>ML</item>
+        <item>OUNCE</item>
+        <item>TBSP</item>
+        <item>TSP</item>
+    </string-array>
 </resources>
