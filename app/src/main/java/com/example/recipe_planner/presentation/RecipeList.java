@@ -251,8 +251,10 @@ public class RecipeList extends Fragment
 
         if (userIngredients != null) {
             for (Ingredient i : userIngredients) {
-                if(!accessIngredients.addIngredient(i))
-                    break;
+                if (!accessIngredients.checkIngredientExists(i.getName())) {
+                    if (!accessIngredients.addIngredient(i))
+                        break;
+                }
             }
             ingredientInsert = true;
         }
@@ -263,8 +265,6 @@ public class RecipeList extends Fragment
             recipeInsert = accessRecipes.addRecipe(recipe);
 
             if (recipeInsert) {
-                recipes.add(recipe);
-
                 tempRecipes = accessRecipes.getRecipesWithPartialName(recipeName);
 
                 if (recipes != null) {
@@ -274,6 +274,9 @@ public class RecipeList extends Fragment
                     }
 
                     recipeIngredientInsert = true;
+
+                    recipes.add(recipe);
+                    recipes = accessRecipes.getRecipes();
                 }
             }
         }
