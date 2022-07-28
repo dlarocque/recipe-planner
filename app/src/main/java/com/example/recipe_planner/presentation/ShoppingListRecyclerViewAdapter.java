@@ -39,7 +39,9 @@ public class ShoppingListRecyclerViewAdapter
                 Ingredient recipeIngredient = recipeIngredients.get(j);
                 boolean found = false;
                 for (int k = 0; k < gatherIngredients.size() && !found; k++) {
-                    if (recipeIngredient.getName().equalsIgnoreCase(gatherIngredients.get(k).getName())) {
+                    if (recipeIngredient
+                            .getName()
+                            .equalsIgnoreCase(gatherIngredients.get(k).getName())) {
                         Ingredient shoppingIngredient = gatherIngredients.get(k);
                         shoppingIngredient.setAmount(
                                 new ConvertibleUnit(
@@ -81,10 +83,9 @@ public class ShoppingListRecyclerViewAdapter
                     ((ConvertibleUnit) ingredientToDisplay.getUnit()).convertTo(Unit.ML) + " ML";
         }
         String[] parts = unitToDisplay.split(" ");
-        if(parts.length > 1){
+        if (parts.length > 1) {
             unitToDisplay = parts[1];
-        }
-        else{
+        } else {
             unitToDisplay = parts[0];
         }
         holder.shoppingIngredientUnit.setText(unitToDisplay);

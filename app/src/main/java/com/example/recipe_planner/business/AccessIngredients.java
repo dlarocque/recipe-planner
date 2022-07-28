@@ -17,4 +17,12 @@ public class AccessIngredients {
     public void updateIngredientQuantity(int recipeID, Double quantity, String ingredientName) {
         dataAccess.updateIngredientQuantity(recipeID, quantity, ingredientName);
     }
+
+    public void updateIngredientName(int recipeID, String newName, String ingredientName) {
+        dataAccess.updateIngredientName(recipeID, newName, ingredientName);
+    }
+
+    public void updateIngredientUnit(int recipeID, String unit, String ingredientName) {
+        dataAccess.updateIngredientUnit(recipeID, unit, ingredientName);
+    }
 }
