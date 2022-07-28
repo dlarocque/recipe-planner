@@ -36,7 +36,6 @@ public class TestAccessRecipes {
 
     @After
     public void tearDown() {
-
         dataAccess.close();
     }
 
