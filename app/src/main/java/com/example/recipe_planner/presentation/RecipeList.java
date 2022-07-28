@@ -94,8 +94,8 @@ public class RecipeList extends Fragment
         Context context = view.getContext();
         RecyclerView recyclerView = view.findViewById(R.id.recipeList);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        recyclerView.setAdapter(
-                new RecipeRecyclerViewAdapter(recipes, this, this));
+        RecipeRecyclerViewAdapter adapter = new RecipeRecyclerViewAdapter(recipes, this, this);
+        recyclerView.setAdapter(adapter);
 
         Button createRecipeButton = (Button) view.findViewById(R.id.NewRecipe);
         createRecipeButton.setOnClickListener(new View.OnClickListener() {
@@ -146,6 +146,7 @@ public class RecipeList extends Fragment
 
                         if (insertUserRecipe(nameString, inputIngredients, instructionString)) {
                             alert.setTitle("Recipe Created Successfully");
+                            adapter.updateData();
                         }
                         else
                             alert.setTitle( "Recipe Insertion Failed" );
@@ -243,7 +244,7 @@ public class RecipeList extends Fragment
 
     public boolean insertUserRecipe(String recipeName, ArrayList<Ingredient> userIngredients, String userInstructions) {
         Recipe recipe;
-        List<Recipe> recipes;
+        List<Recipe> tempRecipes;
         boolean ingredientInsert = false;
         boolean recipeInsert = false;
         boolean recipeIngredientInsert = false;
@@ -262,11 +263,13 @@ public class RecipeList extends Fragment
             recipeInsert = accessRecipes.addRecipe(recipe);
 
             if (recipeInsert) {
-                recipes = accessRecipes.getRecipesWithPartialName(recipeName);
+                recipes.add(recipe);
+
+                tempRecipes = accessRecipes.getRecipesWithPartialName(recipeName);
 
                 if (recipes != null) {
                     for (Ingredient i : userIngredients) {
-                        if(!accessRecipes.addRecipeIngredient(i, recipes.get(0)))
+                        if(!accessRecipes.addRecipeIngredient(i, tempRecipes.get(0)))
                             break;
                     }
 
