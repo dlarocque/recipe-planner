@@ -5,10 +5,15 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,6 +24,8 @@ import com.example.recipe_planner.business.AccessRecipes;
 import com.example.recipe_planner.databinding.FragmentEditIngredientItemBinding;
 import com.example.recipe_planner.objects.Ingredient;
 import com.example.recipe_planner.objects.Recipe;
+import com.example.recipe_planner.objects.measurements.ConvertibleUnit;
+import com.example.recipe_planner.objects.measurements.Unit;
 
 import java.util.List;
 import java.util.Locale;
@@ -57,8 +64,18 @@ public class EditIngredientListRecyclerViewAdapter
         Double ingredientAmount = ingredientToDisplay.getAmount();
         String unitName = getUnitString(ingredientToDisplay);
         holder.name.setText(ingredientToDisplay.getName());
-        holder.quantity.setText(String.format(Locale.getDefault(),"%.2f", ingredientAmount));
-        holder.unit.setText(unitName);
+        holder.quantity.setText(String.format(Locale.getDefault(), "%.2f", ingredientAmount));
+
+        ArrayAdapter<CharSequence> adapter =
+                ArrayAdapter.createFromResource(
+                        holder.unit.getContext(),
+                        R.array.units_dropdown,
+                        android.R.layout.simple_spinner_dropdown_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        holder.unit.setAdapter(adapter);
+        if (!unitName.equalsIgnoreCase("Units")) {
+            holder.unit.setSelection(adapter.getPosition(unitName));
+        }
 
         holder.quantity.addTextChangedListener(holder.quantityListener);
 
@@ -83,6 +100,36 @@ public class EditIngredientListRecyclerViewAdapter
                     AlertDialog alertDialog = alertDialogBuilder.create();
                     alertDialog.show();
                 });
+
+        holder.unit.setOnItemSelectedListener(
+                new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(
+                            AdapterView<?> parent, View view, int position, long id) {
+                        if (!unitName.equalsIgnoreCase("Units") && ingredientToDisplay.getUnit() instanceof ConvertibleUnit) {
+                            try {
+                                double newAmount =
+                                        ((ConvertibleUnit) ingredientToDisplay.getUnit())
+                                                .convertTo(
+                                                        Unit.valueOf(
+                                                                adapter.getItem(position)
+                                                                        .toString()));
+                                holder.quantity.setText(
+                                        String.format(Locale.getDefault(), "%.2f", newAmount));
+                                accessIngredients.updateIngredientQuantity(
+                                        recipe.getId(), newAmount, ingredientToDisplay.getName());
+                            } catch (Exception e) {
+                                holder.unit.setSelection(adapter.getPosition(unitName), true);
+                                Toast.makeText(view.getContext(), "Conversion not supported", Toast.LENGTH_SHORT).show();
+                            }
+                        } else if (unitName.equalsIgnoreCase("Units")) {
+                            holder.unit.setSelection(0, true);
+                        }
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {}
+                });
     }
 
     @Override
@@ -100,10 +147,9 @@ public class EditIngredientListRecyclerViewAdapter
     public String getUnitString(Ingredient ingredient) {
         String result;
         String[] parts = ingredient.getUnit().toString().split(" ");
-        if(parts.length > 1){
+        if (parts.length > 1) {
             result = parts[1];
-        }
-        else{
+        } else {
             result = "Units";
         }
         return result;
@@ -113,7 +159,7 @@ public class EditIngredientListRecyclerViewAdapter
         public final ImageButton delete;
         public TextView name;
         public EditText quantity;
-        public TextView unit;
+        public Spinner unit;
         public QuantityEditTextListener quantityListener;
 
         public ViewHolder(
@@ -151,10 +197,9 @@ public class EditIngredientListRecyclerViewAdapter
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             double quantity;
-            try{
-            quantity = Math.abs(Double.parseDouble(charSequence.toString()));
-            }
-            catch(NumberFormatException e){
+            try {
+                quantity = Math.abs(Double.parseDouble(charSequence.toString()));
+            } catch (NumberFormatException e) {
                 quantity = 0;
             }
             Ingredient ingredientToModify = ingredients.get(position);

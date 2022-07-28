@@ -29,13 +29,13 @@
                 android:inputType="numberDecimal"
                 android:textAppearance="?attr/textAppearanceHeadline6" />
 
-            <TextView
+            <Spinner
                 android:id="@+id/ingredient_unit"
-                android:layout_width="140dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="10dp"
-                android:textAppearance="?attr/textAppearanceHeadline6" />
+                android:spinnerMode="dropdown" />
 
             <ImageButton
                 android:id="@+id/deleteIngredient"
@@ -48,6 +48,5 @@
         </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>
-
 
 </LinearLayout>
