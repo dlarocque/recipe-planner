@@ -49,6 +49,33 @@ public class Recipe {
         return this.instructions;
     }
 
+    public boolean equalIngredients(ArrayList<Ingredient> other) {
+        boolean same = true;
+
+        if (other.size() != this.ingredients.size()) { return false; };
+
+        for (int i = 0; i < this.ingredients.size(); i++) {
+            if (!other.get(i).equals(this.ingredients.get(i))){
+                same = false;
+            }
+        }
+        return same;
+    }
+
+    public boolean equals(Recipe other){
+        boolean sameIngredients;
+        boolean sameName;
+        boolean sameInstructions;
+        boolean sameDefaultStatus;
+
+        sameIngredients = equalIngredients(other.getIngredients());
+        sameName = other.getName().equalsIgnoreCase(this.name);
+        sameInstructions = other.getInstructions().equalsIgnoreCase(this.instructions);
+        sameDefaultStatus = other.isDefault() == this.isDefault;
+
+        return sameIngredients && sameName && sameInstructions && sameDefaultStatus;
+    }
+
     public void setInstructions(String instructions) {
         this.instructions = instructions;
     }

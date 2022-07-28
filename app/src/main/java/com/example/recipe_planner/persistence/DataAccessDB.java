@@ -216,6 +216,140 @@ public class DataAccessDB implements DataAccess {
     }
 
     @Override
+    public boolean addRecipe(Recipe recipe) {
+        boolean status = false;
+        int rows;
+        Statement statement;
+
+        if (recipe == null) { return false; }
+
+        try {
+            statement = connection.createStatement();
+            rows = statement.executeUpdate(
+                    "INSERT INTO RECIPES VALUES(NULL, '"
+                            + recipe.getName()
+                            + "','"
+                            + recipe.getInstructions()
+                            + "','"
+                            + recipe.isDefault()
+                            + "')");
+
+            if (rows == 1) {
+                status = true;
+            }
+            statement.close();
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+        }
+
+        return status;
+    }
+
+    @Override
+    public boolean addIngredient(Ingredient ingredient) {
+        boolean status = false;
+        int rows;
+        Statement statement;
+
+        if (ingredient == null) { return false; }
+
+        if (ingredient.getName() != null) {
+            if (!checkIngredientExists(ingredient.getName())) {
+                try {
+                    statement = connection.createStatement();
+                    rows = statement.executeUpdate("INSERT INTO INGREDIENTS VALUES(NULL, '" + ingredient.getName() + "')");
+
+                    if (rows == 1) {
+                        status = true;
+                    }
+                    statement.close();
+
+                } catch (SQLException sqlException) {
+                    sqlException.printStackTrace();
+                }
+            }
+        }
+
+        return status;
+    }
+
+    @Override
+    public boolean addRecipeIngredient(Ingredient ingredient, Recipe recipe) {
+        boolean status = false;
+        int rows, id;
+        Statement statement;
+
+        if (ingredient == null || recipe == null) {
+            return false;
+        }
+
+        // recipes with ID = -1 have not been inserted into the db
+        if (recipe.getId() != -1 && ingredient.getName() != null) {
+            try {
+                id = recipe.getId();
+
+                statement = connection.createStatement();
+                rows = statement.executeUpdate(
+                        "INSERT INTO RECIPEINGREDIENTS VALUES("
+                                + id
+                                + ","
+                                + "(SELECT ID FROM INGREDIENTS WHERE NAME='"
+                                + ingredient.getName()
+                                + "'),"
+                                + ingredient.getAmount()
+                                + ",'"
+                                + ingredient.getUnit().getClass()
+                                + "')");
+
+                if (rows == 1) {
+                    status = true;
+                }
+                statement.close();
+
+            } catch (SQLException sqlException) {
+                System.out.println("Failed to get recipes searched by partial name from HSQLDB");
+                sqlException.printStackTrace();
+            }
+        }
+
+            return status;
+    }
+
+
+    @Override
+    public boolean checkIngredientExists(String name) {
+        // check if an ingredient exists in the database
+        boolean found = true;
+        Statement statement;
+        ResultSet ingredients;
+
+        if (name == null) {
+            return false;
+        }
+
+        try {
+            statement = connection.createStatement();
+            ingredients = statement.executeQuery("SELECT * FROM INGREDIENTS WHERE LCASE(NAME) LIKE '%"
+                    + name.toLowerCase()
+                    + "%'");
+
+            if (!ingredients.next()) {
+                found = false;
+            }
+
+            ingredients.close();
+            statement.close();
+
+        } catch (SQLException sqlException) {
+            System.out.println("Failed to get recipes searched by partial name from HSQLDB");
+            sqlException.printStackTrace();
+        }
+
+        return found;
+    }
+
+
+    @Override
     public Recipe getRecipe(int recipeId) {
         Recipe recipe = null;
         Statement statement;

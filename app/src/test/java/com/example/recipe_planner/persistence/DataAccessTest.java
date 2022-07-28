@@ -20,6 +20,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class DataAccessTest {
@@ -50,6 +51,169 @@ public class DataAccessTest {
     }
 
     @Test
+    public void testNullRecipeIngredientInsertion() {
+        boolean inserted;
+        Ingredient ingredient;
+        Recipe recipe;
+
+        recipe = dataAccess.getRecipe(0);
+        assertNotNull(recipe);
+
+        inserted = dataAccess.addRecipeIngredient(null, recipe);
+        assertFalse(inserted);
+
+        inserted = dataAccess.addRecipeIngredient(null, null);
+        assertFalse(inserted);
+
+        ingredient = new Ingredient("Olive Oil", new ConvertibleUnit(Unit.TBSP, 2));
+        inserted = dataAccess.addRecipeIngredient(ingredient, null);
+        assertFalse(inserted);
+    }
+
+    @Test
+    public void testDuplicateRecipeIngredientInsertion() {
+        boolean inserted;
+        Ingredient ingredient;
+        Recipe recipe;
+
+        recipe = dataAccess.getRecipe(0);
+        assertNotNull(recipe);
+
+        ingredient = new Ingredient("Olive Oil", new ConvertibleUnit(Unit.TBSP, 2));
+        inserted = dataAccess.addRecipeIngredient(ingredient, recipe);
+        assertFalse(inserted);
+    }
+
+    @Test
+    public void testTypicalRecipeIngredientInsertion() {
+        boolean inserted;
+        Ingredient ingredient;
+        Recipe recipe, confirm;
+
+        recipe = dataAccess.getRecipe(0);
+        assertNotNull(recipe);
+
+        ingredient = new Ingredient("bananas", new Count(4));
+        inserted = dataAccess.addRecipeIngredient(ingredient, recipe);
+        assertTrue(inserted);
+
+        confirm = dataAccess.getRecipe(0);
+        assertNotNull(confirm);
+        assertEquals(confirm, recipe);
+    }
+
+    @Test
+    public void testNullRecipeInsertions() {
+        boolean inserted;
+
+        inserted = dataAccess.addRecipe(null);
+        assertFalse(inserted);
+    }
+
+    @Test
+    public void testDuplicateRecipeInsertion() {
+        boolean inserted;
+        ArrayList<Ingredient> ingredients;
+        Recipe recipe;
+
+        ingredients =
+                new ArrayList<>(
+                        Arrays.asList(
+                                new Ingredient(
+                                        "Balsamic Vinegar",
+                                        new ConvertibleUnit(Unit.CUP, 3 * QUARTER)),
+                                new Ingredient(
+                                        "Basil Leaves", new ConvertibleUnit(Unit.CUP, QUARTER)),
+                                new Ingredient("Olive Oil", new ConvertibleUnit(Unit.TBSP, 2)),
+                                new Ingredient("Plum Tomatoes", new Count(4)),
+                                new Ingredient("Boneless Skinless Chicken Breast", new Count(4))));
+        String instructions =
+                "After washing basil and tomatoes, blot them dry with clean paper towel.\n"
+                        + "\n"
+                        + "Using a clean cutting board, cut tomatoes into quarters.\n"
+                        + "\n"
+                        + "For marinade, place first six ingredients in a blender. Cover and process until well blended.\n"
+                        + "\n"
+                        + "Place chicken breasts in a shallow dish; orange do not rinse raw poultry. Cover with marinade. Cover dish. Refrigerate about 1 hour, turning occasionally. Wash dish after touching raw poultry.\n"
+                        + "\n"
+                        + "orange quote icon Wash hands with soap and water after handling uncooked chicken.\n"
+                        + "\n"
+                        + "Place chicken on an oiled grill rack over medium heat. Do not reuse marinades used on raw foods. Grill chicken 4-6 minutes per side. Cook until internal temperature reaches 165 °F as measured with a food thermometer. ";
+        recipe = new Recipe(0, "Grilled Basil Chicken", ingredients, instructions, true);
+
+        inserted = dataAccess.addRecipe(recipe);
+        assertFalse(inserted);
+    }
+
+    @Test
+    public void testAlmostEqualRecipeInsertions() {
+        boolean inserted;
+        ArrayList<Ingredient> ingredients;
+        Recipe recipe, confirm;
+
+        ingredients =
+                new ArrayList<>(
+                        Arrays.asList(
+                                new Ingredient(
+                                        "Balsamic Vinegar",
+                                        new ConvertibleUnit(Unit.CUP, 3 * QUARTER)),
+                                new Ingredient(
+                                        "Basil Leaves", new ConvertibleUnit(Unit.CUP, QUARTER)),
+                                new Ingredient("Olive Oil", new ConvertibleUnit(Unit.TBSP, 2)),
+                                new Ingredient("Boneless Skinless Chicken Breast", new Count(4))));
+        String instructions =
+                "After washing basil and tomatoes, blot them dry with clean paper towel.\n"
+                        + "\n"
+                        + "Using a clean cutting board, cut tomatoes into quarters.\n"
+                        + "\n"
+                        + "For marinade, place first six ingredients in a blender. Cover and process until well blended.\n"
+                        + "\n"
+                        + "Place chicken breasts in a shallow dish; orange do not rinse raw poultry. Cover with marinade. Cover dish. Refrigerate about 1 hour, turning occasionally. Wash dish after touching raw poultry.\n"
+                        + "\n"
+                        + "orange quote icon Wash hands with soap and water after handling uncooked chicken.\n"
+                        + "\n"
+                        + "Place chicken on an oiled grill rack over medium heat. Do not reuse marinades used on raw foods. Grill chicken 4-6 minutes per side. Cook until internal temperature reaches 165 °F as measured with a food thermometer. ";
+        recipe = new Recipe(5, "Grilled Basil Chicken", ingredients, instructions, true);
+
+        inserted = dataAccess.addRecipe(recipe);
+        assertTrue(inserted);
+
+        confirm = dataAccess.getRecipe(5);
+        assertNotNull(confirm);
+        assertEquals(confirm, recipe);
+    }
+
+
+    @Test
+    public void testTypicalRecipeInsertion() {
+        boolean inserted;
+        ArrayList<Ingredient> ingredients;
+        Recipe recipe, confirm;
+
+        ingredients =
+                new ArrayList<>(
+                        Arrays.asList(
+                                new Ingredient(
+                                        "Flour",
+                                        new ConvertibleUnit(Unit.CUP, 3 * QUARTER)),
+                                new Ingredient(
+                                        "Bananas", new ConvertibleUnit(Unit.CUP, QUARTER)),
+                                new Ingredient("Sugar", new Count(4))));
+
+        String instructions =
+                "Mix ingredients and put in oven for 10 minutes";
+
+        recipe = new Recipe(5, "Banana", ingredients, instructions, false);
+
+        inserted = dataAccess.addRecipe(recipe);
+        assertTrue(inserted);
+
+        confirm = dataAccess.getRecipe(5);
+        assertNotNull(confirm);
+        assertEquals(confirm, recipe);
+    }
+
+    @Test
     public void testDeleteInvalidRecipeIndex() {
         boolean deleted;
 
@@ -60,6 +224,94 @@ public class DataAccessTest {
         recipes = dataAccess.getRecipes();
         assertNotNull(recipes);
         assertEquals(4, recipes.size());
+    }
+
+    @Test
+    public void testTypicalIngredientInsertion() {
+        boolean inserted;
+        Ingredient ingredient;
+
+        ingredient = new Ingredient("Banana", new ConvertibleUnit(Unit.CUP, 3 * QUARTER));
+        inserted = dataAccess.addIngredient(ingredient);
+        assertTrue(inserted);
+
+        ingredient = new Ingredient("Peaches", new ConvertibleUnit(Unit.CUP, 3 * QUARTER));
+        inserted = dataAccess.addIngredient(ingredient);
+        assertTrue(inserted);
+
+    }
+
+    @Test
+    public void testNullIngredientInsertions() {
+        boolean inserted;
+        Ingredient ingredient;
+
+        inserted = dataAccess.addIngredient(null);
+        assertFalse(inserted);
+    }
+
+    @Test
+    public void testDuplicateIngredientInsertions() {
+        boolean inserted;
+        Ingredient ingredient;
+
+        ingredient = new Ingredient("Olive Oil", new ConvertibleUnit(Unit.CUP, 3 * QUARTER));
+        inserted = dataAccess.addIngredient(ingredient);
+        assertFalse(inserted);
+
+        ingredient = new Ingredient("Olive Oil", new ConvertibleUnit(Unit.TSP, 5));
+        inserted = dataAccess.addIngredient(ingredient);
+        assertFalse(inserted);
+
+        ingredient = new Ingredient("Olive Oil", new ConvertibleUnit(Unit.TSP, 10));
+        inserted = dataAccess.addIngredient(ingredient);
+        assertFalse(inserted);
+
+        ingredient = new Ingredient("OLIVE Oil", new ConvertibleUnit(Unit.TSP, 5));
+        inserted = dataAccess.addIngredient(ingredient);
+        assertFalse(inserted);
+    }
+
+    @Test
+    public void testTypicalFindIngredients() {
+        boolean found;
+
+        found = dataAccess.checkIngredientExists("Olive Oil");
+        assertTrue(found);
+
+        found = dataAccess.checkIngredientExists("Bread Flour");
+        assertTrue(found);
+    }
+
+    @Test
+    public void testCaseSensitiveFindIngredients() {
+        boolean found;
+
+        found = dataAccess.checkIngredientExists("OlIvE OiL");
+        assertTrue(found);
+
+        found = dataAccess.checkIngredientExists("BrEAD FloUr");
+        assertTrue(found);
+    }
+
+    @Test
+    public void testCaseFindNonExistentIngredients() {
+        boolean found;
+
+        found = dataAccess.checkIngredientExists("Peaches");
+        assertFalse(found);
+
+        found = dataAccess.checkIngredientExists("");
+        assertFalse(found);
+
+        found = dataAccess.checkIngredientExists(" ");
+        assertFalse(found);
+
+        found = dataAccess.checkIngredientExists("1234");
+        assertFalse(found);
+
+        found = dataAccess.checkIngredientExists(null);
+        assertFalse(found);
     }
 
     @Test
