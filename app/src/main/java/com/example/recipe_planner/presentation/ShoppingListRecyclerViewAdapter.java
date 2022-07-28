@@ -82,14 +82,22 @@ public class ShoppingListRecyclerViewAdapter
         holder.shoppingIngredientName.setText(ingredientToDisplay.getName());
         String unitToDisplay;
         if (ingredientToDisplay.getUnit() instanceof Count) {
-            unitToDisplay = ingredientToDisplay.getUnit().getAmount() + " UNITS";
+            double amountToDisplay = ingredientToDisplay.getUnit().getAmount();
+            unitToDisplay =
+                    String.format("%.0f", amountToDisplay)
+                            + " unit"
+                            + (amountToDisplay == 1 ? "" : "s");
         } else if (((ConvertibleUnit) ingredientToDisplay.getUnit()).isWeight()) {
+            double amountToDisplay =
+                    ((ConvertibleUnit) ingredientToDisplay.getUnit()).convertTo(Unit.GRAM);
             unitToDisplay =
-                    ((ConvertibleUnit) ingredientToDisplay.getUnit()).convertTo(Unit.GRAM)
-                            + " GRAM";
+                    String.format("%.2f", amountToDisplay)
+                            + " gram"
+                            + (amountToDisplay == 1 ? "" : "s");
         } else {
-            unitToDisplay =
-                    ((ConvertibleUnit) ingredientToDisplay.getUnit()).convertTo(Unit.ML) + " ML";
+            double amountToDisplay =
+                    ((ConvertibleUnit) ingredientToDisplay.getUnit()).convertTo(Unit.ML);
+            unitToDisplay = String.format("%.2f", amountToDisplay) + " ml";
         }
         holder.shoppingIngredientUnit.setText(unitToDisplay);
     }
