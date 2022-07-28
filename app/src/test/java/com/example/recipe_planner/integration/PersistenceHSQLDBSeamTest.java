@@ -74,9 +74,11 @@ public class PersistenceHSQLDBSeamTest {
         assertNotNull(recipe);
 
         // Changes to database are persistent after connection is closed
-        assertEquals(0.75, dataAccess.getRecipeIngredients(recipe.getId()).get(0).getAmount(), DELTA);
+        assertEquals(
+                0.75, dataAccess.getRecipeIngredients(recipe.getId()).get(0).getAmount(), DELTA);
         dataAccess.updateIngredientQuantity(recipe.getId(), 2.0, "Balsamic Vinegar");
-        assertEquals(2.0, dataAccess.getRecipeIngredients(recipe.getId()).get(0).getAmount(), DELTA);
+        assertEquals(
+                2.0, dataAccess.getRecipeIngredients(recipe.getId()).get(0).getAmount(), DELTA);
 
         dataAccess.close();
         dataAccess.open(testDbName);
@@ -96,7 +98,5 @@ public class PersistenceHSQLDBSeamTest {
         dataAccess.close();
         dataAccess.open(testDbName);
         assertNull(dataAccess.getRecipe(recipe.getId()));
-
     }
-
 }

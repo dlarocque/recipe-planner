@@ -25,6 +25,6 @@ public class BusinessPersistenceSeamTest {
 
     @Test
     public void placeholder() {
-        assert(true);
+        assert (true);
     }
 }

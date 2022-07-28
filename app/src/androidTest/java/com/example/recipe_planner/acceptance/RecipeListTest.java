@@ -42,8 +42,7 @@ public class RecipeListTest {
     }
 
     @After
-    public void tearDown() {
-    }
+    public void tearDown() {}
 
     @Test
     public void viewingListedRecipes() {
@@ -51,8 +50,7 @@ public class RecipeListTest {
 
         // All recipes are displayed in the recipe list page
         for (Recipe recipe : recipes) {
-            onView(withText(recipe.getName()))
-                    .check(matches(isDisplayed()));
+            onView(withText(recipe.getName())).check(matches(isDisplayed()));
         }
     }
 }

@@ -55,12 +55,10 @@ public class MealScheduleTest {
     }
 
     @After
-    public void tearDown() {
-    }
+    public void tearDown() {}
 
     public void navigateToMealSchedule() {
-        onView(withId(R.id.mealSchedule))
-                .perform(click());
+        onView(withId(R.id.mealSchedule)).perform(click());
     }
 
     private String formatDay(Date date) {
@@ -74,36 +72,28 @@ public class MealScheduleTest {
         Date date = Calendar.getInstance().getTime();
         String formattedDate = formatDay(date);
 
-        onView(withId(R.id.dateText))
-                .check(matches(withText(containsString(formattedDate))));
-        onView(withId(R.id.nextDayButton))
-                .perform(click());
+        onView(withId(R.id.dateText)).check(matches(withText(containsString(formattedDate))));
+        onView(withId(R.id.nextDayButton)).perform(click());
 
         date = CalendarUtils.incrementDay(date, 1);
         formattedDate = formatDay(date);
 
-        onView(withId(R.id.dateText))
-                .check(matches(withText(containsString(formattedDate))));
+        onView(withId(R.id.dateText)).check(matches(withText(containsString(formattedDate))));
 
         date = CalendarUtils.incrementDay(date, -1);
         formattedDate = formatDay(date);
 
-        onView(withId(R.id.previousDayButton))
-                .perform(click());
+        onView(withId(R.id.previousDayButton)).perform(click());
 
-        onView(withId(R.id.dateText))
-                .check(matches(withText(containsString(formattedDate))));
+        onView(withId(R.id.dateText)).check(matches(withText(containsString(formattedDate))));
 
         date = CalendarUtils.incrementDay(date, -1);
         formattedDate = formatDay(date);
 
-        onView(withId(R.id.previousDayButton))
-                .perform(click());
-        onView(withId(R.id.dateText))
-                .check(matches(withText(containsString(formattedDate))));
+        onView(withId(R.id.previousDayButton)).perform(click());
+        onView(withId(R.id.dateText)).check(matches(withText(containsString(formattedDate))));
 
-        onView(withId(R.id.nextDayButton))
-                .perform(click());
+        onView(withId(R.id.nextDayButton)).perform(click());
     }
 
     @Test
@@ -118,12 +108,9 @@ public class MealScheduleTest {
         onView(withId(R.id.dinnerRecipeName))
                 .check(matches(withText(containsString("No Meal Scheduled"))));
 
-        onView(withId(R.id.descheduleBreakfastButton))
-                .check(matches(isNotEnabled()));
-        onView(withId(R.id.descheduleLunchButton))
-                .check(matches(isNotEnabled()));
-        onView(withId(R.id.descheduleDinnerButton))
-                .check(matches(isNotEnabled()));
+        onView(withId(R.id.descheduleBreakfastButton)).check(matches(isNotEnabled()));
+        onView(withId(R.id.descheduleLunchButton)).check(matches(isNotEnabled()));
+        onView(withId(R.id.descheduleDinnerButton)).check(matches(isNotEnabled()));
     }
 
     @Test
@@ -134,13 +121,11 @@ public class MealScheduleTest {
 
         navigateToMealSchedule();
 
-        onView(withId(R.id.dateText))
-                .check(matches(withText(formatDay(date))));
+        onView(withId(R.id.dateText)).check(matches(withText(formatDay(date))));
 
         onView(withId(R.id.breakfastRecipeName))
                 .check(matches(withText(containsString(recipe.getName()))));
-        onView(withId(R.id.descheduleBreakfastButton))
-                .check(matches(isEnabled()));
+        onView(withId(R.id.descheduleBreakfastButton)).check(matches(isEnabled()));
     }
 
     @Test
@@ -150,13 +135,10 @@ public class MealScheduleTest {
         accessSchedule.setMeal(date, DaySchedule.Meal.BREAKFAST, recipe);
 
         navigateToMealSchedule();
-        onView(withId(R.id.descheduleBreakfastButton))
-                .perform(click());
+        onView(withId(R.id.descheduleBreakfastButton)).perform(click());
 
-        onView(withId(R.id.descheduleBreakfastButton))
-                .check(matches(isNotEnabled()));
+        onView(withId(R.id.descheduleBreakfastButton)).check(matches(isNotEnabled()));
         onView(withId(R.id.breakfastRecipeName))
                 .check(matches(withText(containsString("No Meal Scheduled"))));
     }
 }
-

@@ -164,13 +164,13 @@ public class DataAccessStub implements DataAccess {
     @Override
     public void updateIngredientName(int recipeID, String newName, String ingredientName) {
         Recipe recipe;
-        for(int i = 0; i < recipes.size(); i++){
-            if(recipes.get(i).getId() == recipeID){
+        for (int i = 0; i < recipes.size(); i++) {
+            if (recipes.get(i).getId() == recipeID) {
                 recipe = recipes.get(i);
                 ArrayList<Ingredient> ingredients = recipe.getIngredients();
-                for(int k = 0; k < ingredients.size(); k++){
+                for (int k = 0; k < ingredients.size(); k++) {
                     String compName = ingredients.get(k).getName();
-                    if(compName.equals(ingredientName)){
+                    if (compName.equals(ingredientName)) {
                         String oldUnit = ingredients.get(k).getUnit().toString();
                         Double oldAmount = ingredients.get(k).getAmount();
                         recipes.get(i).getIngredients().remove(k);
@@ -203,12 +203,6 @@ public class DataAccessStub implements DataAccess {
                 }
             }
         }
-
-    }
-
-    @Override
-    public void updateIngredientUnit(int recipeID, String unitName, String ingredientName) {
-
     }
 
     @Override

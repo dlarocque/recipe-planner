@@ -25,6 +25,8 @@ import com.example.recipe_planner.databinding.FragmentEditIngredientItemBinding;
 import com.example.recipe_planner.objects.Ingredient;
 import com.example.recipe_planner.objects.Recipe;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -53,8 +55,7 @@ public class EditIngredientListRecyclerViewAdapter
         return new ViewHolder(
                 FragmentEditIngredientItemBinding.inflate(
                         LayoutInflater.from(parent.getContext()), parent, false),
-                new QuantityEditTextListener(),
-                new UnitEditTextListener());
+                new QuantityEditTextListener());
     }
 
     @Override
@@ -69,10 +70,8 @@ public class EditIngredientListRecyclerViewAdapter
         holder.unit.setText(unitName);
 
         holder.quantity.addTextChangedListener(holder.quantityListener);
-        holder.unit.addTextChangedListener(holder.unitListener);
 
         holder.quantityListener.updatePosition(holder.getAbsoluteAdapterPosition());
-        holder.unitListener.updatePosition(holder.getAbsoluteAdapterPosition());
 
         holder.delete.setOnClickListener(
                 editView -> {
@@ -155,14 +154,12 @@ public class EditIngredientListRecyclerViewAdapter
         public final ImageButton delete;
         public Button name;
         public EditText quantity;
-        public EditText unit;
+        public TextView unit;
         public QuantityEditTextListener quantityListener;
-        public UnitEditTextListener unitListener;
 
         public ViewHolder(
                 FragmentEditIngredientItemBinding binding,
-                QuantityEditTextListener quantityListener,
-                UnitEditTextListener unitListener) {
+                QuantityEditTextListener quantityListener) {
             super(binding.getRoot());
 
             quantity = binding.ingredientQuantity;
@@ -171,7 +168,6 @@ public class EditIngredientListRecyclerViewAdapter
             name = binding.ingredientName;
 
             this.quantityListener = quantityListener;
-            this.unitListener = unitListener;
         }
 
         @NonNull
@@ -182,37 +178,6 @@ public class EditIngredientListRecyclerViewAdapter
     }
 
     private class QuantityEditTextListener implements TextWatcher {
-        private int position;
-
-        public void updatePosition(int position) {
-            this.position = position;
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            // Required override, stub function
-        }
-
-        @Override
-        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            double quantity;
-            try {
-                quantity = Math.abs(Double.parseDouble(charSequence.toString()));
-            } catch (NumberFormatException e) {
-                quantity = 0;
-            }
-            Ingredient ingredientToModify = ingredients.get(position);
-            String ingredientName = ingredientToModify.getName();
-            accessIngredients.updateIngredientQuantity(recipe.getId(), quantity, ingredientName);
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-            // Required override, stub function
-        }
-    }
-
-    private class UnitEditTextListener implements TextWatcher {
         private int position;
 
         public void updatePosition(int position) {

@@ -21,8 +21,4 @@ public class AccessIngredients {
     public void updateIngredientName(int recipeID, String newName, String ingredientName) {
         dataAccess.updateIngredientName(recipeID, newName, ingredientName);
     }
-
-    public void updateIngredientUnit(int recipeID, String unit, String ingredientName) {
-        dataAccess.updateIngredientUnit(recipeID, unit, ingredientName);
-    }
 }

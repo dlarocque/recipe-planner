@@ -32,8 +32,6 @@ public interface DataAccess {
 
     void updateIngredientName(int recipeID, String newName, String ingredientName);
 
-    void updateIngredientUnit(int recipeID, String unitName, String ingredientName);
-
     DaySchedule getDaySchedule(Date date);
 
     ArrayList<Recipe> getScheduledRecipes();

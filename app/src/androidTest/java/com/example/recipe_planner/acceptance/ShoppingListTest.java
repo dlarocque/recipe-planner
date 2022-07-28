@@ -62,8 +62,7 @@ public class ShoppingListTest {
     }
 
     @After
-    public void tearDown() {
-    }
+    public void tearDown() {}
 
     public void scheduleMeal() {
         Recipe recipe = accessRecipes.getRecipes().get(0);
@@ -71,7 +70,7 @@ public class ShoppingListTest {
         accessSchedule.setMeal(date, DaySchedule.Meal.BREAKFAST, recipe);
     }
 
-    public void navigateToShoppingListView(){
+    public void navigateToShoppingListView() {
         onView(withId(R.id.shoppingList)).perform(click());
     }
 
@@ -80,7 +79,7 @@ public class ShoppingListTest {
         ArrayList<Recipe> recipes = dataAccess.getScheduledRecipes();
         ArrayList<Ingredient> ingredientList = new ArrayList<>();
 
-        for(Recipe recipe : recipes){
+        for (Recipe recipe : recipes) {
             ingredientList.addAll(recipe.getIngredients());
         }
 
@@ -89,7 +88,7 @@ public class ShoppingListTest {
 
         onView(withId(R.id.ingredientShoppingList)).check(matches(isDisplayed()));
 
-        for(Ingredient ingredientInList : ingredientList){
+        for (Ingredient ingredientInList : ingredientList) {
             onView(withText(ingredientInList.getName())).check(matches(isDisplayed()));
         }
     }

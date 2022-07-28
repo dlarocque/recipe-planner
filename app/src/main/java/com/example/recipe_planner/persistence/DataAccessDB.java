@@ -497,33 +497,6 @@ public class DataAccessDB implements DataAccess {
     }
 
     @Override
-    public void updateIngredientUnit(int recipeID, String unitName, String ingredientName) {
-        Statement statement;
-        ResultSet ingredientIDSet = null;
-        int ingredientID = -1;
-        try {
-            statement = connection.createStatement();
-            ingredientIDSet =
-                    statement.executeQuery(
-                            "SELECT ID FROM INGREDIENTS WHERE NAME='" + ingredientName + "';");
-            if (ingredientIDSet.next()) {
-                ingredientID = ingredientIDSet.getInt("ID");
-            }
-            statement.executeUpdate(
-                    "UPDATE RECIPEINGREDIENTS SET QUANTITY="
-                            + unitName
-                            + " WHERE INGREDIENTID="
-                            + ingredientID
-                            + " AND RECIPEID="
-                            + recipeID
-                            + ";");
-            statement.close();
-        } catch (SQLException sqlException) {
-            sqlException.printStackTrace();
-        }
-    }
-
-    @Override
     public DaySchedule getDaySchedule(Date date) {
         DaySchedule daySchedule = null;
         String dateKey = CalendarUtils.formattedDate(date);

@@ -11,12 +11,12 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({
-        TestConvertibleUnit.class,
-        TestCount.class,
-        TestIngredient.class,
-        TestRecipe.class,
-        TestDaySchedule.class,
-        TestSchedule.class
+    TestConvertibleUnit.class,
+    TestCount.class,
+    TestIngredient.class,
+    TestRecipe.class,
+    TestDaySchedule.class,
+    TestSchedule.class
 })
 public class ObjectTestSuite {
     @BeforeClass
