@@ -20,8 +20,7 @@
         tools:context=".presentation.RecipeList" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recipeList"
-        android:name="com.example.recipe_planner.RecipeItem"
+        android:id="@+id/recipeListRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="bottom"

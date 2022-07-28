@@ -6,7 +6,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
-@Suite.SuiteClasses({BusinessPersistenceSeamTest.class, PersistenceHSQLDBSeamTest.class})
+@Suite.SuiteClasses({PersistenceHSQLDBSeamTest.class})
 public class IntegrationTestSuite {
     @Before
     public void beginTests() {
