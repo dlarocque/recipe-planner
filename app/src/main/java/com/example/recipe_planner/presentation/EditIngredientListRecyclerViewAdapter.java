@@ -21,6 +21,7 @@ import com.example.recipe_planner.objects.Ingredient;
 import com.example.recipe_planner.objects.Recipe;
 
 import java.util.List;
+import java.util.Locale;
 
 /** {@link RecyclerView.Adapter} that can display a {@link Recipe}. */
 public class EditIngredientListRecyclerViewAdapter
@@ -53,9 +54,10 @@ public class EditIngredientListRecyclerViewAdapter
     public void onBindViewHolder(final ViewHolder holder, int position) {
         // Set up the view for ingredients in a list
         Ingredient ingredientToDisplay = ingredients.get(position);
+        Double ingredientAmount = ingredientToDisplay.getAmount();
         String unitName = getUnitString(ingredientToDisplay);
         holder.name.setText(ingredientToDisplay.getName());
-        holder.quantity.setText(String.valueOf(ingredientToDisplay.getAmount()));
+        holder.quantity.setText(String.format(Locale.getDefault(),"%.2f", ingredientAmount));
         holder.unit.setText(unitName);
 
         holder.quantity.addTextChangedListener(holder.quantityListener);

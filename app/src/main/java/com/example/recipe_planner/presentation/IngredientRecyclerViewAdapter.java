@@ -13,6 +13,7 @@ import com.example.recipe_planner.objects.Recipe;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /** {@link RecyclerView.Adapter} that can display a {@link Ingredient}. */
 public class IngredientRecyclerViewAdapter
@@ -37,9 +38,10 @@ public class IngredientRecyclerViewAdapter
     public void onBindViewHolder(final ViewHolder holder, int position) {
         // Set up the view for an Ingredient in the list
         Ingredient ingredientToDisplay = ingredients.get(position);
+        Double ingredientAmount = ingredientToDisplay.getAmount();
         String unitName = getUnitString(ingredientToDisplay);
         holder.name.setText(ingredientToDisplay.getName());
-        holder.amount.setText(String.valueOf(ingredientToDisplay.getAmount()));
+        holder.amount.setText(String.format(Locale.getDefault(),"%.2f", ingredientAmount));
         holder.unit.setText(unitName);
     }
 
