@@ -38,8 +38,8 @@ public class ShoppingListRecyclerViewAdapter
                     new ArrayList<>(accessRecipes.getRecipeIngredients(recipe.get(i).getId()));
             for (int j = 0; j < recipeIngredients.size(); j++) {
                 Ingredient recipeIngredient = recipeIngredients.get(j);
-                boolean found = false;
-                for (int k = 0; k < gatherIngredients.size() && !found; k++) {
+                boolean foundInShoppingList = false;
+                for (int k = 0; k < gatherIngredients.size() && !foundInShoppingList; k++) {
                     if (recipeIngredient
                             .getName()
                             .equalsIgnoreCase(gatherIngredients.get(k).getName())) {
@@ -55,10 +55,10 @@ public class ShoppingListRecyclerViewAdapter
                                                     .getUnit(),
                                             amountsSum));
                         }
-                        found = true;
+                        foundInShoppingList = true;
                     }
                 }
-                if (!found && recipeIngredient.getAmount() > 0.0) {
+                if (!foundInShoppingList && recipeIngredient.getAmount() > 0.0) {
                     gatherIngredients.add(
                             new Ingredient(recipeIngredient.getName(), recipeIngredient.getUnit()));
                 }
