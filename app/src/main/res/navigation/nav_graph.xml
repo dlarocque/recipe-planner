@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/mealSchedule"
         android:name="com.example.recipe_planner.presentation.MealSchedule"
-        android:label="fragment_meal_schedule"
+        android:label="Meal Schedule"
         tools:layout="@layout/fragment_meal_schedule">
         <action
             android:id="@+id/action_mealSchedule_to_shoppingList3"
@@ -26,7 +26,7 @@
     <fragment
         android:id="@+id/shoppingList"
         android:name="com.example.recipe_planner.presentation.ShoppingList"
-        android:label="fragment_shopping_list"
+        android:label="Shopping List"
         tools:layout="@layout/fragment_shopping_list">
         <action
             android:id="@+id/action_shoppingList3_to_mealSchedule"
@@ -41,7 +41,7 @@
     <fragment
         android:id="@+id/recipeList"
         android:name="com.example.recipe_planner.presentation.RecipeList"
-        android:label="fragment_recipe_item_list"
+        android:label="Recipe List"
         tools:layout="@layout/fragment_recipe_list">
         <action
             android:id="@+id/action_recipeList_to_mealSchedule"
@@ -60,7 +60,7 @@
     <fragment
         android:id="@+id/recipeView"
         android:name="com.example.recipe_planner.presentation.RecipeView"
-        android:label="fragment_edit_recipe"
+        android:label="View Recipe"
         tools:layout="@layout/fragment_recipe_view">
         <action
             android:id="@+id/action_recipeView_to_recipeList"
@@ -76,7 +76,7 @@
     <fragment
         android:id="@+id/ingredientEdit"
         android:name="com.example.recipe_planner.presentation.EditIngredientList"
-        android:label="fragment_edit_ingredients"
+        android:label="Edit Ingredients"
         tools:layout="@layout/fragment_edit_ingredients">
         <action
             android:id="@+id/action_ingredientEdit_to_recipeView"

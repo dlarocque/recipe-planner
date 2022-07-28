@@ -12,7 +12,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
+            <Button
                 android:id="@+id/ingredient_name"
                 android:layout_width="225dp"
                 android:layout_height="wrap_content"

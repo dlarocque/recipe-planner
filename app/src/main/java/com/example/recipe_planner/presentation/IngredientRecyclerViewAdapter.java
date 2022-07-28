@@ -41,7 +41,7 @@ public class IngredientRecyclerViewAdapter
         Double ingredientAmount = ingredientToDisplay.getAmount();
         String unitName = getUnitString(ingredientToDisplay);
         holder.name.setText(ingredientToDisplay.getName());
-        holder.amount.setText(String.format(Locale.getDefault(),"%.2f", ingredientAmount));
+        holder.amount.setText(String.format(Locale.getDefault(), "%.2f", ingredientAmount));
         holder.unit.setText(unitName);
     }
 
@@ -53,10 +53,9 @@ public class IngredientRecyclerViewAdapter
     public String getUnitString(Ingredient ingredient) {
         String result;
         String[] parts = ingredient.getUnit().toString().split(" ");
-        if(parts.length > 1){
+        if (parts.length > 1) {
             result = parts[1];
-        }
-        else{
+        } else {
             result = "Units";
         }
         return result;

@@ -1,12 +1,16 @@
 package com.example.recipe_planner.presentation;
 
 import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -16,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.recipe_planner.R;
@@ -27,6 +32,9 @@ import com.example.recipe_planner.objects.Recipe;
 import com.example.recipe_planner.objects.measurements.ConvertibleUnit;
 import com.example.recipe_planner.objects.measurements.Unit;
 
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -60,6 +68,7 @@ public class EditIngredientListRecyclerViewAdapter
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         // Set up the view for ingredients in a list
+        EditText editText = new EditText(holder.name.getContext());
         Ingredient ingredientToDisplay = ingredients.get(position);
         Double ingredientAmount = ingredientToDisplay.getAmount();
         String unitName = getUnitString(ingredientToDisplay);
@@ -97,6 +106,34 @@ public class EditIngredientListRecyclerViewAdapter
                                 notifyItemRemoved(holder.getAbsoluteAdapterPosition());
                             });
                     alertDialogBuilder.setNegativeButton("No", (dialog, id) -> dialog.dismiss());
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
+                });
+
+        holder.name.setOnClickListener(
+                editView -> {
+                    AlertDialog.Builder alertDialogBuilder =
+                            new AlertDialog.Builder(editView.getContext());
+                    alertDialogBuilder.setTitle("Edit ingredient");
+                    alertDialogBuilder.setIcon(R.drawable.ic_launcher_edit_foreground);
+                    alertDialogBuilder.setView(editText);
+                    alertDialogBuilder.setPositiveButton(
+                            "Finish",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialogue, int whichButton) {
+                                    String newIngredientVal = editText.getText().toString();
+                                    editIngredientAction(
+                                            newIngredientVal, holder.getAbsoluteAdapterPosition());
+                                    Bundle bundle = new Bundle();
+                                    bundle.putInt(RecipeList.ARG_RECIPE_ID, recipe.getId());
+                                    Navigation.findNavController(editView)
+                                            .navigate(
+                                                    R.id.action_ingredientEdit_to_recipeView,
+                                                    bundle);
+                                }
+                            });
+                    alertDialogBuilder.setNegativeButton(
+                            "Cancel", (dialog, id) -> dialog.dismiss());
                     AlertDialog alertDialog = alertDialogBuilder.create();
                     alertDialog.show();
                 });
@@ -145,7 +182,6 @@ public class EditIngredientListRecyclerViewAdapter
 
     @Override
     public int getItemCount() {
-        ingredients = recipe.getIngredients();
         return ingredients.size();
     }
 
@@ -153,6 +189,12 @@ public class EditIngredientListRecyclerViewAdapter
         Ingredient deleteIngredient = ingredients.get(position);
         String name = deleteIngredient.getName();
         accessIngredients.deleteIngredient(recipe.getId(), name);
+    }
+
+    public void editIngredientAction(String newName, int position) {
+        Ingredient editIngredient = ingredients.get(position);
+        String name = editIngredient.getName();
+        accessIngredients.updateIngredientName(recipe.getId(), newName, name);
     }
 
     public String getUnitString(Ingredient ingredient) {
@@ -168,7 +210,7 @@ public class EditIngredientListRecyclerViewAdapter
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public final ImageButton delete;
-        public TextView name;
+        public Button name;
         public EditText quantity;
         public Spinner unit;
         public QuantityEditTextListener quantityListener;
@@ -178,10 +220,10 @@ public class EditIngredientListRecyclerViewAdapter
                 QuantityEditTextListener quantityListener) {
             super(binding.getRoot());
 
-            name = binding.ingredientName;
             quantity = binding.ingredientQuantity;
             unit = binding.ingredientUnit;
             delete = binding.deleteIngredient;
+            name = binding.ingredientName;
 
             this.quantityListener = quantityListener;
         }

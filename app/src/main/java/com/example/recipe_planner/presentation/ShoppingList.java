@@ -42,12 +42,12 @@ public class ShoppingList extends Fragment {
             LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_shopping_list, container, false);
 
-        ArrayList<Recipe> recipe = accessRecipes.getScheduledRecipes();
+        ArrayList<Recipe> recipes = accessRecipes.getScheduledRecipes();
 
         Context context = view.getContext();
         RecyclerView recyclerView = view.findViewById(R.id.ingredientShoppingList);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        recyclerView.setAdapter(new ShoppingListRecyclerViewAdapter(recipe));
+        recyclerView.setAdapter(new ShoppingListRecyclerViewAdapter(recipes));
 
         return view;
     }

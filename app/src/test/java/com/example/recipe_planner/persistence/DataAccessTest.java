@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 
 import com.example.recipe_planner.application.Main;
 import com.example.recipe_planner.application.Services;
+import com.example.recipe_planner.objects.DaySchedule;
 import com.example.recipe_planner.objects.Ingredient;
 import com.example.recipe_planner.objects.Recipe;
 import com.example.recipe_planner.objects.measurements.ConvertibleUnit;
@@ -14,28 +15,42 @@ import com.example.recipe_planner.objects.measurements.Count;
 import com.example.recipe_planner.objects.measurements.Unit;
 
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class DataAccessTest {
 
     private static final double QUARTER = 1.0 / 4.0;
     private static final double DELTA = 0.001;
+    private static Date today;
     private DataAccess dataAccess;
+
+    @BeforeClass
+    public static void beginTests() {
+        System.out.println("Starting Persistence Tests");
+    }
+
+    @AfterClass
+    public static void completeTests() {
+        System.out.println("Finished Persistence Tests");
+    }
 
     @Before
     public void setUp() {
-        System.out.println("\nStarting Persistence test DataAccess");
         dataAccess = new DataAccessStub();
         dataAccess.open(Main.dbName);
+        today = Calendar.getInstance().getTime();
     }
 
     @After
     public void tearDown() {
-        System.out.println("Finished Persistence test DataAccess (using stub)");
         Services.closeDataAccess();
     }
 
@@ -141,6 +156,21 @@ public class DataAccessTest {
     }
 
     @Test
+    public void testGetAllRecipesScheduled() {
+        Recipe one = new Recipe(1, "eggs", null, "");
+        Recipe two = new Recipe(2, "toast", null, "");
+
+        dataAccess.setDayScheduleMeal(today, DaySchedule.Meal.DINNER, one);
+        dataAccess.setDayScheduleMeal(today, DaySchedule.Meal.LUNCH, two);
+
+        ArrayList<Recipe> results = dataAccess.getScheduledRecipes();
+
+        assert (results.contains(one));
+        assert (results.contains(two));
+        assertEquals(2, results.size());
+    }
+
+    @Test
     public void testGetDefaultIngredients() {
         List<Ingredient> ingredients;
 
@@ -213,9 +243,36 @@ public class DataAccessTest {
     }
 
     @Test
+    public void testValidIngredientModification() {
+        List<Ingredient> ingredients;
+        Ingredient ingredient;
+
+        // get a existing default recipe
+        ingredients = dataAccess.getRecipeIngredients(0);
+        assertNotNull(ingredients);
+        assertEquals(5, ingredients.size());
+
+        // modify the ingredients in the recipe with valid inputs
+        ingredient = ingredients.get(0);
+        dataAccess.updateIngredientQuantity(0, 45.0, ingredient.getName());
+        assertEquals(45.0, ingredient.getAmount(), DELTA);
+
+        // get second default recipe
+        ingredients = dataAccess.getRecipeIngredients(1);
+        assertNotNull(ingredients);
+        assertEquals(8, ingredients.size());
+        double testDouble = 2.0;
+        ingredient = ingredients.get(2);
+        // modify the ingredients in a valid recipe with valid quantities
+        dataAccess.updateIngredientQuantity(1, testDouble, ingredient.getName());
+        assertEquals(2.0, ingredient.getAmount(), DELTA);
+    }
+
+    @Test
     public void testValidIngredientDeletion() {
         List<Ingredient> ingredients;
         Ingredient ingredient;
+        String validIngredient = "";
 
         // get first default recipe
         ingredients = dataAccess.getRecipeIngredients(0);
@@ -223,13 +280,16 @@ public class DataAccessTest {
         assertEquals(5, ingredients.size());
 
         ingredient = ingredients.get(0);
-        String unit = ingredient.getUnit().getClass().getSimpleName();
+        validIngredient = ingredient.getName();
 
         // delete the first ingredient from the recipe
-        System.out.println(
-                dataAccess.deleteIngredient(0, ingredient.getName()));
+        System.out.println(dataAccess.deleteIngredient(0, ingredient.getName()));
         ingredients = dataAccess.getRecipeIngredients(0);
         assertEquals(4, ingredients.size());
+
+        for (int i = 0; i < ingredients.size(); i++) {
+            assert !ingredients.get(i).getName().equals(validIngredient);
+        }
     }
 
     @Test
@@ -243,24 +303,20 @@ public class DataAccessTest {
         assertEquals(5, ingredients.size());
 
         try {
-            ingredient = ingredients.get(5);
-            String unit = ingredient.getUnit().getClass().getSimpleName();
+            ingredient = ingredients.get(10);
 
             // delete the an invalid ingredient from the recipe
-            System.out.println(
-                    dataAccess.deleteIngredient(
-                            0, ingredient.getName()));
+            System.out.println(dataAccess.deleteIngredient(0, ingredient.getName()));
             ingredients = dataAccess.getRecipeIngredients(0);
-            assertEquals(4, ingredients.size());
+            assertEquals(5, ingredients.size());
         } catch (Exception e) {
             System.out.println("Out of bounds deletions will be met with an OutofBoundsException.");
         }
 
         ingredient = ingredients.get(0);
-        String unit = ingredient.getUnit().getClass().getSimpleName();
 
-        // delete the an valid ingredient with invalid quantity from the recipe
-        System.out.println(dataAccess.deleteIngredient(0, ingredient.getName()));
+        // delete the an valid ingredient with invalid recipeID
+        System.out.println(dataAccess.deleteIngredient(2, ingredient.getName()));
         ingredients = dataAccess.getRecipeIngredients(0);
         assertEquals(5, ingredients.size());
     }

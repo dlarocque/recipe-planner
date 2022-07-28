@@ -22,7 +22,6 @@ public class TestAccessIngredients {
 
     @Before
     public void setUp() {
-        System.out.println("\nStarting Persistence test DataAccess");
         dataAccess = new DataAccessStub();
         dataAccess.open(Main.dbName);
         Services.createDataAccess(dataAccess);
@@ -31,7 +30,6 @@ public class TestAccessIngredients {
 
     @After
     public void tearDown() {
-        System.out.println("Finished Persistence test DataAccess (using stub)");
         dataAccess.close();
     }
 
@@ -51,6 +49,10 @@ public class TestAccessIngredients {
         ingredients = dataAccess.getRecipeIngredients(0);
         assertEquals("Basil Leaves", ingredients.get(0).getName());
         assertEquals(4, ingredients.size());
+
+        for (int i = 0; i < ingredients.size(); i++) {
+            assert !ingredients.get(i).getName().equals("Balsamic Vinegar");
+        }
     }
 
     @Test
@@ -73,21 +75,28 @@ public class TestAccessIngredients {
 
     @Test
     public void TestModifyingExistingIngredient() {
-
-        // getting existing ingredients from recipe 0
         List<Ingredient> ingredients = dataAccess.getRecipeIngredients(0);
-        assertNotNull(ingredients);
-        assertEquals(5, ingredients.size());
-        Ingredient ingredient = ingredients.get(0);
 
-        // Ingredients queried with recipe ID should be the same as those in the recipe
-        String unit = ingredients.get(0).getUnit().getClass().getSimpleName();
+        assertEquals(0.25, ingredients.get(1).getAmount(), DELTA);
 
-        accessIngredients.updateIngredientQuantity(0, 500.0, "Basil Leaves");
+        accessIngredients.updateIngredientQuantity(0, 50.0, "Basil Leaves");
         ingredients = dataAccess.getRecipeIngredients(0);
-        assertEquals("Basil Leaves", ingredients.get(1).getName());
-        assertEquals(500.0, ingredients.get(1).getAmount(), DELTA);
+
+        assertEquals(50.0, ingredients.get(1).getAmount(), DELTA);
+
+        accessIngredients.updateIngredientName(0, "Oregano", "Basil Leaves");
+        ingredients = dataAccess.getRecipeIngredients(0);
+
         assertEquals(5, ingredients.size());
+        assertEquals(
+                "Oregano",
+                ingredients
+                        .get(4)
+                        .getName()); // the ingredient is at the end of the list because it's "new"
+
+        for (int i = 0; i < ingredients.size(); i++) {
+            assert !ingredients.get(i).getName().equals("Basil Leaves");
+        }
     }
 
     @Test
@@ -107,5 +116,14 @@ public class TestAccessIngredients {
         assertEquals("Basil Leaves", ingredients.get(1).getName());
         assertEquals(2.0, ingredients.get(2).getAmount(), DELTA);
         assertEquals(5, ingredients.size());
+
+        accessIngredients.updateIngredientName(0, "Red Peppers", "Cinnamon");
+        ingredients = dataAccess.getRecipeIngredients(0);
+
+        assertEquals(5, ingredients.size());
+
+        for (int i = 0; i < ingredients.size(); i++) {
+            assert !ingredients.get(i).getName().equals("Cinnamon");
+        }
     }
 }
