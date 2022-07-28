@@ -2,17 +2,11 @@ package com.example.recipe_planner.acceptance;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static androidx.test.espresso.matcher.ViewMatchers.isEnabled;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static org.hamcrest.Matchers.containsString;
 
-import android.text.format.DateFormat;
-
-import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
@@ -37,20 +31,18 @@ import org.junit.runner.RunWith;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
 public class ShoppingListTest {
     private static final String testDbName = "database/RecipesTest";
     private static DataAccess dataAccess;
-    private AccessRecipes accessRecipes;
-    private AccessIngredients accessIngredients;
-    private AccessSchedule accessSchedule;
-
     @Rule
     public ActivityScenarioRule<MainActivity> activityRule =
             new ActivityScenarioRule<>(MainActivity.class);
+    private AccessRecipes accessRecipes;
+    private AccessIngredients accessIngredients;
+    private AccessSchedule accessSchedule;
 
     @Before
     public void setUp() {

@@ -206,7 +206,8 @@ public class DataAccessStub implements DataAccess {
     }
 
     @Override
-    public void updateIngredientUnit(int recipeID, String ingredientName, Unit newUnit, double newQuantity) {
+    public void updateIngredientUnit(
+            int recipeID, String ingredientName, Unit newUnit, double newQuantity) {
         for (int i = 0; i < recipes.size(); i++) {
             if (recipes.get(i).getId() == recipeID) {
                 ArrayList<Ingredient> ingredients = recipes.get(i).getIngredients();
