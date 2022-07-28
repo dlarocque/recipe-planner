@@ -1,8 +1,10 @@
 package com.example.recipe_planner.objects;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 
 /** A Schedule that contains a mapping from days to {@link DaySchedule}. */
@@ -46,5 +48,19 @@ public class Schedule {
         }
 
         return this.schedule.get(dateHash(date));
+    }
+
+    // iterate through the schedule and return a list of all recipes found within
+    public List<Recipe> getAllScheduledRecipes() {
+        ArrayList<Recipe> scheduledRecipes = new ArrayList<>();
+
+        for (DaySchedule currentDay : schedule.values()) {
+            for (DaySchedule.Meal meal : DaySchedule.Meal.values()) {
+                if (currentDay.mealIsScheduled(meal)) {
+                    scheduledRecipes.add(currentDay.getMeal(meal));
+                }
+            }
+        }
+        return (scheduledRecipes.size() > 0) ? scheduledRecipes : null;
     }
 }
