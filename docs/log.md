@@ -1,4 +1,4 @@
-# Development Log – Iteration 1
+# Development Log – Iteration 3
 
 Team 5
 
@@ -10,233 +10,195 @@ Team 5
 
 # Meetings
 
-June 21, 2022
+## Iteration 3 Planning – July 18, 2022
 
-## Iteration 2 Planning
-
-Discussed requirements to complete by the end of iteration 2, and the big user stories that the team would work on during the iteration
+Completed Retrospective activity as a team
+Discussed requirements to complete by the end of iteration 3, and the big user stories that the team would work on during the iteration
 Members assigned themselves to user stories
 Created and modified user stories that to be more appropriate to requirements
 Created user stories to satisfy database requirements
 Members created developer tasks for their assigned user stories
 Members assigned themselves to developer tasks and provided hour estimates for them
 
+## Iteration 3 handin - July 28, 2022
+
+Team met for conclusion of iteration 3, including solving merge conflicts, discussing final changes and completing documentation.
+
 ## Discussions / Decisions
 
-Team has agreed to finishing tasks 3 days before the iteration deadline (July 9) to give time for refactoring, clean-up and incomplete stories to be completed
-Team decided to refactor Unit classes to Count and ConvertibleUnit, and hence refactoring conversion methods for easier use and testing. This was based on feedback received for Iteration 1 and discussion of several possible improvements.
-Log
-(name) 
-(description of task)
-(time spent on task)
+Team decided that we couldn't mock the external library necessary to properly test recipe scheduling through the UI.
+Team decided not to include feature: adding new recipes, on the basis of testing difficulties and time constraints.
 
 # Log
 
 ```
 Sam
-Writing new and modified user story cards for IT-2 (document)
-1 hour
-
-Sam
-Reading sample DB code and learning about HSQLDB
-30 mins
-
-Daniel
-Creating Schedule View Page
-3 hours
-
-Daniel
-Creating Schedule and DaySchedule classes and integrating with Schedule Fragment
-2 hours
-
-Sam
-Added HSQLDB to project, wrote DB script to match stub
-1.5 hours
-
-Daniel
-Writing Unit Tests for Schedule and DaySchedule
-2 hours
-
-Sam
-Investigating/adding requirements and fixes to-do, based on IT-1 feedback
-30 mins
-
-Sam
-Investigating alternatives to units of measurement classes/design based on feedback
-2 hours
-
-Emerson
-Worked on logic for adding recipes and looked at database interface
-2 hours
-
-Daniel
-Made changes based on code review for schedule view PR
+Documented new user stories and dev tasks for iteration 3 submission
 30 minutes
 
 Daniel
-Added functionality for selecting dates to schedule recipes for
-3.5 hours
+Outlined Integration Tests
+30 minutes
 
 Daniel
-Added button to delete scheduled recipes
+Outlined Acceptance tests
 1 hour
 
 Daniel
-Added save button to meal schedule UI
-1.5 hours
-
-Daniel 
-Created stub data and data access for saved schedules, with unit tests
-1.5 hours
-
-Sam
-refactor units of measurement: new and improved conversion
-2 hours
-
-Sam
-add db to device files on launch, fix primary keys, investigate CLI db access (SqlTool, JDBC)
-1.5 hours
-
-Anthony
-Explored LiveData as a possible option for dynamic recipe ingredient lists (Add, delete, edit, etc.)
+Resolved gradle dependency issues with espresso 
 3 hours
 
-Emerson
-Dealt with gradle file sync error
-1.5 hours
+Izan
+Fixed bug with recipe filtering
+3 hours
 
-Sam
-Wrote unit tests for improved Unit classes and conversion
-1.5 hours
-
-Emerson
-Partially implemented database interface. Investigated error in which db wasn't properly being initialized
-4 hours
-
-Sam
-Fixed a bug with db script: separate population from initialization to circumvent weird sql errors
-3.5 hours
-
-Emerson
-Helped debug db script. Testing different SQL scripts and file locations
-1.5 hours
-
-Anthony 
-Started work on feature branch view_ingredients
-1 hour
-
-Anthony
-Started work on editing a recipe’s ingredients 
-2.5 hours
+Izan
+Looked into issue resetting the database
+2 hours
 
 Daniel
-Fixed bug where a deleted recipe was able to be displayed in a meal schedule
-1 hour
-
-Izan
-Started work on feature: search recipes (added search bar to recipe list page)
-6 hours
-
-Sam
-Implement database, its initialization and a few queries
-4 hours
-
-Sam
-Fix RecipeView to conform to Access/DataAccess, utilize Recipe IDs
-1 hour
-
-Anthony
-Finished main ingredient viewing features in recipeview fragment
-6 hours
-
-Anthony
-Started work on ingredient editing view and logic
-4 hours
-
-Sam
-Get database working in place of stub
-2 hours
-
-Emerson
-Completed initial unit tests for DataAccess interface with stub db
+Investigating and discussing integration tests
 2 hours
 
 Sam
-Finish new units and conversions, wrote tests, refactors for suggested changes
+Investigating and discussing integration tests
+3 hours
+
+Anthony
+Worked on displaying all current and future required ingredients for scheduled meals
+5 hours
+
+Daniel
+Created test database
+1 hour
+
+Daniel
+Wrote PersistenceHSQLDB seam tests
 1.5 hours
 
+Daniel
+Resolved issues around testing fragments with RecyclerViews, and dependency issues with new related espresso testing libraries
+4 hours
+
+Daniel
+Debugged issue relating to test database not opening successfully
+1 hour
+
+Daniel
+Wrote acceptance tests for recipe lists
+1 hour
+
 Izan
-Finished Search recipes feature, including fixes after rebasing with real DB changes
+Updated gitignore
+15 minutes
+
+Izan
+Worked on displaying ingredient amounts in Shopping List
 8 hours
 
-Daniel
-Refactored hsqldb query code
-1 hour
-
-Daniel
-Added schedule data and queries in hsqldb
-1.5 hours
-
-Daniel
-Integrated schedule changes with database, as opposed to the stub database
-4 hours
-
-Daniel
-Resolved and merged conflicts between database and schedule database branches
-1 hour
-
 Izan
-Wrote Unit Tests for the Search recipes feature
+Investigated database issues and rebased shopping list branch
+2 hours
+
+Anthony 
+Reviewed pull requests
+30 minutes
+
+Emerson
+Looked at pull requests
+1 hour
+
+Sam
+Added more thorough unit tests to Access classes
 2 hours
 
 Sam
-Copiloting with team members to resolve merge conflicts, bugs, and help learn about persistence layer functionality
+Fixed persistence issues with HSQLDB commits, resetting and re-initialization.
 3 hours
 
-Emerson
-Assisted with resolving merge conflicts
+Sam
+Fixed creation of Unit classes when re-constructing objects to return from DB query function
+30 minutes
+
+Anthony
+Refactored and reformatted UI code 
 1 hour
 
 Izan
-Resolved conflicts from rebasing onto develop after other changes, and merged
-1 hour
+Fixed some issues with converting units for the shopping list page and other little things
+3 hours
+
+Izan
+Reviewed some PRs
+1.5 hour
+
+Izan
+Worked on some more shopping list stuff
+2 hours
 
 Anthony
-Finished UI for editing, deleting recipe ingredients. Started work on backend interactions and logic behind actions.
+Fixed critical errors that caused crashes based on user input in edit 
 4 hours
 
-Anthony
-Resolved merge conflicts between database and view ingredients branches
-1 hour
-
 Daniel
-Integrated save day schedule feature with the database
-1.5 hours
-
-Emerson
-Added additional unit tests for db interface
-1.5 hours
-
-
-Emerson
-Created dev task and user stories doc
+Shared information about acceptance tests approach and issues with team members who were writing acceptance tests
 1 hour
+
+Emerson
+Added insertion functions as well as unit tests and a persistence test for them
+6 hours
+
+Izan
+Worked on editing units of ingredients and tests
+5 hours
 
 Sam
-Updating README and architecture documentation
+Added support for fetching all scheduled recipes to stub (w/ tests)
+1 hour
+
+Emerson
+Looked into Dialog UI elements
 1 hour
 
 Anthony
-Finished writing tests
-4 hours
+Finished correcting the behaviour of editing ingredient names and amounts
+5 hours
+
+Anthony
+Wrote acceptance tests for shoppinglist and editIngredients
+3 hours
 
 Daniel
-Wrote unit tests for the business layer
+Added acceptance tests for navigation
+1 hour
+
+Anthony
+Fixed up previous unit test resilience
+1 hour
+
+Izan
+Finished work on editing units drop down and its unit tests and merged with main branch
+5 hours
+
+Sam
+Fixed date formatting to allow correct sorting DB tables by date
+1 hour
+
+Anthony 
+Finishing touches on code
+30 minutes
+
+Emerson 
+Finished UI and logic for adding new recipes
+6.5 hours
+
+Daniel
+Resolving merge conflicts and merged all pending pull requests, regression testing
 2 hours
 
 Daniel
-Updated README.md before submission
-1 hour
+Added acceptance tests for shopping list
+45 mins
 ```
 
 # Outstanding Bugs
