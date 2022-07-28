@@ -23,7 +23,8 @@ public class AccessIngredients {
         dataAccess.updateIngredientName(recipeID, newName, ingredientName);
     }
 
-    public void updateIngredientUnit(int recipeID, String ingredientName, Unit newUnit, double newQuantity) {
+    public void updateIngredientUnit(
+            int recipeID, String ingredientName, Unit newUnit, double newQuantity) {
         dataAccess.updateIngredientUnit(recipeID, ingredientName, newUnit, newQuantity);
     }
 }

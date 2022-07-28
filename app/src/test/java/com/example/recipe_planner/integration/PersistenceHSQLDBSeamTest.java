@@ -8,7 +8,6 @@ import static org.junit.Assert.assertTrue;
 
 import com.example.recipe_planner.application.Services;
 import com.example.recipe_planner.objects.Recipe;
-import com.example.recipe_planner.objects.measurements.Unit;
 import com.example.recipe_planner.persistence.DataAccess;
 
 import org.junit.AfterClass;
@@ -21,13 +20,6 @@ public class PersistenceHSQLDBSeamTest {
     private final double DELTA = 0.001;
     private DataAccess dataAccess;
 
-    @Before
-    public void setUp() {
-        Services.createDataAccess(testDbName); // HSQLDB
-        dataAccess = Services.getDataAccess();
-        dataAccess.reset();
-    }
-
     @BeforeClass
     public static void printStart() {
         System.out.println("Running integration tests: persistence/HSQLDB seam  [using HSQLDB]");
@@ -36,6 +28,13 @@ public class PersistenceHSQLDBSeamTest {
     @AfterClass
     public static void printEnd() {
         System.out.println("Finished persistence/HSQLDB seam tests  [using HSQLDB]");
+    }
+
+    @Before
+    public void setUp() {
+        Services.createDataAccess(testDbName); // HSQLDB
+        dataAccess = Services.getDataAccess();
+        dataAccess.reset();
     }
 
     @Test
@@ -74,7 +73,6 @@ public class PersistenceHSQLDBSeamTest {
     @Test
     public void persistentInsertTest() {
         // An inserted recipe exists after connection is closed
-        // TODO: lol I don't have insert methods to use here
 
         dataAccess.close();
         dataAccess.open(testDbName);

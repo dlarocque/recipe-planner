@@ -41,36 +41,27 @@ public class NavigationTest {
     }
 
     @After
-    public void tearDown() {
-    }
+    public void tearDown() {}
 
     @Test
     public void navigateToMealSchedule() {
-        onView(withId(R.id.mealSchedule))
-                .perform(click());
+        onView(withId(R.id.mealSchedule)).perform(click());
 
-        onView(withId(R.id.mealScheduleFragment))
-                .check(matches(isDisplayed()));
+        onView(withId(R.id.mealScheduleFragment)).check(matches(isDisplayed()));
     }
 
     @Test
     public void navigateToShoppingList() {
-        onView(withId(R.id.shoppingList))
-                .perform(click());
+        onView(withId(R.id.shoppingList)).perform(click());
 
-        onView(withId(R.id.shoppingListFragment))
-                .check(matches(isDisplayed()));
+        onView(withId(R.id.shoppingListFragment)).check(matches(isDisplayed()));
     }
-
 
     @Test
     public void navigateBackToRecipeList() {
-        onView(withId(R.id.mealSchedule))
-                .perform(click());
-        onView(withId(R.id.recipeList))
-                .perform(click());
+        onView(withId(R.id.mealSchedule)).perform(click());
+        onView(withId(R.id.recipeList)).perform(click());
 
-        onView(withId(R.id.recipeListRecyclerView))
-                .check(matches(isDisplayed()));
+        onView(withId(R.id.recipeListRecyclerView)).check(matches(isDisplayed()));
     }
 }

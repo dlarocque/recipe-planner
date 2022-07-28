@@ -1,9 +1,7 @@
 package com.example.recipe_planner.integration;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 import com.example.recipe_planner.application.Services;
@@ -14,7 +12,6 @@ import com.example.recipe_planner.objects.DaySchedule;
 import com.example.recipe_planner.objects.Ingredient;
 import com.example.recipe_planner.objects.Recipe;
 import com.example.recipe_planner.persistence.DataAccess;
-import com.example.recipe_planner.persistence.DataAccessDB;
 import com.example.recipe_planner.persistence.DataAccessStub;
 
 import org.junit.After;
@@ -28,7 +25,7 @@ import java.util.Date;
 import java.util.List;
 
 public class BusinessPersistenceSeamTest {
-    private static final double DELTA = 0.001;  // to account for rounding errors
+    private static final double DELTA = 0.001; // to account for rounding errors
     private DataAccess dataAccess;
     private AccessIngredients accessIngredients;
     private AccessRecipes accessRecipes;
@@ -72,7 +69,8 @@ public class BusinessPersistenceSeamTest {
         // modify the recipe (change quantity of an ingredient)
         List<Ingredient> ingredients = accessRecipes.getRecipeIngredients(0);
         Ingredient before = ingredients.get(0);
-        accessIngredients.updateIngredientQuantity(recipeBusiness.getId(), 40.0, "Balsamic Vinegar");
+        accessIngredients.updateIngredientQuantity(
+                recipeBusiness.getId(), 40.0, "Balsamic Vinegar");
         ingredients = accessRecipes.getRecipeIngredients(0);
         Ingredient after = ingredients.get(0);
         assertEquals(40.0, after.getAmount(), 0);
@@ -104,7 +102,7 @@ public class BusinessPersistenceSeamTest {
         // delete the ingredient
         accessIngredients.deleteIngredient(1, check.getName());
         List<Ingredient> updated = accessRecipes.getRecipe(1).getIngredients();
-        for ( Ingredient current : updated ) {
+        for (Ingredient current : updated) {
             assertNotEquals("Salt", current.getName());
         }
     }
@@ -145,7 +143,7 @@ public class BusinessPersistenceSeamTest {
         // schedule it
         accessSchedule.setMeal(today, DaySchedule.Meal.DINNER, recipe);
         DaySchedule day = accessSchedule.getDayScheduleOrDefault(today);
-        assert(day.mealIsScheduled(DaySchedule.Meal.DINNER));
+        assert (day.mealIsScheduled(DaySchedule.Meal.DINNER));
         assertEquals(recipe, day.getMeal(DaySchedule.Meal.DINNER));
 
         // de-schedule the meal

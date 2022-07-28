@@ -27,14 +27,14 @@ public class ShoppingList extends Fragment {
         // Required empty public constructor
     }
 
+    public static ShoppingList newInstance() {
+        return new ShoppingList();
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         accessRecipes = new AccessRecipes();
-    }
-
-    public static ShoppingList newInstance() {
-        return new ShoppingList();
     }
 
     @Override
