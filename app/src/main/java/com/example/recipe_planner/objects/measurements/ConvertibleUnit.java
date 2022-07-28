@@ -69,6 +69,9 @@ public class ConvertibleUnit implements IConvertibleUnit {
 
     @Override
     public double convertTo(Unit newUnit) {
+        if (this.unit == newUnit) {
+            return this.amount;
+        }
         // 1. grab conversion factor, update amount
         if (CONVERSION.containsKey(this.unit)) {
             Map factors = CONVERSION.get(this.unit);
@@ -79,6 +82,11 @@ public class ConvertibleUnit implements IConvertibleUnit {
             }
         }
         throw new UnsupportedOperationException("Conversion not supported");
+    }
+
+    @Override
+    public boolean isWeight() {
+        return this.unit == Unit.GRAM || this.unit == Unit.OUNCE;
     }
 
     @Override

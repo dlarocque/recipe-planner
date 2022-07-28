@@ -22,9 +22,7 @@ import com.example.recipe_planner.objects.Recipe;
 
 import java.util.List;
 
-/**
- * {@link RecyclerView.Adapter} that can display a {@link Recipe}.
- */
+/** {@link RecyclerView.Adapter} that can display a {@link Recipe}. */
 public class EditIngredientListRecyclerViewAdapter
         extends RecyclerView.Adapter<EditIngredientListRecyclerViewAdapter.ViewHolder> {
 

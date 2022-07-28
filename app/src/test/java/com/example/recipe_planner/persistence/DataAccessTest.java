@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 
 import com.example.recipe_planner.application.Main;
 import com.example.recipe_planner.application.Services;
+import com.example.recipe_planner.objects.DaySchedule;
 import com.example.recipe_planner.objects.Ingredient;
 import com.example.recipe_planner.objects.Recipe;
 import com.example.recipe_planner.objects.measurements.ConvertibleUnit;
@@ -20,12 +21,15 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class DataAccessTest {
 
     private static final double QUARTER = 1.0 / 4.0;
     private static final double DELTA = 0.001;
+    private static Date today;
     private DataAccess dataAccess;
 
     @BeforeClass
@@ -42,6 +46,7 @@ public class DataAccessTest {
     public void setUp() {
         dataAccess = new DataAccessStub();
         dataAccess.open(Main.dbName);
+        today = Calendar.getInstance().getTime();
     }
 
     @After
@@ -148,6 +153,21 @@ public class DataAccessTest {
 
         ingredients = dataAccess.getRecipeIngredients(-1);
         assertEquals(0, ingredients.size());
+    }
+
+    @Test
+    public void testGetAllRecipesScheduled() {
+        Recipe one = new Recipe(1, "eggs", null, "");
+        Recipe two = new Recipe(2, "toast", null, "");
+
+        dataAccess.setDayScheduleMeal(today, DaySchedule.Meal.DINNER, one);
+        dataAccess.setDayScheduleMeal(today, DaySchedule.Meal.LUNCH, two);
+
+        ArrayList<Recipe> results = dataAccess.getScheduledRecipes();
+
+        assert (results.contains(one));
+        assert (results.contains(two));
+        assertEquals(2, results.size());
     }
 
     @Test
