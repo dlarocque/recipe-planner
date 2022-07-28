@@ -119,6 +119,7 @@ public class EditIngredientListRecyclerViewAdapter
                                         recipe.getId(),
                                         newAmount,
                                         ingredientToDisplay.getName());
+                                accessIngredients.updateIngredientUnit(recipe.getId(), ingredientToDisplay.getName(), newUnit);
                             } catch (Exception e) {
                                 holder.unit.setSelection(adapter.getPosition(unitName), true);
                                 Toast.makeText(
