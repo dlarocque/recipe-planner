@@ -24,6 +24,8 @@ public class DataAccessStub implements DataAccess {
     private static final double HALF = 1.0 / 2.0;
     private ArrayList<Recipe> recipes;
     private ArrayList<Recipe> hiddenRecipes;
+    private ArrayList<Ingredient> allIngredients;
+    private ArrayList<Ingredient> recipeIngredients;
     private Schedule schedule;
 
     public DataAccessStub() {}
@@ -38,11 +40,102 @@ public class DataAccessStub implements DataAccess {
         initData();
     }
 
+
     public void initData() {
         recipes = new ArrayList<>();
         fillRecipes(recipes);
+        allIngredients = new ArrayList<>();
+
         hiddenRecipes = new ArrayList<>();
         schedule = new Schedule();
+    }
+
+    @Override
+    public boolean checkIngredientExists(String name) {
+        ArrayList<Ingredient> ingredients;
+        Ingredient ingredient;
+        Recipe recipe;
+        boolean found = false;
+
+        if (name != null) {
+            for (int i = 0; i < recipes.size(); i++) {
+                recipe = recipes.get(i);
+                ingredients = recipe.getIngredients();
+
+                if (ingredients != null) {
+                    for (int j = 0; j < ingredients.size(); j++) {
+                        ingredient = ingredients.get(j);
+
+                        if (ingredient.getName().equalsIgnoreCase(name)) {
+                            found = true;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        return found;
+    }
+
+    @Override
+    public boolean addIngredient(Ingredient ingredient) {
+        boolean result = false;
+
+        if (ingredient != null) {
+            if (!checkIngredientExists(ingredient.getName())) {
+                allIngredients.add(ingredient);
+                result = true;
+            }
+        }
+
+        return result;
+    }
+
+    @Override
+    public boolean addRecipeIngredient(Ingredient ingredient, Recipe recipe) {
+        boolean result = false;
+        boolean duplicate = false;
+        ArrayList<Ingredient> ingredients;
+
+        if (ingredient != null && recipe != null) {
+            ingredients = recipe.getIngredients();
+
+            for (int i = 0; i < ingredients.size(); i++) {
+                if (ingredient.equals(ingredients.get(i))){
+                    duplicate = true;
+                    break;
+                }
+            }
+
+            if (!duplicate) {
+                recipe.addIngredient(ingredient);
+                result = true;
+            }
+        }
+
+        return result;
+    }
+
+    @Override
+    public boolean addRecipe(Recipe recipe) {
+        boolean result = false;
+        boolean duplicate = false;
+
+        if (recipe != null) {
+            for(int i = 0; i < recipes.size(); i++) {
+                if(recipe.equals(recipes.get(i))) {
+                    duplicate = true;
+                    break;
+                }
+            }
+
+            if (!duplicate) {
+                recipes.add(recipe);
+                result = true;
+            }
+        }
+
+        return result;
     }
 
     public Recipe getRecipe(int recipeId) {

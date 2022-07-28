@@ -7,12 +7,19 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import com.example.recipe_planner.application.Services;
+import com.example.recipe_planner.objects.Ingredient;
 import com.example.recipe_planner.objects.Recipe;
+import com.example.recipe_planner.objects.measurements.ConvertibleUnit;
+import com.example.recipe_planner.objects.measurements.Count;
 import com.example.recipe_planner.objects.measurements.Unit;
 import com.example.recipe_planner.persistence.DataAccess;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class PersistenceHSQLDBSeamTest {
     private static final String testDbName = "database/RecipesTest";
@@ -62,10 +69,54 @@ public class PersistenceHSQLDBSeamTest {
     @Test
     public void persistentInsertTest() {
         // An inserted recipe exists after connection is closed
-        // TODO: lol I don't have insert methods to use here
+
+        // check for ingredients
+        boolean exists = dataAccess.checkIngredientExists("Bananas");
+        assertFalse(exists);
+
+        exists = dataAccess.checkIngredientExists("Toast");
+        assertFalse(exists);
+
+        Ingredient banana = new Ingredient("Bananas", new ConvertibleUnit(Unit.TBSP, 2));
+        Ingredient bread = new Ingredient("Toast", new Count(4));
+
+        // insert ingredients
+        boolean inserted = dataAccess.addIngredient(banana);
+        assertTrue(inserted);
+        inserted = dataAccess.addIngredient(bread);
+        assertTrue(inserted);
+
+        ArrayList <Ingredient> ingredients = new ArrayList<>();
+        ingredients.add(banana);
+        ingredients.add(bread);
+
+        // insert recipe
+        Recipe recipe = new Recipe(-1, "Banana Bread", ingredients, "test", false);
+        inserted = dataAccess.addRecipe(recipe);
+        assertTrue(inserted);
+
+        List<Recipe> recipes = dataAccess.getRecipesWithPartialName("Banana Bread");
+        System.out.println(recipes.get(0).getId());
+        assertEquals(1, recipes.size());
+
+        // insert recipe ingredients
+        inserted = dataAccess.addRecipeIngredient(banana, recipes.get(0));
+        assertTrue(inserted);
+        inserted = dataAccess.addRecipeIngredient(bread, recipes.get(0));
+        assertTrue(inserted);
 
         dataAccess.close();
         dataAccess.open(testDbName);
+
+        // check for ingredient
+        exists = dataAccess.checkIngredientExists("Bananas");
+        assertTrue(exists);
+
+        // check for recipe
+        recipes = dataAccess.getRecipesWithPartialName("Banana Bread");
+        assertEquals(1, recipes.size());;
+        assertEquals(2, recipes.get(0).getIngredients().size());
+        assertTrue(recipe.equals(recipes.get(0)));
     }
 
     @Test

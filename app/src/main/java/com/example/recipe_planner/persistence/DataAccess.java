@@ -23,6 +23,14 @@ public interface DataAccess {
 
     List<Ingredient> getRecipeIngredients(int recipeId);
 
+    boolean checkIngredientExists(String name);
+
+    boolean addIngredient(Ingredient ingredient);
+
+    boolean addRecipeIngredient(Ingredient ingredient, Recipe recipe);
+
+    boolean addRecipe(Recipe recipe);
+
     boolean deleteRecipe(int recipeId);
 
     boolean deleteIngredient(int recipeID, String name, double quantity, String unit);
