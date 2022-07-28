@@ -9,6 +9,7 @@ import com.example.recipe_planner.objects.measurements.ConvertibleUnit;
 import com.example.recipe_planner.objects.measurements.Count;
 import com.example.recipe_planner.objects.measurements.Unit;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -20,7 +21,8 @@ public class TestDaySchedule {
     private Recipe thirdValidRecipe;
     private DaySchedule daySchedule;
 
-    protected void init() {
+    @Before
+    public void init() {
         String firstValidRecipeName = "secret cocktail";
         String firstValidRecipeInstructions = "mix well, bring to a boil and enjoy! Serves 3.";
         ArrayList<Ingredient> firstValidRecipeIngredients =
@@ -73,7 +75,6 @@ public class TestDaySchedule {
 
     @Test
     public void TestTypicalDaySchedule() {
-        init();
 
         Recipe breakfast = firstValidRecipe;
         daySchedule.setMeal(DaySchedule.Meal.BREAKFAST, breakfast);
@@ -99,7 +100,6 @@ public class TestDaySchedule {
 
     @Test
     public void TestRescheduledMeal() {
-        init();
 
         Recipe meal = firstValidRecipe;
         Recipe replacement = secondValidRecipe;
@@ -112,7 +112,6 @@ public class TestDaySchedule {
 
     @Test
     public void TestScheduledRecipeEdit() {
-        init();
 
         Recipe meal = firstValidRecipe;
         String updatedName = "New Name";
@@ -124,7 +123,6 @@ public class TestDaySchedule {
 
     @Test
     public void TestSameRecipeDifferentDay() {
-        init();
 
         Recipe meal = firstValidRecipe;
         daySchedule.setMeal(DaySchedule.Meal.BREAKFAST, meal);
@@ -138,7 +136,6 @@ public class TestDaySchedule {
 
     @Test
     public void TestSameRecipeDifferentDayEdited() {
-        init();
 
         Recipe meal = firstValidRecipe;
         daySchedule.setMeal(DaySchedule.Meal.BREAKFAST, meal);
@@ -156,7 +153,6 @@ public class TestDaySchedule {
 
     @Test
     public void TestSameRecipeOneDay() {
-        init();
 
         Recipe meal = firstValidRecipe;
         daySchedule.setMeal(DaySchedule.Meal.BREAKFAST, meal);
@@ -169,7 +165,6 @@ public class TestDaySchedule {
 
     @Test
     public void TestSameRecipeOneDayEdited() {
-        init();
 
         Recipe meal = firstValidRecipe;
         daySchedule.setMeal(DaySchedule.Meal.BREAKFAST, meal);
@@ -186,7 +181,6 @@ public class TestDaySchedule {
 
     @Test
     public void TestNullRecipeScheduled() {
-        init();
 
         Recipe meal = null;
         daySchedule.setMeal(DaySchedule.Meal.BREAKFAST, meal);
@@ -196,7 +190,6 @@ public class TestDaySchedule {
 
     @Test
     public void TestRescheduleMealNull() {
-        init();
 
         Recipe meal = firstValidRecipe;
         daySchedule.setMeal(DaySchedule.Meal.BREAKFAST, meal);

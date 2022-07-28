@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNotNull;
 
 import com.example.recipe_planner.utils.CalendarUtils;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -16,14 +17,14 @@ public class TestSchedule {
     private Schedule schedule;
     private Date today;
 
-    protected void init() {
+    @Before
+    public void init() {
         schedule = new Schedule();
         today = Calendar.getInstance().getTime();
     }
 
     @Test
     public void TestTypicalSchedule() {
-        init();
 
         DaySchedule daySchedule = schedule.getDayScheduleOrDefault(today);
         schedule.setDaySchedule(today, daySchedule);
@@ -32,8 +33,6 @@ public class TestSchedule {
 
     @Test
     public void TestDuplicateSchedulesDifferentDays() {
-        init();
-
         int dayIncrement = 1;
         Date tomorrow = CalendarUtils.incrementDay(today, dayIncrement);
 
@@ -48,7 +47,6 @@ public class TestSchedule {
 
     @Test
     public void TestUpdatedSchedule() {
-        init();
 
         DaySchedule daySchedule = schedule.getDayScheduleOrDefault(today);
         DaySchedule updatedSchedule = new DaySchedule();
@@ -63,7 +61,6 @@ public class TestSchedule {
 
     @Test
     public void TestGetScheduleFromNewDay() {
-        init();
 
         int dayIncrement = 1;
         Date tomorrow = CalendarUtils.incrementDay(today, dayIncrement);
@@ -75,7 +72,6 @@ public class TestSchedule {
 
     @Test
     public void TestDeleteSchedule() {
-        init();
 
         DaySchedule daySchedule = schedule.getDayScheduleOrDefault(today);
         schedule.setDaySchedule(today, daySchedule);
@@ -89,7 +85,6 @@ public class TestSchedule {
 
     @Test
     public void TestFindAllScheduledRecipes() {
-        init();
 
         Recipe one = new Recipe(0, "dejeuner", null, "");
         Recipe two = new Recipe(1, "diner", null, "");
