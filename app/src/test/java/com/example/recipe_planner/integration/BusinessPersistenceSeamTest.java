@@ -18,7 +18,9 @@ import com.example.recipe_planner.persistence.DataAccessDB;
 import com.example.recipe_planner.persistence.DataAccessStub;
 
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.Calendar;
@@ -32,6 +34,16 @@ public class BusinessPersistenceSeamTest {
     private AccessRecipes accessRecipes;
     private AccessSchedule accessSchedule;
     private Date today;
+
+    @BeforeClass
+    public static void printStart() {
+        System.out.println("Running integration tests: business/persistence seam  [using Stub]");
+    }
+
+    @AfterClass
+    public static void printEnd() {
+        System.out.println("Finished business/persistence seam tests  [using Stub]");
+    }
 
     @Before
     public void setUp() {

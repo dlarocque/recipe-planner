@@ -27,7 +27,6 @@ public class TestAccessRecipes {
 
     @Before
     public void setUp() {
-        System.out.println("\nStarting Persistence test DataAccess");
         dataAccess = new DataAccessStub();
         dataAccess.open(Main.dbName);
         Services.createDataAccess(dataAccess);
@@ -37,7 +36,7 @@ public class TestAccessRecipes {
 
     @After
     public void tearDown() {
-        System.out.println("Finished Persistence test DataAccess (using stub)");
+
         dataAccess.close();
     }
 
