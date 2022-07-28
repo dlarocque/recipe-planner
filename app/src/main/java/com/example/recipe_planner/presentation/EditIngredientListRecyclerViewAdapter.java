@@ -106,21 +106,26 @@ public class EditIngredientListRecyclerViewAdapter
                     @Override
                     public void onItemSelected(
                             AdapterView<?> parent, View view, int position, long id) {
-                        if (!unitName.equalsIgnoreCase("Units") && ingredientToDisplay.getUnit() instanceof ConvertibleUnit) {
+                        if (!unitName.equalsIgnoreCase("Units")
+                                && ingredientToDisplay.getUnit() instanceof ConvertibleUnit) {
                             try {
+                                Unit newUnit = Unit.valueOf(adapter.getItem(position).toString());
                                 double newAmount =
                                         ((ConvertibleUnit) ingredientToDisplay.getUnit())
-                                                .convertTo(
-                                                        Unit.valueOf(
-                                                                adapter.getItem(position)
-                                                                        .toString()));
+                                                .convertTo(newUnit);
                                 holder.quantity.setText(
                                         String.format(Locale.getDefault(), "%.2f", newAmount));
                                 accessIngredients.updateIngredientQuantity(
-                                        recipe.getId(), newAmount, ingredientToDisplay.getName());
+                                        recipe.getId(),
+                                        newAmount,
+                                        ingredientToDisplay.getName());
                             } catch (Exception e) {
                                 holder.unit.setSelection(adapter.getPosition(unitName), true);
-                                Toast.makeText(view.getContext(), "Conversion not supported", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(
+                                                view.getContext(),
+                                                "Conversion not supported",
+                                                Toast.LENGTH_SHORT)
+                                        .show();
                             }
                         } else if (unitName.equalsIgnoreCase("Units")) {
                             holder.unit.setSelection(0, true);
