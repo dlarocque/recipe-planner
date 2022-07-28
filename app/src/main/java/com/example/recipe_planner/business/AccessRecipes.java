@@ -26,6 +26,12 @@ public class AccessRecipes {
         return dataAccess.getRecipesWithPartialName(recipePartialName);
     }
 
+    public boolean addRecipe(Recipe recipe) { return dataAccess.addRecipe(recipe);}
+
+    public boolean addRecipeIngredient(Ingredient ingredient, Recipe recipe) {
+        return dataAccess.addRecipeIngredient(ingredient, recipe);
+    }
+
     public List<Ingredient> getRecipeIngredients(int recipeId) {
         return dataAccess.getRecipeIngredients(recipeId);
     }

@@ -59,6 +59,10 @@ public class RecipeRecyclerViewAdapter
         return recipes.size();
     }
 
+    public void updateData() {
+        notifyDataSetChanged();
+    }
+
     public void showDatePickerDialog(View v) {
         // DialogFragment newFragment = new DatePickerFragment();
         // newFragment.show(getSupportFragmentManager(), "datePicker");

@@ -19,6 +19,20 @@
         android:visibility="visible"
         tools:context=".presentation.RecipeList" />
 
+    <Button
+        android:id="@+id/NewRecipe"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_gravity="top"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="30dp"
+        android:background="@color/cardview_shadow_start_color"
+        android:iconifiedByDefault="true"
+        android:layoutMode="opticalBounds"
+        android:queryHint="@string/search_hint"
+        android:visibility="visible"
+        android:text="New" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recipeList"
         android:name="com.example.recipe_planner.RecipeItem"
