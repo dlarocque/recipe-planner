@@ -102,7 +102,7 @@ public class BusinessPersistenceSeamTest {
         assertEquals(50.0, check.getAmount(), DELTA);
 
         // delete the ingredient
-        accessIngredients.deleteIngredient(1, check.getName(), check.getAmount(), check.getUnit().getClass().getSimpleName());
+        accessIngredients.deleteIngredient(1, check.getName());
         List<Ingredient> updated = accessRecipes.getRecipe(1).getIngredients();
         for ( Ingredient current : updated ) {
             assertNotEquals("Salt", current.getName());

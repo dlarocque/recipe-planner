@@ -49,7 +49,7 @@ public class PersistenceHSQLDBSeamTest {
 
         // Modifications are true
         assertTrue(dataAccess.deleteRecipe(0));
-        assertTrue(dataAccess.deleteIngredient(0, "Water", 0.75, Unit.CUP.name()));
+        assertTrue(dataAccess.deleteIngredient(0, "Water"));
     }
 
     @Test
@@ -63,7 +63,7 @@ public class PersistenceHSQLDBSeamTest {
 
         // Deletions do not occur
         assertFalse(dataAccess.deleteRecipe(0));
-        assertFalse(dataAccess.deleteIngredient(0, "Water", 0.75, Unit.CUP.name()));
+        assertFalse(dataAccess.deleteIngredient(0, "Water"));
 
         // Deletions that occurs when database was closed did not complete
         dataAccess.open(testDbName);
@@ -86,9 +86,11 @@ public class PersistenceHSQLDBSeamTest {
         assertNotNull(recipe);
 
         // Changes to database are persistent after connection is closed
-        assertEquals(0.75, dataAccess.getRecipeIngredients(recipe.getId()).get(0).getAmount(), DELTA);
+        assertEquals(
+                0.75, dataAccess.getRecipeIngredients(recipe.getId()).get(0).getAmount(), DELTA);
         dataAccess.updateIngredientQuantity(recipe.getId(), 2.0, "Balsamic Vinegar");
-        assertEquals(2.0, dataAccess.getRecipeIngredients(recipe.getId()).get(0).getAmount(), DELTA);
+        assertEquals(
+                2.0, dataAccess.getRecipeIngredients(recipe.getId()).get(0).getAmount(), DELTA);
 
         dataAccess.close();
         dataAccess.open(testDbName);
@@ -108,7 +110,5 @@ public class PersistenceHSQLDBSeamTest {
         dataAccess.close();
         dataAccess.open(testDbName);
         assertNull(dataAccess.getRecipe(recipe.getId()));
-
     }
-
 }

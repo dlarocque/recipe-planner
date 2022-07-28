@@ -10,11 +10,15 @@ public class AccessIngredients {
         dataAccess = Services.getDataAccess();
     }
 
-    public boolean deleteIngredient(int recipeID, String name, double quantity, String unit) {
-        return dataAccess.deleteIngredient(recipeID, name, quantity, unit);
+    public boolean deleteIngredient(int recipeID, String name) {
+        return dataAccess.deleteIngredient(recipeID, name);
     }
 
     public void updateIngredientQuantity(int recipeID, Double quantity, String ingredientName) {
         dataAccess.updateIngredientQuantity(recipeID, quantity, ingredientName);
+    }
+
+    public void updateIngredientName(int recipeID, String newName, String ingredientName) {
+        dataAccess.updateIngredientName(recipeID, newName, ingredientName);
     }
 }
