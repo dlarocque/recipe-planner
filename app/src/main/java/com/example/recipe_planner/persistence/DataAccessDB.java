@@ -412,7 +412,7 @@ public class DataAccessDB implements DataAccess {
     }
 
     @Override
-    public boolean deleteIngredient(int recipeID, String name, double quantity, String unit) {
+    public boolean deleteIngredient(int recipeID, String name) {
         Statement statement;
         ResultSet ingredientIDSet;
         int ingredientID = 0;
@@ -428,11 +428,7 @@ public class DataAccessDB implements DataAccess {
                             + recipeID
                             + " AND INGREDIENTID="
                             + ingredientID
-                            + " AND QUANTITY="
-                            + quantity
-                            + " AND UNIT='"
-                            + unit
-                            + "';");
+                            + ";");
             statement.close();
             return true;
         } catch (SQLException sqlException) {
@@ -457,6 +453,40 @@ public class DataAccessDB implements DataAccess {
             statement.executeUpdate(
                     "UPDATE RECIPEINGREDIENTS SET QUANTITY="
                             + quantity
+                            + " WHERE INGREDIENTID="
+                            + ingredientID
+                            + " AND RECIPEID="
+                            + recipeID
+                            + ";");
+            statement.close();
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+        }
+    }
+
+    @Override
+    public void updateIngredientName(int recipeID, String newName, String ingredientName) {
+        Statement statement;
+        ResultSet ingredientIDSet = null;
+        ResultSet maxIDSet = null;
+        int ingredientID = -1;
+        int maxID = -1;
+        try {
+            statement = connection.createStatement();
+            ingredientIDSet =
+                    statement.executeQuery(
+                            "SELECT ID FROM INGREDIENTS WHERE NAME='" + ingredientName + "';");
+            if (ingredientIDSet.next()) {
+                ingredientID = ingredientIDSet.getInt("ID");
+            }
+            maxIDSet = statement.executeQuery("SELECT MAX(ID) AS ID FROM INGREDIENTS;");
+            if (maxIDSet.next()) {
+                maxID = maxIDSet.getInt("ID") + 1;
+            }
+            statement.executeUpdate("INSERT INTO INGREDIENTS VALUES (NULL, '" + newName + "')");
+            statement.executeUpdate(
+                    "UPDATE RECIPEINGREDIENTS SET INGREDIENTID="
+                            + maxID
                             + " WHERE INGREDIENTID="
                             + ingredientID
                             + " AND RECIPEID="
@@ -521,7 +551,7 @@ public class DataAccessDB implements DataAccess {
                             "SELECT BREAKFAST_RECIPE_ID, LUNCH_RECIPE_ID, DINNER_RECIPE_ID FROM DAY_SCHEDULES WHERE DAY >='"
                                     + dateKey
                                     + "';");
-
+            statement.close();
             while (meals.next()) {
                 breakfastRecipeId = meals.getInt("BREAKFAST_RECIPE_ID");
                 if (!meals.wasNull()) dayRecipes.add(getRecipe(breakfastRecipeId));

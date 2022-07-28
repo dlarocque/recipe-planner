@@ -75,7 +75,8 @@ public class TestAccessRecipes {
 
     @Test
     public void testFindRecipesWithCommonNames() {
-        // all recipe names in default list have multiple words, meaning we should get them all by searching for " "
+        // all recipe names in default list have multiple words, meaning we should get them all by
+        // searching for " "
         List<Recipe> results = accessRecipes.getRecipesWithPartialName(" ");
 
         assertEquals(4, results.size(), 0);

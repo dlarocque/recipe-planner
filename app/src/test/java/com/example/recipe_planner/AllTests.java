@@ -12,7 +12,12 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({ObjectTestSuite.class, DataAccessTest.class, BusinessTestSuite.class, IntegrationTestSuite.class})
+@SuiteClasses({
+    ObjectTestSuite.class,
+    DataAccessTest.class,
+    BusinessTestSuite.class,
+    IntegrationTestSuite.class
+})
 public class AllTests {
     @BeforeClass
     public static void beginTests() {
