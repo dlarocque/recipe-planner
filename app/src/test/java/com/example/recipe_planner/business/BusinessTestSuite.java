@@ -1,7 +1,7 @@
 package com.example.recipe_planner.business;
 
-import org.junit.After;
-import org.junit.Before;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
@@ -10,16 +10,16 @@ import org.junit.runners.Suite.SuiteClasses;
 @SuiteClasses({
         TestAccessSchedule.class,
         TestAccessRecipes.class,
-        TestAccessIngredients.class
+        TestAccessIngredients.class,
 })
 public class BusinessTestSuite {
-    @Before
-    public void beginTests() {
-        System.out.println("Running object tests...");
+    @BeforeClass
+    public static void beginTests() {
+        System.out.println("Running business tests...");
     }
 
-    @After
-    public void completeTests() {
-        System.out.println("Object tests complete!");
+    @AfterClass
+    public static void completeTests() {
+        System.out.println("Business tests complete!");
     }
 }

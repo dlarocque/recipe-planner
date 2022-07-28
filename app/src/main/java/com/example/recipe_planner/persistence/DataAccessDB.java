@@ -148,6 +148,7 @@ public class DataAccessDB implements DataAccess {
             exception.printStackTrace();
             System.out.println("Failed to open HSQLDB");
         }
+        System.out.println("Opened HSQLDB database at " + dbPath);
     }
 
     public void close() {
