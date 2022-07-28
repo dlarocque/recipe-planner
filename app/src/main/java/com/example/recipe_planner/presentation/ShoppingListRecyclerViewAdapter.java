@@ -25,17 +25,15 @@ public class ShoppingListRecyclerViewAdapter
     private final AccessRecipes accessRecipes;
     private final AccessIngredients accessIngredients;
 
-    private final ArrayList<Recipe> recipe;
     private final List<Ingredient> ingredients;
 
-    public ShoppingListRecyclerViewAdapter(ArrayList<Recipe> recipe) {
-        this.recipe = recipe;
+    public ShoppingListRecyclerViewAdapter(ArrayList<Recipe> recipes) {
         ArrayList<Ingredient> gatherIngredients = new ArrayList<>();
         accessRecipes = new AccessRecipes();
         accessIngredients = new AccessIngredients();
-        for (int i = 0; i < recipe.size(); i++) {
+        for (int i = 0; i < recipes.size(); i++) {
             ArrayList<Ingredient> recipeIngredients =
-                    new ArrayList<>(accessRecipes.getRecipeIngredients(recipe.get(i).getId()));
+                    new ArrayList<>(accessRecipes.getRecipeIngredients(recipes.get(i).getId()));
             for (int j = 0; j < recipeIngredients.size(); j++) {
                 Ingredient recipeIngredient = recipeIngredients.get(j);
                 boolean foundInShoppingList = false;
